@@ -23,5 +23,12 @@ code {
 
 @font-face {
   font-family: Chirp;
+  font-weight: 300;
   src: url(../fonts/chirp-regular-web.woff);
+}
+
+@font-face {
+  font-family: Chirp;
+  font-weight: 400;
+  src: url(../fonts/chirp-medium-web.woff);
 }

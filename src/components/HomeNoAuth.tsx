@@ -15,6 +15,7 @@ const HomeNoAuth = () => {
   return (
     <div className="home-noauth">
       <SectionTabsNoAuth />
+
       <ExplorePanel />
       <SignUpModal />
       <SignUpFooter />

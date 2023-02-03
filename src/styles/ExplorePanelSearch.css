@@ -1,0 +1,35 @@
+.explore-panel-search {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0px 16px;
+
+  gap: 36px;
+}
+
+.explore-panel-search svg {
+  height: 20px;
+  width: 20px;
+}
+
+#explore-panel-search-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #202327;
+  padding: 14px 16px;
+  border-radius: 24px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+#explore-panel-search-form input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 16px;
+
+  color: #71767b;
+}
