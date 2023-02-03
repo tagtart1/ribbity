@@ -12,51 +12,68 @@ const ExplorePanel = () => {
         <ExplorePanelSearch />
         <ExplorePanelNavbar />
       </div>
-      <ExploreTweetTopic
-        topicTitle="$AAPL"
-        tweets={5300}
-        trendingTopic="Businesss and finance"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={27300}
-        trendingTopic="Sports"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={4800}
-        trendingGenre="United States"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={4800}
-        trendingGenre="United States"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={4800}
-        trendingGenre="United States"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={4800}
-        trendingGenre="United States"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={4800}
-        trendingGenre="United States"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={4800}
-        trendingGenre="United States"
-      />
-      <ExploreTweetTopic
-        topicTitle="Asensio"
-        tweets={4800}
-        trendingGenre="United States"
-      />
+      <div className="main-feed">
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={27300}
+          trendingTopic="Sports"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Matt B"
+          tweets={74300}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Crumbl"
+          tweets={33800}
+          trendingGenre="United States"
+        />
+        <ExploreTweetTopic
+          topicTitle="Asensio"
+          tweets={4800}
+          trendingGenre="United States"
+        />
+      </div>
     </div>
   );
 };

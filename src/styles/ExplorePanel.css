@@ -1,14 +1,22 @@
 .explore-panel-container {
-  height: 100vh;
-  border-left: 0.5px solid rgb(111, 111, 111);
-  border-right: 0.5px solid rgb(111, 111, 111);
+  height: 100%;
+  border-left: 0.5px solid rgb(47, 51, 54);
+  border-right: 0.5px solid rgb(47, 51, 54);
 
   width: 100%;
-  max-width: 600px;
+
   color: white;
+  width: 600px;
 }
 
 .explore-panel-header {
   position: fixed;
+
   width: 600px;
+  backdrop-filter: blur(20px);
+}
+
+.main-feed {
+  width: 600px;
+  margin-top: 100px;
 }
