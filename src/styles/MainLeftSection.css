@@ -1,0 +1,9 @@
+.main-left-container-signedin {
+  display: flex;
+  flex-direction: column;
+}
+.tweet-button-left {
+  color: white;
+  background-color: blue;
+  width: 300px;
+}

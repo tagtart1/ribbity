@@ -2,24 +2,20 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SignUpModal from "./SignUpModal";
 
-import "../styles/HomeNoAuth.css";
+import "../styles/ExplorePage.css";
 import ExplorePanel from "./ExplorePanel";
-import SectionTabsNoAuth from "./SectionTabNoAuth";
+import MainNavTabsNoAuth from "./MainNavTabsNoAuth";
 import SignUpFooter from "./SignUpFooter";
 
-const HomeNoAuth = () => {
+const ExplorePage = () => {
   const [testName, setTestName] = useState<string>("loading...");
 
   useEffect(() => {});
 
   return (
     <div className="home-noauth">
-      <SectionTabsNoAuth />
-
       <ExplorePanel />
-      <SignUpModal />
-      <SignUpFooter />
     </div>
   );
 };
-export default HomeNoAuth;
+export default ExplorePage;

@@ -2,7 +2,7 @@ import "../styles/ExplorePanel.css";
 import ExplorePanelNavbar from "./ExplorePanelNavbar";
 import ExplorePanelSearch from "./ExplorePanelSearch";
 import ExploreTweetTopic from "./ExploreTweetTopic";
-import SectionTabsNoAuth from "./SectionTabNoAuth";
+import MainNavTabsNoAuth from "./MainNavTabsNoAuth";
 import SignUpModal from "./SignUpModal";
 
 const ExplorePanel = () => {

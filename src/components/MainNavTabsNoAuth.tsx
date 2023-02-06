@@ -1,8 +1,8 @@
-import "../styles/SectionTabsNoAuth.css";
+import "../styles/MainNavTabs.css";
 
-const SectionTabsNoAuth = () => {
+const MainNavTabsNoAuth = () => {
   return (
-    <div className="section-tabs-noauth-container">
+    <div className="main-nav-tab-container">
       <div className="postition-fixed">
         <ul>
           <li className="logo-item">
@@ -49,4 +49,4 @@ const SectionTabsNoAuth = () => {
   );
 };
 
-export default SectionTabsNoAuth;
+export default MainNavTabsNoAuth;

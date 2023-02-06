@@ -1,15 +1,9 @@
 import "../styles/SignUpModal.css";
 import googleLogo from "../media/google-icon.svg";
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../scripts/firebaseConfig";
+import { signIn } from "./firebaseHelperFns";
 
 const SignUpModal = () => {
-  const signIn = async () => {
-    let provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-  };
-
   return (
     <div>
       <div className="width-300"></div>
