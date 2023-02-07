@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ExplorePage from "./ExplorePage";
 
-import Home from "./Home";
+import HomePanel from "./HomePanel";
 
 import "../styles/App.css";
 import { Routes, Route } from "react-router-dom";
@@ -14,6 +13,7 @@ import {
 import MainLeftSection from "./MainLeftSection";
 import SignUpModal from "./SignUpModal";
 import SignUpFooter from "./SignUpFooter";
+import ExplorePanel from "./ExplorePanel";
 
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
@@ -38,12 +38,12 @@ const App = () => {
     <div className="main-app-continer">
       <MainLeftSection signedIn={isUserSignedIn} />
       <Routes>
-        <Route path="/" element={<ExplorePage />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<ExplorePanel />} />
+        <Route path="/home" element={<HomePanel />} />
       </Routes>
 
       <SignUpModal />
-      <SignUpFooter />
+      <SignUpFooter signedIn={isUserSignedIn} />
     </div>
   );
 };

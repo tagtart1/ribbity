@@ -12,7 +12,7 @@ const ExplorePanel = () => {
         <ExplorePanelSearch />
         <ExplorePanelNavbar />
       </div>
-      <div className="main-feed">
+      <div className="explore-main-feed">
         <ExploreTweetTopic
           topicTitle="$AAPL"
           tweets={5300}

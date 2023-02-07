@@ -1,5 +1,6 @@
 import MainNavTabsNoAuth from "./MainNavTabsNoAuth";
 import MainNavTabsSignedIn from "./MainNavTabsSignedIn";
+import { signOutUser } from "./firebaseHelperFns";
 
 import "../styles/MainLeftSection.css";
 
@@ -9,16 +10,19 @@ interface MainNavTabsProps {
 
 const MainLeftSection = ({ signedIn }: MainNavTabsProps) => {
   return signedIn ? (
-    <div className="main-left-container-signedin">
-      <MainNavTabsSignedIn />
-      <div style={{ position: "relative" }}>
-        <button className="tweet-button-left" style={{ position: "fixed" }}>
-          poop
-        </button>
+    <div className="main-left-section">
+      <div style={{ position: "fixed" }}>
+        <MainNavTabsSignedIn />
+        <button className="tweet-button-left">Twat</button>
+        <button onClick={signOutUser}>Sign Out</button>
       </div>
     </div>
   ) : (
-    <MainNavTabsNoAuth />
+    <div className="main-left-section">
+      <div style={{ position: "fixed" }}>
+        <MainNavTabsNoAuth />
+      </div>
+    </div>
   );
 };
 

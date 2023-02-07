@@ -1,0 +1,75 @@
+.home-tweet-input-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px;
+  padding-bottom: 8px;
+  gap: 12px;
+  border-bottom: 0.5px solid rgb(47, 51, 54);
+}
+
+.user-profile-image-home-input {
+  border-radius: 25px;
+  width: 48px;
+  height: 48px;
+  margin-top: 8px;
+}
+
+.media-option-icons svg {
+  width: 20px;
+  height: 20px;
+  padding: 8px;
+}
+
+#home-tweet-input {
+  font-size: 20px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  margin-top: 16px;
+  padding: 8px 0px;
+}
+
+.home-tweet-right-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  gap: 18px;
+}
+
+.home-tweet-buttom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.media-option-icons {
+  display: flex;
+  flex-direction: row;
+  margin-left: -8px;
+}
+
+.tweet-input-submit-button {
+  color: white;
+  background-color: rgb(29, 155, 240);
+  padding: 8px 0px;
+  width: 80px;
+  margin-left: 40px;
+  border-radius: 36px;
+  font-weight: 700;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.media-option-icon {
+  border-radius: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.media-option-icon:hover {
+  background-color: rgb(15, 17, 24);
+}

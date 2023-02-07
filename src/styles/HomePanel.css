@@ -1,4 +1,4 @@
-.explore-panel-container {
+.home-panel-container {
   height: 100%;
   border-left: 0.5px solid rgb(47, 51, 54);
   border-right: 0.5px solid rgb(47, 51, 54);
@@ -11,14 +11,14 @@
   display: flex;
 }
 
-.explore-panel-header {
+.home-panel-header {
   position: fixed;
 
   width: 600px;
   backdrop-filter: blur(20px);
 }
 
-.explore-main-feed {
+.home-panel-main-feed {
+  margin-top: 225px;
   width: 600px;
-  margin-top: 100px;
 }

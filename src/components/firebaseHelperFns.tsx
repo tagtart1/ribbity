@@ -27,3 +27,8 @@ export const getUserName = () => {
 export const signOutUser = () => {
   signOut(auth);
 };
+
+export const getProfilePicUrl = () => {
+  if (auth.currentUser)
+    return auth.currentUser.photoURL || "placeholderUPDATETHIS";
+};

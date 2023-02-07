@@ -1,7 +1,11 @@
 import "../styles/SignUpFooter.css";
 
-const SignUpFooter = () => {
-  return (
+interface SignUpFooterProps {
+  signedIn?: boolean;
+}
+
+const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
+  return !signedIn ? (
     <div className="signup-footer-container">
       <div className="signup-text-group">
         <h1>Don't miss what's happening</h1>
@@ -12,7 +16,7 @@ const SignUpFooter = () => {
         <button className="signup-button">Sign up</button>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default SignUpFooter;
