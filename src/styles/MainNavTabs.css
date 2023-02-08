@@ -33,6 +33,8 @@ ul {
   padding-right: 30px;
 
   transition: 0.2s all;
+
+  pointer-events: none;
 }
 
 .logo-item {
@@ -54,7 +56,7 @@ ul {
   background-color: rgba(95, 95, 95, 0.277);
 }
 
-.explore-tab {
+.left-section-tab-selected {
   font-weight: 700;
   color: rgb(236, 236, 236);
 }

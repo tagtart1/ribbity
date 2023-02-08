@@ -1,6 +1,23 @@
 import "../styles/MainNavTabs.css";
+import { useState, useEffect } from "react";
 
 const MainNavTabsNoAuth = () => {
+  const [selectedTab, setSelectedTab] = useState<any>();
+
+  const handleTabSwitch = (e: any) => {
+    const target = e.target.firstChild.lastChild;
+
+    if (target === selectedTab) return;
+    selectedTab.classList.remove("left-section-tab-selected");
+    target.classList.add("left-section-tab-selected");
+
+    setSelectedTab(target);
+  };
+
+  useEffect(() => {
+    setSelectedTab(document.querySelector(".left-section-tab-selected"));
+  }, []);
+
   return (
     <ul>
       <li className="logo-item">
@@ -14,7 +31,7 @@ const MainNavTabsNoAuth = () => {
         </svg>
       </li>
 
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -24,10 +41,10 @@ const MainNavTabsNoAuth = () => {
               ></path>
             </g>
           </svg>
-          <p className="explore-tab">Explore</p>
+          <p className="left-section-tab-selected">Explore</p>
         </div>
       </li>
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>

@@ -9,9 +9,9 @@ const Home = () => {
     <div className="home-panel-container">
       <div className="home-panel-header">
         <HomePanelNavbar />
-        <HomePanelTweetInput />
       </div>
       <div className="home-panel-main-feed">
+        <HomePanelTweetInput />
         <ExploreTweetTopic
           topicTitle="$AAPL"
           tweets={5300}
@@ -33,6 +33,21 @@ const Home = () => {
           trendingTopic="Businesss and finance"
         />
 
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
         <ExploreTweetTopic
           topicTitle="$AAPL"
           tweets={5300}

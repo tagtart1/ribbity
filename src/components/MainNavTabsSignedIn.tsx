@@ -1,6 +1,23 @@
-import inboxSVG from "../media/inbox.svg";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const MainNavTabsSignedIn = () => {
+  const [selectedTab, setSelectedTab] = useState<any>();
+
+  const handleTabSwitch = (e: any) => {
+    const target = e.target.firstChild.lastChild;
+
+    if (target === selectedTab) return;
+    selectedTab.classList.remove("left-section-tab-selected");
+    target.classList.add("left-section-tab-selected");
+
+    setSelectedTab(target);
+  };
+
+  useEffect(() => {
+    setSelectedTab(document.querySelector(".left-section-tab-selected"));
+  }, []);
+
   return (
     <ul>
       <li className="logo-item">
@@ -13,35 +30,38 @@ const MainNavTabsSignedIn = () => {
           </g>
         </svg>
       </li>
-      <li className="tab-list-item">
-        <div className="tab-items">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <g>
-              <path
-                fill="#ececec"
-                d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"
-              ></path>
-            </g>
-          </svg>
-          <p className="explore-tab">Home</p>
-        </div>
-      </li>
+      <Link to="/home">
+        <li className="tab-list-item" onClick={handleTabSwitch}>
+          <div className="tab-items">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <g>
+                <path
+                  fill="#ececec"
+                  d="M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"
+                ></path>
+              </g>
+            </svg>
+            <p className="left-section-tab-selected">Home</p>
+          </div>
+        </li>
+      </Link>
+      <Link to="/explore">
+        <li className="tab-list-item" onClick={handleTabSwitch}>
+          <div className="tab-items">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <g>
+                <path
+                  fill="#ececec"
+                  d="M10.64 3.157l-.36 3.593h4.99l.38-3.892 2.99.299-.36 3.593h2.97v2.5h-3.22l-.55 5.5h2.77v2.5h-3.02l-.39 3.892-2.98-.299.36-3.593H9.23l-.39 3.892-2.98-.299.36-3.593H2.75v-2.5h3.72l.55-5.5H3.75v-2.5h3.52l.38-3.892 2.99.299zm3.83 11.593l.55-5.5h-4.99l-.55 5.5h4.99z"
+                ></path>
+              </g>
+            </svg>
+            <p>Explore</p>
+          </div>
+        </li>
+      </Link>
 
-      <li className="tab-list-item">
-        <div className="tab-items">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <g>
-              <path
-                fill="#ececec"
-                d="M10.64 3.157l-.36 3.593h4.99l.38-3.892 2.99.299-.36 3.593h2.97v2.5h-3.22l-.55 5.5h2.77v2.5h-3.02l-.39 3.892-2.98-.299.36-3.593H9.23l-.39 3.892-2.98-.299.36-3.593H2.75v-2.5h3.72l.55-5.5H3.75v-2.5h3.52l.38-3.892 2.99.299zm3.83 11.593l.55-5.5h-4.99l-.55 5.5h4.99z"
-              ></path>
-            </g>
-          </svg>
-          <p>Explore</p>
-        </div>
-      </li>
-
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
             <g>
@@ -54,7 +74,7 @@ const MainNavTabsSignedIn = () => {
           <p>Notifications</p>
         </div>
       </li>
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
             <g>
@@ -67,7 +87,7 @@ const MainNavTabsSignedIn = () => {
           <p>Messages</p>
         </div>
       </li>
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
             <g>
@@ -81,7 +101,7 @@ const MainNavTabsSignedIn = () => {
           <p>Bookmarks</p>
         </div>
       </li>
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
             <g>
@@ -95,7 +115,7 @@ const MainNavTabsSignedIn = () => {
         </div>
       </li>
 
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
             <g>
@@ -108,7 +128,7 @@ const MainNavTabsSignedIn = () => {
           <p>Profile</p>
         </div>
       </li>
-      <li className="tab-list-item">
+      <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
             <g>

@@ -9,6 +9,7 @@ const HomePanelTweetInput = () => {
         src={getProfilePicUrl()}
         className="user-profile-image-home-input"
         alt="user profile"
+        referrerPolicy="no-referrer"
       />
       <div className="home-tweet-right-column">
         <input

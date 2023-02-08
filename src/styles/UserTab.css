@@ -1,0 +1,81 @@
+.user-tab-container {
+  background-color: transparent;
+  width: 95%;
+  height: 60px;
+  color: white;
+  margin-left: 40px;
+  margin-bottom: 12px;
+  border-radius: 48px;
+
+  transition: all 0.3s;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 10px;
+
+  cursor: pointer;
+}
+
+.user-tab-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-tab-container svg {
+  height: 19px;
+  width: 19px;
+}
+
+.user-tab-container:hover {
+  background-color: rgb(30, 30, 30);
+}
+
+.user-tab-container .user-tab-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-tab-left img {
+  width: 40px;
+  height: 40px;
+  border-radius: 24px;
+}
+
+.user-tab-left .tweeter-unique-name {
+  font-size: 15px;
+  color: rgb(113, 118, 123);
+}
+
+.logout-dropdown {
+  background-color: transparent;
+  border-radius: 12px;
+  border: 1px solid #2f3336;
+  width: auto;
+  height: auto;
+
+  box-shadow: rgb(255 255 255 / 20%) 0px 0px 15px,
+    rgb(255 255 255 / 15%) 0px 0px 3px 1px;
+
+  padding: 8px 12px;
+  margin-left: 110px;
+  margin-top: -50px;
+  transition: all 0.2s;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-dropdown:hover {
+  transform: scale(1.05);
+}
+
+.logout-dropdown button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-family: "Chirp";
+  cursor: pointer;
+}

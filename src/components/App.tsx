@@ -14,6 +14,7 @@ import MainLeftSection from "./MainLeftSection";
 import SignUpModal from "./SignUpModal";
 import SignUpFooter from "./SignUpFooter";
 import ExplorePanel from "./ExplorePanel";
+import MainRightSection from "./MainRightSection";
 
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
@@ -40,9 +41,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ExplorePanel />} />
         <Route path="/home" element={<HomePanel />} />
+        <Route path="/explore" element={<ExplorePanel />} />
       </Routes>
 
-      <SignUpModal />
+      <MainRightSection signedIn={isUserSignedIn} />
+
       <SignUpFooter signedIn={isUserSignedIn} />
     </div>
   );

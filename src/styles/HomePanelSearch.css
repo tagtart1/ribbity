@@ -1,0 +1,34 @@
+.home-panel-searchbar-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background-color: rgb(32, 35, 39);
+
+  margin-top: 5px;
+  padding: 12px 16px;
+  border-radius: 24px;
+  width: 300px;
+}
+
+.home-panel-searchbar-container svg {
+  width: 18px;
+  height: 18px;
+}
+
+.home-panel-searchbar-container input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  color: white;
+  width: 100%;
+}
+
+.home-panel-searchbar-container input::placeholder {
+  color: rgb(113, 118, 123);
+}
+
+.home-panel-searchbar-container input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
