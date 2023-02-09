@@ -36,3 +36,9 @@ code {
   font-weight: 400;
   src: url(../fonts/chirp-medium-web.woff);
 }
+
+@font-face {
+  font-family: Chirp;
+  font-weight: bold;
+  src: url(../fonts/chirp-bold-web.woff);
+}

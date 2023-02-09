@@ -1,3 +1,11 @@
+.explore-tweet-topic-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
 .explore-tweet-topic-container {
   color: #64686d;
   font-size: 14px;
@@ -8,15 +16,16 @@
   gap: 4px;
   transition: 0.2s all;
   cursor: pointer;
+  width: 100%;
 }
 
-.explore-tweet-topic-container:hover {
-  background-color: #0a0a0a;
+.explore-tweet-topic-wrapper:hover {
+  background-color: rgba(76, 76, 76, 0.137);
 }
 
-.explore-tweet-topic-container h1 {
+.explore-tweet-topic-container .topic-title {
   font-size: 16px;
-  color: white;
+  color: rgb(255, 255, 255);
   margin: 0;
   padding: 0;
 }
@@ -30,4 +39,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.topic-image {
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  margin-right: 16px;
+  cursor: pointer;
 }
