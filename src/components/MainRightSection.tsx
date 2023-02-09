@@ -9,13 +9,15 @@ interface MainRightSectionProp {
 }
 
 const MainRightSection = ({ signedIn }: MainRightSectionProp) => {
+  // Add the whoToFollow sectoin back and seperate the right panel.css to accomate
+
   return signedIn ? (
-    <div>
+    <div style={{ zIndex: 5 }}>
       <div style={{ width: 300 }}></div>
       <div className="main-right-section-wrapper">
         <HomePanelSearch />
+
         <WhatsHappeningPanel />
-        <WhoToFollowPanel />
       </div>
     </div>
   ) : (

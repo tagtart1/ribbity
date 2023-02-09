@@ -1,6 +1,7 @@
 .main-right-section-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  position: fixed;
+  gap: 12px;
+  height: 100vh;
+  z-index: 1;
 }
