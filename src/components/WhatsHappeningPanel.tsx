@@ -1,11 +1,11 @@
-import "../styles/RightPanel.css";
+import "../styles/WhatsHappeningPanel.css";
 import ExploreTweetTopic from "./ExploreTweetTopic";
 import ShowMoreButton from "./ShowMoreButton";
 import frogImg from "../media/rainfrog.jpg";
 
 const WhatsHappeningPanel = () => {
   return (
-    <div className="right-panel-container">
+    <div className="whats-happening-container">
       <h1>What's Happening</h1>
       <ExploreTweetTopic
         topicTitle="Rain Frog Spotted"
@@ -19,6 +19,7 @@ const WhatsHappeningPanel = () => {
         tweets={82900}
         trendingTopic="Food"
       />
+
       <ExploreTweetTopic
         topicTitle="Rihanna"
         tweets={143000}

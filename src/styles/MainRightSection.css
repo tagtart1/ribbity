@@ -2,6 +2,14 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  height: 100vh;
+  height: 100%;
   z-index: 1;
+}
+
+.test {
+  position: sticky;
+  top: -160px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }

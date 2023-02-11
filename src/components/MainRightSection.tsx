@@ -16,8 +16,10 @@ const MainRightSection = ({ signedIn }: MainRightSectionProp) => {
       <div style={{ width: 300 }}></div>
       <div className="main-right-section-wrapper">
         <HomePanelSearch />
-
-        <WhatsHappeningPanel />
+        <div className="test">
+          <WhatsHappeningPanel />
+          <WhoToFollowPanel />
+        </div>
       </div>
     </div>
   ) : (

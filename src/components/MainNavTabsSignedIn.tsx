@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { currentUserInfo } from "./firebaseHelperFns";
 
 const MainNavTabsSignedIn = () => {
   const [selectedTab, setSelectedTab] = useState<any>();
@@ -12,6 +13,10 @@ const MainNavTabsSignedIn = () => {
     target.classList.add("left-section-tab-selected");
 
     setSelectedTab(target);
+  };
+
+  const showcaseUser = () => {
+    console.log(currentUserInfo.bio);
   };
 
   useEffect(() => {
@@ -115,7 +120,13 @@ const MainNavTabsSignedIn = () => {
         </div>
       </li>
 
-      <li className="tab-list-item" onClick={handleTabSwitch}>
+      <li
+        className="tab-list-item"
+        onClick={(e) => {
+          handleTabSwitch(e);
+          showcaseUser();
+        }}
+      >
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
             <g>

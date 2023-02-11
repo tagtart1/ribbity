@@ -53,6 +53,46 @@ const Home = () => {
           tweets={5300}
           trendingTopic="Businesss and finance"
         />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
+        <ExploreTweetTopic
+          topicTitle="$AAPL"
+          tweets={5300}
+          trendingTopic="Businesss and finance"
+        />
       </div>
     </div>
   );
