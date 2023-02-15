@@ -9,18 +9,18 @@ import {
   isUserSignedIn,
   initFirebaseAuth,
   getUserName,
-} from "./firebaseHelperFns";
+} from "../scripts/firebaseHelperFns";
 import MainLeftSection from "./MainLeftSection";
 import SignUpModal from "./SignUpModal";
 import SignUpFooter from "./SignUpFooter";
 import ExplorePanel from "./ExplorePanel";
 import MainRightSection from "./MainRightSection";
+import ProfilePanel from "./ProfilePanel";
 
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
 
   const navigate = useNavigate();
-
   const authObserver = (user: any) => {
     if (user) {
       setIsUserSignedIn(true);
@@ -34,7 +34,7 @@ const App = () => {
   useEffect(() => {
     initFirebaseAuth(authObserver);
   }, []);
-  // SignupModal and SignupFooter need to be conditionally rendered. They are static right now just to test signin pages
+
   return (
     <div className="main-app-continer">
       <MainLeftSection signedIn={isUserSignedIn} />
@@ -42,6 +42,7 @@ const App = () => {
         <Route path="/" element={<ExplorePanel />} />
         <Route path="/home" element={<HomePanel />} />
         <Route path="/explore" element={<ExplorePanel />} />
+        <Route path="/:id" element={<ProfilePanel />} />
       </Routes>
 
       <MainRightSection signedIn={isUserSignedIn} />

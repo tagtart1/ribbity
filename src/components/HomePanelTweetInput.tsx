@@ -1,6 +1,6 @@
 import "../styles/HomePanelTweetInput.css";
 
-import { getProfilePicUrl } from "./firebaseHelperFns";
+import { getProfilePicUrl } from "../scripts/firebaseHelperFns";
 
 const HomePanelTweetInput = () => {
   return (

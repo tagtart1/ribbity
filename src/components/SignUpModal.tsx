@@ -1,7 +1,7 @@
 import "../styles/SignUpModal.css";
 import googleLogo from "../media/google-icon.svg";
 
-import { signIn } from "./firebaseHelperFns";
+import { signIn } from "../scripts/firebaseHelperFns";
 
 const SignUpModal = () => {
   return (

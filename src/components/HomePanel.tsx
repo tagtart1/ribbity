@@ -1,5 +1,5 @@
 import "../styles/HomePanel.css";
-import { signOutUser } from "./firebaseHelperFns";
+import { signOutUser } from "../scripts/firebaseHelperFns";
 import HomePanelNavbar from "./HomePanelNavbar";
 import ExploreTweetTopic from "./ExploreTweetTopic";
 import HomePanelTweetInput from "./HomePanelTweetInput";

@@ -1,11 +1,17 @@
 import "../styles/UserTab.css";
 import {
   getProfilePicUrl,
+  getUserHandle,
   getUserName,
   signOutUser,
-} from "./firebaseHelperFns";
+} from "../scripts/firebaseHelperFns";
+import { useEffect, useState } from "react";
 
-const UserTab = () => {
+interface UserTabProps {
+  userHandle: string;
+}
+
+const UserTab = ({ userHandle }: UserTabProps) => {
   const toggleLogoutDropdown = () => {
     const dropdown = document.querySelector(".logout-dropdown");
 
@@ -25,7 +31,7 @@ const UserTab = () => {
           <img src={getProfilePicUrl()} alt="User Profile" />
           <div>
             <p>{getUserName()}</p>
-            <p className="tweeter-unique-name">@tagtart1</p>
+            <p className="tweeter-unique-name">@{userHandle}</p>
           </div>
         </div>
         <svg viewBox="0 0 24 24" aria-hidden="true">
