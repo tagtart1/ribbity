@@ -15,7 +15,8 @@
   position: fixed;
 
   width: 600px;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(11px);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .home-panel-main-feed {

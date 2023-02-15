@@ -24,7 +24,6 @@ const App = () => {
   const authObserver = (user: any) => {
     if (user) {
       setIsUserSignedIn(true);
-      navigate("/home");
     } else {
       setIsUserSignedIn(false);
       navigate("/");

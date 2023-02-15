@@ -2,15 +2,22 @@ import "../styles/SignUpModal.css";
 import googleLogo from "../media/google-icon.svg";
 
 import { signIn } from "../scripts/firebaseHelperFns";
+import { useNavigate } from "react-router-dom";
 
 const SignUpModal = () => {
+  const navigate = useNavigate();
+  const signInHandle = async () => {
+    await signIn();
+    navigate("/home");
+  };
+
   return (
     <div className="signup-modal-container">
       <h2 className="signup-modal-header">New to Tweety?</h2>
       <p className="signup-misc-text">
         Sign up now to get your own personalized timeline!
       </p>
-      <button className="signup-google-button" onClick={signIn}>
+      <button className="signup-google-button" onClick={signInHandle}>
         <img
           src={googleLogo}
           alt="google logo"

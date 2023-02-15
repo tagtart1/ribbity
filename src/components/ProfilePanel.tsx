@@ -6,20 +6,27 @@ import testBanner from "../media/1080x360.jpg";
 import { useState } from "react";
 import { getUserHandle, getUserInfo } from "../scripts/firebaseHelperFns";
 import { DocumentData } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePanel = () => {
   const [user, setUser] = useState<DocumentData | undefined>({});
 
-  const getHandle = async () => {
+  const getUser = async () => {
     const user = await getUserInfo();
     setUser(user);
   };
-  getHandle();
+  getUser();
+  const navigate = useNavigate();
 
   return (
     <div className="profile-panel-container">
       <div className="profile-panel-top-header">
-        <div className="back-arrow">
+        <div
+          className="back-arrow"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>
               <path
