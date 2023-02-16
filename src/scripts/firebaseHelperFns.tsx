@@ -4,7 +4,15 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { getDoc, doc, setDoc } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { auth, db } from "./firebaseConfig";
 import { generateUserHandle, getFullYear, getMonthName } from "./HelperFns";
 import defaultpfpImg from "../media/defaultpfp.jpg";
@@ -65,14 +73,16 @@ export const getUserHandle = async () => {
   }
 };
 
-export const getUserInfo = async () => {
-  if (auth.currentUser) {
-    const docRef = doc(db, "user-info", auth.currentUser.uid);
-    const userInfoDoc = await getDoc(docRef);
-    if (userInfoDoc.exists()) {
-      return userInfoDoc.data();
-    }
-  }
+export const getUserInfo = async (id: string | undefined) => {
+  const ref = collection(db, "user-info");
+  const q = query(ref, where("userHandle", "==", id));
+  const querySnap = await getDocs(q);
+  let handleDoc;
+  querySnap.forEach((doc) => {
+    handleDoc = doc.data();
+  });
+
+  return handleDoc;
 };
 
 export const signOutUser = () => {

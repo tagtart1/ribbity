@@ -105,6 +105,7 @@ const MainNavTabsSignedIn = ({ userHandle }: MainNavTabsSignedInProps) => {
           <p>Bookmarks</p>
         </div>
       </li>
+
       <li className="tab-list-item" onClick={handleTabSwitch}>
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
@@ -118,6 +119,7 @@ const MainNavTabsSignedIn = ({ userHandle }: MainNavTabsSignedInProps) => {
           <p>Tweety Blue</p>
         </div>
       </li>
+
       <Link to={`/${userHandle}`}>
         <li className="tab-list-item" onClick={handleTabSwitch}>
           <div className="tab-items">

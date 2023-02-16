@@ -1,0 +1,155 @@
+.twat-popup-input-container {
+  box-sizing: border-box;
+  color: white;
+  position: fixed;
+  background-color: rgba(84, 97, 114, 0.4);
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.twat-popup-input-wrapper {
+  width: 575px;
+  background-color: black;
+  height: 310px;
+  border-radius: 16px;
+  padding: 0px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.twat-popup-input-wrapper svg {
+  width: 20px;
+  height: 20px;
+}
+
+.twat-popup-input-wrapper .backout-button {
+  width: min-content;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 8px 8px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.twat-popup-input-wrapper .backout-button:hover {
+  background-color: rgb(30, 30, 30);
+}
+
+.twat-popup-input-main {
+  display: flex;
+  padding: 0px 6px;
+  height: 100%;
+  gap: 12px;
+}
+.popup-input-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.twat-popup-input-main img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  user-select: none;
+}
+
+#twat-popup-input {
+  background-color: transparent;
+
+  flex: 1;
+  color: white;
+  font-size: 21px;
+  outline: none;
+  resize: none;
+  font-family: "Chirp";
+  border: none;
+  font-weight: 300;
+  padding-left: 8px;
+}
+
+.popup-bottom-row {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: solid 1px rgb(47, 51, 54);
+  padding-top: 4px;
+}
+
+.popup-bottom-row svg {
+  width: 20px;
+  height: 20px;
+}
+.popup-media-option-icons {
+  display: flex;
+  gap: 2px;
+  margin-left: 8px;
+}
+
+.popup-media-option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-media-option-icon:hover {
+  background-color: #1d9cf020;
+}
+
+.popup-bottom-row .twat-button {
+  background-color: rgb(29, 155, 240);
+  border: none;
+  color: white;
+  border-radius: 16px;
+  font-weight: 700;
+  padding: 8px 20px;
+  font-size: 16px;
+}
+.twat-reply-status {
+  color: #1d9bf0;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  gap: 4px;
+  padding: 4px 12px;
+  margin: 12px 0px;
+  width: fit-content;
+  border-radius: 12px;
+}
+
+.twat-reply-status:hover {
+  background-color: #1d9cf021;
+}
+
+.twat-reply-status svg {
+  width: 14px;
+  height: 14px;
+}
+
+.popup-input-length {
+  color: rgb(29, 155, 240);
+  font-size: 12px;
+}
+
+.popup-bottom-right-button {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}

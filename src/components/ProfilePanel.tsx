@@ -3,19 +3,29 @@ import "../styles/ProfilePanel.css";
 import ProfilePanelInfo from "./ProfilePanelInfo";
 import ProfilePanelNav from "./ProfilePanelNavbar";
 import testBanner from "../media/1080x360.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getUserHandle, getUserInfo } from "../scripts/firebaseHelperFns";
 import { DocumentData } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ProfilePanel = () => {
-  const [user, setUser] = useState<DocumentData | undefined>({});
+interface ProfilePanelProps {
+  currentHandle?: string;
+}
 
-  const getUser = async () => {
-    const user = await getUserInfo();
-    setUser(user);
-  };
-  getUser();
+const ProfilePanel = ({ currentHandle }: ProfilePanelProps) => {
+  const [userInfo, setUserInfo] = useState<any>([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    // Grabs a user's info based on the link param
+    const getUser = async () => {
+      const user = await getUserInfo(id);
+      console.log(user);
+      setUserInfo(user);
+    };
+    getUser();
+  }, []);
+
   const navigate = useNavigate();
 
   return (
@@ -37,12 +47,12 @@ const ProfilePanel = () => {
           </svg>
         </div>
         <div className="username-tweet-count">
-          <h1>{getUserName()}</h1>
+          <h1>{userInfo.userName}</h1>
           <p>6 Tweets</p>
         </div>
       </div>
       <img className="test-box" src={testBanner} alt="test" />
-      <ProfilePanelInfo currentUser={user} />
+      <ProfilePanelInfo user={userInfo} currentHandle={currentHandle} />
       <ProfilePanelNav />
       <div className="user-twat-feed"></div>
     </div>

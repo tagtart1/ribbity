@@ -1,27 +1,41 @@
 import "../styles/ProfilePanelInfo.css";
 import testpfp from "../media/randompfp.jpg";
-import { getProfilePicUrl, getUserName } from "../scripts/firebaseHelperFns";
+import {
+  getProfilePicUrl,
+  getUserHandle,
+  getUserName,
+} from "../scripts/firebaseHelperFns";
 import { DocumentData } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import ProfileActionsButtons from "./ProfileActionsButtons";
 
 interface ProfilePanelInfoProps {
-  currentUser: DocumentData | undefined;
+  user: DocumentData | undefined; // The user of whatever page we are viewing
+  currentHandle?: string; // Current handle of the signed in user
 }
 
-const ProfilePanelInfo = ({ currentUser }: ProfilePanelInfoProps) => {
-  if (!currentUser) return null;
+const ProfilePanelInfo = ({ user, currentHandle }: ProfilePanelInfoProps) => {
+  if (!user) return null;
   return (
     <div className="profile-panel-info-container">
       <div className="profile-info-top">
         <div>
           <div className="profile-img-wrapper">
-            <img src={getProfilePicUrl()} alt="profile" />
+            <img src={user.profileImgUrl} alt="profile" />
           </div>
         </div>
-        <button className="edit-profile-button">Edit Profile</button>
+        {currentHandle ? (
+          // Check if the profile we are viewing is ourselves, if so dispaly edit profile, if not display follow button and other actions
+          currentHandle === user.userHandle ? (
+            <button className="edit-profile-button">Edit Profile</button>
+          ) : (
+            <ProfileActionsButtons />
+          )
+        ) : null}
       </div>
-      <h1>{getUserName()}</h1>
-      <p className="user-handle">@{currentUser.userHandle}</p>
-      <p className="user-bio">{currentUser.bio}</p>
+      <h1>{user.userName}</h1>
+      <p className="user-handle">@{user.userHandle}</p>
+      <p className="user-bio">{user.bio}</p>
       <p className="user-join-date">
         <svg viewBox="0 0 24 24">
           <g>
@@ -31,7 +45,7 @@ const ProfilePanelInfo = ({ currentUser }: ProfilePanelInfoProps) => {
             ></path>
           </g>
         </svg>
-        Joined {currentUser.joinDate}
+        Joined {user.joinDate}
       </p>
       <div className="user-following-nums">
         <span>
