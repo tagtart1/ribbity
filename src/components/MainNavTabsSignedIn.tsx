@@ -121,7 +121,12 @@ const MainNavTabsSignedIn = ({ userHandle }: MainNavTabsSignedInProps) => {
       </li>
 
       <Link to={`/${userHandle}`}>
-        <li className="tab-list-item" onClick={handleTabSwitch}>
+        <li
+          className="tab-list-item"
+          onClick={(e) => {
+            handleTabSwitch(e);
+          }}
+        >
           <div className="tab-items">
             <svg viewBox="0 0 24 24">
               <g>

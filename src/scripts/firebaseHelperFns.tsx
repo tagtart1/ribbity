@@ -14,7 +14,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { auth, db } from "./firebaseConfig";
-import { generateUserHandle, getFullYear, getMonthName } from "./HelperFns";
+import { generateUserHandle, getFullYear, getMonthDate } from "./HelperFns";
 import defaultpfpImg from "../media/defaultpfp.jpg";
 
 /// DELETE ALL THIS BOZO STUFF AND WHEN YOU ROUTE TO THE USER PROFILE JUST  CALL THESE GETTER FUNCTIONS IN USER EFFECT, DO NOT STASH IT IN CURRENTUSERINFO
@@ -40,7 +40,7 @@ export const signIn = async () => {
     if (!userInfoDoc.exists()) {
       const newUser = {
         bio: "",
-        joinDate: `${getMonthName()} ${getFullYear()}`,
+        joinDate: `${getMonthDate()} ${getFullYear()}`,
         profileImgUrl: getProfilePicUrl(),
         userHandle: await generateUserHandle(getUserName()),
         userName: getUserName(),
@@ -64,12 +64,16 @@ export const getUserName = () => {
 };
 
 export const getUserHandle = async () => {
-  if (auth.currentUser) {
-    const docRef = doc(db, "user-info", auth.currentUser.uid);
-    const userInfoDoc = await getDoc(docRef);
-    if (userInfoDoc.exists()) {
-      return userInfoDoc.data().userHandle;
+  try {
+    if (auth.currentUser) {
+      const docRef = doc(db, "user-info", auth.currentUser.uid);
+      const userInfoDoc = await getDoc(docRef);
+      if (userInfoDoc.exists()) {
+        return userInfoDoc.data().userHandle;
+      }
     }
+  } catch (error) {
+    console.error("Failed to retrieve user handle", error);
   }
 };
 

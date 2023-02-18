@@ -28,7 +28,11 @@ const UserTab = ({ userHandle }: UserTabProps) => {
     <div className="user-tab-wrapper">
       <div className="user-tab-container" onClick={toggleLogoutDropdown}>
         <div className="user-tab-left">
-          <img src={getProfilePicUrl()} alt="User Profile" />
+          <img
+            src={getProfilePicUrl()}
+            alt="User Profile"
+            className="user-tab-profile-image"
+          />
           <div>
             <p>{getUserName()}</p>
             <p className="tweeter-unique-name">@{userHandle}</p>

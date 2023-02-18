@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { getProfilePicUrl } from "../scripts/firebaseHelperFns";
+import { getProfilePicUrl, getUserHandle } from "../scripts/firebaseHelperFns";
 import "../styles/TwatPopupInput.css";
 import { collection, doc, setDoc, addDoc } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
+import {
+  getDayOfMonth,
+  getMonthDate,
+  getTimestampString,
+} from "../scripts/HelperFns";
 
 interface TwatPopupInputProps {
   isVisible: boolean;
@@ -31,7 +36,11 @@ const TwatPopupInput = ({
     try {
       await addDoc(collection(db, "twats"), {
         text: input.value,
+        timeStamp: getTimestampString(),
+        handle: await getUserHandle(),
+        timeInMillisecond: Date.now(),
       });
+      toggleVisibility(false);
     } catch (error) {
       console.error("Error saving tweet to Firebase DB", error);
     }
