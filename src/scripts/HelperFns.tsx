@@ -32,6 +32,24 @@ const getMonthDate = (monthNum?: Number) => {
   return month[d.getMonth()];
 };
 
+const getShortMonthDate = (monthNum: Number) => {
+  const month = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  return month[monthNum];
+};
+
 const getFullYear = () => {
   const d = new Date();
   return d.getFullYear();
@@ -57,7 +75,7 @@ const generateUserHandle = async (name: string | undefined) => {
   return userHandle;
 };
 
-export const getTimestampString = () => {
+export const getTimestamp = () => {
   const d = moment().toObject();
 
   return d;
@@ -69,4 +87,5 @@ export {
   getFullYear,
   generateUserHandle,
   getDayOfMonth,
+  getShortMonthDate,
 };

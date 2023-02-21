@@ -35,7 +35,7 @@ const useForceUpdate = () => {
   const [value, setValue] = useState(0);
   return () => setValue((value) => value + 1);
 };
-
+// Still need features to change pfp picture, profile banner, userName, and bio
 const ProfilePanel = () => {
   const forceUpdate = useForceUpdate();
   const [userInfo, setUserInfo] = useState<any>([]);

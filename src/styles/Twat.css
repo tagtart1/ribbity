@@ -1,0 +1,126 @@
+:root {
+  --twat-blue: #1d9bf0;
+  --twat-blue-faded: #1d9cf022;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+header {
+  padding: 0;
+  margin: 0;
+}
+.twat-container {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid rgb(47, 51, 54);
+  padding-bottom: 5px;
+  font-size: 15px;
+}
+
+.twat-container .header-user-names {
+  display: flex;
+  gap: 4px;
+}
+
+.twat-container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 2px;
+}
+
+.twat-container img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.twat-container svg {
+  height: 19px;
+  width: 19px;
+}
+
+.twat-container-right-side {
+  flex: 1;
+}
+
+.more-icon-wrapper {
+  width: fit-content;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+
+  top: -6px;
+  right: -1px;
+}
+
+.more-icon-wrapper:hover {
+  background-color: var(--twat-blue-faded);
+}
+
+.more-icon-wrapper:hover path {
+  fill: var(--twat-blue);
+}
+.twat-icon-button-row {
+  display: flex;
+  gap: 72px;
+  margin-left: -8px;
+}
+
+.twat-main-text {
+  margin-bottom: 6px;
+}
+.grey {
+  color: rgb(100, 104, 109);
+}
+
+.header-user-names .username {
+  font-weight: 600;
+}
+
+.twat-option-icon,
+.twat-option-icon-heart,
+.twat-option-icon-retweet {
+  padding: 8px;
+  border-radius: 50%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+path {
+  transition: 0.2s all;
+}
+
+.twat-option-icon:hover svg path {
+  fill: var(--twat-blue);
+}
+
+.twat-option-icon:hover {
+  background-color: var(--twat-blue-faded);
+}
+
+.twat-option-icon-heart:hover svg path {
+  fill: rgb(194, 20, 101);
+}
+
+.twat-option-icon-retweet:hover svg path {
+  fill: #01a66f;
+}
+
+.twat-option-icon-retweet:hover {
+  background-color: #071a14;
+}
+
+.twat-option-icon-heart:hover {
+  background-color: #200914;
+}

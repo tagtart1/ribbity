@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import "../styles/ExplorePanelNavbar.css";
 
 const ExplorePanelNavbar = () => {
-  const [selectedTab, setSelectedTab] = useState<any>();
+  const [selectedTab, setSelectedTab] = useState<Element | null>();
 
   const handleTabSwitch = (e: any) => {
-    const listItem = e.target.firstChild;
+    const listItem: Element = e.target.firstChild;
 
     if (listItem === selectedTab) return;
     selectedTab?.classList.remove("selected-tab");

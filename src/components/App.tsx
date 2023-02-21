@@ -13,6 +13,8 @@ import ExplorePanel from "./ExplorePanel";
 import MainRightSection from "./MainRightSection";
 import ProfilePanel from "./ProfilePanel";
 
+// Pass the user info down from here. do not grab handle. pass user info into profile panel and userTabs. this will allow you to check if tweets belong to the signed in user from anywhere
+
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
 

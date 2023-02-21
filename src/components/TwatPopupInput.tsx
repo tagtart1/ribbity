@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { getProfilePicUrl, getUserHandle } from "../scripts/firebaseHelperFns";
+import {
+  getProfilePicUrl,
+  getUserHandle,
+  getUserName,
+} from "../scripts/firebaseHelperFns";
 import "../styles/TwatPopupInput.css";
 import { collection, doc, setDoc, addDoc } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
 import {
   getDayOfMonth,
   getMonthDate,
-  getTimestampString,
+  getTimestamp,
 } from "../scripts/HelperFns";
 
 interface TwatPopupInputProps {
@@ -21,7 +25,10 @@ const TwatPopupInput = ({
   const [inputLength, setInputLength] = useState<Number>(0);
 
   const handleOffSideClick = (e: any) => {
-    if (e.target === document.querySelector(".twat-popup-input-container")) {
+    if (
+      e.target === document.querySelector(".twat-popup-input-container") &&
+      e.buttons === 1
+    ) {
       document.documentElement.style.overflowY = "visible";
       toggleVisibility(false);
     }
@@ -36,8 +43,10 @@ const TwatPopupInput = ({
     try {
       await addDoc(collection(db, "twats"), {
         text: input.value,
-        timeStamp: getTimestampString(),
+        timeStamp: getTimestamp(),
         handle: await getUserHandle(),
+        userName: getUserName(),
+        userProfileImg: getProfilePicUrl(),
         timeInMillisecond: Date.now(),
       });
       toggleVisibility(false);
