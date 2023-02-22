@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
 import Twat from "./Twat";
+import { convertCompilerOptionsFromJson } from "typescript";
 
 interface Twats {
   handle: string;
@@ -29,6 +30,7 @@ interface Twats {
     seconds: number;
     years: number;
   };
+  timeInMillisecond: number;
 }
 
 const useForceUpdate = () => {
@@ -36,10 +38,10 @@ const useForceUpdate = () => {
   return () => setValue((value) => value + 1);
 };
 // Still need features to change pfp picture, profile banner, userName, and bio
-const ProfilePanel = () => {
+const ProfilePanel = ({ currentUser }: any) => {
   const forceUpdate = useForceUpdate();
   const [userInfo, setUserInfo] = useState<any>([]);
-  const [twatList, setTwatList] = useState<Array<Twats>>([]);
+  const [twatList, setTwatList] = useState<any>({});
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -51,25 +53,24 @@ const ProfilePanel = () => {
         orderBy("timeInMillisecond")
       );
 
-      // setTwatList(userTwats);
-      const userTwats: Array<any> = [];
+      let twats: any = {};
+
       const unsub = onSnapshot(q, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
           if (change.type === "removed") {
-            console.log("remove");
-
-            userTwats.pop();
-            //  setTwatList(userTwats);
+            delete twats[change.doc.id];
           } else if (change.type === "added") {
             const twat = change.doc.data();
-
-            userTwats.unshift(twat);
+            twat.id = change.doc.id;
+            const twatToAdd: any = {};
+            twatToAdd[change.doc.id] = twat;
+            twats = Object.assign(twatToAdd, twats);
           }
-
-          setTwatList(userTwats);
-          // Force update because the snapshot listener isnt causing re-render despite setting state each time correctly
-          forceUpdate();
         });
+
+        setTwatList(twats);
+        // Force update because the snapshot listener isnt causing re-render despite setting state each time correctly
+        forceUpdate();
       });
 
       return () => unsub();
@@ -84,7 +85,7 @@ const ProfilePanel = () => {
 
     getUser();
   }, []);
-
+  if (!currentUser) return null;
   return (
     <div className="profile-panel-container">
       <div className="profile-panel-top-header">
@@ -105,17 +106,21 @@ const ProfilePanel = () => {
         </div>
         <div className="username-tweet-count">
           <h1>{userInfo.userName}</h1>
-          <p>{twatList.length} Tweets</p>
+          <p> Tweets</p>
         </div>
       </div>
       <img className="test-box" src={testBanner} alt="test" />
       <ProfilePanelInfo user={userInfo} currentHandle={userInfo.userHandle} />
       <ProfilePanelNav />
       <div className="user-twat-feed">
-        {twatList.map((doc: any, index: number) => {
+        {Object.keys(twatList).map((doc: any, index: number) => {
           return (
             <div key={index}>
-              <Twat twatInfo={doc} />
+              {currentUser.userHandle === twatList[doc].handle ? (
+                <Twat twatInfo={twatList[doc]} isDeletable={true} />
+              ) : (
+                <Twat twatInfo={twatList[doc]} isDeletable={false} />
+              )}
             </div>
           );
         })}

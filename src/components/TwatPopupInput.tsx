@@ -53,6 +53,8 @@ const TwatPopupInput = ({
     } catch (error) {
       console.error("Error saving tweet to Firebase DB", error);
     }
+
+    document.documentElement.style.overflowY = "visible";
   };
 
   if (!isVisible) return null;

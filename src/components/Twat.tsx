@@ -1,8 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getUserInfo } from "../scripts/firebaseHelperFns";
 import placeholder from "../media/defaultpfp.jpg";
 import "../styles/Twat.css";
 import { getFullYear, getShortMonthDate } from "../scripts/HelperFns";
+import DeleteTwatPopup from "./DeleteTwatPopup";
+import DeleteOptionDropdown from "./DeleteOptionDropdown";
+import BackgroundTransparent from "./BackgroundTransparent";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../scripts/firebaseConfig";
 
 interface TwatProps {
   twatInfo: {
@@ -20,15 +25,19 @@ interface TwatProps {
       years: number;
     };
     timeInMillisecond: number;
+    id: string;
   };
+
+  isDeletable: boolean;
 }
 // To delete make sure the user opening the tab is the user that owns the tweet. Find the doc by the id in firebase and remove it, with delete confirmation
-const Twat = ({ twatInfo }: TwatProps) => {
+const Twat = ({ twatInfo, isDeletable }: TwatProps) => {
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
+
   const getTimeSincePosted = () => {
     let minutesWhenPost: number = twatInfo.timeInMillisecond / 60000;
     let minutesNow: number = Date.now() / 60000;
     let timeDiff: number = minutesNow - minutesWhenPost;
-    console.log(timeDiff);
 
     if (timeDiff < 1) {
       return `${Math.ceil(timeDiff * 60)}s`;
@@ -40,7 +49,6 @@ const Twat = ({ twatInfo }: TwatProps) => {
       return `${Math.floor(timeDiff / 60)}h`;
     }
     if (timeDiff > 1440 && getFullYear() === twatInfo.timeStamp.years) {
-      console.log("ho");
       return `${getShortMonthDate(twatInfo.timeStamp.months)} ${
         twatInfo.timeStamp.date
       }`;
@@ -50,6 +58,16 @@ const Twat = ({ twatInfo }: TwatProps) => {
         twatInfo.timeStamp.date
       }, ${twatInfo.timeStamp.years}`;
     }
+  };
+
+  const openDeleteOption = () => {
+    if (!isDeletable) return;
+    setOpenDelete(true);
+  };
+
+  const deleteTwat = async () => {
+    await deleteDoc(doc(db, "twats", twatInfo.id));
+    setOpenDelete(false);
   };
 
   return (
@@ -64,7 +82,7 @@ const Twat = ({ twatInfo }: TwatProps) => {
             <span className="grey">{getTimeSincePosted()}</span>
           </div>
           <div>
-            <div className="more-icon-wrapper">
+            <div className="more-icon-wrapper" onClick={openDeleteOption}>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <g>
                   <path
@@ -130,6 +148,11 @@ const Twat = ({ twatInfo }: TwatProps) => {
           </div>
         </div>
       </div>
+      <BackgroundTransparent
+        isVisible={openDelete}
+        toggleVisibility={setOpenDelete}
+      />
+      <DeleteOptionDropdown isVisible={openDelete} deleteTwat={deleteTwat} />
     </article>
   );
 };

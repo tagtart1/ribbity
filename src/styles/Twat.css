@@ -17,6 +17,7 @@ header {
   border-bottom: 1px solid rgb(47, 51, 54);
   padding-bottom: 5px;
   font-size: 15px;
+  position: relative;
 }
 
 .twat-container .header-user-names {

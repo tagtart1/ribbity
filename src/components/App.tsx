@@ -5,7 +5,11 @@ import HomePanel from "./HomePanel";
 
 import "../styles/App.css";
 import { Routes, Route } from "react-router-dom";
-import { initFirebaseAuth } from "../scripts/firebaseHelperFns";
+import {
+  getUserInfo,
+  initFirebaseAuth,
+  getUserHandle,
+} from "../scripts/firebaseHelperFns";
 import MainLeftSection from "./MainLeftSection";
 
 import SignUpFooter from "./SignUpFooter";
@@ -17,16 +21,25 @@ import ProfilePanel from "./ProfilePanel";
 
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
+  const [currentUser, setCurrentUser] = useState<any>();
 
   const navigate = useNavigate();
 
-  const authObserver = (user: any) => {
+  const authObserver = async (user: any) => {
     if (user) {
       setIsUserSignedIn(true);
+      getCurrentUser();
     } else {
       setIsUserSignedIn(false);
+      setCurrentUser(null);
       navigate("/");
     }
+  };
+
+  const getCurrentUser = async () => {
+    const handle: string = await getUserHandle();
+    const signedUser = await getUserInfo(handle);
+    setCurrentUser(signedUser);
   };
 
   useEffect(() => {
@@ -40,7 +53,10 @@ const App = () => {
         <Route path="/" element={<ExplorePanel />} />
         <Route path="/home" element={<HomePanel />} />
         <Route path="/explore" element={<ExplorePanel />} />
-        <Route path="/:id" element={<ProfilePanel />} />
+        <Route
+          path="/:id"
+          element={<ProfilePanel currentUser={currentUser} />}
+        />
       </Routes>
 
       <MainRightSection signedIn={isUserSignedIn} />
