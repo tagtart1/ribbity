@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useForceUpdate from "./useForceUpdate";
 
 interface MainNavTabsSignedInProps {
   userHandle: string;

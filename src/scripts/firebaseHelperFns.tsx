@@ -84,6 +84,7 @@ export const getUserInfo = async (id: string | undefined) => {
   let handleDoc;
   querySnap.forEach((doc) => {
     handleDoc = doc.data();
+    handleDoc.id = doc.id;
   });
 
   return handleDoc;

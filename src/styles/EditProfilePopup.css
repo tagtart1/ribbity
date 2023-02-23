@@ -1,0 +1,186 @@
+:root {
+  --tweety-blue: rgb(29, 155, 240);
+}
+
+.edit-profile-popup-container {
+  position: fixed;
+  background-color: rgba(151, 173, 199, 0.227);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Chirp";
+}
+
+.edit-profile-popup {
+  width: 600px;
+  box-sizing: border-box;
+  height: 650px;
+  background-color: black;
+  border-radius: 18px;
+
+  position: relative;
+}
+
+.edit-profile-popup header {
+  height: 53px;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 16px;
+  justify-content: space-between;
+}
+
+.edit-profile-popup h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.edit-profile-popup svg {
+  width: 20px;
+  height: 20px;
+}
+
+.edit-profile-popup .backout-button {
+  transition: 0.2s all;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 50%;
+}
+
+.edit-profile-popup .backout-button:hover {
+  background-color: rgba(29, 29, 29, 0.73);
+}
+
+.save-edit-profile-button {
+  font-weight: bold;
+  border: none;
+  border-radius: 16px;
+  padding: 9px 18px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+.save-edit-profile-button:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+.current-user-banner {
+  padding: 0px 2px;
+}
+
+.current-user-banner img {
+  box-sizing: border-box;
+  max-width: 596px;
+
+  max-height: 200px;
+}
+
+.current-user-profile-image {
+  position: absolute;
+  margin-top: -50px;
+  border-radius: 50%;
+  padding: 3px;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  left: 16px;
+}
+
+.current-user-profile-image img {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.edit-profile-inputs {
+  margin: 84px 12px;
+  margin-right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.edit-profile-input-div {
+  width: 100%;
+  border-radius: 4px;
+
+  border: 1px solid rgb(51, 54, 57);
+  background-color: black;
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  position: relative;
+}
+
+.edit-profile-input-div.bio-input-div {
+  height: 100px;
+}
+
+.edit-profile-input-div:focus-within {
+  border-color: var(--tweety-blue);
+}
+
+.edit-profile-input-div:focus-within label,
+.edit-profile-input-div:focus-within label {
+  color: var(--tweety-blue);
+}
+
+.edit-profile-inputs input,
+.edit-profile-inputs textarea {
+  font-family: "Chirp";
+  margin: 0;
+  width: 95%;
+  color: white;
+  background-color: black;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 300;
+  margin-top: 18px;
+}
+
+.edit-profile-inputs textarea {
+  margin-top: 20px;
+}
+
+textarea {
+  resize: none;
+}
+
+.edit-profile-inputs label {
+  font-weight: 300;
+  transition: 0.2s all;
+  position: absolute;
+  left: 9px;
+  font-size: 14px;
+  top: 15%;
+  color: rgb(95, 100, 106);
+}
+
+.bio-input-div label {
+  top: 9%;
+}
+
+.edit-profile-inputs input:placeholder-shown:not(:focus) + label {
+  color: rgb(103, 105, 103);
+  font-size: 18px;
+  top: 30%;
+}
+
+.edit-profile-inputs textarea:placeholder-shown:not(:focus) + label {
+  color: rgb(103, 105, 103);
+  font-size: 18px;
+  top: 15%;
+}

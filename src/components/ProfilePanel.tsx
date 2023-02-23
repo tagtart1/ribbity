@@ -5,7 +5,8 @@ import testBanner from "../media/1080x360.jpg";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../scripts/firebaseHelperFns";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import useForceUpdate from "./useForceUpdate";
 import {
   collection,
   query,
@@ -33,10 +34,6 @@ interface Twats {
   timeInMillisecond: number;
 }
 
-const useForceUpdate = () => {
-  const [value, setValue] = useState(0);
-  return () => setValue((value) => value + 1);
-};
 // Still need features to change pfp picture, profile banner, userName, and bio
 const ProfilePanel = ({ currentUser }: any) => {
   const forceUpdate = useForceUpdate();
@@ -45,46 +42,46 @@ const ProfilePanel = ({ currentUser }: any) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getUserTwats = async (user: any) => {
-      const q = query(
-        collection(db, "twats"),
-        where("handle", "==", user.userHandle),
-        orderBy("timeInMillisecond")
-      );
+  const getUserTwats = async (user: any) => {
+    const q = query(
+      collection(db, "twats"),
+      where("handle", "==", user.userHandle),
+      orderBy("timeInMillisecond")
+    );
 
-      let twats: any = {};
+    let twats: any = {};
 
-      const unsub = onSnapshot(q, (snapshot) => {
-        snapshot.docChanges().forEach((change) => {
-          if (change.type === "removed") {
-            delete twats[change.doc.id];
-          } else if (change.type === "added") {
-            const twat = change.doc.data();
-            twat.id = change.doc.id;
-            const twatToAdd: any = {};
-            twatToAdd[change.doc.id] = twat;
-            twats = Object.assign(twatToAdd, twats);
-          }
-        });
-
-        setTwatList(twats);
-        // Force update because the snapshot listener isnt causing re-render despite setting state each time correctly
-        forceUpdate();
+    const unsub = onSnapshot(q, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "removed") {
+          delete twats[change.doc.id];
+        } else if (change.type === "added") {
+          const twat = change.doc.data();
+          twat.id = change.doc.id;
+          const twatToAdd: any = {};
+          twatToAdd[change.doc.id] = twat;
+          twats = Object.assign(twatToAdd, twats);
+        }
       });
 
-      return () => unsub();
-    };
-    // Grabs a user's info based on the link param
-    const getUser = async () => {
-      const user = await getUserInfo(id);
+      setTwatList(twats);
+      // Force update because the snapshot listener isnt causing re-render despite setting state each time correctly
+      forceUpdate();
+    });
 
-      setUserInfo(user);
-      getUserTwats(user);
-    };
+    return () => unsub();
+  };
+  // Grabs a user's info based on the link param
+  const getUser = async () => {
+    const user = await getUserInfo(id);
 
+    setUserInfo(user);
+    getUserTwats(user);
+  };
+  useEffect(() => {
     getUser();
   }, []);
+
   if (!currentUser) return null;
   return (
     <div className="profile-panel-container">
@@ -106,11 +103,14 @@ const ProfilePanel = ({ currentUser }: any) => {
         </div>
         <div className="username-tweet-count">
           <h1>{userInfo.userName}</h1>
-          <p> Tweets</p>
+          <p>{Object.keys(twatList).length} Tweets</p>
         </div>
       </div>
       <img className="test-box" src={testBanner} alt="test" />
-      <ProfilePanelInfo user={userInfo} currentHandle={userInfo.userHandle} />
+      <ProfilePanelInfo
+        user={userInfo}
+        currentHandle={currentUser.userHandle}
+      />
       <ProfilePanelNav />
       <div className="user-twat-feed">
         {Object.keys(twatList).map((doc: any, index: number) => {

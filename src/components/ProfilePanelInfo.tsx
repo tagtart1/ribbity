@@ -8,6 +8,7 @@ import {
 import { DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ProfileActionsButtons from "./ProfileActionsButtons";
+import EditProfilePopup from "./EditProfilePopup";
 
 interface ProfilePanelInfoProps {
   user: DocumentData | undefined; // The user of whatever page we are viewing
@@ -15,6 +16,8 @@ interface ProfilePanelInfoProps {
 }
 
 const ProfilePanelInfo = ({ user, currentHandle }: ProfilePanelInfoProps) => {
+  const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
+
   if (!user) return null;
   return (
     <div className="profile-panel-info-container">
@@ -27,7 +30,14 @@ const ProfilePanelInfo = ({ user, currentHandle }: ProfilePanelInfoProps) => {
         {currentHandle ? (
           // Check if the profile we are viewing is ourselves, if so dispaly edit profile, if not display follow button and other actions
           currentHandle === user.userHandle ? (
-            <button className="edit-profile-button">Edit Profile</button>
+            <button
+              className="edit-profile-button"
+              onClick={() => {
+                setShowEditProfile(true);
+              }}
+            >
+              Edit Profile
+            </button>
           ) : (
             <ProfileActionsButtons />
           )
@@ -55,6 +65,13 @@ const ProfilePanelInfo = ({ user, currentHandle }: ProfilePanelInfoProps) => {
           <span style={{ color: "white" }}>70</span> Followers
         </span>
       </div>
+      <EditProfilePopup
+        isVisible={showEditProfile}
+        userName={user.userName}
+        bio={user.bio}
+        location={user.location}
+        docId={user.id}
+      />
     </div>
   );
 };
