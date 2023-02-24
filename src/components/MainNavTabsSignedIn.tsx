@@ -2,11 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useForceUpdate from "./useForceUpdate";
 
-interface MainNavTabsSignedInProps {
-  userHandle: string;
+interface userInfo {
+  bio?: string;
+  joinDate?: string;
+  profileImgUrl?: string;
+  userHandle?: string;
+  userName?: string;
 }
 
-const MainNavTabsSignedIn = ({ userHandle }: MainNavTabsSignedInProps) => {
+interface MainNavTabsProps {
+  currentUser: userInfo;
+}
+
+const MainNavTabsSignedIn = ({ currentUser }: MainNavTabsProps) => {
   const [selectedTab, setSelectedTab] = useState<any>();
 
   const handleTabSwitch = (e: any) => {
@@ -121,7 +129,7 @@ const MainNavTabsSignedIn = ({ userHandle }: MainNavTabsSignedInProps) => {
         </div>
       </li>
 
-      <Link to={`/${userHandle}`}>
+      <Link to={`/${currentUser.userHandle}`}>
         <li
           className="tab-list-item"
           onClick={(e) => {

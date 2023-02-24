@@ -1,17 +1,19 @@
 import "../styles/UserTab.css";
-import {
-  getProfilePicUrl,
-  getUserHandle,
-  getUserName,
-  signOutUser,
-} from "../scripts/firebaseHelperFns";
-import { useEffect, useState } from "react";
+import { signOutUser } from "../scripts/firebaseHelperFns";
 
-interface UserTabProps {
-  userHandle: string;
+interface userInfo {
+  bio?: string;
+  joinDate?: string;
+  profileImgUrl?: string;
+  userHandle?: string;
+  userName?: string;
 }
 
-const UserTab = ({ userHandle }: UserTabProps) => {
+interface UserTabProps {
+  currentUser: userInfo;
+}
+
+const UserTab = ({ currentUser }: UserTabProps) => {
   const toggleLogoutDropdown = () => {
     const dropdown = document.querySelector(".logout-dropdown");
 
@@ -29,13 +31,13 @@ const UserTab = ({ userHandle }: UserTabProps) => {
       <div className="user-tab-container" onClick={toggleLogoutDropdown}>
         <div className="user-tab-left">
           <img
-            src={getProfilePicUrl()}
+            src={currentUser.profileImgUrl}
             alt="User Profile"
             className="user-tab-profile-image"
           />
           <div>
-            <p>{getUserName()}</p>
-            <p className="tweeter-unique-name">@{userHandle}</p>
+            <p>{currentUser.userName}</p>
+            <p className="tweeter-unique-name">@{currentUser.userHandle}</p>
           </div>
         </div>
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -52,7 +54,7 @@ const UserTab = ({ userHandle }: UserTabProps) => {
         hidden={true}
         className="logout-dropdown"
       >
-        <button onClick={signOutUser}>Log out {getUserName()}</button>
+        <button onClick={signOutUser}>Log out {currentUser.userName}</button>
       </div>
     </div>
   );

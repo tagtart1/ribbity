@@ -77,9 +77,9 @@ export const getUserHandle = async () => {
   }
 };
 
-export const getUserInfo = async (id: string | undefined) => {
+export const getUserInfo = async (handle: string | undefined) => {
   const ref = collection(db, "user-info");
-  const q = query(ref, where("userHandle", "==", id));
+  const q = query(ref, where("userHandle", "==", handle));
   const querySnap = await getDocs(q);
   let handleDoc;
   querySnap.forEach((doc) => {

@@ -17,11 +17,18 @@ import ExplorePanel from "./ExplorePanel";
 import MainRightSection from "./MainRightSection";
 import ProfilePanel from "./ProfilePanel";
 
-// Pass the user info down from here. do not grab handle. pass user info into profile panel and userTabs. this will allow you to check if tweets belong to the signed in user from anywhere
+interface userInfo {
+  bio?: string;
+  joinDate?: string;
+  profileImgUrl?: string;
+  userHandle?: string;
+  userName?: string;
+  id?: string;
+}
 
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
-  const [currentUser, setCurrentUser] = useState<any>();
+  const [currentUser, setCurrentUser] = useState<userInfo>();
 
   const navigate = useNavigate();
 
@@ -31,7 +38,7 @@ const App = () => {
       getCurrentUser();
     } else {
       setIsUserSignedIn(false);
-      setCurrentUser(null);
+      setCurrentUser({});
       navigate("/");
     }
   };
@@ -48,14 +55,19 @@ const App = () => {
 
   return (
     <div className="main-app-continer">
-      <MainLeftSection signedIn={isUserSignedIn} />
+      <MainLeftSection currentUser={currentUser} signedIn={isUserSignedIn} />
       <Routes>
         <Route path="/" element={<ExplorePanel />} />
         <Route path="/home" element={<HomePanel />} />
         <Route path="/explore" element={<ExplorePanel />} />
         <Route
-          path="/:id"
-          element={<ProfilePanel currentUser={currentUser} />}
+          path="/:handle"
+          element={
+            <ProfilePanel
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
         />
       </Routes>
 

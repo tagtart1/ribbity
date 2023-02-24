@@ -8,29 +8,32 @@ import "../styles/MainLeftSection.css";
 import UserTab from "./UserTab";
 import TwatPopupInput from "./TwatPopupInput";
 
+interface userInfo {
+  bio?: string;
+  joinDate?: string;
+  profileImgUrl?: string;
+  userHandle?: string;
+  userName?: string;
+}
+
 interface MainNavTabsProps {
+  currentUser?: userInfo;
   signedIn?: boolean;
 }
 
-const MainLeftSection = ({ signedIn }: MainNavTabsProps) => {
-  const [userHandle, setUserHandle] = useState<string>(" ");
+const MainLeftSection = ({ currentUser, signedIn }: MainNavTabsProps) => {
   const [showTwatPopup, setShowTwatPopup] = useState<boolean>(false);
-
-  const getHandle = async () => {
-    const handle = await getUserHandle();
-    setUserHandle(handle);
-  };
-  getHandle();
-
+  if (!currentUser) return null;
   return signedIn ? (
     <div className="main-left-section">
       <TwatPopupInput
         isVisible={showTwatPopup}
         toggleVisibility={setShowTwatPopup}
+        currentUser={currentUser}
       />
       <div style={{ position: "fixed" }} className="fixed-left-section">
         <div>
-          <MainNavTabsSignedIn userHandle={userHandle} />
+          <MainNavTabsSignedIn currentUser={currentUser} />
           <button
             className="tweet-button-left"
             onClick={() => {
@@ -41,7 +44,7 @@ const MainLeftSection = ({ signedIn }: MainNavTabsProps) => {
             Twat
           </button>
         </div>
-        <UserTab userHandle={userHandle} />
+        <UserTab currentUser={currentUser} />
       </div>
     </div>
   ) : (

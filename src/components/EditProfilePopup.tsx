@@ -10,6 +10,8 @@ interface EditProfilePopupProps {
   bio: string;
   location: string;
   docId: string;
+  setShowEditProfile: Function;
+  updateChanges: Function;
 }
 
 const EditProfilePopup = ({
@@ -18,6 +20,8 @@ const EditProfilePopup = ({
   bio,
   location,
   docId,
+  setShowEditProfile,
+  updateChanges,
 }: EditProfilePopupProps) => {
   const handleSubmitProfileEdits = async (e: any) => {
     e.preventDefault();
@@ -26,14 +30,17 @@ const EditProfilePopup = ({
       userName: (document.getElementById("edit-name-input") as HTMLInputElement)
         .value,
     });
-    console.log(docId);
-    console.log("hi");
+    updateChanges();
   };
 
   if (!isVisible) return null;
   return (
     <div className="edit-profile-popup-container">
-      <form className="edit-profile-popup" onSubmit={handleSubmitProfileEdits}>
+      <form
+        className="edit-profile-popup"
+        onSubmit={handleSubmitProfileEdits}
+        autoComplete="off"
+      >
         <header>
           <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
             <div className="backout-button">

@@ -16,11 +16,13 @@ import {
 interface TwatPopupInputProps {
   isVisible: boolean;
   toggleVisibility: Function;
+  currentUser: any;
 }
 
 const TwatPopupInput = ({
   isVisible,
   toggleVisibility,
+  currentUser,
 }: TwatPopupInputProps) => {
   const [inputLength, setInputLength] = useState<Number>(0);
 
@@ -44,9 +46,9 @@ const TwatPopupInput = ({
       await addDoc(collection(db, "twats"), {
         text: input.value,
         timeStamp: getTimestamp(),
-        handle: await getUserHandle(),
-        userName: getUserName(),
-        userProfileImg: getProfilePicUrl(),
+        handle: currentUser.userHandle,
+        userName: currentUser.userName,
+        userProfileImg: currentUser.profileImgUrl,
         timeInMillisecond: Date.now(),
       });
       toggleVisibility(false);

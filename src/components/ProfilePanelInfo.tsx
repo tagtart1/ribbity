@@ -13,11 +13,18 @@ import EditProfilePopup from "./EditProfilePopup";
 interface ProfilePanelInfoProps {
   user: DocumentData | undefined; // The user of whatever page we are viewing
   currentHandle?: string; // Current handle of the signed in user
+  showEditPopup: boolean;
+  setEditPopup: Function;
+  updateChanges: Function;
 }
 
-const ProfilePanelInfo = ({ user, currentHandle }: ProfilePanelInfoProps) => {
-  const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
-
+const ProfilePanelInfo = ({
+  user,
+  currentHandle,
+  setEditPopup,
+  showEditPopup,
+  updateChanges,
+}: ProfilePanelInfoProps) => {
   if (!user) return null;
   return (
     <div className="profile-panel-info-container">
@@ -33,7 +40,7 @@ const ProfilePanelInfo = ({ user, currentHandle }: ProfilePanelInfoProps) => {
             <button
               className="edit-profile-button"
               onClick={() => {
-                setShowEditProfile(true);
+                setEditPopup(true);
               }}
             >
               Edit Profile
@@ -66,11 +73,13 @@ const ProfilePanelInfo = ({ user, currentHandle }: ProfilePanelInfoProps) => {
         </span>
       </div>
       <EditProfilePopup
-        isVisible={showEditProfile}
+        isVisible={showEditPopup}
         userName={user.userName}
         bio={user.bio}
         location={user.location}
         docId={user.id}
+        setShowEditProfile={setEditPopup}
+        updateChanges={updateChanges}
       />
     </div>
   );
