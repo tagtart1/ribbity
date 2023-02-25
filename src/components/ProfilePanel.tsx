@@ -66,6 +66,8 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
           twats = Object.assign(twatToAdd, twats);
         } else {
           twats[change.doc.id].userName = change.doc.data().userName;
+          twats[change.doc.id].userProfileImg =
+            change.doc.data().userProfileImg;
         }
       });
 
@@ -101,6 +103,7 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
 
       await updateDoc(docRef, {
         userName: user?.userName,
+        userProfileImg: user?.profileImgUrl,
       });
     });
 

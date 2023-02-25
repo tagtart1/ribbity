@@ -23,6 +23,7 @@ interface userInfo {
   profileImgUrl?: string;
   userHandle?: string;
   userName?: string;
+  location?: string;
   id?: string;
 }
 

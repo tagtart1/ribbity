@@ -44,6 +44,7 @@ export const signIn = async () => {
         profileImgUrl: getProfilePicUrl(),
         userHandle: await generateUserHandle(getUserName()),
         userName: getUserName(),
+        location: "",
       };
 
       await setDoc(doc(db, "user-info", auth.currentUser.uid), newUser);

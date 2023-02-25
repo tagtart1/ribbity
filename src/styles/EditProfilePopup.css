@@ -54,6 +54,7 @@
   height: fit-content;
   width: fit-content;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .edit-profile-popup .backout-button:hover {
@@ -137,6 +138,10 @@
   color: var(--tweety-blue);
 }
 
+.edit-profile-input-div:focus-within.invalid-input label {
+  color: red;
+}
+
 .edit-profile-inputs input,
 .edit-profile-inputs textarea {
   font-family: "Chirp";
@@ -169,6 +174,10 @@ textarea {
   color: rgb(95, 100, 106);
 }
 
+.edit-profile-inputs .invalid-input label {
+  color: red;
+}
+
 .bio-input-div label {
   top: 9%;
 }
@@ -183,4 +192,64 @@ textarea {
   color: rgb(103, 105, 103);
   font-size: 18px;
   top: 15%;
+}
+
+.invalid-input .edit-profile-input-div {
+  border-color: red !important;
+}
+
+.invalid-input .edit-profile-input-div + label {
+  color: red !important;
+}
+
+.invalid-input::after {
+  color: red;
+  content: "Name can't be blank";
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.invalid-save-button {
+  cursor: default;
+  background-color: rgb(148, 148, 148);
+}
+
+.invalid-save-button:hover {
+  background-color: rgb(148, 148, 148);
+}
+
+.profile-image-input-container {
+  position: absolute;
+}
+.image-file-upload {
+  padding: 12px 12px;
+  border-radius: 50%;
+
+  color: white;
+  background-color: rgba(13, 13, 13, 0.321);
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all;
+}
+
+.image-file-upload:hover {
+  background-color: rgba(56, 56, 56, 0.321);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.profile-image-input-container {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.276);
 }
