@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import useForceUpdate from "./useForceUpdate";
 
 interface userInfo {
-  bio?: string;
-  joinDate?: string;
-  profileImgUrl?: string;
   userHandle?: string;
-  userName?: string;
 }
 
 interface MainNavTabsProps {

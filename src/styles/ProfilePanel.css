@@ -66,9 +66,14 @@
   padding: 0;
 }
 
-.test-box {
-  width: 600px;
+.user-banner {
+  width: fit-content;
+  max-width: 600px;
   height: 200px;
-  background-color: aqua;
+  background-color: rgb(0, 0, 0);
   margin-top: 53px;
+}
+
+.user-twat-feed {
+  margin-bottom: 50%;
 }

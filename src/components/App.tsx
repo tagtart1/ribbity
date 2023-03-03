@@ -16,6 +16,7 @@ import SignUpFooter from "./SignUpFooter";
 import ExplorePanel from "./ExplorePanel";
 import MainRightSection from "./MainRightSection";
 import ProfilePanel from "./ProfilePanel";
+import useForceUpdate from "./useForceUpdate";
 
 interface userInfo {
   bio?: string;
@@ -32,6 +33,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState<userInfo>();
 
   const navigate = useNavigate();
+  const refresh = useForceUpdate();
 
   const authObserver = async (user: any) => {
     if (user) {
@@ -46,6 +48,7 @@ const App = () => {
 
   const getCurrentUser = async () => {
     const handle: string = await getUserHandle();
+    console.log(handle);
     const signedUser = await getUserInfo(handle);
     setCurrentUser(signedUser);
   };
@@ -56,13 +59,26 @@ const App = () => {
 
   return (
     <div className="main-app-continer">
-      <MainLeftSection currentUser={currentUser} signedIn={isUserSignedIn} />
+      <MainLeftSection
+        currentUser={currentUser}
+        signedIn={isUserSignedIn}
+        refresh={refresh}
+      />
       <Routes>
         <Route path="/" element={<ExplorePanel />} />
-        <Route path="/home" element={<HomePanel />} />
+        <Route path="/home" element={<HomePanel currentUser={currentUser} />} />
         <Route path="/explore" element={<ExplorePanel />} />
         <Route
           path="/:handle"
+          element={
+            <ProfilePanel
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
+        />
+        <Route
+          path="/:handle/:tab"
           element={
             <ProfilePanel
               currentUser={currentUser}

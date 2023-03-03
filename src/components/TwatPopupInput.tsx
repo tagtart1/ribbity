@@ -1,28 +1,22 @@
-import { useEffect, useState } from "react";
-import {
-  getProfilePicUrl,
-  getUserHandle,
-  getUserName,
-} from "../scripts/firebaseHelperFns";
+import { useState } from "react";
+
 import "../styles/TwatPopupInput.css";
-import { collection, doc, setDoc, addDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
-import {
-  getDayOfMonth,
-  getMonthDate,
-  getTimestamp,
-} from "../scripts/HelperFns";
+import { getTimestamp } from "../scripts/HelperFns";
 
 interface TwatPopupInputProps {
   isVisible: boolean;
   toggleVisibility: Function;
   currentUser: any;
+  refresh: Function;
 }
 
 const TwatPopupInput = ({
   isVisible,
   toggleVisibility,
   currentUser,
+  refresh,
 }: TwatPopupInputProps) => {
   const [inputLength, setInputLength] = useState<Number>(0);
 
@@ -33,6 +27,7 @@ const TwatPopupInput = ({
     ) {
       document.documentElement.style.overflowY = "visible";
       toggleVisibility(false);
+      setInputLength(0);
     }
   };
 
@@ -50,7 +45,9 @@ const TwatPopupInput = ({
         userName: currentUser.userName,
         userProfileImg: currentUser.profileImgUrl,
         timeInMillisecond: Date.now(),
+        likedBy: [],
       });
+      refresh();
       toggleVisibility(false);
     } catch (error) {
       console.error("Error saving tweet to Firebase DB", error);
@@ -83,7 +80,7 @@ const TwatPopupInput = ({
           </svg>
         </div>
         <div className="twat-popup-input-main">
-          <img src={getProfilePicUrl()} alt="user" />
+          <img src={currentUser.profileImgUrl} alt="user" />
 
           <form className="popup-input-main-right" onSubmit={handleSubmitTweet}>
             <textarea

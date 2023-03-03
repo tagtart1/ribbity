@@ -60,6 +60,7 @@ const getDayOfMonth = () => {
 };
 
 const generateUserHandle = async (name: string | undefined) => {
+  // Add feature where your name cannot be home or explore or any main route
   let valid = false;
   let userHandle = `${name?.replaceAll(" ", "")}`;
   while (!valid) {
@@ -71,7 +72,7 @@ const generateUserHandle = async (name: string | undefined) => {
       userHandle = userHandle + Math.floor(Math.random() * 10000);
     }
   }
-  console.log(userHandle);
+
   return userHandle;
 };
 

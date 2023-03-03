@@ -2,11 +2,17 @@ import "../styles/HomePanelTweetInput.css";
 
 import { getProfilePicUrl } from "../scripts/firebaseHelperFns";
 
-const HomePanelTweetInput = () => {
+interface HomePanelTweetInputProps {
+  currentUser?: {
+    profileImgUrl?: string;
+  };
+}
+
+const HomePanelTweetInput = ({ currentUser }: HomePanelTweetInputProps) => {
   return (
     <form className="home-tweet-input-container">
       <img
-        src={getProfilePicUrl()}
+        src={currentUser?.profileImgUrl || getProfilePicUrl()}
         className="user-profile-image-home-input"
         alt="user profile"
         referrerPolicy="no-referrer"

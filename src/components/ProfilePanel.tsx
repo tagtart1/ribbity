@@ -5,7 +5,13 @@ import testBanner from "../media/1080x360.jpg";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../scripts/firebaseHelperFns";
 
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import {
+  useNavigate,
+  useParams,
+  useLocation,
+  Routes,
+  Route,
+} from "react-router-dom";
 import useForceUpdate from "./useForceUpdate";
 import {
   collection,
@@ -19,49 +25,54 @@ import {
 } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
 import Twat from "./Twat";
-import { convertCompilerOptionsFromJson } from "typescript";
 
-interface Twats {
-  handle: string;
-  text: string;
-  timeStamp: {
-    date: number;
-    hours: number;
-    milliseconds: number;
-    minutes: number;
-    months: number;
-    seconds: number;
-    years: number;
-  };
-  timeInMillisecond: number;
-}
+import defaultBannerImg from "../media/defaultBanner.png";
 
 // Still need features to change pfp picture, profile banner, userName, and bio
 const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
   const forceUpdate = useForceUpdate();
-  const [userInfo, setUserInfo] = useState<any>([]);
+  const [visitedUserInfo, setVisitedUserInfo] = useState<any>([]);
   const [twatList, setTwatList] = useState<any>({});
-  const { handle } = useParams();
+  const { handle, tab } = useParams();
   const navigate = useNavigate();
   const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
 
-  const getUserTwats = async (user: any) => {
-    const q = query(
-      collection(db, "twats"),
-      where("handle", "==", user.userHandle),
-      orderBy("timeInMillisecond")
-    );
-    let twats: any = {};
+  const getUserTwats = async (tab?: string) => {
+    let q: any;
+    if (tab === "twats" || tab === undefined) {
+      q = query(
+        collection(db, "twats"),
+        where("handle", "==", handle),
+        orderBy("timeInMillisecond", "desc")
+      );
+    } else if (tab === "likes") {
+      q = query(
+        collection(db, "twats"),
+        where("likedBy", "array-contains", handle),
+        orderBy("timeInMillisecond", "desc")
+      );
+    }
 
-    const unsub = onSnapshot(q, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
+    let twats: any = {};
+    const twatSnapshot = await getDocs(q);
+    twatSnapshot.forEach((doc) => {
+      const twat: any = doc.data();
+      twat.id = doc.id;
+      twats[twat.id] = twat;
+    });
+    setTwatList(twats);
+
+    /*const unsub = onSnapshot(q, (snapshot: any) => {
+      snapshot.docChanges().forEach((change: any) => {
+        const twatToAdd: any = {};
         if (change.type === "removed") {
           delete twats[change.doc.id];
+          console.log("del");
         } else if (change.type === "added") {
           const twat = change.doc.data();
 
           twat.id = change.doc.id;
-          const twatToAdd: any = {};
+
           twatToAdd[change.doc.id] = twat;
           twats = Object.assign(twatToAdd, twats);
         } else {
@@ -72,30 +83,26 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
       });
 
       setTwatList(twats);
+      console.log(twats);
       // Force update because the snapshot listener isnt causing re-render despite setting state each time correctly
       forceUpdate();
     });
-
-    return () => unsub();
+    */
   };
   // Grabs a user's info based on the link param
   const getUserFromUrlParam = async () => {
+    getUserTwats(tab);
     const user = await getUserInfo(handle);
 
-    setUserInfo(user);
-    getUserTwats(user);
+    setVisitedUserInfo(user);
   };
 
   const handleProfileUpdates = async () => {
-    getUserFromUrlParam();
     // Safe to use URL handle since you can only edit when inside your own profile
     const user: any = await getUserInfo(handle);
 
     setCurrentUser(user);
-    const q = query(
-      collection(db, "twats"),
-      where("handle", "==", currentUser.userHandle)
-    );
+    const q = query(collection(db, "twats"), where("handle", "==", handle));
 
     const twats = await getDocs(q);
     twats.forEach(async (docSnap) => {
@@ -106,12 +113,33 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
         userProfileImg: user?.profileImgUrl,
       });
     });
+    getUserFromUrlParam();
 
     setShowEditProfile(false);
   };
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "twats"),
+      where("handle", "==", handle),
+      orderBy("timeInMillisecond", "desc")
+    );
+
+    const unsub = onSnapshot(q, (snapshot) => {
+      if (tab === "likes") return; // Assures we dont pull all twats into wrong tab, may need readjustmust if adding media
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          console.log("snapshot!");
+          getUserFromUrlParam();
+        }
+      });
+    });
+
+    return () => unsub();
+  }, []);
   useEffect(() => {
     getUserFromUrlParam();
-  }, []);
+  }, [handle, tab]);
 
   if (!currentUser) return null;
   return (
@@ -133,27 +161,42 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
           </svg>
         </div>
         <div className="username-tweet-count">
-          <h1>{userInfo.userName}</h1>
+          <h1>{visitedUserInfo.userName}</h1>
           <p>{Object.keys(twatList).length} Tweets</p>
         </div>
       </div>
-      <img className="test-box" src={testBanner} alt="test" />
+      <img
+        className="user-banner"
+        src={visitedUserInfo.bannerImgUrl || defaultBannerImg}
+        alt="User Banner"
+      />
       <ProfilePanelInfo
-        user={userInfo}
-        currentHandle={currentUser.userHandle}
+        visitedUser={visitedUserInfo}
+        currentUser={currentUser}
         showEditPopup={showEditProfile}
         setEditPopup={setShowEditProfile}
         updateChanges={handleProfileUpdates}
       />
       <ProfilePanelNav />
+
       <div className="user-twat-feed">
         {Object.keys(twatList).map((doc: any, index: number) => {
           return (
             <div key={index}>
               {currentUser.userHandle === twatList[doc].handle ? (
-                <Twat twatInfo={twatList[doc]} isDeletable={true} />
+                <Twat
+                  twatInfo={twatList[doc]}
+                  isDeletable={true}
+                  currentHandle={currentUser.userHandle}
+                  refreshTwats={getUserTwats}
+                />
               ) : (
-                <Twat twatInfo={twatList[doc]} isDeletable={false} />
+                <Twat
+                  twatInfo={twatList[doc]}
+                  isDeletable={false}
+                  currentHandle={currentUser.userHandle}
+                  refreshTwats={getUserTwats}
+                />
               )}
             </div>
           );

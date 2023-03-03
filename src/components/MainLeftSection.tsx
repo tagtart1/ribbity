@@ -19,9 +19,14 @@ interface userInfo {
 interface MainNavTabsProps {
   currentUser?: userInfo;
   signedIn?: boolean;
+  refresh: Function;
 }
 
-const MainLeftSection = ({ currentUser, signedIn }: MainNavTabsProps) => {
+const MainLeftSection = ({
+  currentUser,
+  signedIn,
+  refresh,
+}: MainNavTabsProps) => {
   const [showTwatPopup, setShowTwatPopup] = useState<boolean>(false);
   if (!currentUser) return null;
   return signedIn ? (
@@ -30,6 +35,7 @@ const MainLeftSection = ({ currentUser, signedIn }: MainNavTabsProps) => {
         isVisible={showTwatPopup}
         toggleVisibility={setShowTwatPopup}
         currentUser={currentUser}
+        refresh={refresh}
       />
       <div style={{ position: "fixed" }} className="fixed-left-section">
         <div>

@@ -10,8 +10,9 @@ import {
   getStorage,
   uploadBytesResumable,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
-import { upload } from "@testing-library/user-event/dist/upload";
+import defaultBannerImg from "../media/defaultBanner.png";
 
 interface EditProfilePopupProps {
   isVisible: boolean;
@@ -22,6 +23,9 @@ interface EditProfilePopupProps {
   setShowEditProfile: Function;
   updateChanges: Function;
   profileImg: string;
+  profileImgPath: string;
+  bannerImg: string;
+  bannerImgPath: string;
 }
 
 const EditProfilePopup = ({
@@ -33,9 +37,13 @@ const EditProfilePopup = ({
   setShowEditProfile,
   updateChanges,
   profileImg,
+  profileImgPath,
+  bannerImg,
+  bannerImgPath,
 }: EditProfilePopupProps) => {
   const [editsValid, setEditsValid] = useState<boolean>(true);
   const [selectedProfileImgFile, setSelectedProfileImgFile] = useState<any>();
+  const [selectedBannerImgFile, setSelectedBannerImgFile] = useState<any>();
 
   const handleSubmitProfileEdits = async (e: any) => {
     e.preventDefault();
@@ -55,20 +63,7 @@ const EditProfilePopup = ({
     let bioValue: string = (
       document.getElementById("edit-bio-input") as HTMLInputElement
     ).value;
-    let publicImgUrl: any = profileImg;
 
-    // Upload new profile image to storage if there is a newely selected Image
-    if (selectedProfileImgFile) {
-      const filePath: string = `${userInfoRef.id}/${selectedProfileImgFile.name}`;
-      //  const filePathToDelete : string = `${userInfoRef.id}/${profileImg}`
-      const newProfileImgRef = ref(getStorage(), filePath);
-      const fileSnapshot = await uploadBytesResumable(
-        newProfileImgRef,
-        selectedProfileImgFile
-      );
-      publicImgUrl = await getDownloadURL(newProfileImgRef);
-      // Save filesnapshot.metadata.fullpath then use that to delete the last old image
-    }
     // Replace white space entries with empty string to dismiss bad input
     if (!bioValue.replace(/\s/g, "").length) {
       bioValue = "";
@@ -77,6 +72,43 @@ const EditProfilePopup = ({
     if (!locationValue.replace(/\s/g, "").length) {
       locationValue = "";
     }
+    let publicImgUrl: any = profileImg;
+    let profileImgPathNew: any = profileImgPath;
+    let publicbannerImg: any = bannerImg;
+    let bannerImgPathNew: any = bannerImgPath;
+    // Upload new profile image to storage if there is a newely selected Image
+    if (selectedProfileImgFile) {
+      //If a path is available delete the old user image from Storage
+      if (profileImgPathNew) {
+        const oldProfileImageRef = ref(getStorage(), profileImgPathNew);
+        deleteObject(oldProfileImageRef);
+      }
+      // Save new image into Storage
+      const filePath: string = `${userInfoRef.id}/${selectedProfileImgFile.name}`;
+      const newProfileImgRef = ref(getStorage(), filePath);
+      const fileSnapshot = await uploadBytesResumable(
+        newProfileImgRef,
+        selectedProfileImgFile
+      );
+      publicImgUrl = await getDownloadURL(newProfileImgRef);
+      profileImgPathNew = fileSnapshot.metadata.fullPath;
+    }
+
+    if (selectedBannerImgFile) {
+      if (bannerImgPath) {
+        const oldBannerImageRef = ref(getStorage(), bannerImgPathNew);
+        deleteObject(oldBannerImageRef);
+      }
+      const filePath: string = `${userInfoRef.id}/${selectedBannerImgFile.name}`;
+      const newBannerImgRef = ref(getStorage(), filePath);
+      const fileSnapshot = await uploadBytesResumable(
+        newBannerImgRef,
+        selectedBannerImgFile
+      );
+
+      publicbannerImg = await getDownloadURL(newBannerImgRef);
+      bannerImgPathNew = fileSnapshot.metadata.fullPath;
+    }
 
     // Update the user in DB
     await updateDoc(userInfoRef, {
@@ -84,6 +116,9 @@ const EditProfilePopup = ({
       bio: bioValue,
       location: locationValue,
       profileImgUrl: publicImgUrl,
+      profileImgPath: profileImgPathNew,
+      bannerImgUrl: publicbannerImg,
+      bannerImgPath: bannerImgPathNew,
     });
     // Callsback to the parent components to do a state change
     updateChanges();
@@ -110,9 +145,24 @@ const EditProfilePopup = ({
     const imageFiles = e.target.files;
     if (imageFiles.length > 0) {
       setSelectedProfileImgFile(imageFiles[0]);
+      // Set preview
       const imageSrc = URL.createObjectURL(imageFiles[0]);
       const imagePreviewElement: any = document.querySelector(
         ".user-profile-image-edit-preview"
+      );
+      if (imagePreviewElement) imagePreviewElement.src = imageSrc;
+    }
+  };
+
+  const handleBannerImgSelection = (e: any) => {
+    const imageFiles = e.target.files;
+    if (imageFiles.length > 0) {
+      setSelectedBannerImgFile(imageFiles[0]);
+      // Set Preview
+
+      const imageSrc = URL.createObjectURL(imageFiles[0]);
+      const imagePreviewElement: any = document.getElementById(
+        "user-profile-banner-edit-preview"
       );
       if (imagePreviewElement) imagePreviewElement.src = imageSrc;
     }
@@ -150,7 +200,33 @@ const EditProfilePopup = ({
           </button>
         </header>
         <div className="current-user-banner">
-          <img src={placeholderBanner} alt="User banner" />
+          <img
+            src={bannerImg || defaultBannerImg}
+            alt="User banner"
+            id="user-profile-banner-edit-preview"
+          />
+          <div className="profile-banner-input-container">
+            <label
+              htmlFor="profile-banner-input"
+              className="banner-file-upload"
+            >
+              <input
+                className="profile-banner-input"
+                accept="image/jpeg,image/png,image/webp"
+                type={"file"}
+                id="profile-banner-input"
+                onChange={handleBannerImgSelection}
+              />
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <g>
+                  <path
+                    fill="#FFFFFF"
+                    d="M9.697 3H11v2h-.697l-3 2H5c-.276 0-.5.224-.5.5v11c0 .276.224.5.5.5h14c.276 0 .5-.224.5-.5V10h2v8.5c0 1.381-1.119 2.5-2.5 2.5H5c-1.381 0-2.5-1.119-2.5-2.5v-11C2.5 6.119 3.619 5 5 5h1.697l3-2zM12 10.5c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-4 2c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zM17 2c0 1.657-1.343 3-3 3v1c1.657 0 3 1.343 3 3h1c0-1.657 1.343-3 3-3V5c-1.657 0-3-1.343-3-3h-1z"
+                  ></path>
+                </g>
+              </svg>
+            </label>
+          </div>
         </div>
         <div className="current-user-profile-image">
           <img

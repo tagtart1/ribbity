@@ -17,18 +17,6 @@ import { auth, db } from "./firebaseConfig";
 import { generateUserHandle, getFullYear, getMonthDate } from "./HelperFns";
 import defaultpfpImg from "../media/defaultpfp.jpg";
 
-/// DELETE ALL THIS BOZO STUFF AND WHEN YOU ROUTE TO THE USER PROFILE JUST  CALL THESE GETTER FUNCTIONS IN USER EFFECT, DO NOT STASH IT IN CURRENTUSERINFO
-// REMEMBER THIS GREEN TEXT HERE HELLO FOR SUNDAY
-// WHEN YOU MAKE A TWEET ALSO CALL THESE FUNCTION, NEVER JUST STORE IT SOMEWHERE, DEFEATS THE PRUPOSE, WHEN YOU SIGN IN YOU SHOULD STILL SET THE USER DOC BUT NO CURRENUSERINFO VARIABLE
-
-/*export let currentUserInfo: currentUserInfoProps = {
-  bio: " ",
-  joinDate: " ",
-  profileImgUrl: " ",
-userHandle: " ",
-    userName: " ",
-};  */
-
 export const signIn = async () => {
   let provider = new GoogleAuthProvider();
   await signInWithPopup(auth, provider);
@@ -45,6 +33,11 @@ export const signIn = async () => {
         userHandle: await generateUserHandle(getUserName()),
         userName: getUserName(),
         location: "",
+        profileImgPath: "",
+        bannerImg: "",
+        bannerImgPath: "",
+        followers: {},
+        following: {},
       };
 
       await setDoc(doc(db, "user-info", auth.currentUser.uid), newUser);
@@ -72,6 +65,7 @@ export const getUserHandle = async () => {
       if (userInfoDoc.exists()) {
         return userInfoDoc.data().userHandle;
       }
+      console.log("here");
     }
   } catch (error) {
     console.error("Failed to retrieve user handle", error);

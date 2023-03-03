@@ -125,3 +125,19 @@ path {
 .twat-option-icon-heart:hover {
   background-color: #200914;
 }
+
+#twat-option-heart-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+#twat-option-heart-wrapper .likes-count {
+  color: #71767b;
+  user-select: none;
+}
+
+.liked {
+  color: #f91880 !important;
+}

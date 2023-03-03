@@ -1,6 +1,18 @@
 import "../styles/ProfileActionsButtons.css";
 
-const ProfileActionsButtons = () => {
+interface ProfileActionsButtonsProps {
+  userViewing: any;
+  mainUser: any;
+}
+
+const ProfileActionsButtons = ({
+  userViewing,
+  mainUser,
+}: ProfileActionsButtonsProps) => {
+  const followUser = (e: any) => {
+    if (mainUser.userHandle === userViewing.userHandle) return;
+  };
+
   return (
     <div className="profile-actions">
       <div className="profile-action-button">
@@ -23,7 +35,9 @@ const ProfileActionsButtons = () => {
           </g>
         </svg>
       </div>
-      <button className="follow-user-button">Follow</button>
+      <button className="follow-user-button" onClick={followUser}>
+        Follow
+      </button>
     </div>
   );
 };

@@ -1,42 +1,37 @@
 import "../styles/ProfilePanelInfo.css";
-import testpfp from "../media/randompfp.jpg";
-import {
-  getProfilePicUrl,
-  getUserHandle,
-  getUserName,
-} from "../scripts/firebaseHelperFns";
+
 import { DocumentData } from "firebase/firestore";
-import { useEffect, useState } from "react";
+
 import ProfileActionsButtons from "./ProfileActionsButtons";
 import EditProfilePopup from "./EditProfilePopup";
 
 interface ProfilePanelInfoProps {
-  user: DocumentData | undefined; // The user of whatever page we are viewing
-  currentHandle?: string; // Current handle of the signed in user
+  visitedUser: DocumentData | undefined; // The user of whatever page we are viewing
+  currentUser?: any; // Current handle of the signed in user
   showEditPopup: boolean;
   setEditPopup: Function;
   updateChanges: Function;
 }
 
 const ProfilePanelInfo = ({
-  user,
-  currentHandle,
+  visitedUser,
+  currentUser,
   setEditPopup,
   showEditPopup,
   updateChanges,
 }: ProfilePanelInfoProps) => {
-  if (!user) return null;
+  if (!visitedUser) return null;
   return (
     <div className="profile-panel-info-container">
       <div className="profile-info-top">
         <div>
           <div className="profile-img-wrapper">
-            <img src={user.profileImgUrl} alt="profile" />
+            <img src={visitedUser.profileImgUrl} alt="profile" />
           </div>
         </div>
-        {currentHandle ? (
+        {currentUser.userHandle ? (
           // Check if the profile we are viewing is ourselves, if so dispaly edit profile, if not display follow button and other actions
-          currentHandle === user.userHandle ? (
+          currentUser.userHandle === visitedUser.userHandle ? (
             <button
               className="edit-profile-button"
               onClick={() => {
@@ -46,15 +41,18 @@ const ProfilePanelInfo = ({
               Edit Profile
             </button>
           ) : (
-            <ProfileActionsButtons />
+            <ProfileActionsButtons
+              userViewing={visitedUser}
+              mainUser={currentUser}
+            />
           )
         ) : null}
       </div>
-      <h1>{user.userName}</h1>
-      <p className="user-handle">@{user.userHandle}</p>
-      <p className="user-bio">{user.bio}</p>
+      <h1>{visitedUser.userName}</h1>
+      <p className="user-handle">@{visitedUser.userHandle}</p>
+      <p className="user-bio">{visitedUser.bio}</p>
       <div className="misc-user-info">
-        {user.location ? (
+        {visitedUser.location ? (
           <p className="user-location">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <g>
@@ -64,7 +62,7 @@ const ProfilePanelInfo = ({
                 ></path>
               </g>
             </svg>
-            {user.location}
+            {visitedUser.location}
           </p>
         ) : null}
 
@@ -77,26 +75,39 @@ const ProfilePanelInfo = ({
               ></path>
             </g>
           </svg>
-          Joined {user.joinDate}
+          Joined {visitedUser.joinDate}
         </p>
       </div>
       <div className="user-following-nums">
         <span>
-          <span style={{ color: "white" }}>19</span> Following
+          <span style={{ color: "white" }}>
+            {visitedUser.following
+              ? Object.keys(visitedUser.following).length
+              : null}
+          </span>{" "}
+          Following
         </span>
         <span>
-          <span style={{ color: "white" }}>70</span> Followers
+          <span style={{ color: "white" }}>
+            {visitedUser.followers
+              ? Object.keys(visitedUser.followers).length
+              : null}
+          </span>{" "}
+          Followers
         </span>
       </div>
       <EditProfilePopup
         isVisible={showEditPopup}
-        userName={user.userName}
-        bio={user.bio}
-        location={user.location}
-        docId={user.id}
-        profileImg={user.profileImgUrl}
+        userName={visitedUser.userName}
+        bio={visitedUser.bio}
+        location={visitedUser.location}
+        docId={visitedUser.id}
+        profileImg={visitedUser.profileImgUrl}
         setShowEditProfile={setEditPopup}
         updateChanges={updateChanges}
+        profileImgPath={visitedUser.profileImgPath}
+        bannerImg={visitedUser.bannerImgUrl}
+        bannerImgPath={visitedUser.bannerImgPath}
       />
     </div>
   );

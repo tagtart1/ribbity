@@ -77,6 +77,7 @@
 
 .current-user-banner {
   padding: 0px 2px;
+  position: relative;
 }
 
 .current-user-banner img {
@@ -217,11 +218,10 @@ textarea {
 .invalid-save-button:hover {
   background-color: rgb(148, 148, 148);
 }
+/*Custom file input styles */
 
-.profile-image-input-container {
-  position: absolute;
-}
-.image-file-upload {
+.image-file-upload,
+.banner-file-upload {
   padding: 12px 12px;
   border-radius: 50%;
 
@@ -235,7 +235,8 @@ textarea {
   transition: 0.3s all;
 }
 
-.image-file-upload:hover {
+.image-file-upload:hover,
+.banner-file-upload:hover {
   background-color: rgba(56, 56, 56, 0.321);
 }
 
@@ -252,4 +253,15 @@ input[type="file"] {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.276);
+}
+
+.profile-banner-input-container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.276);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  width: 596px;
+  height: 200px;
 }
