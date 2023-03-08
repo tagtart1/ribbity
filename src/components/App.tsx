@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import HomePanel from "./HomePanel";
@@ -10,13 +10,14 @@ import {
   initFirebaseAuth,
   getUserHandle,
 } from "../scripts/firebaseHelperFns";
+/* Components */
 import MainLeftSection from "./MainLeftSection";
-
 import SignUpFooter from "./SignUpFooter";
 import ExplorePanel from "./ExplorePanel";
 import MainRightSection from "./MainRightSection";
 import ProfilePanel from "./ProfilePanel";
 import useForceUpdate from "./useForceUpdate";
+import TwatPanel from "./TwatPanel";
 
 interface userInfo {
   bio?: string;
@@ -26,15 +27,20 @@ interface userInfo {
   userName?: string;
   location?: string;
   id?: string;
+  following?: {
+    [key: string]: boolean;
+  };
 }
 
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
   const [currentUser, setCurrentUser] = useState<userInfo>();
+  const [showWhoToFollow, setShowWhoToFollow] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const refresh = useForceUpdate();
 
+  // Fires when the state of the user being signed in changes
   const authObserver = async (user: any) => {
     if (user) {
       setIsUserSignedIn(true);
@@ -56,7 +62,7 @@ const App = () => {
   useEffect(() => {
     initFirebaseAuth(authObserver);
   }, []);
-
+  if (!currentUser) return null;
   return (
     <div className="main-app-continer">
       <MainLeftSection
@@ -74,6 +80,7 @@ const App = () => {
             <ProfilePanel
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
+              setShowWhoToFollow={setShowWhoToFollow}
             />
           }
         />
@@ -83,12 +90,19 @@ const App = () => {
             <ProfilePanel
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
+              setShowWhoToFollow={setShowWhoToFollow}
             />
           }
         />
+        <Route path="/:handle/twat/:twatId" element={<TwatPanel />} />
       </Routes>
 
-      <MainRightSection signedIn={isUserSignedIn} />
+      <MainRightSection
+        signedIn={isUserSignedIn}
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+        showWhoToFollow={showWhoToFollow}
+      />
 
       <SignUpFooter signedIn={isUserSignedIn} />
     </div>

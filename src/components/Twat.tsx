@@ -10,7 +10,7 @@ import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
 import TwatLikeCounter from "./TwatLikeCounter";
 import { userInfo } from "os";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 interface TwatProps {
   twatInfo: {
@@ -34,7 +34,7 @@ interface TwatProps {
 
   isDeletable: boolean;
   currentHandle: string;
-  refreshTwats: Function;
+  refreshTwats?: Function;
 }
 // To delete make sure the user opening the tab is the user that owns the tweet. Find the doc by the id in firebase and remove it, with delete confirmation
 const Twat = ({
@@ -46,6 +46,7 @@ const Twat = ({
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const { handle, tab } = useParams();
   const [index, setIndex] = useState<any>();
+  const navigate = useNavigate();
 
   const getTimeSincePosted = () => {
     let minutesWhenPost: number = twatInfo.timeInMillisecond / 60000;
@@ -81,7 +82,9 @@ const Twat = ({
   const deleteTwat = async () => {
     await deleteDoc(doc(db, "twats", twatInfo.id));
     document.documentElement.style.overflowY = "visible";
-    refreshTwats(tab);
+    if (refreshTwats) {
+      refreshTwats(tab);
+    }
     setOpenDelete(false);
   };
 
@@ -106,20 +109,34 @@ const Twat = ({
         likedBy: likedByCopy,
       });
     }
-    refreshTwats(tab);
+    if (refreshTwats) {
+      refreshTwats(tab);
+    }
+  };
+
+  const handleOpeningTwat = (e: any) => {
+    console.log(e.currentTarget);
+    console.log(e.target);
+    if (e.currentTarget === e.target) {
+      navigate(`/${twatInfo.handle}/twat/${twatInfo.id}`);
+    }
   };
 
   return (
-    <article className="twat-container">
-      <img src={twatInfo.userProfileImg} alt="User"></img>
+    <article className="twat-container" onClick={handleOpeningTwat}>
+      <Link to={`/${twatInfo.handle}`}>
+        <img src={twatInfo.userProfileImg} alt="User"></img>
+      </Link>
       <div className="twat-container-right-side">
         <header>
-          <div className="header-user-names">
-            <span className="username">{twatInfo.userName}</span>
-            <span className="grey">@{twatInfo.handle}</span>
-            <span className="grey">·</span>
-            <span className="grey">{getTimeSincePosted()}</span>
-          </div>
+          <Link to={`/${twatInfo.handle}`}>
+            <div className="header-user-names">
+              <span className="username">{twatInfo.userName}</span>
+              <span className="grey">@{twatInfo.handle}</span>
+              <span className="grey">·</span>
+              <span className="grey">{getTimeSincePosted()}</span>
+            </div>
+          </Link>
           <div>
             <div className="more-icon-wrapper" onClick={openDeleteOption}>
               <svg viewBox="0 0 24 24" aria-hidden="true">

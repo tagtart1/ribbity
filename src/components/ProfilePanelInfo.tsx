@@ -4,6 +4,8 @@ import { DocumentData } from "firebase/firestore";
 
 import ProfileActionsButtons from "./ProfileActionsButtons";
 import EditProfilePopup from "./EditProfilePopup";
+import useForceUpdate from "./useForceUpdate";
+import { useState } from "react";
 
 interface ProfilePanelInfoProps {
   visitedUser: DocumentData | undefined; // The user of whatever page we are viewing
@@ -11,6 +13,7 @@ interface ProfilePanelInfoProps {
   showEditPopup: boolean;
   setEditPopup: Function;
   updateChanges: Function;
+  refreshUserUI: Function;
 }
 
 const ProfilePanelInfo = ({
@@ -19,8 +22,10 @@ const ProfilePanelInfo = ({
   setEditPopup,
   showEditPopup,
   updateChanges,
+  refreshUserUI,
 }: ProfilePanelInfoProps) => {
   if (!visitedUser) return null;
+
   return (
     <div className="profile-panel-info-container">
       <div className="profile-info-top">
@@ -44,6 +49,7 @@ const ProfilePanelInfo = ({
             <ProfileActionsButtons
               userViewing={visitedUser}
               mainUser={currentUser}
+              refreshUserUI={refreshUserUI}
             />
           )
         ) : null}
@@ -82,7 +88,7 @@ const ProfilePanelInfo = ({
         <span>
           <span style={{ color: "white" }}>
             {visitedUser.following
-              ? Object.keys(visitedUser.following).length
+              ? Object.keys(visitedUser.following).length - 1
               : null}
           </span>{" "}
           Following

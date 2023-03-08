@@ -18,6 +18,8 @@ header {
   padding-bottom: 5px;
   font-size: 15px;
   position: relative;
+
+  cursor: pointer;
 }
 
 .twat-container .header-user-names {
@@ -46,6 +48,7 @@ header {
 
 .twat-container-right-side {
   flex: 1;
+  pointer-events: none;
 }
 
 .more-icon-wrapper {
@@ -60,6 +63,7 @@ header {
 
   top: -6px;
   right: -1px;
+  pointer-events: auto;
 }
 
 .more-icon-wrapper:hover {
@@ -82,8 +86,17 @@ header {
   color: rgb(100, 104, 109);
 }
 
+.header-user-names {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
 .header-user-names .username {
   font-weight: 600;
+}
+
+.header-user-names .username:hover {
+  text-decoration: underline;
 }
 
 .twat-option-icon,
@@ -97,6 +110,7 @@ header {
   align-items: center;
   transition: 0.2s all;
   cursor: pointer;
+  pointer-events: auto;
 }
 path {
   transition: 0.2s all;
@@ -140,4 +154,8 @@ path {
 
 .liked {
   color: #f91880 !important;
+}
+
+a {
+  color: inherit;
 }

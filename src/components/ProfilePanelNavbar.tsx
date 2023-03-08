@@ -20,6 +20,7 @@ const ProfilePanelNavbar = () => {
 
   useEffect(() => {
     // Set the start tab based on the param
+    selectedTab?.classList.remove("selected-tab-profile");
     let toSelectTab: any;
     switch (tab) {
       case "":
@@ -41,7 +42,8 @@ const ProfilePanelNavbar = () => {
       toSelectTab.classList.add("selected-tab-profile");
     }
     setSelectedTab(toSelectTab);
-  }, []);
+  }, [tab]);
+
   return (
     <ul className="profile-panel-navbar-container">
       <div onClick={(e) => handleTabSwitch(e, `/${handle}`)}>

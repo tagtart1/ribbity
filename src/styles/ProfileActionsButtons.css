@@ -19,7 +19,8 @@
   width: 20px;
 }
 
-.follow-user-button {
+.follow-user-button,
+.unfollow-user-button {
   color: black;
   background-color: #eff3f4;
   font-weight: bold;
@@ -27,4 +28,14 @@
   padding: 10px 17px;
   font-size: 15px;
   cursor: pointer;
+  box-sizing: border-box;
+  min-width: 108px;
+  max-height: 42px;
+  min-height: 42px;
+}
+
+.unfollow-user-button:hover {
+  background-color: rgba(255, 0, 0, 0.104);
+  color: red;
+  border: 1px solid red;
 }

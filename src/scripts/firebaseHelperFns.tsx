@@ -26,18 +26,21 @@ export const signIn = async () => {
     const userInfoDoc = await getDoc(docRef);
 
     if (!userInfoDoc.exists()) {
+      const newHandle = await generateUserHandle(getUserName());
       const newUser = {
         bio: "",
         joinDate: `${getMonthDate()} ${getFullYear()}`,
         profileImgUrl: getProfilePicUrl(),
-        userHandle: await generateUserHandle(getUserName()),
+        userHandle: newHandle,
         userName: getUserName(),
         location: "",
         profileImgPath: "",
         bannerImg: "",
         bannerImgPath: "",
         followers: {},
-        following: {},
+        following: {
+          [`${newHandle}`]: true,
+        },
       };
 
       await setDoc(doc(db, "user-info", auth.currentUser.uid), newUser);

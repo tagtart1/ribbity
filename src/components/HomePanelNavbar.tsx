@@ -1,7 +1,11 @@
 import "../styles/HomePanelNavbar.css";
 import { useState, useEffect } from "react";
 
-const HomePanelNavbar = () => {
+interface HomePanelNavbarProps {
+  setTab: Function;
+}
+
+const HomePanelNavbar = ({ setTab }: HomePanelNavbarProps) => {
   const [selectedTab, setSelectedTab] = useState<any>();
 
   const handleTabSwitch = (e: any) => {
@@ -10,7 +14,7 @@ const HomePanelNavbar = () => {
     if (listItem === selectedTab) return;
     selectedTab?.classList.remove("selected-tab-home");
     listItem.classList.add("selected-tab-home");
-
+    setTab(listItem.textContent);
     setSelectedTab(listItem);
   };
 

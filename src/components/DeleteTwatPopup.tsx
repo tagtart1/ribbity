@@ -38,6 +38,7 @@ const DeleteTwatPopup = ({
             className="delete-confirm"
             onClick={() => {
               deleteTwat();
+              toggleVisibility(false);
             }}
           >
             Delete

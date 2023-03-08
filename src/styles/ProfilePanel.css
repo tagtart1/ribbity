@@ -23,7 +23,7 @@
   height: 53px;
   gap: 24px;
   padding-left: 8px;
-  z-index: 8;
+  z-index: 5;
 }
 
 .profile-panel-top-header .back-arrow {
@@ -76,4 +76,8 @@
 
 .user-twat-feed {
   margin-bottom: 50%;
+}
+
+.loading {
+  width: 601px;
 }

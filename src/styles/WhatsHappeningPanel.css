@@ -5,6 +5,7 @@
   height: auto;
   width: 350px;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .whats-happening-container h1 {

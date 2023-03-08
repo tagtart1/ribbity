@@ -3,7 +3,7 @@ import ProfilePanelInfo from "./ProfilePanelInfo";
 import ProfilePanelNav from "./ProfilePanelNavbar";
 import testBanner from "../media/1080x360.jpg";
 import { useEffect, useState } from "react";
-import { getUserInfo } from "../scripts/firebaseHelperFns";
+import { getUserHandle, getUserInfo } from "../scripts/firebaseHelperFns";
 
 import {
   useNavigate,
@@ -12,7 +12,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import useForceUpdate from "./useForceUpdate";
+
 import {
   collection,
   query,
@@ -29,9 +29,12 @@ import Twat from "./Twat";
 import defaultBannerImg from "../media/defaultBanner.png";
 
 // Still need features to change pfp picture, profile banner, userName, and bio
-const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
-  const forceUpdate = useForceUpdate();
-  const [visitedUserInfo, setVisitedUserInfo] = useState<any>([]);
+const ProfilePanel = ({
+  currentUser,
+  setCurrentUser,
+  setShowWhoToFollow,
+}: any) => {
+  const [visitedUserInfo, setVisitedUserInfo] = useState<any>();
   const [twatList, setTwatList] = useState<any>({});
   const { handle, tab } = useParams();
   const navigate = useNavigate();
@@ -61,49 +64,35 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
       twats[twat.id] = twat;
     });
     setTwatList(twats);
-
-    /*const unsub = onSnapshot(q, (snapshot: any) => {
-      snapshot.docChanges().forEach((change: any) => {
-        const twatToAdd: any = {};
-        if (change.type === "removed") {
-          delete twats[change.doc.id];
-          console.log("del");
-        } else if (change.type === "added") {
-          const twat = change.doc.data();
-
-          twat.id = change.doc.id;
-
-          twatToAdd[change.doc.id] = twat;
-          twats = Object.assign(twatToAdd, twats);
-        } else {
-          twats[change.doc.id].userName = change.doc.data().userName;
-          twats[change.doc.id].userProfileImg =
-            change.doc.data().userProfileImg;
-        }
-      });
-
-      setTwatList(twats);
-      console.log(twats);
-      // Force update because the snapshot listener isnt causing re-render despite setting state each time correctly
-      forceUpdate();
-    });
-    */
   };
-  // Grabs a user's info based on the link param
-  const getUserFromUrlParam = async () => {
-    getUserTwats(tab);
+
+  const getViewedUser = async () => {
     const user = await getUserInfo(handle);
 
     setVisitedUserInfo(user);
   };
 
+  const refreshUserUI = async () => {
+    getViewedUser();
+    // This will refresh the entire application with updates follower counts and queries
+
+    const mainUser = await getUserInfo(currentUser.userHandle);
+    setCurrentUser(mainUser);
+  };
+  // Grabs a user's info based on the link param
+  const getUserFromUrlParam = async () => {
+    getUserTwats(tab);
+    getViewedUser();
+  };
+
   const handleProfileUpdates = async () => {
     // Safe to use URL handle since you can only edit when inside your own profile
+    // Reget the user
     const user: any = await getUserInfo(handle);
 
     setCurrentUser(user);
+    // Change all twats with updates info
     const q = query(collection(db, "twats"), where("handle", "==", handle));
-
     const twats = await getDocs(q);
     twats.forEach(async (docSnap) => {
       const docRef = doc(db, "twats", docSnap.id);
@@ -113,6 +102,7 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
         userProfileImg: user?.profileImgUrl,
       });
     });
+    // Reget the twats and user
     getUserFromUrlParam();
 
     setShowEditProfile(false);
@@ -137,11 +127,21 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
 
     return () => unsub();
   }, []);
+
   useEffect(() => {
+    // Prevents reccommending users while already at a user
+    if (handle !== currentUser.userHandle) {
+      setShowWhoToFollow(false);
+    } else setShowWhoToFollow(true);
+
     getUserFromUrlParam();
+
+    return () => {
+      setShowWhoToFollow(true);
+    };
   }, [handle, tab]);
 
-  if (!currentUser) return null;
+  if (!currentUser || !visitedUserInfo) return <div className="loading"></div>;
   return (
     <div className="profile-panel-container">
       <div className="profile-panel-top-header">
@@ -176,6 +176,7 @@ const ProfilePanel = ({ currentUser, setCurrentUser }: any) => {
         showEditPopup={showEditProfile}
         setEditPopup={setShowEditProfile}
         updateChanges={handleProfileUpdates}
+        refreshUserUI={refreshUserUI}
       />
       <ProfilePanelNav />
 

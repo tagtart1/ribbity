@@ -25,7 +25,7 @@ interface MainNavTabsProps {
 const MainLeftSection = ({
   currentUser,
   signedIn,
-  refresh,
+  refresh, // Delete maybe soon
 }: MainNavTabsProps) => {
   const [showTwatPopup, setShowTwatPopup] = useState<boolean>(false);
   if (!currentUser) return null;
