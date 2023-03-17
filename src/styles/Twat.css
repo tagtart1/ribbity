@@ -140,14 +140,16 @@ path {
   background-color: #200914;
 }
 
-#twat-option-heart-wrapper {
+#twat-option-heart-wrapper,
+#twat-option-reply-wrapper {
   display: flex;
   align-items: center;
   gap: 3px;
   cursor: pointer;
 }
 
-#twat-option-heart-wrapper .likes-count {
+#twat-option-heart-wrapper .likes-count,
+#twat-option-reply-wrapper .reply-count {
   color: #71767b;
   user-select: none;
 }

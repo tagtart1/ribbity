@@ -94,7 +94,10 @@ const App = () => {
             />
           }
         />
-        <Route path="/:handle/twat/:twatId" element={<TwatPanel />} />
+        <Route
+          path="/:handle/twat/:twatId"
+          element={<TwatPanel mainUser={currentUser} />}
+        />
       </Routes>
 
       <MainRightSection

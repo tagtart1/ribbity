@@ -45,7 +45,9 @@ const TwatPopupInput = ({
         userName: currentUser.userName,
         userProfileImg: currentUser.profileImgUrl,
         timeInMillisecond: Date.now(),
-        likedBy: [],
+        likedBy: {},
+        isComment: false,
+        replyingTo: "",
       });
       refresh();
       toggleVisibility(false);

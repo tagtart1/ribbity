@@ -2,15 +2,27 @@ import { useEffect, useState } from "react";
 import { getUserInfo } from "../scripts/firebaseHelperFns";
 import placeholder from "../media/defaultpfp.jpg";
 import "../styles/Twat.css";
-import { getFullYear, getShortMonthDate } from "../scripts/HelperFns";
+import {
+  getFullYear,
+  getShortMonthDate,
+  getTimeSincePosted,
+} from "../scripts/HelperFns";
 import DeleteTwatPopup from "./DeleteTwatPopup";
 import DeleteOptionDropdown from "./DeleteOptionDropdown";
 import BackgroundTransparent from "./BackgroundTransparent";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  deleteField,
+  doc,
+  getCountFromServer,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
 import TwatLikeCounter from "./TwatLikeCounter";
 import { userInfo } from "os";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import TwatReplyCounter from "./TwatReplyCounter";
 
 interface TwatProps {
   twatInfo: {
@@ -29,7 +41,9 @@ interface TwatProps {
     };
     timeInMillisecond: number;
     id: string;
-    likedBy: Array<string>;
+    likedBy: any;
+    replyingTo: string;
+    isComment: boolean;
   };
 
   isDeletable: boolean;
@@ -44,35 +58,10 @@ const Twat = ({
   refreshTwats,
 }: TwatProps) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
+
   const { handle, tab } = useParams();
-  const [index, setIndex] = useState<any>();
+
   const navigate = useNavigate();
-
-  const getTimeSincePosted = () => {
-    let minutesWhenPost: number = twatInfo.timeInMillisecond / 60000;
-    let minutesNow: number = Date.now() / 60000;
-    let timeDiff: number = minutesNow - minutesWhenPost;
-
-    if (timeDiff < 1) {
-      return `${Math.ceil(timeDiff * 60)}s`;
-    }
-    if (timeDiff < 60) {
-      return `${Math.floor(timeDiff)}m`;
-    }
-    if (timeDiff < 1440) {
-      return `${Math.floor(timeDiff / 60)}h`;
-    }
-    if (timeDiff > 1440 && getFullYear() === twatInfo.timeStamp.years) {
-      return `${getShortMonthDate(twatInfo.timeStamp.months)} ${
-        twatInfo.timeStamp.date
-      }`;
-    }
-    if (timeDiff > 1440) {
-      return `${getShortMonthDate(twatInfo.timeStamp.months)} ${
-        twatInfo.timeStamp.date
-      }, ${twatInfo.timeStamp.years}`;
-    }
-  };
 
   const openDeleteOption = () => {
     if (!isDeletable) return;
@@ -89,34 +78,26 @@ const Twat = ({
   };
 
   const handleLikeTwat = async (e: any) => {
-    const index = twatInfo.likedBy.indexOf(currentHandle);
-    console.log(index);
-    const likedByCopy = twatInfo.likedBy;
-    if (index >= 0) {
+    if (twatInfo.likedBy[currentHandle]) {
       // Unlke twat
 
-      likedByCopy.splice(index, 1);
-
       await updateDoc(doc(db, "twats", twatInfo.id), {
-        likedBy: likedByCopy,
+        [`likedBy.${currentHandle}`]: deleteField(),
       });
     } else {
       // Like twat
 
-      likedByCopy.push(currentHandle);
-
       await updateDoc(doc(db, "twats", twatInfo.id), {
-        likedBy: likedByCopy,
+        [`likedBy.${currentHandle}`]: true,
       });
     }
+
     if (refreshTwats) {
       refreshTwats(tab);
     }
   };
 
   const handleOpeningTwat = (e: any) => {
-    console.log(e.currentTarget);
-    console.log(e.target);
     if (e.currentTarget === e.target) {
       navigate(`/${twatInfo.handle}/twat/${twatInfo.id}`);
     }
@@ -134,7 +115,7 @@ const Twat = ({
               <span className="username">{twatInfo.userName}</span>
               <span className="grey">@{twatInfo.handle}</span>
               <span className="grey">·</span>
-              <span className="grey">{getTimeSincePosted()}</span>
+              <span className="grey">{getTimeSincePosted(twatInfo)}</span>
             </div>
           </Link>
           <div>
@@ -152,15 +133,18 @@ const Twat = ({
         </header>
         <p className="twat-main-text">{twatInfo.text}</p>
         <div className="twat-icon-button-row">
-          <div className="twat-option-icon">
-            <svg viewBox="0 0 24 24">
-              <g>
-                <path
-                  fill="#71767B"
-                  d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"
-                ></path>
-              </g>
-            </svg>
+          <div id="twat-option-reply-wrapper">
+            <div className="twat-option-icon">
+              <svg viewBox="0 0 24 24">
+                <g>
+                  <path
+                    fill="#71767B"
+                    d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <TwatReplyCounter twatId={twatInfo.id} />
           </div>
           <div className="twat-option-icon twat-option-icon-retweet">
             <svg viewBox="0 0 24 24">
@@ -174,7 +158,7 @@ const Twat = ({
           </div>
           <div id="twat-option-heart-wrapper" onClick={handleLikeTwat}>
             <div className="twat-option-icon twat-option-icon-heart">
-              {twatInfo.likedBy.includes(currentHandle) ? (
+              {twatInfo.likedBy[currentHandle] ? (
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <g>
                     <path

@@ -1,0 +1,11 @@
+.twat-panel-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 600px;
+  color: white;
+
+  min-height: 100vh;
+  border-left: 0.5px solid rgb(47, 51, 54);
+  border-right: 0.5px solid rgb(47, 51, 54);
+}

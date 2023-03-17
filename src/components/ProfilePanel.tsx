@@ -22,11 +22,13 @@ import {
   onSnapshot,
   updateDoc,
   doc,
+  getCountFromServer,
 } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
 import Twat from "./Twat";
 
 import defaultBannerImg from "../media/defaultBanner.png";
+import { sortByTimeInSecondsDescending } from "../scripts/HelperFns";
 
 // Still need features to change pfp picture, profile banner, userName, and bio
 const ProfilePanel = ({
@@ -35,35 +37,38 @@ const ProfilePanel = ({
   setShowWhoToFollow,
 }: any) => {
   const [visitedUserInfo, setVisitedUserInfo] = useState<any>();
-  const [twatList, setTwatList] = useState<any>({});
+  const [twatList, setTwatList] = useState<any>([]);
   const { handle, tab } = useParams();
   const navigate = useNavigate();
   const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
 
-  const getUserTwats = async (tab?: string) => {
+  const getUserTwats = async () => {
     let q: any;
     if (tab === "twats" || tab === undefined) {
       q = query(
         collection(db, "twats"),
         where("handle", "==", handle),
-        orderBy("timeInMillisecond", "desc")
+        where("isComment", "==", false)
       );
     } else if (tab === "likes") {
       q = query(
         collection(db, "twats"),
-        where("likedBy", "array-contains", handle),
-        orderBy("timeInMillisecond", "desc")
+        where(`likedBy.${handle}`, "==", true),
+        where("isComment", "==", false)
       );
     }
 
-    let twats: any = {};
+    let twats: any = [];
     const twatSnapshot = await getDocs(q);
-    twatSnapshot.forEach((doc) => {
+    twatSnapshot.forEach(async (doc) => {
       const twat: any = doc.data();
+
       twat.id = doc.id;
-      twats[twat.id] = twat;
+      twats.push(twat);
     });
-    setTwatList(twats);
+    console.log("ok");
+
+    setTwatList(sortByTimeInSecondsDescending(twats));
   };
 
   const getViewedUser = async () => {
@@ -81,7 +86,7 @@ const ProfilePanel = ({
   };
   // Grabs a user's info based on the link param
   const getUserFromUrlParam = async () => {
-    getUserTwats(tab);
+    getUserTwats();
     getViewedUser();
   };
 
@@ -162,7 +167,7 @@ const ProfilePanel = ({
         </div>
         <div className="username-tweet-count">
           <h1>{visitedUserInfo.userName}</h1>
-          <p>{Object.keys(twatList).length} Tweets</p>
+          <p>{twatList.length} Tweets</p>
         </div>
       </div>
       <img
@@ -181,19 +186,19 @@ const ProfilePanel = ({
       <ProfilePanelNav />
 
       <div className="user-twat-feed">
-        {Object.keys(twatList).map((doc: any, index: number) => {
+        {twatList.map((doc: any, index: number) => {
           return (
             <div key={index}>
-              {currentUser.userHandle === twatList[doc].handle ? (
+              {currentUser.userHandle === doc.handle ? (
                 <Twat
-                  twatInfo={twatList[doc]}
+                  twatInfo={doc}
                   isDeletable={true}
                   currentHandle={currentUser.userHandle}
                   refreshTwats={getUserTwats}
                 />
               ) : (
                 <Twat
-                  twatInfo={twatList[doc]}
+                  twatInfo={doc}
                   isDeletable={false}
                   currentHandle={currentUser.userHandle}
                   refreshTwats={getUserTwats}

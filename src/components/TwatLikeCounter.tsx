@@ -1,15 +1,17 @@
 interface TwatLikeCounterProps {
   currentHandle: string;
-  likedBy: Array<string>;
+  likedBy: {
+    [key: string]: boolean;
+  };
 }
 
 const TwatLikeCounter = ({ currentHandle, likedBy }: TwatLikeCounterProps) => {
-  return likedBy.length > 0 ? (
+  return Object.keys(likedBy).length > 0 ? (
     <div>
-      {likedBy.includes(currentHandle) ? (
-        <span className="likes-count liked">{likedBy.length}</span>
+      {likedBy[currentHandle] ? (
+        <span className="likes-count liked">{Object.keys(likedBy).length}</span>
       ) : (
-        <span className="likes-count ">{likedBy.length}</span>
+        <span className="likes-count ">{Object.keys(likedBy).length}</span>
       )}
     </div>
   ) : null;

@@ -1,0 +1,145 @@
+.twat-panel-display-container {
+  box-sizing: border-box;
+  padding-right: 12px;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  border-bottom: 0.5px solid rgb(47, 51, 54);
+}
+
+.twat-panel-display-container .header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.twat-panel-display-container .header svg {
+  width: 19px;
+  height: 19px;
+}
+
+.twat-panel-display-container .text {
+  font-weight: 300;
+}
+
+.twat-panel-display-container .user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.twat-panel-display-container .user-info .user-name {
+  font-weight: bold;
+}
+
+.twat-panel-display-container .user-info .user-handle {
+  font-weight: lighter;
+  font-size: 15px;
+  color: #64686d;
+}
+
+.twat-panel-display-container .user-info img,
+.twat-panel-display-container img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin: 0;
+}
+
+.twat-panel-display-container .more-button {
+  padding: 6px;
+  transition: 0.2s all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-top: -3px;
+  height: fit-content;
+}
+
+.twat-panel-display-container .date-posted {
+  color: #64686d;
+}
+
+.twat-panel-display-container .more-button:hover {
+  background-color: #071b28;
+}
+
+.twat-panel-display-container .more-button:hover svg path {
+  transition: 0.3s all;
+  fill: #1a8ad4;
+}
+
+.twat-panel-display-container .action-buttons {
+  display: flex;
+  justify-content: space-around;
+  border-top: 0.5px solid rgb(47, 51, 54);
+  border-bottom: 0.5px solid rgb(47, 51, 54);
+  padding: 4px 0px;
+}
+
+.twat-panel-display-container .action-buttons svg {
+  width: 23px;
+  height: 23px;
+}
+
+.twat-panel-display-container .action-button-wrapper {
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+  transition: 0.2s all;
+}
+
+.twat-panel-display-container .action-button-wrapper:hover {
+  background-color: #2a5c8055;
+}
+
+.twat-panel-display-container .action-button-wrapper:hover path {
+  transition: 0.2s all;
+  fill: #1d9bf0;
+}
+
+.twat-reply-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+}
+
+.twat-reply-form button {
+  border-radius: 24px;
+  padding: 6px 16px;
+  font-weight: bold;
+  background-color: rgb(29, 155, 240);
+  color: white;
+  border: none;
+  font-size: 16px;
+  width: 75px;
+  height: 35px;
+}
+
+.reply-form-left-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reply-form-left-side input {
+  background-color: transparent;
+  border: none;
+  font-size: 21px;
+  color: white;
+  outline: none;
+}
+
+.reply-form-left-side input::placeholder {
+  color: #71767b;
+}

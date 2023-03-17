@@ -1,0 +1,32 @@
+.twat-panel-container .twat-panel-header {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 28px;
+}
+.twat-panel-container .back-arrow {
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s all;
+
+  cursor: pointer;
+}
+
+.twat-panel-container .back-arrow:hover {
+  background-color: rgb(34, 34, 34);
+}
+
+.twat-panel-container .back-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.twat-panel-container header h1 {
+  font-size: 22px;
+  margin: 0;
+  padding: 0;
+}
