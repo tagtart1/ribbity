@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getUserInfo } from "../scripts/firebaseHelperFns";
 import placeholder from "../media/defaultpfp.jpg";
 import "../styles/Twat.css";
@@ -16,7 +16,11 @@ import {
   deleteField,
   doc,
   getCountFromServer,
+  query,
   updateDoc,
+  where,
+  writeBatch,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
 import TwatLikeCounter from "./TwatLikeCounter";
@@ -42,13 +46,17 @@ interface TwatProps {
     timeInMillisecond: number;
     id: string;
     likedBy: any;
-    replyingTo: string;
+    replyingTo: {
+      id: string;
+      handle: string;
+    };
     isComment: boolean;
   };
 
   isDeletable: boolean;
   currentHandle: string;
   refreshTwats?: Function;
+  isThreaded: boolean;
 }
 // To delete make sure the user opening the tab is the user that owns the tweet. Find the doc by the id in firebase and remove it, with delete confirmation
 const Twat = ({
@@ -56,12 +64,14 @@ const Twat = ({
   isDeletable,
   currentHandle,
   refreshTwats,
+  isThreaded,
 }: TwatProps) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
   const { handle, tab } = useParams();
 
   const navigate = useNavigate();
+  const ref = useRef();
 
   const openDeleteOption = () => {
     if (!isDeletable) return;
@@ -70,11 +80,32 @@ const Twat = ({
 
   const deleteTwat = async () => {
     await deleteDoc(doc(db, "twats", twatInfo.id));
+    deleteChildrenTwats();
     document.documentElement.style.overflowY = "visible";
     if (refreshTwats) {
       refreshTwats(tab);
     }
     setOpenDelete(false);
+  };
+
+  const deleteChildrenTwats = async () => {
+    const batch = writeBatch(db);
+    // Query all twats the contain the twat up for deletion's id
+    const childrenQuery = query(
+      collection(db, "twats"),
+      where("replyingTo.all", "array-contains", twatInfo.id)
+    );
+
+    const childrenDocs = await getDocs(childrenQuery);
+    if (childrenDocs.empty) {
+      return;
+    }
+    // Add docs to batch
+    childrenDocs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+    // Commit batch
+    await batch.commit();
   };
 
   const handleLikeTwat = async (e: any) => {
@@ -98,15 +129,41 @@ const Twat = ({
   };
 
   const handleOpeningTwat = (e: any) => {
+    // Pointer events are set to off in the style sheet for all child elements except the ones that need to register a click
     if (e.currentTarget === e.target) {
       navigate(`/${twatInfo.handle}/twat/${twatInfo.id}`);
     }
   };
 
+  const copyTwatLinkToClipboard = () => {
+    const currentPath = window.location.href;
+    const twatPath = currentPath + `/twat/${twatInfo.id}`;
+    navigator.clipboard.writeText(twatPath);
+  };
+
+  useEffect(() => {
+    // Draw a line between the threaded tweets
+    const profileImgs: any = document.querySelectorAll(".threaded-profile-img");
+    if (profileImgs.length === 0) return;
+
+    for (let i = 0; i < profileImgs.length - 1; i++) {
+      const circle1 = profileImgs[i].getBoundingClientRect();
+      const circle2 = profileImgs[i + 1].getBoundingClientRect();
+      const distance = circle2.top - circle1.bottom;
+
+      profileImgs[i].style.setProperty("--distance", `${distance}px`);
+    }
+  }, []);
+
   return (
-    <article className="twat-container" onClick={handleOpeningTwat}>
+    <article
+      className={isThreaded ? "twat-container" : "twat-container border-bottom"}
+      onClick={handleOpeningTwat}
+    >
       <Link to={`/${twatInfo.handle}`}>
-        <img src={twatInfo.userProfileImg} alt="User"></img>
+        <div className={isThreaded ? "threaded-profile-img" : ""}>
+          <img src={twatInfo.userProfileImg} alt="User"></img>
+        </div>
       </Link>
       <div className="twat-container-right-side">
         <header>
@@ -131,7 +188,19 @@ const Twat = ({
             </div>
           </div>
         </header>
-        <p className="twat-main-text">{twatInfo.text}</p>
+        {twatInfo.replyingTo.handle ? (
+          <p className="replying-to-text">
+            Replying to{" "}
+            <Link to={`/${twatInfo.replyingTo.handle}`}>
+              <span className="replying-to-handle">
+                @{twatInfo.replyingTo.handle}
+              </span>
+            </Link>
+          </p>
+        ) : null}
+        <div>
+          <p className="twat-main-text">{twatInfo.text}</p>
+        </div>
         <div className="twat-icon-button-row">
           <div id="twat-option-reply-wrapper">
             <div className="twat-option-icon">
@@ -193,7 +262,7 @@ const Twat = ({
               </g>
             </svg>
           </div>
-          <div className="twat-option-icon">
+          <div className="twat-option-icon" onClick={copyTwatLinkToClipboard}>
             <svg viewBox="0 0 24 24">
               <g>
                 <path

@@ -87,7 +87,7 @@
   cursor: pointer;
 }
 
-.profile-panel-info-container .user-following-nums span:hover {
+.profile-panel-info-container .user-following-nums a:hover {
   text-decoration: underline;
   text-decoration-color: white;
 }

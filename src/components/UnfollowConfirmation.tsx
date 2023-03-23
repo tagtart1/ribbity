@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "../styles/UnfollowConfirmation.css";
+import ReactDOM from "react-dom";
 
 interface UnfollowConfirmationProps {
   setVisibility: Function;
@@ -21,11 +22,12 @@ const UnfollowConfirmation = ({
       document.documentElement.style.overflowY = "visible";
     }
   };
+  const popupRoot = document.getElementById("popup-root");
 
-  if (!visibility) return null;
+  if (!visibility || !popupRoot) return null;
   document.documentElement.style.overflowY = "hidden";
 
-  return (
+  return ReactDOM.createPortal(
     <div
       className="unfollow-confirmation-container"
       onMouseDown={handleClickAwayCancel}
@@ -58,7 +60,8 @@ const UnfollowConfirmation = ({
           </button>
         </div>
       </section>
-    </div>
+    </div>,
+    popupRoot
   );
 };
 

@@ -18,7 +18,7 @@ const TwatReplyCounter = ({ twatId }: TwatReplyCounterProps) => {
     const getReplyCount = async () => {
       const q = query(
         collection(db, "twats"),
-        where("replyingTo", "==", twatId)
+        where("replyingTo.id", "==", twatId)
       );
       const snap = await getCountFromServer(q);
       const count = snap.data().count;

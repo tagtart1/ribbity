@@ -47,7 +47,11 @@ const TwatPopupInput = ({
         timeInMillisecond: Date.now(),
         likedBy: {},
         isComment: false,
-        replyingTo: "",
+        replyingTo: {
+          id: "",
+          handle: "",
+          all: [],
+        },
       });
       refresh();
       toggleVisibility(false);

@@ -1,0 +1,59 @@
+.user-follow-member {
+  box-sizing: border-box;
+  width: 100%;
+  transition: 0.2s all;
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.user-follow-member img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.user-follow-member h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.user-follow-member:hover {
+  background-color: rgb(15, 15, 15);
+}
+
+.user-follow-member-rightside {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: none;
+}
+
+.user-follow-member-rightside .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  pointer-events: none;
+}
+
+.user-follow-member-rightside .top h3:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
+.user-follow-member-rightside .top .handle {
+  font-size: 15px;
+  color: #71767b;
+}
+
+.user-follow-member-rightside .bio {
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+  pointer-events: none;
+}

@@ -14,6 +14,7 @@ const WhoToFollowPanel = ({ currentUser, setCurrentUser, isVisible }: any) => {
 
   useEffect(() => {
     const getUsersToFollow = async () => {
+      if (!currentUser) return;
       const followingArray = Object.keys(currentUser.following);
 
       const q = query(

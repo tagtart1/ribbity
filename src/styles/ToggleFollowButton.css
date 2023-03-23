@@ -1,0 +1,38 @@
+.toggle-follow-button-follow {
+  box-sizing: border-box;
+  background-color: white;
+  color: black;
+  font-weight: 700;
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 8px 17px;
+  border: none;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.toggle-follow-button-unfollow {
+  pointer-events: all;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: 1px solid #4a5965;
+  color: white;
+  font-weight: 700;
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 8px 17px;
+  cursor: pointer;
+  min-width: 101px;
+  transition: background-color 0.1s;
+}
+
+.toggle-follow-button-unfollow:hover {
+  color: red;
+  border: 1px solid rgba(255, 0, 0, 0.353);
+  background-color: rgba(255, 0, 0, 0.067);
+}
+
+.toggle-follow-button-initial {
+  background-color: white;
+  color: black;
+}

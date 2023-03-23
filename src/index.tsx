@@ -10,6 +10,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <div id="popup-root"></div>
       <App />
     </BrowserRouter>
   </React.StrictMode>

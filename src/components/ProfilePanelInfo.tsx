@@ -6,6 +6,7 @@ import ProfileActionsButtons from "./ProfileActionsButtons";
 import EditProfilePopup from "./EditProfilePopup";
 import useForceUpdate from "./useForceUpdate";
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 interface ProfilePanelInfoProps {
   visitedUser: DocumentData | undefined; // The user of whatever page we are viewing
@@ -24,6 +25,8 @@ const ProfilePanelInfo = ({
   updateChanges,
   refreshUserUI,
 }: ProfilePanelInfoProps) => {
+  const navigate = useNavigate();
+
   if (!visitedUser) return null;
 
   return (
@@ -85,22 +88,22 @@ const ProfilePanelInfo = ({
         </p>
       </div>
       <div className="user-following-nums">
-        <span>
+        <Link to={`/${visitedUser.userHandle}/following`}>
           <span style={{ color: "white" }}>
             {visitedUser.following
               ? Object.keys(visitedUser.following).length - 1
               : null}
           </span>{" "}
           Following
-        </span>
-        <span>
+        </Link>
+        <Link to={`/${visitedUser.userHandle}/followers`}>
           <span style={{ color: "white" }}>
             {visitedUser.followers
               ? Object.keys(visitedUser.followers).length
               : null}
           </span>{" "}
           Followers
-        </span>
+        </Link>
       </div>
       <EditProfilePopup
         isVisible={showEditPopup}

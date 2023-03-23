@@ -64,8 +64,8 @@ const Home = ({ currentUser }: any) => {
   }, [currentUser, tab]);
 
   useEffect(() => {
-    console.log("hi");
-    if (!currentUser) return;
+    // Make sure current user is there
+    if (Object.keys(currentUser).length === 0) return;
     const following = Object.keys(currentUser.following);
     if (following.length === 0) return;
 
@@ -115,12 +115,14 @@ const Home = ({ currentUser }: any) => {
                       twatInfo={twatList[doc]}
                       isDeletable={true}
                       currentHandle={currentUser.userHandle}
+                      isThreaded={false}
                     />
                   ) : (
                     <Twat
                       twatInfo={twatList[doc]}
                       isDeletable={false}
                       currentHandle={currentUser.userHandle}
+                      isThreaded={false}
                     />
                   )}
                 </div>

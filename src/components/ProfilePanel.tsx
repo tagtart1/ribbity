@@ -53,8 +53,7 @@ const ProfilePanel = ({
     } else if (tab === "likes") {
       q = query(
         collection(db, "twats"),
-        where(`likedBy.${handle}`, "==", true),
-        where("isComment", "==", false)
+        where(`likedBy.${handle}`, "==", true)
       );
     }
 
@@ -66,7 +65,6 @@ const ProfilePanel = ({
       twat.id = doc.id;
       twats.push(twat);
     });
-    console.log("ok");
 
     setTwatList(sortByTimeInSecondsDescending(twats));
   };
@@ -167,7 +165,14 @@ const ProfilePanel = ({
         </div>
         <div className="username-tweet-count">
           <h1>{visitedUserInfo.userName}</h1>
-          <p>{twatList.length} Tweets</p>
+          <p>
+            {twatList.length}{" "}
+            {tab === "likes"
+              ? twatList.length === 1
+                ? "Like"
+                : "Likes"
+              : "Twats"}
+          </p>
         </div>
       </div>
       <img
@@ -187,24 +192,24 @@ const ProfilePanel = ({
 
       <div className="user-twat-feed">
         {twatList.map((doc: any, index: number) => {
-          return (
-            <div key={index}>
-              {currentUser.userHandle === doc.handle ? (
-                <Twat
-                  twatInfo={doc}
-                  isDeletable={true}
-                  currentHandle={currentUser.userHandle}
-                  refreshTwats={getUserTwats}
-                />
-              ) : (
-                <Twat
-                  twatInfo={doc}
-                  isDeletable={false}
-                  currentHandle={currentUser.userHandle}
-                  refreshTwats={getUserTwats}
-                />
-              )}
-            </div>
+          return currentUser.userHandle === doc.handle ? (
+            <Twat
+              twatInfo={doc}
+              isDeletable={true}
+              currentHandle={currentUser.userHandle}
+              refreshTwats={getUserTwats}
+              isThreaded={false}
+              key={doc.id}
+            />
+          ) : (
+            <Twat
+              twatInfo={doc}
+              isDeletable={false}
+              currentHandle={currentUser.userHandle}
+              refreshTwats={getUserTwats}
+              isThreaded={false}
+              key={doc.id}
+            />
           );
         })}
       </div>

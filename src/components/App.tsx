@@ -18,6 +18,7 @@ import MainRightSection from "./MainRightSection";
 import ProfilePanel from "./ProfilePanel";
 import useForceUpdate from "./useForceUpdate";
 import TwatPanel from "./TwatPanel";
+import UserFollowPanel from "./UserFollowPanel";
 
 interface userInfo {
   bio?: string;
@@ -97,6 +98,19 @@ const App = () => {
         <Route
           path="/:handle/twat/:twatId"
           element={<TwatPanel mainUser={currentUser} />}
+        />
+
+        <Route
+          path="/:handle/followers"
+          element={
+            <UserFollowPanel startTab="followers" mainUser={currentUser} />
+          }
+        />
+        <Route
+          path="/:handle/following"
+          element={
+            <UserFollowPanel startTab="following" mainUser={currentUser} />
+          }
         />
       </Routes>
 

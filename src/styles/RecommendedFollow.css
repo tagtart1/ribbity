@@ -35,38 +35,3 @@
 .recommended-follow-names p:last-child {
   color: rgb(103, 108, 112);
 }
-
-.recommended-follow-button {
-  background-color: white;
-  color: black;
-  border: none;
-  border-radius: 24px;
-  padding: 8px 16px;
-  font-weight: bold;
-  min-height: 32px;
-  min-width: 32px;
-  font-size: 14px;
-
-  cursor: pointer;
-}
-
-.recommended-unfollow-button {
-  border: 1px solid rgb(82, 99, 112);
-  background-color: transparent;
-  color: white;
-
-  border-radius: 24px;
-  padding: 8px 16px;
-  font-weight: bold;
-  min-height: 32px;
-  min-width: 99px;
-  font-size: 14px;
-
-  cursor: pointer;
-}
-
-.recommended-unfollow-button:hover {
-  background-color: rgba(255, 0, 0, 0.104);
-  color: red;
-  border: 1px solid red;
-}

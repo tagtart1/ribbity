@@ -7,6 +7,7 @@ import {
   getTimestamp,
 } from "../scripts/HelperFns";
 import "../styles/TwatPanelDisplay.css";
+import Twat from "./Twat";
 
 interface TwatPanelDisplayProps {
   twatInfo: any;
@@ -22,10 +23,10 @@ const TwatPanelDisplay = ({
   const handleSubmitReply = async (e: any) => {
     e.preventDefault();
     // Get the text from the comment input box
-    const inputElementValue = document.getElementById(
+    const inputElement = document.getElementById(
       "twat-reply-input"
     ) as HTMLInputElement;
-    const inputValue = inputElementValue.value;
+    const inputValue = inputElement.value;
 
     const twatsRef = collection(db, "twats");
 
@@ -38,13 +39,18 @@ const TwatPanelDisplay = ({
       userProfileImg: mainUser.profileImgUrl,
       text: inputValue,
       timeInMillisecond: Date.now(),
-      replyingTo: twatInfo.id,
+      replyingTo: {
+        id: twatInfo.id,
+        handle: twatInfo.handle,
+        all: [...twatInfo.replyingTo.all, twatInfo.id],
+      },
       timeStamp: getTimestamp(),
       isComment: true,
       id: "",
     };
 
     const commentRef = await addDoc(twatsRef, comment);
+    e.target.reset();
     comment.id = commentRef.id;
 
     addNewComment(comment);
@@ -54,7 +60,11 @@ const TwatPanelDisplay = ({
     <div className="twat-panel-display-container">
       <div className="header">
         <div className="user-info">
-          <img src={twatInfo.userProfileImg} alt="User" />
+          <img
+            src={twatInfo.userProfileImg}
+            alt="User"
+            className="threaded-profile-img"
+          />
           <div>
             <p className="user-name">{twatInfo.userName}</p>
             <p className="user-handle">@{twatInfo.handle}</p>

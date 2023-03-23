@@ -14,12 +14,21 @@ header {
   display: flex;
   gap: 12px;
   padding: 12px;
-  border-bottom: 1px solid rgb(47, 51, 54);
+
   padding-bottom: 5px;
   font-size: 15px;
   position: relative;
 
   cursor: pointer;
+  transition: 0.2s all;
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgb(47, 51, 54);
+}
+
+.twat-container:hover {
+  background-color: rgb(8, 8, 8);
 }
 
 .twat-container .header-user-names {
@@ -39,6 +48,25 @@ header {
   width: 48px;
   height: 48px;
   border-radius: 50%;
+}
+
+.img-wrapper {
+  position: relative;
+}
+
+.twat-container .threaded-profile-img {
+  position: relative;
+}
+
+.twat-container .threaded-profile-img::after {
+  content: "";
+  position: absolute !important;
+  background-color: rgb(99, 99, 99);
+  width: 1px;
+  height: calc(var(--distance) - 5px);
+  bottom: 0px;
+  top: 52px;
+  left: 23px;
 }
 
 .twat-container svg {
@@ -81,6 +109,7 @@ header {
 
 .twat-main-text {
   margin-bottom: 6px;
+  font-weight: 300;
 }
 .grey {
   color: rgb(100, 104, 109);
@@ -146,12 +175,19 @@ path {
   align-items: center;
   gap: 3px;
   cursor: pointer;
+  position: relative;
+}
+
+#twat-option-heart-wrapper .likes-count {
+  top: 8px;
 }
 
 #twat-option-heart-wrapper .likes-count,
 #twat-option-reply-wrapper .reply-count {
   color: #71767b;
   user-select: none;
+  position: absolute;
+  right: -8px;
 }
 
 .liked {
@@ -160,4 +196,19 @@ path {
 
 a {
   color: inherit;
+}
+
+.replying-to-text {
+  color: #71767b;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+
+.replying-to-handle {
+  color: #1a8cd8;
+  pointer-events: auto;
+}
+
+.replying-to-handle:hover {
+  text-decoration: underline;
 }
