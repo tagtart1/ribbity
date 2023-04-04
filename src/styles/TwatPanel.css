@@ -6,6 +6,7 @@
   color: white;
 
   min-height: 100vh;
-  border-left: 0.5px solid rgb(47, 51, 54);
-  border-right: 0.5px solid rgb(47, 51, 54);
+  border-left: 1px solid rgb(47, 51, 54);
+  border-right: 1px solid rgb(47, 51, 54);
+  padding-bottom: 300px;
 }

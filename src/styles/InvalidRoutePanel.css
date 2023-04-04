@@ -1,0 +1,108 @@
+.invalid-route-panel-container {
+  box-sizing: border-box;
+  width: 600px;
+
+  border-left: 1px solid rgb(47, 51, 54);
+  border-right: 1px solid rgb(47, 51, 54);
+  height: 110vh;
+}
+
+.invalid-route-panel-container .invalid-route-header {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.invalid-route-panel-container .invalid-text {
+  color: white;
+}
+
+.invalid-route-panel-container .back-arrow {
+  padding: 8px;
+
+  width: fit-content;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+  cursor: pointer;
+}
+
+.invalid-route-panel-container .back-arrow:hover {
+  background-color: rgb(27, 27, 27);
+}
+
+.invalid-route-panel-container .back-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.invalid-route-header h1 {
+  margin: 0;
+  color: white;
+  font-size: 20px;
+}
+
+.invalid-route-banner {
+  background-color: rgb(66, 66, 66);
+  width: 600px;
+  height: 200px;
+}
+
+.invalid-route-img-wrapper {
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  background-color: black;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -72px;
+  margin-left: 16px;
+}
+
+.invalid-route-img-wrapper .invalid-route-img {
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+  background-color: rgb(51, 51, 51);
+}
+
+.invalid-route-message-wrapper {
+  display: flex;
+  justify-content: center;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20%;
+}
+
+.invalid-route-message-wrapper h1 {
+  margin: 0;
+}
+
+.invalid-route-message-wrapper p {
+  color: rgb(85, 85, 85);
+  margin-top: 12px;
+}
+
+.invalid-route-message-wrapper button {
+  border-radius: 20px;
+  border: none;
+  background-color: rgb(29, 155, 240);
+  color: white;
+  font-weight: 700;
+  padding: 10px 24px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.invalid-route-message-wrapper .button-wrapper {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

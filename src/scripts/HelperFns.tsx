@@ -60,6 +60,11 @@ const getDayOfMonth = () => {
   return d.getDate();
 };
 
+const checkForBannedNames = (word: string) => {
+  const invalidWords = new Set(["Home", "Explore"]);
+  return invalidWords.has(word);
+};
+
 const generateUserHandle = async (name: string | undefined) => {
   // Add feature where your name cannot be home or explore or any main route
   let valid = false;
@@ -68,9 +73,9 @@ const generateUserHandle = async (name: string | undefined) => {
     const ref = collection(db, "user-info");
     const q = query(ref, where("userHandle", "==", userHandle));
     const querySnap = await getDocs(q);
-    if (querySnap.size === 0) valid = true;
+    if (querySnap.size === 0 || !checkForBannedNames(userHandle)) valid = true;
     else {
-      userHandle = userHandle + Math.floor(Math.random() * 10000);
+      userHandle = userHandle + Math.floor(Math.random() * 1000);
     }
   }
 
@@ -144,6 +149,34 @@ function sortByTimeInSecondsDescending(array) {
     .sort((a, b) => b.timeInMillisecond - a.timeInMillisecond);
 }
 
+function base64ToFile(base64String, fileName) {
+  const byteString = atob(base64String.split(",")[1]);
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const uint8Array = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i);
+  }
+  const blob = new Blob([arrayBuffer]);
+  const contentType = blob.type;
+  const file = new File([blob], fileName, { type: contentType });
+  return file;
+}
+
+function isValidString(input) {
+  // Check if the string is null or empty
+  if (!input) {
+    return false;
+  }
+
+  // Check if the string only contains spaces
+  const trimmedInput = input.trim();
+  if (trimmedInput.length === 0) {
+    return false;
+  }
+
+  return true;
+}
+
 export {
   kFormatter,
   getMonthDate,
@@ -155,4 +188,6 @@ export {
   getTimeFromTimeStamp as get12hourFromTimestamp,
   getTimeSincePosted,
   sortByTimeInSecondsDescending,
+  base64ToFile,
+  isValidString,
 };

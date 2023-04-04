@@ -1,0 +1,11 @@
+.loading-panel-wrapper {
+  width: 600px;
+
+  border-left: 1px solid rgb(47, 51, 54);
+  border-right: 1px solid rgb(47, 51, 54);
+  height: 110vh;
+
+  display: flex;
+  justify-content: center;
+  padding-top: 20%;
+}

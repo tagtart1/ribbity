@@ -21,6 +21,9 @@ header {
 
   cursor: pointer;
   transition: 0.2s all;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .border-bottom {
@@ -98,7 +101,7 @@ header {
   background-color: var(--twat-blue-faded);
 }
 
-.more-icon-wrapper:hover path {
+.more-icon-wrapper:hover .twat-path {
   fill: var(--twat-blue);
 }
 .twat-icon-button-row {

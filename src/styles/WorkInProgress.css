@@ -1,0 +1,21 @@
+.work-inprogress-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 200px;
+  padding-top: 50px;
+
+  color: #64696d;
+  flex-direction: column;
+}
+
+.work-inprogress-container h1 {
+  margin: 0;
+  width: 50%;
+  color: white;
+}
+
+.work-inprogress-container p {
+  width: 50%;
+  margin-top: 12px;
+}

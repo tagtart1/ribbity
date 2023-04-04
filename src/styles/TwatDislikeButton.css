@@ -1,0 +1,49 @@
+#twat-option-dislike-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+#twat-option-dislike-wrapper .dislike-count {
+  color: #71767b;
+  user-select: none;
+  position: absolute;
+  right: -8px;
+}
+
+.twat-option-icon-dislike {
+  padding: 8px 8px;
+  border-radius: 50%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+#twat-option-dislike-wrapper:hover svg path {
+  fill: #bb731b;
+}
+
+#twat-option-dislike-wrapper:hover .twat-option-icon {
+  background-color: #bb731b1c;
+}
+
+#twat-option-dislike-wrapper .dislikes-count {
+  top: 8px;
+}
+
+#twat-option-dislike-wrapper .dislikes-count {
+  color: #71767b;
+  user-select: none;
+  position: absolute;
+  right: -8px;
+}
+
+.disliked {
+  color: #bb731b !important;
+}

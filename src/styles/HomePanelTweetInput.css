@@ -28,6 +28,11 @@
   margin-top: 16px;
   padding: 8px 0px;
   color: white;
+  font-family: "Chirp";
+  font-weight: 300;
+  resize: none;
+
+  overflow: hidden;
 }
 
 .home-tweet-right-column {
@@ -60,6 +65,7 @@
   font-size: 16px;
 
   cursor: pointer;
+  border: none;
 }
 
 .media-option-icon {

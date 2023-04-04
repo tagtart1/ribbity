@@ -75,9 +75,13 @@
 }
 
 .user-twat-feed {
-  margin-bottom: 50%;
+  margin-bottom: 50vh;
 }
 
 .loading {
   width: 601px;
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

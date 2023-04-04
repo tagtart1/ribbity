@@ -56,6 +56,7 @@
 
 .delete-twat-popup-wrapper .delete-confirm {
   background-color: rgb(244, 33, 46);
+  border: none;
 }
 
 .delete-twat-popup-wrapper .delete-cancel {

@@ -1,0 +1,27 @@
+#twat-option-reply-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+#twat-option-reply-wrapper .reply-count {
+  color: #71767b;
+  user-select: none;
+  position: absolute;
+  right: -8px;
+}
+
+.twat-option-icon-reply,
+.twat-option-icon {
+  padding: 8px;
+  border-radius: 50%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+  cursor: pointer;
+  pointer-events: auto;
+}
