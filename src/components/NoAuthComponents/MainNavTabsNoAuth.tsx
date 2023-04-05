@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import "../../styles/MainNavTabs.css";
 import { useState, useEffect } from "react";
 
 const MainNavTabsNoAuth = () => {
   const [selectedTab, setSelectedTab] = useState<any>();
+
+  const navigate = useNavigate();
 
   const handleTabSwitch = (e: any) => {
     const target = e.target.firstChild.lastChild;
@@ -31,7 +34,13 @@ const MainNavTabsNoAuth = () => {
         </svg>
       </li>
 
-      <li className="tab-list-item" onClick={handleTabSwitch}>
+      <li
+        className="tab-list-item"
+        onClick={(e) => {
+          handleTabSwitch(e);
+          navigate("/");
+        }}
+      >
         <div className="tab-items">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>

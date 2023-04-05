@@ -141,7 +141,7 @@ const UserFollowPanel = ({ startTab, mainUser }: UserFollowPanelProps) => {
       </nav>
       {followLists[activeList].length < 1 ? (
         <EmptyTwatList
-          isMainUser={mainUser.userHandle === handle}
+          isMainUser={!mainUser ? false : mainUser.userHandle === handle}
           visitedUserHandle={handle}
           tab={startTab}
         />

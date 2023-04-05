@@ -12,8 +12,9 @@
   gap: 12px;
 
   margin-top: 12px;
+  margin-bottom: 12px;
 
-  position: fixed;
+  position: sticky;
 }
 
 .signup-modal-header {

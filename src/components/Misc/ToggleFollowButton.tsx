@@ -15,7 +15,8 @@ const ToggleFollowButton = ({
 }: ToggleFollowButtonProps) => {
   const [visibility, setVisibility] = useState<boolean>(false);
   const userRef = doc(db, "user-info", userInfo.id);
-  const mainRef = doc(db, "user-info", mainUser.id);
+  let mainRef: any = "";
+  if (mainUser.id) mainRef = doc(db, "user-info", mainUser.id);
   const [isFollowing, setIsFollowing] = useState<boolean>(
     userInfo.followers[mainUser.userHandle]
   );

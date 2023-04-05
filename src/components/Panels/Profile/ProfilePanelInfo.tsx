@@ -37,25 +37,23 @@ const ProfilePanelInfo = ({
             <img src={visitedUser.profileImgUrl} alt="profile" />
           </div>
         </div>
-        {currentUser.userHandle ? (
-          // Check if the profile we are viewing is ourselves, if so dispaly edit profile, if not display follow button and other actions
-          currentUser.userHandle === visitedUser.userHandle ? (
-            <button
-              className="edit-profile-button"
-              onClick={() => {
-                setEditPopup(true);
-              }}
-            >
-              Edit Profile
-            </button>
-          ) : (
-            <ProfileActionsButtons
-              userViewing={visitedUser}
-              mainUser={currentUser}
-              refreshUserUI={refreshUserUI}
-            />
-          )
-        ) : null}
+
+        {currentUser.userHandle === visitedUser.userHandle ? (
+          <button
+            className="edit-profile-button"
+            onClick={() => {
+              setEditPopup(true);
+            }}
+          >
+            Edit Profile
+          </button>
+        ) : (
+          <ProfileActionsButtons
+            userViewing={visitedUser}
+            mainUser={currentUser}
+            refreshUserUI={refreshUserUI}
+          />
+        )}
       </div>
       <h1>{visitedUser.userName}</h1>
       <p className="user-handle">@{visitedUser.userHandle}</p>

@@ -1,10 +1,14 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import "../../../styles/ExplorePanelNavbar.css";
 
-const ExplorePanelNavbar = () => {
+interface ExplorePanelNavbarProps {
+  setActiveTab: Function;
+}
+
+const ExplorePanelNavbar = ({ setActiveTab }: ExplorePanelNavbarProps) => {
   const [selectedTab, setSelectedTab] = useState<Element | null>();
 
-  const handleTabSwitch = (e: any) => {
+  const handleTabSwitch = (e: any, tabNum: number) => {
     const listItem: Element = e.target.firstChild;
 
     if (listItem === selectedTab) return;
@@ -12,6 +16,7 @@ const ExplorePanelNavbar = () => {
     listItem.classList.add("selected-tab");
 
     setSelectedTab(listItem);
+    setActiveTab(tabNum);
   };
 
   useEffect(() => {
@@ -20,19 +25,19 @@ const ExplorePanelNavbar = () => {
 
   return (
     <ul className="explore-panel-navbar-container">
-      <div onClick={handleTabSwitch}>
+      <div onClick={(e) => handleTabSwitch(e, 0)}>
         <li className="selected-tab">For you</li>
       </div>
-      <div onClick={handleTabSwitch}>
+      <div onClick={(e) => handleTabSwitch(e, 1)}>
         <li>Trending</li>
       </div>
-      <div onClick={handleTabSwitch}>
+      <div onClick={(e) => handleTabSwitch(e, 2)}>
         <li>News</li>
       </div>
-      <div onClick={handleTabSwitch}>
+      <div onClick={(e) => handleTabSwitch(e, 3)}>
         <li>Sports</li>
       </div>
-      <div onClick={handleTabSwitch}>
+      <div onClick={(e) => handleTabSwitch(e, 4)}>
         <li>Entertainment</li>
       </div>
     </ul>

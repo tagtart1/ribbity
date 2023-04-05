@@ -42,10 +42,15 @@ const MainRightSection = ({
   ) : (
     <div>
       <div style={{ width: 300 }}></div>
-      <SignUpModal
-        setCurrentUser={setCurrentUser}
-        setIsLoadingUser={setIsLoadingUser}
-      />
+      <div className="main-right-section-wrapper">
+        <div className="side-panels">
+          <SignUpModal
+            setCurrentUser={setCurrentUser}
+            setIsLoadingUser={setIsLoadingUser}
+          />
+          <WhatsHappeningPanel />
+        </div>
+      </div>
     </div>
   );
 };

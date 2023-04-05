@@ -23,6 +23,7 @@ import UserFollowPanel from "./Panels/Profile/UserFollowingPanel/UserFollowPanel
 import { Toaster } from "react-hot-toast";
 import InvalidRoutePanel from "./Misc/InvalidRoutePanel";
 import FrogIconLogo from "./Misc/FrogIconLogo";
+import AppContext from "./AppContext";
 
 interface userInfo {
   bio?: string;
@@ -39,7 +40,7 @@ interface userInfo {
 
 const App = () => {
   const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
-  const [currentUser, setCurrentUser] = useState<userInfo | null>();
+  const [mainUser, setMainUser] = useState<userInfo | null>();
   const [showWhoToFollow, setShowWhoToFollow] = useState<boolean>(true);
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
 
@@ -54,7 +55,7 @@ const App = () => {
       getCurrentUser();
     } else {
       setIsUserSignedIn(false);
-      setCurrentUser({});
+      setMainUser({});
       navigate("/");
     }
   };
@@ -65,13 +66,17 @@ const App = () => {
     if (!handle) return;
     console.log(handle);
     const signedUser = await getUserInfo(handle);
-    setCurrentUser(signedUser);
+    setMainUser(signedUser);
     setIsLoadingUser(false);
   };
 
   useEffect(() => {
     initFirebaseAuth(authObserver);
   }, []);
+
+  const loadingHandler = (value: boolean) => {
+    setIsLoadingUser(value);
+  };
 
   // If users are not signed it they should be replaced by a 'dummy' account that lets them still browse the app. main proble is when a user is created the getCurrentUser is returning null data
   if (isLoadingUser)
@@ -80,81 +85,83 @@ const App = () => {
         <FrogIconLogo />
       </div>
     );
-  if (!currentUser) return null;
+  if (!mainUser) return null;
   return (
-    <div className="main-app-continer">
-      <Toaster
-        position="bottom-center"
-        toastOptions={{
-          style: { background: `rgb(29, 155, 240)`, color: "#FFF" },
+    <AppContext.Provider value={{ mainUser, loadingHandler, setMainUser }}>
+      <div className="main-app-continer">
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: { background: `rgb(29, 155, 240)`, color: "#FFF" },
 
-          error: {
-            style: {
-              background: `rgb(255, 37, 59)`,
+            error: {
+              style: {
+                background: `rgb(255, 37, 59)`,
+              },
             },
-          },
-        }}
-      />
-      <MainLeftSection
-        currentUser={currentUser}
-        signedIn={isUserSignedIn}
-        refresh={refresh}
-      />
-      <Routes>
-        <Route path="/" element={<ExplorePanel />} />
-        <Route path="/home" element={<HomePanel currentUser={currentUser} />} />
-        <Route path="/explore" element={<ExplorePanel />} />
-        <Route
-          path="/:handle"
-          element={
-            <ProfilePanel
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              setShowWhoToFollow={setShowWhoToFollow}
-            />
-          }
+          }}
         />
-        <Route
-          path="/:handle/:tab"
-          element={
-            <ProfilePanel
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              setShowWhoToFollow={setShowWhoToFollow}
-            />
-          }
+        <MainLeftSection
+          currentUser={mainUser}
+          signedIn={isUserSignedIn}
+          refresh={refresh}
         />
-        <Route
-          path="/:handle/twat/:twatId"
-          element={<TwatPanel mainUser={currentUser} />}
+        <Routes>
+          <Route path="/" element={<ExplorePanel />} />
+          <Route path="/home" element={<HomePanel currentUser={mainUser} />} />
+          <Route path="/explore" element={<ExplorePanel />} />
+          <Route
+            path="/:handle"
+            element={
+              <ProfilePanel
+                currentUser={mainUser}
+                setCurrentUser={setMainUser}
+                setShowWhoToFollow={setShowWhoToFollow}
+              />
+            }
+          />
+          <Route
+            path="/:handle/:tab"
+            element={
+              <ProfilePanel
+                currentUser={mainUser}
+                setCurrentUser={setMainUser}
+                setShowWhoToFollow={setShowWhoToFollow}
+              />
+            }
+          />
+          <Route
+            path="/:handle/twat/:twatId"
+            element={<TwatPanel mainUser={mainUser} />}
+          />
+
+          <Route
+            path="/:handle/followers"
+            element={
+              <UserFollowPanel startTab="followers" mainUser={mainUser} />
+            }
+          />
+          <Route
+            path="/:handle/following"
+            element={
+              <UserFollowPanel startTab="following" mainUser={mainUser} />
+            }
+          />
+
+          <Route path="*" element={<InvalidRoutePanel />} />
+        </Routes>
+
+        <MainRightSection
+          signedIn={isUserSignedIn}
+          currentUser={mainUser}
+          setCurrentUser={setMainUser}
+          showWhoToFollow={showWhoToFollow}
+          setIsLoadingUser={setIsLoadingUser}
         />
 
-        <Route
-          path="/:handle/followers"
-          element={
-            <UserFollowPanel startTab="followers" mainUser={currentUser} />
-          }
-        />
-        <Route
-          path="/:handle/following"
-          element={
-            <UserFollowPanel startTab="following" mainUser={currentUser} />
-          }
-        />
-
-        <Route path="*" element={<InvalidRoutePanel />} />
-      </Routes>
-
-      <MainRightSection
-        signedIn={isUserSignedIn}
-        currentUser={currentUser}
-        setCurrentUser={setCurrentUser}
-        showWhoToFollow={showWhoToFollow}
-        setIsLoadingUser={setIsLoadingUser}
-      />
-
-      <SignUpFooter signedIn={isUserSignedIn} />
-    </div>
+        <SignUpFooter signedIn={isUserSignedIn} />
+      </div>
+    </AppContext.Provider>
   );
 };
 

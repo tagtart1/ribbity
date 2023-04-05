@@ -12,7 +12,6 @@ const TwatReactionButtons = ({
   currentHandle,
 }: TwatReactionButtonsProps) => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
-  const [isInitReaction, setIsInitReaction] = useState<boolean>(true);
 
   return (
     <>

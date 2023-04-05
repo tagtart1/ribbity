@@ -9,11 +9,12 @@
   width: 600px;
 
   display: flex;
+  padding-bottom: 90vh;
 }
 
 .explore-panel-header {
   position: fixed;
-
+  z-index: 5;
   width: 600px;
   backdrop-filter: blur(11px);
   background-color: rgba(0, 0, 0, 0.6);
@@ -21,5 +22,5 @@
 
 .explore-main-feed {
   width: 600px;
-  margin-top: 100px;
+  margin-top: 105px;
 }

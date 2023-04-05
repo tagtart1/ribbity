@@ -3,7 +3,7 @@
   bottom: 0;
   width: 100%;
   height: 75px;
-
+  z-index: 10;
   color: white;
   background-color: rgb(86, 175, 248);
 

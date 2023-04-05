@@ -4,6 +4,7 @@ import { db } from "../../scripts/firebaseConfig";
 import { useState, useEffect } from "react";
 
 import "../../styles/TwatLikeButton.css";
+import SignupPopup from "../Misc/SignupPopup";
 
 interface TwatLikeButtonProps {
   twatInfo: {
@@ -11,6 +12,7 @@ interface TwatLikeButtonProps {
       [key: string]: boolean;
     };
     id: string;
+    handle: string;
   };
   currentHandle: string;
   activeButton: string | null;
@@ -28,8 +30,14 @@ const TwatLikeButton = ({
   );
 
   const [hasClickedLike, setHasClickedLike] = useState<boolean>(false);
+  const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
 
   const handleLikeTwat = async () => {
+    if (!currentHandle) {
+      setShowSignupPopup(true);
+      return;
+    }
+
     setHasClickedLike(true);
     if (isLiked) {
       // Unlke twat
@@ -47,6 +55,10 @@ const TwatLikeButton = ({
         [`likedBy.${currentHandle}`]: true,
       });
     }
+  };
+
+  const closePopup = () => {
+    setShowSignupPopup(false);
   };
 
   useEffect(() => {
@@ -82,6 +94,12 @@ const TwatLikeButton = ({
         isLiked={isLiked}
         likedBy={twatInfo.likedBy}
         hasClickedLike={hasClickedLike}
+      />
+      <SignupPopup
+        userName={twatInfo.handle}
+        visibility={showSignupPopup}
+        setOwnVisibility={closePopup}
+        popupType="like"
       />
     </div>
   );
