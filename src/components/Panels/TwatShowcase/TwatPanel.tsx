@@ -94,6 +94,7 @@ const TwatPanel = ({ mainUser }: any) => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     retrieveTwatInfo();
   }, [twatId]);
   if (isLoading) return <LoadingPanel />;

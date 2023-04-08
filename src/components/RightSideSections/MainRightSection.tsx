@@ -24,7 +24,6 @@ const MainRightSection = ({
 
   return signedIn ? (
     <div style={{ zIndex: 5 }}>
-      <div style={{ width: 300 }}></div>
       <div className="main-right-section-wrapper">
         <HomePanelSearch />
         <div className="side-panels">

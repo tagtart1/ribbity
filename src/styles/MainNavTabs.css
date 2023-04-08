@@ -24,19 +24,22 @@ ul {
   margin: 0;
 
   font-size: 21px;
-  font-weight: 400;
+  font-weight: 300;
   color: rgb(236, 236, 236);
 
   width: max-content;
   border-radius: 32px;
 
-  padding: 10px;
-  padding-right: 30px;
+  padding: 12px;
 
   transition: 0.2s all;
 
   pointer-events: none;
   box-sizing: border-box;
+}
+
+.tab-items p {
+  padding-right: 16px;
 }
 
 .logo-item {
@@ -64,4 +67,13 @@ ul {
   box-sizing: border-box;
   font-weight: 800;
   color: rgb(236, 236, 236);
+}
+
+@media (max-width: 1290px) {
+  .user-tab-wrapper svg {
+    display: none;
+  }
+  .user-tab-wrapper .names-group {
+    display: none;
+  }
 }

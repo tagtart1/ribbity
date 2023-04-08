@@ -5,6 +5,7 @@ import { getUserHandle, getUserInfo } from "../../../scripts/firebaseHelperFns";
 import "../../../styles/ProfileActionsButtons.css";
 import UnfollowConfirmation from "../../Misc/UnfollowConfirmation";
 import useForceUpdate from "../../useForceUpdate";
+import SignupPopup from "../../Misc/SignupPopup";
 
 interface ProfileActionsButtonsProps {
   userViewing: any;
@@ -24,7 +25,17 @@ const ProfileActionsButtons = ({
   const [showUnfollowConfirmation, setShowUnfollowConfirmation] =
     useState<boolean>(false);
 
+  const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
+
+  const closeSignupPopup = () => {
+    setShowSignupPopup(false);
+  };
+
   const handleFollowAction = async () => {
+    if (!mainUser.userHandle) {
+      setShowSignupPopup(true);
+      return;
+    }
     if (mainUser.userHandle === userViewing.userHandle) return;
     const followedUserRef = doc(db, "user-info", userViewing.id);
     const followerUserRef = doc(db, "user-info", mainUser.id);
@@ -102,6 +113,12 @@ const ProfileActionsButtons = ({
         setVisibility={setShowUnfollowConfirmation}
         confirmationCallback={handleFollowAction}
         userHandle={userViewing.userHandle}
+      />
+      <SignupPopup
+        userName={userViewing.userHandle}
+        visibility={showSignupPopup}
+        setOwnVisibility={closeSignupPopup}
+        popupType="follow"
       />
     </div>
   );

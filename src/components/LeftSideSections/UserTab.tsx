@@ -35,7 +35,7 @@ const UserTab = ({ currentUser }: UserTabProps) => {
             alt="User Profile"
             className="user-tab-profile-image"
           />
-          <div>
+          <div className="names-group">
             <p>{currentUser.userName}</p>
             <p className="tweeter-unique-name">@{currentUser.userHandle}</p>
           </div>

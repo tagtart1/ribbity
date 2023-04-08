@@ -32,10 +32,8 @@ const ProfilePanelInfo = ({
   return (
     <div className="profile-panel-info-container">
       <div className="profile-info-top">
-        <div>
-          <div className="profile-img-wrapper">
-            <img src={visitedUser.profileImgUrl} alt="profile" />
-          </div>
+        <div className="profile-img-wrapper">
+          <img src={visitedUser.profileImgUrl} alt="profile" />
         </div>
 
         {currentUser.userHandle === visitedUser.userHandle ? (
@@ -45,7 +43,7 @@ const ProfilePanelInfo = ({
               setEditPopup(true);
             }}
           >
-            Edit Profile
+            Edit profile
           </button>
         ) : (
           <ProfileActionsButtons

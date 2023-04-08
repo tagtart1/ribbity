@@ -1,3 +1,7 @@
+:root {
+  --viewport-width: 100vw;
+}
+
 .profile-panel-info-container {
   display: flex;
   flex-direction: column;
@@ -10,15 +14,16 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-
+  align-items: flex-start;
   position: relative;
+  width: 100%;
 }
 
 .profile-info-top img {
   border-radius: 50%;
-  width: 130px;
-  height: 130px;
+  width: 100%;
+  max-width: 130px;
+  height: auto;
 }
 
 .edit-profile-button {
@@ -27,7 +32,8 @@
   border-color: rgb(82, 99, 112);
   border-width: 1px;
   background-color: transparent;
-  font-size: 16px;
+  font-size: 15px;
+  height: 36px;
   font-weight: 600;
   padding: 8px 16px;
   outline: none;
@@ -35,21 +41,23 @@
   cursor: pointer;
 }
 .profile-img-wrapper {
+  box-sizing: border-box;
   background-color: black;
   padding: 4px;
-  position: absolute;
-  top: -80px;
-  border-radius: 70px;
+  margin-top: -15%;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 25%;
 }
 
 .profile-panel-info-container h1 {
   font-size: 20px;
   margin: 0;
   padding: 0;
-  margin-top: 36px;
+  margin-top: 12px;
 }
 
 .profile-panel-info-container p {
@@ -99,4 +107,16 @@
 .misc-user-info {
   display: flex;
   gap: 12px;
+}
+
+@media (max-width: 700px) {
+  .profile-info-top img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-img-wrapper {
+    padding: 2px;
+  }
 }

@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 12px;
   height: 100%;
+  width: 350px;
 }
 
 .side-panels {
@@ -12,4 +13,16 @@
   flex-direction: column;
   gap: 12px;
   z-index: 3;
+}
+
+@media (max-width: 1095px) {
+  .main-right-section-wrapper {
+    width: 290px;
+  }
+}
+
+@media (max-width: 1003px) {
+  .main-right-section-wrapper {
+    display: none;
+  }
 }

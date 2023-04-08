@@ -161,25 +161,27 @@ const TwatPanelDisplay = ({
           </svg>
         </div>
       </div>
-      <form
-        className="twat-reply-form"
-        onSubmit={handleSubmitReply}
-        autoComplete="off"
-      >
-        <div className="reply-form-left-side">
-          <img src={mainUser.profileImgUrl} alt="Main User" />
-          <textarea
-            id="twat-reply-input"
-            placeholder="Twat Your Reply"
-            autoComplete="off"
-            maxLength={160}
-            rows={1}
-            onInput={autoGrowTextArea}
-            ref={inputRef}
-          />
-        </div>
-        <button>Reply</button>
-      </form>
+      {!mainUser.userHandle ? null : (
+        <form
+          className="twat-reply-form"
+          onSubmit={handleSubmitReply}
+          autoComplete="off"
+        >
+          <div className="reply-form-left-side">
+            <img src={mainUser.profileImgUrl} alt="Main User" />
+            <textarea
+              id="twat-reply-input"
+              placeholder="Twat Your Reply"
+              autoComplete="off"
+              maxLength={160}
+              rows={1}
+              onInput={autoGrowTextArea}
+              ref={inputRef}
+            />
+          </div>
+          <button>Reply</button>
+        </form>
+      )}
       <BackgroundTransparent
         isVisible={openDelete}
         toggleVisibility={setOpenDelete}

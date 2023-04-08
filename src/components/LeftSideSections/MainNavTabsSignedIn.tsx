@@ -29,7 +29,7 @@ const MainNavTabsSignedIn = ({ currentUser }: MainNavTabsProps) => {
   }, []);
 
   return (
-    <ul>
+    <ul className="main-nav-tabs-list">
       <li className="logo-item">
         <FrogIconLogo />
       </li>

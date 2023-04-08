@@ -4,6 +4,7 @@ import ProfilePanelNav from "./ProfilePanelNavbar";
 import testBanner from "../media/1080x360.jpg";
 import { useEffect, useState } from "react";
 import { getUserHandle, getUserInfo } from "../../../scripts/firebaseHelperFns";
+import { AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
 import {
   useNavigate,
@@ -182,6 +183,7 @@ const ProfilePanel = ({
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const q = query(
       collection(db, "twats"),
       where("handle", "==", handle),
@@ -271,7 +273,7 @@ const ProfilePanel = ({
         ) : twatList.length < 1 ? (
           emptyTabSwitch()
         ) : (
-          twatList.map((doc: any, index: number) => {
+          twatList.map((doc: any) => {
             return (
               <Twat
                 twatInfo={doc}

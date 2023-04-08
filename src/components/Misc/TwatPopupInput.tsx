@@ -5,6 +5,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../scripts/firebaseConfig";
 import { getTimestamp, isValidString } from "../../scripts/HelperFns";
 import toast from "react-hot-toast";
+import ReactDOM from "react-dom";
 
 interface TwatPopupInputProps {
   isVisible: boolean;
@@ -69,8 +70,10 @@ const TwatPopupInput = ({
     document.documentElement.style.overflowY = "visible";
   };
 
-  if (!isVisible) return null;
-  return (
+  const popupRoot = document.getElementById("popup-root");
+
+  if (!isVisible || !popupRoot) return null;
+  return ReactDOM.createPortal(
     <div
       className="twat-popup-input-container"
       onMouseDown={handleOffSideClick}
@@ -152,7 +155,8 @@ const TwatPopupInput = ({
           </form>
         </div>
       </div>
-    </div>
+    </div>,
+    popupRoot
   );
 };
 

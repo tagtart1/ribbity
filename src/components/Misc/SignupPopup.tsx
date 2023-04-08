@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import DislikeIconFilled from "../../media/svg/DislikeIconFilled";
 import CloseCross from "../../media/svg/CloseCross";
 import LikeIconFilled from "../../media/svg/LikeIconFilled";
+import FollowUserHollow from "../../media/svg/FollowUserHollow";
 
 interface SignupPopupProps {
   userName: string;
@@ -26,16 +27,19 @@ const SignupPopup = ({
   const icons: any = {
     dislike: <DislikeIconFilled />,
     like: <LikeIconFilled />,
+    follow: <FollowUserHollow />,
   };
 
   const headerTexts: any = {
     dislike: "Dislike a Twat to share the love.",
     like: "Like a Twat to share the love.",
+    follow: `Follow ${userName} to see what they share on Tweety.`,
   };
 
   const paraTexts: any = {
     dislike: `Join Tweety now to let ${userName} know you dislike their Twat.`,
     like: `Join Tweety now to let ${userName} know you like their Twat.`,
+    follow: "Sign up so you never miss their Twats.",
   };
 
   const navigate = useNavigate();
