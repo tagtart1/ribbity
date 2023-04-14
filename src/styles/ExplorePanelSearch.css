@@ -11,7 +11,7 @@
   gap: 36px;
 
   z-index: 10;
-  flex-shrink: 1;
+  position: relative;
 }
 
 .explore-panel-search svg {
@@ -20,9 +20,11 @@
 }
 
 .explore-panel-search .gear-icon {
+  position: absolute;
   margin-top: 12px;
-  width: 24px;
-  height: 24px;
+  width: 20px !important;
+  height: 20px !important;
+  right: 24px;
 }
 
 #explore-panel-search-form {
@@ -32,6 +34,7 @@
   background-color: var(--search-bar-color);
   padding: 12px 16px;
   border-radius: 24px;
+  max-width: 475px;
   width: 100%;
   margin-top: 12px;
 }
@@ -41,13 +44,22 @@
   outline: none;
   border: none;
   font-size: 15px;
+  min-width: none;
 
   color: var(--secondary-text-color);
 }
 
+@media (max-width: 680px) {
+  #explore-panel-search-form {
+    width: 81%;
+  }
+}
+
 @media (max-width: 500px) {
   #explore-panel-search-form {
-    padding: 4px 16px;
-    margin-left: 54px;
+    padding: 4px 0px;
+    width: 65%;
+    padding-left: 16px;
+    margin-left: 15%;
   }
 }

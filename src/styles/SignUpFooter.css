@@ -126,7 +126,7 @@
 @media (max-width: 500px) {
   .signup-footer-container {
     box-shadow: none;
-    border-top: 1px solid;
+    border-top: 1px solid rgb(77, 77, 77);
     background-color: black;
     transition: none;
   }

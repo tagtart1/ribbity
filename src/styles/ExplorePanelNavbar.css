@@ -7,7 +7,6 @@
   color: var(--secondary-text-color);
   padding: 0;
   align-items: center;
-  width: 100%;
 
   font-weight: 400;
   overflow-x: auto;
@@ -15,7 +14,6 @@
   max-width: 600px;
   border-bottom: 1px solid var(--thin-border-color);
   margin-bottom: 0;
-  flex-shrink: 1;
 }
 
 .explore-panel-navbar-container li {
@@ -31,6 +29,7 @@
   padding: 0px 24px;
   transition: 0.2s all;
   width: 100%;
+  min-width: 56px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -59,9 +58,17 @@
   border-radius: 3px;
 }
 
+@media (max-width: 680px) {
+  .explore-panel-navbar-container {
+    overflow-x: auto;
+    padding-right: 24px;
+  }
+}
+
 @media (max-width: 500px) {
   .explore-panel-navbar-container {
     overflow-x: auto;
+    padding-right: 12px;
   }
 
   .explore-panel-navbar-container::-webkit-scrollbar {
