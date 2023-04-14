@@ -7,7 +7,7 @@ import "../../../../styles/UserFollowPanel.css";
 import UserFollowPanelMember from "./UserFollowPanelMember";
 import InvalidRoutePanel from "../../../Misc/InvalidRoutePanel";
 import LoadingPanel from "../../../Misc/LoadingPanel";
-import { act } from "react-dom/test-utils";
+
 import EmptyTwatList from "../../../Misc/EmptyTwatList";
 
 interface TabProps {

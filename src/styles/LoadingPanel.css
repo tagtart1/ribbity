@@ -1,8 +1,11 @@
-.loading-panel-wrapper {
-  width: 600px;
+@import url("AppCSSVariables.css");
 
-  border-left: 1px solid rgb(47, 51, 54);
-  border-right: 1px solid rgb(47, 51, 54);
+.loading-panel-wrapper {
+  width: 100%;
+  max-width: 600px;
+
+  border-left: 1px solid var(--thin-border-color);
+  border-right: 1px solid var(--thin-border-color);
   height: 110vh;
 
   display: flex;

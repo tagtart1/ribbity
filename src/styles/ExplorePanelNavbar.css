@@ -1,17 +1,21 @@
+@import url("AppCSSVariables.css");
 .explore-panel-navbar-container {
   list-style: none;
   text-decoration: none;
   display: flex;
   flex-direction: row;
-  color: #6d7277;
+  color: var(--secondary-text-color);
   padding: 0;
   align-items: center;
   width: 100%;
 
   font-weight: 400;
-
-  border-bottom: 1px solid rgb(47, 51, 54);
+  overflow-x: auto;
+  width: 100%;
+  max-width: 600px;
+  border-bottom: 1px solid var(--thin-border-color);
   margin-bottom: 0;
+  flex-shrink: 1;
 }
 
 .explore-panel-navbar-container li {
@@ -49,8 +53,18 @@
   bottom: 1px;
   left: -5%;
   display: block;
-  background-color: #1d9bf0;
+  background-color: var(--primary-color);
   width: 110%;
   height: 4px;
   border-radius: 3px;
+}
+
+@media (max-width: 500px) {
+  .explore-panel-navbar-container {
+    overflow-x: auto;
+  }
+
+  .explore-panel-navbar-container::-webkit-scrollbar {
+    display: none;
+  }
 }

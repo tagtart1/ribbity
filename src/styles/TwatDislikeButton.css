@@ -1,16 +1,11 @@
+@import url("AppCSSVariables.css");
+
 #twat-option-dislike-wrapper {
   display: flex;
   align-items: center;
   gap: 3px;
   cursor: pointer;
   position: relative;
-}
-
-#twat-option-dislike-wrapper .dislike-count {
-  color: #71767b;
-  user-select: none;
-  position: absolute;
-  right: -8px;
 }
 
 .twat-option-icon-dislike {
@@ -29,19 +24,23 @@
   fill: #bb731b;
 }
 
+#twat-option-dislike-wrapper:hover .dislikes-count {
+  color: #bb731b;
+}
+
 #twat-option-dislike-wrapper:hover .twat-option-icon {
   background-color: #bb731b1c;
 }
 
 #twat-option-dislike-wrapper .dislikes-count {
-  top: 8px;
-}
-
-#twat-option-dislike-wrapper .dislikes-count {
-  color: #71767b;
+  color: var(--secondary-text-color);
   user-select: none;
+
+  transition: 0.2s all;
+  pointer-events: all;
+
   position: absolute;
-  right: -8px;
+  top: 25%;
 }
 
 .disliked {

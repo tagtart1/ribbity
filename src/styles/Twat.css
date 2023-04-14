@@ -1,7 +1,5 @@
-:root {
-  --twat-blue: #1d9bf0;
-  --twat-blue-faded: #1d9cf022;
-}
+@import url("AppCSSVariables.css");
+
 p {
   margin: 0;
   padding: 0;
@@ -29,7 +27,7 @@ header {
 }
 
 .border-bottom {
-  border-bottom: 1px solid rgb(47, 51, 54);
+  border-bottom: 1px solid var(--thin-border-color);
 }
 
 .twat-container:hover {
@@ -97,14 +95,15 @@ header {
   top: -6px;
   right: -1px;
   pointer-events: auto;
+  transition: 0.2s all;
 }
 
 .more-icon-wrapper:hover {
-  background-color: var(--twat-blue-faded);
+  background-color: rgba(55, 209, 119, 0.159);
 }
 
 .more-icon-wrapper:hover .twat-path {
-  fill: var(--twat-blue);
+  fill: var(--primary-color);
 }
 .twat-icon-button-row {
   display: flex;
@@ -152,23 +151,23 @@ path {
 }
 
 .twat-option-icon:hover svg path {
-  fill: var(--twat-blue);
+  fill: var(--primary-color);
 }
 
-.twat-option-icon:hover {
-  background-color: var(--twat-blue-faded);
+.copy-option-icon:hover {
+  background-color: rgba(25, 96, 55, 0.258);
 }
 
-.twat-option-icon-heart:hover svg path {
+#twat-option-heart-wrapper:hover svg path {
   fill: rgb(194, 20, 101);
 }
 
 .twat-option-icon-retweet:hover svg path {
-  fill: #01a66f;
+  fill: #00cfd6;
 }
 
 .twat-option-icon-retweet:hover {
-  background-color: #071a14;
+  background-color: #07141a;
 }
 
 .twat-option-icon-heart:hover {
@@ -182,6 +181,20 @@ path {
   gap: 3px;
   cursor: pointer;
   position: relative;
+  pointer-events: all;
+  border-radius: 50%;
+}
+
+#twat-option-reply-wrapper:hover .twat-option-icon {
+  background-color: rgba(25, 96, 55, 0.258);
+}
+
+#twat-option-reply-wrapper:hover svg path {
+  fill: var(--primary-color);
+}
+
+#twat-option-reply-wrapper:hover .reply-count {
+  color: var(--primary-color);
 }
 
 #twat-option-heart-wrapper .likes-count {
@@ -190,10 +203,16 @@ path {
 
 #twat-option-heart-wrapper .likes-count,
 #twat-option-reply-wrapper .reply-count {
-  color: #71767b;
+  color: var(--secondary-text-color);
   user-select: none;
+
+  transition: 0.2s all;
+}
+
+#twat-option-reply-wrapper .reply-count {
   position: absolute;
-  right: -8px;
+  top: 25%;
+  left: 105%;
 }
 
 .liked {
@@ -205,13 +224,13 @@ a {
 }
 
 .replying-to-text {
-  color: #71767b;
+  color: var(--secondary-text-color);
   margin-bottom: 2px;
   margin-top: 2px;
 }
 
 .replying-to-handle {
-  color: #1a8cd8;
+  color: var(--link-text-color);
   pointer-events: auto;
 }
 

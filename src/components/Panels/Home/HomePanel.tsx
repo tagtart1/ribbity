@@ -14,7 +14,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
-import Twat from "../../Twat/Twat";
+import Ribbit from "../../Ribbit/Ribbit";
 
 interface HomePanelProps {
   currentUser?: {
@@ -121,7 +121,7 @@ const Home = ({ currentUser }: any) => {
         <div>
           {Object.keys(twatList).map((doc: any) => {
             return (
-              <Twat
+              <Ribbit
                 twatInfo={twatList[doc]}
                 isDeletable={
                   currentUser.userHandle === twatList[doc].handle ? true : false

@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 .recommended-follow-container {
   display: flex;
   justify-content: space-between;
@@ -33,5 +35,5 @@
   font-weight: bold;
 }
 .recommended-follow-names p:last-child {
-  color: rgb(103, 108, 112);
+  color: var(--secondary-text-color);
 }

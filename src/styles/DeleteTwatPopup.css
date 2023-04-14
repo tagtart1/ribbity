@@ -1,8 +1,10 @@
+@import url("AppCSSVariables.css");
+
 .delete-twat-popup-container {
   box-sizing: border-box;
-  color: white;
+  color: var(--primary-text-color);
   position: fixed;
-  background-color: rgba(84, 97, 114, 0.4);
+  background-color: var(--transparent-background-color);
   left: 0px;
   top: 0px;
   width: 100%;
@@ -18,7 +20,7 @@
   height: 300px;
   width: 320px;
   padding: 32px;
-  background-color: black;
+  background-color: var(--popup-background-color);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -61,10 +63,10 @@
 
 .delete-twat-popup-wrapper .delete-cancel {
   background-color: transparent;
-  border: 1px solid rgb(83, 100, 113);
+  border: 1px solid var(--thin-border-color);
 }
 
 .delete-confirm-text {
   font-size: 15px;
-  color: rgb(100, 105, 109);
+  color: var(--secondary-text-color);
 }

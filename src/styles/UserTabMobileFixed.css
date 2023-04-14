@@ -1,0 +1,25 @@
+.user-tab-mobile-container {
+  box-sizing: border-box;
+  position: fixed;
+  top: 10px;
+  left: 16px;
+  display: none;
+}
+
+.user-tab-mobile-container svg {
+  width: 30px !important;
+  height: 30px !important;
+  display: block;
+}
+
+.user-tab-mobile-container img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+@media (max-width: 500px) {
+  .user-tab-mobile-container {
+    display: block;
+  }
+}

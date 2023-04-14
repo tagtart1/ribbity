@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 :root {
   --viewport-width: 100vw;
 }
@@ -65,7 +67,7 @@
 }
 
 .profile-panel-info-container .user-handle {
-  color: rgb(100, 105, 109);
+  color: var(--secondary-text-color);
   margin-bottom: 16px;
 }
 .profile-panel-info-container .user-bio {
@@ -75,7 +77,7 @@
 .profile-panel-info-container .user-join-date,
 .profile-panel-info-container .user-location {
   margin-bottom: 16px;
-  color: rgb(100, 105, 109);
+  color: var(--secondary-text-color);
   display: flex;
   align-items: center;
 }
@@ -89,7 +91,7 @@
 
 .profile-panel-info-container .user-following-nums {
   font-size: 14px;
-  color: rgb(100, 105, 109);
+  color: var(--secondary-text-color);
   display: flex;
   gap: 16px;
   cursor: pointer;
@@ -97,11 +99,11 @@
 
 .profile-panel-info-container .user-following-nums a:hover {
   text-decoration: underline;
-  text-decoration-color: white;
+  text-decoration-color: var(--primary-text-color);
 }
 
 .user-bio {
-  color: rgb(219, 221, 222);
+  color: var(--primary-text-color);
 }
 
 .misc-user-info {

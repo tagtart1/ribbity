@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 .twat-panel-display-container {
   box-sizing: border-box;
   padding-right: 12px;
@@ -6,7 +8,7 @@
   flex-direction: column;
   gap: 16px;
   padding-top: 10px;
-  border-bottom: 0.5px solid rgb(47, 51, 54);
+  border-bottom: 0.5px solid var(--thin-border-color);
   position: relative;
 }
 
@@ -43,7 +45,7 @@
 .twat-panel-display-container .user-info .user-handle {
   font-weight: lighter;
   font-size: 15px;
-  color: #64686d;
+  color: var(--secondary-text-color);
 }
 
 .twat-panel-display-container .user-info img,
@@ -66,23 +68,23 @@
 }
 
 .twat-panel-display-container .date-posted {
-  color: #64686d;
+  color: var(--secondary-text-color);
 }
 
 .twat-panel-display-container .more-button:hover {
-  background-color: #071b28;
+  background-color: #07280d9f;
 }
 
 .twat-panel-display-container .more-button:hover svg .twat-path {
   transition: 0.3s all;
-  fill: #1a8ad4;
+  fill: var(--primary-color);
 }
 
 .twat-panel-display-container .action-buttons {
   display: flex;
   justify-content: space-around;
-  border-top: 0.5px solid rgb(47, 51, 54);
-  border-bottom: 0.5px solid rgb(47, 51, 54);
+  border-top: 0.5px solid var(--thin-border-color);
+  border-bottom: 0.5px solid var(--thin-border-color);
   padding: 4px 0px;
 }
 
@@ -105,12 +107,20 @@
 }
 
 .twat-panel-display-container .action-button-wrapper:hover {
-  background-color: #2a5c8055;
+  background-color: #38802a34;
 }
 
 .twat-panel-display-container .action-button-wrapper:hover path {
   transition: 0.2s all;
-  fill: #1d9bf0;
+  fill: var(--primary-color);
+}
+
+.twat-panel-display-container .reribbit-action-button:hover path {
+  fill: rgb(0, 194, 194);
+}
+
+.twat-panel-display-container .reribbit-action-button:hover {
+  background-color: rgba(0, 152, 152, 0.108);
 }
 
 .twat-reply-form {
@@ -124,13 +134,14 @@
   border-radius: 24px;
   padding: 6px 16px;
   font-weight: bold;
-  background-color: rgb(29, 155, 240);
+  background-color: var(--primary-color);
   color: white;
   border: none;
   font-size: 16px;
   width: 75px;
   height: 35px;
   margin-top: 8px;
+  cursor: pointer;
 }
 
 .reply-form-left-side {
@@ -144,7 +155,7 @@
   background-color: transparent;
   border: none;
   font-size: 21px;
-  color: white;
+  color: var(--primary-text-color);
   outline: none;
 
   font-family: "Chirp";

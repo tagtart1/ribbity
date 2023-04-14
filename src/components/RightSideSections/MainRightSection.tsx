@@ -40,7 +40,6 @@ const MainRightSection = ({
     </div>
   ) : (
     <div>
-      <div style={{ width: 300 }}></div>
       <div className="main-right-section-wrapper">
         <div className="side-panels">
           <SignUpModal

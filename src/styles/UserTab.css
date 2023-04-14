@@ -1,9 +1,11 @@
+@import url("AppCSSVariables.css");
+
 .user-tab-container {
   background-color: transparent;
   max-width: 260px;
 
   height: 60px;
-  color: white;
+  color: var(--primary-text-color);
 
   margin-bottom: 12px;
   border-radius: 48px;
@@ -21,6 +23,7 @@
 .user-tab-wrapper {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .user-tab-container svg {
@@ -46,37 +49,5 @@
 
 .user-tab-left .tweeter-unique-name {
   font-size: 15px;
-  color: rgb(113, 118, 123);
-}
-
-.logout-dropdown {
-  background-color: transparent;
-  border-radius: 12px;
-  border: 1px solid #2f3336;
-  width: auto;
-  height: auto;
-
-  box-shadow: rgb(255 255 255 / 20%) 0px 0px 15px,
-    rgb(255 255 255 / 15%) 0px 0px 3px 1px;
-
-  padding: 8px 12px;
-  margin-left: 110px;
-  margin-top: -50px;
-  transition: all 0.2s;
-  color: white;
-  cursor: pointer;
-}
-
-.logout-dropdown:hover {
-  transform: scale(1.05);
-}
-
-.logout-dropdown button {
-  margin: 0;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  color: white;
-  font-family: "Chirp";
-  cursor: pointer;
+  color: var(--secondary-text-color);
 }

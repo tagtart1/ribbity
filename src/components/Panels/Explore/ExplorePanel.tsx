@@ -6,7 +6,7 @@ import ExploreTopicFeedRandom from "./ExploreTopicFeedRandom";
 import { useState, useEffect } from "react";
 import { collection, query, limit, getDocs } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
-import Twat from "../../Twat/Twat";
+import Ribbit from "../../Ribbit/Ribbit";
 import LoadingPanel from "../../Misc/LoadingPanel";
 
 const ExplorePanel = () => {
@@ -43,7 +43,7 @@ const ExplorePanel = () => {
         {activeTab === 0 ? (
           twatsList.map((twat: any) => {
             return (
-              <Twat
+              <Ribbit
                 isDeletable={false}
                 isThreaded={false}
                 inShowcase={false}

@@ -26,7 +26,7 @@ import {
   getCountFromServer,
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
-import Twat from "../../Twat/Twat";
+import Ribbit from "../../Ribbit/Ribbit";
 
 import { sortByTimeInSecondsDescending } from "../../../scripts/HelperFns";
 import WorkInProgress from "../../Misc/WorkInProgress";
@@ -275,7 +275,7 @@ const ProfilePanel = ({
         ) : (
           twatList.map((doc: any) => {
             return (
-              <Twat
+              <Ribbit
                 twatInfo={doc}
                 isDeletable={
                   currentUser.userHandle === doc.handle ? true : false

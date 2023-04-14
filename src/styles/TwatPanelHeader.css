@@ -1,9 +1,11 @@
 .twat-panel-container .twat-panel-header {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   display: flex;
   align-items: center;
   padding: 8px;
   gap: 28px;
+  box-sizing: border-box;
 }
 .twat-panel-container .back-arrow {
   padding: 8px;

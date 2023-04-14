@@ -1,0 +1,111 @@
+@import url("AppCSSVariables.css");
+
+.logout-popup-container {
+  height: 100%;
+  width: 100%;
+  background-color: var(--transparent-background-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-popup-main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  height: 325px;
+  border-radius: 16px;
+  background-color: var(--popup-background-color);
+  color: var(--primary-text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 64px;
+  position: relative;
+}
+
+.logout-popup-main h1 {
+  margin: 0;
+}
+
+.logout-popup-main .text-group {
+  width: 100%;
+  max-width: 400px;
+}
+
+.logout-popup-main .text-group p {
+  margin-top: 10px !important;
+  color: var(--secondary-text-color);
+  margin: 0;
+}
+
+.logout-popup-main .button-group {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logout-popup-main .button-group .logout-button {
+  padding: 14px 0px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  border: none;
+  color: var(--primary-text-color);
+  font-weight: bold;
+  font-size: 18px;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.logout-popup-main .button-group .cancel-button {
+  padding: 14px 0px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 18px;
+  background-color: transparent;
+  color: var(--primary-color);
+  font-weight: bold;
+  border: 1px solid var(--primary-button-border-color);
+  cursor: pointer;
+}
+
+.logout-popup-main .backout-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.logout-popup-main .backout-button {
+  padding: 6px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  transition: 0.2s all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.logout-popup-main .backout-button:hover {
+  background-color: #6a6f7440;
+}
+
+@media (max-width: 600px) {
+  .logout-popup-main {
+    max-width: none;
+    height: 100%;
+    border-radius: 0px;
+    justify-content: center;
+    padding: 24px;
+  }
+}

@@ -1,10 +1,12 @@
+@import url("AppCSSVariables.css");
+
 .spinner {
   width: 62px;
   height: 62px;
   border-radius: 50%;
   border: 11.5px solid;
-  border-color: #696969;
-  border-right-color: #63b2ff;
+  border-color: var(--secondary-color);
+  border-right-color: var(--primary-color);
   animation: spinner-d3wgkg 0.5s infinite linear;
 }
 

@@ -1,0 +1,28 @@
+@import url("AppCSSVariables.css");
+
+.twat-button-mobile-container {
+  display: none;
+}
+
+.twat-button-mobile-fixed {
+  background-color: var(--primary-color);
+  padding: 16px;
+  position: fixed;
+  right: 16px;
+  bottom: 70px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+}
+
+.twat-button-mobile-fixed:active {
+  background-color: rgb(46, 176, 100);
+}
+
+.twat-button-mobile-fixed svg {
+  width: 24px;
+  height: 24px;
+}

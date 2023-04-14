@@ -1,8 +1,10 @@
+@import url("AppCSSVariables.css");
+
 .twat-popup-input-container {
   box-sizing: border-box;
-  color: white;
+  color: var(--primary-color);
   position: fixed;
-  background-color: rgba(84, 97, 114, 0.4);
+  background-color: var(--transparent-background-color);
   left: 0px;
   width: 100%;
   height: 100%;
@@ -14,7 +16,7 @@
 
 .twat-popup-input-wrapper {
   width: 575px;
-  background-color: black;
+  background-color: var(--popup-background-color);
   height: 310px;
   border-radius: 16px;
   padding: 0px 12px;
@@ -67,7 +69,7 @@
   background-color: transparent;
 
   flex: 1;
-  color: white;
+  color: var(--primary-text-color);
   font-size: 21px;
   outline: none;
   resize: none;
@@ -96,6 +98,10 @@
   margin-left: 8px;
 }
 
+.popup-media-option-icon svg path {
+  fill: var(--primary-color);
+}
+
 .popup-media-option-icon {
   display: flex;
   align-items: center;
@@ -109,11 +115,11 @@
 }
 
 .popup-media-option-icon:hover {
-  background-color: #1d9cf020;
+  background-color: #1df05920;
 }
 
 .popup-bottom-row .twat-button {
-  background-color: rgb(29, 155, 240);
+  background-color: var(--primary-color);
   border: none;
   color: white;
   border-radius: 16px;
@@ -123,7 +129,7 @@
   cursor: pointer;
 }
 .twat-reply-status {
-  color: #1d9bf0;
+  color: var(--primary-color);
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -133,10 +139,15 @@
   margin: 12px 0px;
   width: fit-content;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .twat-reply-status:hover {
-  background-color: #1d9cf021;
+  background-color: #1df03221;
+}
+
+.twat-reply-status svg path {
+  fill: var(--primary-color);
 }
 
 .twat-reply-status svg {
@@ -145,7 +156,7 @@
 }
 
 .popup-input-length {
-  color: rgb(29, 155, 240);
+  color: var(--primary-color);
   font-size: 12px;
 }
 
@@ -153,4 +164,15 @@
   display: flex;
   gap: 16px;
   align-items: center;
+}
+
+@media (max-width: 700px) {
+  .twat-popup-input-container {
+    background-color: black;
+    padding-top: 10px;
+    overflow-x: hidden;
+  }
+
+  .twat-popup-input-wrapper {
+  }
 }

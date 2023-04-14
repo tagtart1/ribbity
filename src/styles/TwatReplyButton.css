@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 #twat-option-reply-wrapper {
   display: flex;
   align-items: center;
@@ -7,7 +9,7 @@
 }
 
 #twat-option-reply-wrapper .reply-count {
-  color: #71767b;
+  color: var(--secondary-text-color);
   user-select: none;
   position: absolute;
   right: -8px;

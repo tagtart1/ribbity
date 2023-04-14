@@ -1,5 +1,6 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import "../../../styles/ExplorePanelNavbar.css";
+import Draggable from "react-draggable";
 
 interface ExplorePanelNavbarProps {
   setActiveTab: Function;
@@ -17,6 +18,14 @@ const ExplorePanelNavbar = ({ setActiveTab }: ExplorePanelNavbarProps) => {
 
     setSelectedTab(listItem);
     setActiveTab(tabNum);
+  };
+
+  const onDrag = (e: any, data: any) => {
+    const container: any = document.querySelector(
+      ".explore-panel-navbar-container"
+    );
+
+    container.scrollLeft -= data.deltaX;
   };
 
   useEffect(() => {

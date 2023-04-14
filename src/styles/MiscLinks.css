@@ -1,6 +1,9 @@
+@import url("AppCSSVariables.css");
+
 .misc-links-container {
-  color: #64696d;
-  width: 350px;
+  color: var(--secondary-text-color);
+  width: 100%;
+  max-width: 350px;
   font-size: 14px;
 
   margin-left: 12px;

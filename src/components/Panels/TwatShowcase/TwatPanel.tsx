@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../../scripts/firebaseConfig";
 import "../../../styles/TwatPanel.css";
-import Twat from "../../Twat/Twat";
+import Ribbit from "../../Ribbit/Ribbit";
 import TwatPanelDisplay from "./TwatPanelDisplay";
 import TwatPanelHeader from "./TwatPanelHeader";
 import LoadingPanel from "../../Misc/LoadingPanel";
@@ -106,7 +106,7 @@ const TwatPanel = ({ mainUser }: any) => {
       <div className="twat-thread-display-container">
         {parentTwats.map((twat: any) => {
           return (
-            <Twat
+            <Ribbit
               twatInfo={twat}
               isDeletable={twat.handle === mainUser.userHandle ? true : false}
               currentHandle={mainUser.userHandle}
@@ -126,7 +126,7 @@ const TwatPanel = ({ mainUser }: any) => {
       />
       {comments.map((comment: any) => {
         return (
-          <Twat
+          <Ribbit
             twatInfo={comment}
             isDeletable={comment.handle === mainUser.userHandle ? true : false}
             currentHandle={mainUser.userHandle}

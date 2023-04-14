@@ -23,9 +23,9 @@ import TwatReplyButton from "./TwatReplyButton";
 
 import TwatReactionButtons from "./TwatReactionButtons";
 import toast from "react-hot-toast";
-import useDeleteTwat from "../useDeleteTwat";
+import useDeleteRibbit from "../useDeleteRibbit";
 
-interface TwatProps {
+interface RibbitProps {
   twatInfo: {
     userName: string;
     handle: string;
@@ -58,18 +58,18 @@ interface TwatProps {
   inShowcase: boolean;
 }
 // To delete make sure the user opening the tab is the user that owns the tweet. Find the doc by the id in firebase and remove it, with delete confirmation
-const Twat = ({
+const Ribbit = ({
   twatInfo,
   isDeletable,
   currentHandle,
   refreshTwats,
   isThreaded,
   inShowcase,
-}: TwatProps) => {
+}: RibbitProps) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
   const { handle, tab } = useParams();
-  const deleteTwat = useDeleteTwat({
+  const deleteRibbit = useDeleteRibbit({
     twatInfo,
     refreshTwats,
     tab,
@@ -85,12 +85,12 @@ const Twat = ({
     setOpenDelete(true);
   };
 
-  const handleDeleteTwat = async () => {
-    deleteTwat();
+  const handleDeleteRibbit = async () => {
+    deleteRibbit();
     setOpenDelete(false);
   };
 
-  const handleOpeningTwat = (e: any) => {
+  const handleOpeningRibbit = (e: any) => {
     // Pointer events are set to off in the style sheet for all child elements except the ones that need to register a click
     if (e.currentTarget === e.target) {
       navigate(`/${twatInfo.handle}/twat/${twatInfo.id}`);
@@ -124,7 +124,7 @@ const Twat = ({
         className={
           isThreaded ? "twat-container" : "twat-container border-bottom"
         }
-        onClick={handleOpeningTwat}
+        onClick={handleOpeningRibbit}
       >
         <Link to={`/${twatInfo.handle}`}>
           <div className={isThreaded ? "threaded-profile-img" : ""}>
@@ -145,7 +145,7 @@ const Twat = ({
               <div className="more-icon-wrapper" onClick={openDeleteOption}>
                 <DeleteOptionDropdown
                   isVisible={openDelete}
-                  deleteTwat={handleDeleteTwat}
+                  deleteTwat={handleDeleteRibbit}
                 />
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <g>
@@ -191,7 +191,10 @@ const Twat = ({
               currentHandle={currentHandle}
               twatInfo={twatInfo}
             />
-            <div className="twat-option-icon" onClick={copyTwatLinkToClipboard}>
+            <div
+              className="twat-option-icon copy-option-icon"
+              onClick={copyTwatLinkToClipboard}
+            >
               <svg viewBox="0 0 24 24">
                 <g>
                   <path
@@ -211,4 +214,4 @@ const Twat = ({
     </motion.div>
   );
 };
-export default Twat;
+export default Ribbit;

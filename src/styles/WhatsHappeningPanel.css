@@ -1,6 +1,8 @@
+@import url("AppCSSVariables.css");
+
 .whats-happening-container {
-  background-color: rgb(22, 24, 28);
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-text-color);
   border-radius: 16px;
   height: auto;
 

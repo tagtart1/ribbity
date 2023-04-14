@@ -1,5 +1,7 @@
 import "../../styles/UserTab.css";
 import { signOutUser } from "../../scripts/firebaseHelperFns";
+import { useState } from "react";
+import LogoutPopup from "./LogoutPopup";
 
 interface userInfo {
   bio?: string;
@@ -14,21 +16,14 @@ interface UserTabProps {
 }
 
 const UserTab = ({ currentUser }: UserTabProps) => {
-  const toggleLogoutDropdown = () => {
-    const dropdown = document.querySelector(".logout-dropdown");
-
-    if (dropdown?.getAttribute("hidden") !== null) {
-      dropdown?.removeAttribute("hidden");
-      return;
-    }
-
-    dropdown?.setAttribute("hidden", "true");
-    console.log(dropdown);
-  };
+  const [showLogoutPopup, setShowLogoutPopup] = useState<boolean>(false);
 
   return (
     <div className="user-tab-wrapper">
-      <div className="user-tab-container" onClick={toggleLogoutDropdown}>
+      <div
+        className="user-tab-container"
+        onClick={() => setShowLogoutPopup(true)}
+      >
         <div className="user-tab-left">
           <img
             src={currentUser.profileImgUrl}
@@ -49,13 +44,10 @@ const UserTab = ({ currentUser }: UserTabProps) => {
           </g>
         </svg>
       </div>
-      <div
-        style={{ position: "fixed" }}
-        hidden={true}
-        className="logout-dropdown"
-      >
-        <button onClick={signOutUser}>Log out {currentUser.userName}</button>
-      </div>
+      <LogoutPopup
+        isVisible={showLogoutPopup}
+        setVisibility={setShowLogoutPopup}
+      />
     </div>
   );
 };

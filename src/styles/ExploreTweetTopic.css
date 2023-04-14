@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 .explore-tweet-topic-wrapper {
   display: flex;
   flex-direction: row;
@@ -7,7 +9,7 @@
 }
 
 .explore-tweet-topic-container {
-  color: #64686d;
+  color: var(--secondary-text-color);
   font-size: 14px;
   padding: 16px;
 
@@ -25,7 +27,7 @@
 
 .explore-tweet-topic-container .topic-title {
   font-size: 16px;
-  color: rgb(255, 255, 255);
+  color: var(--primary-text-color);
   margin: 0;
   padding: 0;
 }

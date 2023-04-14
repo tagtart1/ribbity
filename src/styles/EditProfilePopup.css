@@ -1,10 +1,8 @@
-:root {
-  --tweety-blue: rgb(29, 155, 240);
-}
+@import url("AppCSSVariables.css");
 
 .edit-profile-popup-container {
   position: fixed;
-  background-color: rgba(151, 173, 199, 0.227);
+  background-color: var(--transparent-background-color);
   width: 100%;
   height: 100%;
   top: 0;
@@ -17,10 +15,11 @@
 }
 
 .edit-profile-popup {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   box-sizing: border-box;
   height: 650px;
-  background-color: black;
+  background-color: var(--popup-background-color);
   border-radius: 18px;
 
   position: relative;
@@ -82,27 +81,30 @@
 
 .current-user-banner img {
   box-sizing: border-box;
+  width: 100%;
   max-width: 596px;
-
+  height: 100%;
   max-height: 200px;
 }
 
 .current-user-profile-image {
   position: absolute;
-  margin-top: -50px;
+  margin-top: -12%;
   border-radius: 50%;
   padding: 3px;
   background-color: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: fit-content;
+
   left: 16px;
+  width: 23%;
+  max-width: fit-content;
 }
 
 .current-user-profile-image img {
-  height: 120px;
-  width: 120px;
+  width: 100%;
+  max-width: 120px;
   border-radius: 50%;
 }
 
@@ -131,12 +133,12 @@
 }
 
 .edit-profile-input-div:focus-within {
-  border-color: var(--tweety-blue);
+  border-color: var(--primary-color);
 }
 
 .edit-profile-input-div:focus-within label,
 .edit-profile-input-div:focus-within label {
-  color: var(--tweety-blue);
+  color: var(--primary-color);
 }
 
 .edit-profile-input-div:focus-within.invalid-input label {
@@ -246,8 +248,9 @@ input[type="file"] {
 
 .profile-image-input-container {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  max-width: 120px;
+  height: auto;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -262,6 +265,21 @@ input[type="file"] {
   justify-content: center;
   align-items: center;
   top: 0px;
-  width: 596px;
-  height: 200px;
+  width: 100%;
+  max-width: 596px;
+  height: 100%;
+  max-height: 200px;
+}
+
+/* Media Queries */
+
+@media (max-width: 700px) {
+  .edit-profile-popup-container {
+    background-color: black;
+    align-items: start;
+  }
+
+  .edit-profile-popup {
+    height: 100vh;
+  }
 }

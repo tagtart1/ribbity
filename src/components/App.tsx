@@ -24,6 +24,8 @@ import { Toaster } from "react-hot-toast";
 import InvalidRoutePanel from "./Misc/InvalidRoutePanel";
 import FrogIconLogo from "./Misc/FrogIconLogo";
 import AppContext from "./AppContext";
+import MainBottomNavMobile from "./Mobile/MainBottomNavMobile";
+import TwatButtonFixed from "./Mobile/TwatButtonFixed";
 
 interface userInfo {
   bio?: string;
@@ -45,7 +47,6 @@ const App = () => {
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const refresh = useForceUpdate();
 
   // Fires when the state of the user being signed in changes
   const authObserver = async (user: any) => {
@@ -92,7 +93,7 @@ const App = () => {
         <Toaster
           position="bottom-center"
           toastOptions={{
-            style: { background: `rgb(29, 155, 240)`, color: "#FFF" },
+            style: { background: `rgb(51, 190, 109)`, color: "#FFF" },
 
             error: {
               style: {
@@ -101,11 +102,7 @@ const App = () => {
             },
           }}
         />
-        <MainLeftSection
-          currentUser={mainUser}
-          signedIn={isUserSignedIn}
-          refresh={refresh}
-        />
+        <MainLeftSection currentUser={mainUser} signedIn={isUserSignedIn} />
         <Routes>
           <Route path="/" element={<ExplorePanel />} />
           <Route path="/home" element={<HomePanel currentUser={mainUser} />} />
@@ -161,6 +158,8 @@ const App = () => {
 
         <SignUpFooter signedIn={isUserSignedIn} />
       </div>
+      <MainBottomNavMobile />
+      <TwatButtonFixed mainUser={mainUser} />
     </AppContext.Provider>
   );
 };

@@ -11,14 +11,12 @@ interface TwatPopupInputProps {
   isVisible: boolean;
   toggleVisibility: Function;
   currentUser: any;
-  refresh: Function;
 }
 
 const TwatPopupInput = ({
   isVisible,
   toggleVisibility,
   currentUser,
-  refresh,
 }: TwatPopupInputProps) => {
   const [inputLength, setInputLength] = useState<Number>(0);
 
@@ -59,7 +57,7 @@ const TwatPopupInput = ({
           all: [],
         },
       });
-      refresh();
+
       notifySuccess();
       toggleVisibility(false);
     } catch (error) {

@@ -1,28 +1,36 @@
+@import url("AppCSSVariables.css");
+
 .explore-panel-container {
   height: 100%;
-  border-left: 0.5px solid rgb(47, 51, 54);
-  border-right: 0.5px solid rgb(47, 51, 54);
+  border-left: 0.5px solid var(--thin-border-color);
+  border-right: 0.5px solid var(--thin-border-color);
 
   width: 100%;
 
-  color: white;
-  width: 600px;
+  color: var(--primary-text-color);
+  max-width: 600px;
 
-  display: flex;
+  position: static;
   padding-bottom: 90vh;
   margin-left: 30px;
   margin-right: 30px;
+
+  flex-shrink: 1;
 }
 
 .explore-panel-header {
   position: fixed;
   z-index: 5;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   backdrop-filter: blur(11px);
   background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
 }
 
 .explore-main-feed {
-  width: 600px;
-  margin-top: 105px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 120px;
 }

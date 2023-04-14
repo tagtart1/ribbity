@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 .main-left-section {
   background-color: rgb(0, 0, 0);
   height: 100%;
@@ -8,8 +10,8 @@
   top: 0;
 }
 .tweet-button-left {
-  color: white;
-  background-color: rgb(29, 155, 240);
+  color: var(--primary-text-color);
+  background-color: var(--primary-color);
   padding: 16px 0px;
   box-sizing: border-box;
   min-width: 233px;
@@ -43,8 +45,9 @@
 }
 
 @media (max-width: 1280px) {
-  .fixed-left-section {
-    min-width: none;
+  .fixed-left-section,
+  .main-nav-tabs-list-no-auth {
+    min-width: auto;
   }
 
   .tab-items p {
@@ -68,5 +71,17 @@
 @media (max-width: 703px) {
   .main-left-section {
     margin-left: 14px;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-left-section {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1095px) {
+  .main-nav-tabs-list-no-auth {
+    padding-left: 0;
   }
 }

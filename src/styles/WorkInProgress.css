@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 .work-inprogress-container {
   width: 100%;
   display: flex;
@@ -5,14 +7,14 @@
   height: 200px;
   padding-top: 50px;
 
-  color: #64696d;
+  color: var(--secondary-text-color);
   flex-direction: column;
 }
 
 .work-inprogress-container h1 {
   margin: 0;
   width: 50%;
-  color: white;
+  color: var(--primary-text-color);
 }
 
 .work-inprogress-container p {

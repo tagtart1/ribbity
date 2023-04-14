@@ -1,10 +1,14 @@
+@import url("AppCSSVariables.css");
+
 .invalid-route-panel-container {
   box-sizing: border-box;
   width: 600px;
 
-  border-left: 1px solid rgb(47, 51, 54);
-  border-right: 1px solid rgb(47, 51, 54);
+  border-left: 1px solid var(--thin-border-color);
+  border-right: 1px solid var(--thin-border-color);
   height: 110vh;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .invalid-route-panel-container .invalid-route-header {
@@ -41,7 +45,7 @@
 
 .invalid-route-header h1 {
   margin: 0;
-  color: white;
+  color: var(--primary-text-color);
   font-size: 20px;
 }
 
@@ -85,14 +89,14 @@
 }
 
 .invalid-route-message-wrapper p {
-  color: rgb(85, 85, 85);
+  color: var(--secondary-text-color);
   margin-top: 12px;
 }
 
 .invalid-route-message-wrapper button {
   border-radius: 20px;
   border: none;
-  background-color: rgb(29, 155, 240);
+  background-color: var(--primary-color);
   color: white;
   font-weight: 700;
   padding: 10px 24px;

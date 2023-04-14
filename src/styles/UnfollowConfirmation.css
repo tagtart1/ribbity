@@ -1,6 +1,8 @@
+@import url("AppCSSVariables.css");
+
 .unfollow-confirmation-container {
   position: fixed;
-  background-color: rgba(84, 97, 114, 0.4);
+  background-color: var(--transparent-background-color);
   left: 0px;
   width: 100%;
   height: 100%;
@@ -14,7 +16,7 @@
 }
 
 .unfollow-confirmation-main {
-  background-color: black;
+  background-color: var(--popup-background-color);
   box-sizing: border-box;
   height: 300px;
   width: 320px;
@@ -29,7 +31,7 @@
 .unfollow-confirmation-main h1 {
   margin: 0 !important;
   padding: 0;
-  color: white;
+  color: var(--primary-text-color);
   font-size: 19px;
 }
 
@@ -37,7 +39,7 @@
   font-size: 16px;
   padding: 0;
   margin: 0;
-  color: rgb(106, 111, 116);
+  color: var(--secondary-text-color);
   line-height: 19px;
 }
 

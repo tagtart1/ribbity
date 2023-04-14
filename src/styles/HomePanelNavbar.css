@@ -1,3 +1,11 @@
+@import url("AppCSSVariables.css");
+
+.home-panel-header-container {
+  position: sticky;
+
+  top: 20px;
+}
+
 .home-panel-header-text {
   font-size: 20px;
   margin-left: 14px;
@@ -8,14 +16,14 @@
   text-decoration: none;
   display: flex;
   flex-direction: row;
-  color: #6d7277;
+  color: var(--secondary-text-color);
   padding: 0;
   align-items: center;
   width: 100%;
 
   font-weight: 400;
 
-  border-bottom: 1px solid rgb(47, 51, 54);
+  border-bottom: 1px solid var(--thin-border-color);
   margin-bottom: 0;
 }
 
@@ -46,7 +54,7 @@
 .selected-tab-home {
   position: relative;
   font-weight: 600;
-  color: white;
+  color: var(--primary-text-color);
 }
 
 .selected-tab-home:after {
@@ -55,8 +63,16 @@
   bottom: 1px;
   left: -5%;
   display: block;
-  background-color: #1d9bf0;
+  background-color: var(--primary-color);
   width: 110%;
   height: 3px;
   border-radius: 3px;
+}
+
+@media (max-width: 500px) {
+  .home-panel-header-text {
+    margin-left: 0px;
+    display: flex;
+    justify-content: center;
+  }
 }

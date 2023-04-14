@@ -1,10 +1,12 @@
+@import url("AppCSSVariables.css");
+
 .home-tweet-input-container {
   display: flex;
   flex-direction: row;
   padding: 0 16px;
   padding-bottom: 8px;
   gap: 12px;
-  border-bottom: 0.5px solid rgb(47, 51, 54);
+  border-bottom: 1px solid var(--thin-border-color);
 }
 
 .user-profile-image-home-input {
@@ -27,7 +29,7 @@
   border: none;
   margin-top: 16px;
   padding: 8px 0px;
-  color: white;
+  color: var(--primary-text-color);
   font-family: "Chirp";
   font-weight: 300;
   resize: none;
@@ -55,8 +57,8 @@
 }
 
 .tweet-input-submit-button {
-  color: white;
-  background-color: rgb(29, 155, 240);
+  color: var(--primary-text-color);
+  background-color: var(--primary-color);
   padding: 8px 0px;
   width: 80px;
   margin-left: 40px;
@@ -78,5 +80,5 @@
 }
 
 .media-option-icon:hover {
-  background-color: rgb(15, 17, 24);
+  background-color: rgba(67, 107, 79, 0.231);
 }

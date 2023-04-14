@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
 import TwatReplyCounter from "./TwatReplyCounter";
 
 interface TwatReplyButtonProps {
@@ -7,7 +7,7 @@ interface TwatReplyButtonProps {
 }
 
 const TwatReplyButton = ({ twatId, twatHandle }: TwatReplyButtonProps) => {
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   const location = useLocation();
 
   return (

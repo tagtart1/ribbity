@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 .explore-panel-search {
   display: flex;
   align-items: center;
@@ -9,6 +11,7 @@
   gap: 36px;
 
   z-index: 10;
+  flex-shrink: 1;
 }
 
 .explore-panel-search svg {
@@ -16,15 +19,21 @@
   width: 20px;
 }
 
+.explore-panel-search .gear-icon {
+  margin-top: 12px;
+  width: 24px;
+  height: 24px;
+}
+
 #explore-panel-search-form {
   display: flex;
   align-items: center;
   gap: 12px;
-  background-color: #202327;
+  background-color: var(--search-bar-color);
   padding: 12px 16px;
   border-radius: 24px;
   width: 100%;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 
 #explore-panel-search-form input {
@@ -33,5 +42,12 @@
   border: none;
   font-size: 15px;
 
-  color: #71767b;
+  color: var(--secondary-text-color);
+}
+
+@media (max-width: 500px) {
+  #explore-panel-search-form {
+    padding: 4px 16px;
+    margin-left: 54px;
+  }
 }

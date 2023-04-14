@@ -1,5 +1,6 @@
 import "../../../styles/HomePanelNavbar.css";
 import { useState, useEffect } from "react";
+import UserTabMobileFixed from "../../Mobile/UserTabMobileFixed";
 
 interface HomePanelNavbarProps {
   setTab: Function;
@@ -22,7 +23,8 @@ const HomePanelNavbar = ({ setTab }: HomePanelNavbarProps) => {
     setSelectedTab(document.querySelector(".selected-tab-home"));
   }, []);
   return (
-    <div>
+    <div className="home-panel-header-container">
+      <UserTabMobileFixed />
       <h1 className="home-panel-header-text">Home</h1>
 
       <ul className="home-panel-navbar">

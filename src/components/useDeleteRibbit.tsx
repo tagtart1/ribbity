@@ -12,24 +12,24 @@ import { db } from "../scripts/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-interface useDeleteTwatProps {
+interface useDeleteRibbitProps {
   twatInfo: any;
   refreshTwats?: Function;
   tab?: string;
   inShowcase: boolean;
 }
 
-const useDeleteTwat = ({
+const useDeleteRibbit = ({
   twatInfo,
   refreshTwats,
   tab,
   inShowcase,
-}: useDeleteTwatProps) => {
+}: useDeleteRibbitProps) => {
   const navigate = useNavigate();
   const notifySuccess = () => toast("Your Twat was deleted.");
   const notifyError = () => toast.error("Your Twat failed to delete.");
 
-  const deleteTwat = useCallback(async () => {
+  const deleteRibbit = useCallback(async () => {
     const deleteChildrenTwats = async () => {
       const batch = writeBatch(db);
       // Query all twats the contain the twat up for deletion's id
@@ -67,7 +67,7 @@ const useDeleteTwat = ({
     } else if (inShowcase) navigate(`/${twatInfo.handle}`);
   }, [twatInfo, tab, refreshTwats, navigate, inShowcase]);
 
-  return deleteTwat;
+  return deleteRibbit;
 };
 
-export default useDeleteTwat;
+export default useDeleteRibbit;

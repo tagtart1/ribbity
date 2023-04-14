@@ -25,6 +25,11 @@ code {
     monospace;
 }
 
+#popup-root {
+  position: fixed;
+  z-index: 8888;
+}
+
 @font-face {
   font-family: Chirp;
   font-weight: 300;

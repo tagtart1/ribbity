@@ -4,7 +4,6 @@
   position: relative;
 
   justify-content: center;
-  overflow-x: hidden;
 }
 
 .loading-user {
@@ -36,7 +35,11 @@
 @media (max-width: 1280px) {
   .profile-panel-container,
   .explore-panel-container,
-  .home-panel-container {
+  .home-panel-container,
+  .loading-panel-wrapper,
+  .user-follow-panel,
+  .twat-panel-container,
+  .invalid-route-panel-container {
     margin-left: 15px !important;
     margin-right: 20px !important;
   }
@@ -45,7 +48,11 @@
 @media (max-width: 1025px) {
   .profile-panel-container,
   .explore-panel-container,
-  .home-panel-container {
+  .home-panel-container,
+  .loading-panel-wrapper,
+  .user-follow-panel,
+  .twat-panel-container,
+  .invalid-route-panel-container {
     margin-left: 10px !important;
   }
 }
@@ -53,7 +60,11 @@
 @media (max-width: 1000px) {
   .profile-panel-container,
   .explore-panel-container,
-  .home-panel-container {
+  .home-panel-container,
+  .loading-panel-wrapper,
+  .user-follow-panel,
+  .twat-panel-container,
+  .invalid-route-panel-container {
     margin-right: 0px !important;
   }
 }
@@ -61,7 +72,11 @@
 @media (max-width: 700px) {
   .profile-panel-container,
   .explore-panel-container,
-  .home-panel-container {
+  .home-panel-container,
+  .loading-panel-wrapper,
+  .user-follow-panel,
+  .twat-panel-container,
+  .invalid-route-panel-container {
     max-width: auto;
   }
 }
@@ -69,11 +84,35 @@
 @media (max-width: 615px) {
   .profile-panel-container,
   .explore-panel-container,
-  .home-panel-container {
+  .home-panel-container,
+  .loading-panel-wrapper,
+  .user-follow-panel,
+  .twat-panel-container,
+  .invalid-route-panel-container {
     margin-left: 5px !important;
   }
 
   .main-left-section {
     margin-left: 7px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .profile-panel-container,
+  .explore-panel-container,
+  .home-panel-container,
+  .loading-panel-wrapper,
+  .user-follow-panel,
+  .twat-panel-container,
+  .invalid-route-panel-container {
+    margin-left: 0px !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+  .main-bottom-nav-mobile-container {
+    display: block !important;
+  }
+  .twat-button-mobile-container {
+    display: block !important;
   }
 }

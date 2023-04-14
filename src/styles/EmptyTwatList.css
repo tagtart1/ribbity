@@ -1,3 +1,5 @@
+@import url("AppCSSVariables.css");
+
 .empty-twat-list-wrapper {
   display: flex;
   justify-content: center;
@@ -14,6 +16,6 @@
 
 .empty-twat-list-wrapper p {
   font-size: 16px;
-  color: #6a6f74;
+  color: var(--secondary-text-color);
   margin-top: 8px;
 }
