@@ -21,7 +21,6 @@ const UserTabMobileFixed = () => {
         src={mainUser.profileImgUrl}
         alt="User profile"
         onClick={() => {
-          console.log("clicking");
           setShowNavbar(true);
         }}
       />

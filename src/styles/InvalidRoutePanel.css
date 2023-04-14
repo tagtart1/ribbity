@@ -2,7 +2,8 @@
 
 .invalid-route-panel-container {
   box-sizing: border-box;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
 
   border-left: 1px solid var(--thin-border-color);
   border-right: 1px solid var(--thin-border-color);
@@ -51,8 +52,10 @@
 
 .invalid-route-banner {
   background-color: rgb(66, 66, 66);
-  width: 600px;
-  height: 200px;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  max-height: 200px;
 }
 
 .invalid-route-img-wrapper {
@@ -69,8 +72,10 @@
 }
 
 .invalid-route-img-wrapper .invalid-route-img {
-  width: 138px;
-  height: 138px;
+  width: 100%;
+  max-width: 138px;
+  height: 100%;
+  max-height: 138px;
   border-radius: 50%;
   background-color: rgb(51, 51, 51);
 }
@@ -82,6 +87,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20%;
+  padding: 0px 24px;
 }
 
 .invalid-route-message-wrapper h1 {

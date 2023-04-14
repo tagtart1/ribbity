@@ -18,8 +18,8 @@ const EmptyRibbitList = ({
           <div>
             <h1>You don't have any likes yet</h1>
             <p>
-              Tap the heart on any Twat to show it some love. When you do, it'll
-              show up here.
+              Tap the heart on any Ribbit to show it some love. When you do,
+              it'll show up here.
             </p>
           </div>
         </div>
@@ -28,8 +28,8 @@ const EmptyRibbitList = ({
       return (
         <div className="empty-twat-list-wrapper">
           <div>
-            <h1>@{visitedUserHandle} hasn't liked any Twats</h1>
-            <p>When they do, those Twats will show up here.</p>
+            <h1>@{visitedUserHandle} hasn't liked any Ribbits</h1>
+            <p>When they do, those Ribbits will show up here.</p>
           </div>
         </div>
       );
@@ -43,7 +43,7 @@ const EmptyRibbitList = ({
           <div>
             <h1>You haven't made any replies yet</h1>
             <p>
-              Reply to someone else's twat to share your opinion. When you do,
+              Reply to someone else's Ribbit to share your opinion. When you do,
               it'll show up here.
             </p>
           </div>
@@ -53,8 +53,8 @@ const EmptyRibbitList = ({
       return (
         <div className="empty-twat-list-wrapper">
           <div>
-            <h1>@{visitedUserHandle} hasn't replied to any Twats</h1>
-            <p>When they do, those Twats will show up here.</p>
+            <h1>@{visitedUserHandle} hasn't replied to any Ribbits</h1>
+            <p>When they do, those Ribbits will show up here.</p>
           </div>
         </div>
       );
@@ -66,7 +66,7 @@ const EmptyRibbitList = ({
       return (
         <div className="empty-twat-list-wrapper">
           <div>
-            <h1>You haven't twatted yet</h1>
+            <h1>You haven't Ribbited yet</h1>
             <p>
               Send out a twat to share some news. When you do, it'll show up
               here.
@@ -78,8 +78,8 @@ const EmptyRibbitList = ({
       return (
         <div className="empty-twat-list-wrapper">
           <div>
-            <h1>@{visitedUserHandle} hasn't posted any Twats yet</h1>
-            <p>When they do, those Twats will show up here.</p>
+            <h1>@{visitedUserHandle} hasn't posted any Ribbits yet</h1>
+            <p>When they do, those Ribbits will show up here.</p>
           </div>
         </div>
       );

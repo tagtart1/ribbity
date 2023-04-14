@@ -68,6 +68,7 @@
   background-color: white;
   cursor: pointer;
   transition: 0.2s all;
+  color: black;
 }
 
 .save-edit-profile-button:hover {
@@ -269,6 +270,14 @@ input[type="file"] {
   max-width: 596px;
   height: 100%;
   max-height: 200px;
+}
+
+.edit-profile-popup .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 /* Media Queries */

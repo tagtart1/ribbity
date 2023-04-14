@@ -90,7 +90,6 @@ const Home = ({ currentUser }: any) => {
 
     const unsub = onSnapshot(q, (snapshot) => {
       if (isFirstRender) {
-        console.log("firsted");
         setIsFirstRender(false);
       } else {
         snapshot.docChanges().forEach((change) => {

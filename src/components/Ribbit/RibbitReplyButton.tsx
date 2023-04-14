@@ -17,7 +17,7 @@ const RibbitReplyButton = ({
     <div
       id="twat-option-reply-wrapper"
       onClick={() => {
-        let newPath = `/${ribbitHandle}/twat/${ribbitId}`;
+        let newPath = `/${ribbitHandle}/ribbit/${ribbitId}`;
         if (location.pathname === newPath) return;
         navigate(newPath);
       }}

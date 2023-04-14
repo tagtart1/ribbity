@@ -194,7 +194,6 @@ const ProfilePanel = ({
       if (tab === "likes") return; // Assures we dont pull all twats into wrong tab, may need readjustmust if adding media
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
-          console.log("snapshot!");
           getUserFromUrlParam("no_load");
         }
       });

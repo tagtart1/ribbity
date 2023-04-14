@@ -59,6 +59,7 @@ const RibbitPopupInput = ({
       });
 
       notifySuccess();
+      setInputLength(0);
       toggleVisibility(false);
     } catch (error) {
       notifyError();

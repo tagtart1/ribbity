@@ -57,7 +57,6 @@ const App = () => {
     } else {
       setIsUserSignedIn(false);
       setMainUser({});
-      navigate("/");
     }
   };
 
