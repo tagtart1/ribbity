@@ -115,7 +115,7 @@ const MainNavTabsSignedIn = ({ currentUser }: MainNavTabsProps) => {
               ></path>
             </g>
           </svg>
-          <p>Tweety Blue</p>
+          <p>Ribbity Blue</p>
         </div>
       </li>
 

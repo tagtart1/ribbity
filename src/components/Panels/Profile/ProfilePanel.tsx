@@ -33,7 +33,7 @@ import WorkInProgress from "../../Misc/WorkInProgress";
 import InvalidRoutePanel from "../../Misc/InvalidRoutePanel";
 import Spinner from "../../Misc/Spinner";
 import LoadingPanel from "../../Misc/LoadingPanel";
-import EmptyTwatList from "../../Misc/EmptyTwatList";
+import EmptyRibbitList from "../../Misc/EmptyRibbitList";
 
 // Still need features to change pfp picture, profile banner, userName, and bio
 const ProfilePanel = ({
@@ -48,12 +48,12 @@ const ProfilePanel = ({
   // Another loading state that doesnt show a loading icon, used for switching tabs
   const [isLoadingInternal, setIsLoadingInternal] = useState<boolean>(true);
 
-  const [twatList, setTwatList] = useState<any>([]);
+  const [ribbitList, setRibbitList] = useState<any>([]);
   const { handle, tab } = useParams();
   const navigate = useNavigate();
   const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
 
-  const getUserTwats = async () => {
+  const getUserRibbits = async () => {
     let q: any;
     setIsLoadingInternal(true);
     if (tab === "twats" || tab === undefined) {
@@ -75,21 +75,21 @@ const ProfilePanel = ({
         where(`replyingTo.handle`, "!=", handle)
       );
     } else {
-      setTwatList([]);
+      setRibbitList([]);
       return;
     }
     // Query replies by
 
-    let twats: any = [];
-    const twatSnapshot = await getDocs(q);
-    twatSnapshot.forEach(async (doc) => {
-      const twat: any = doc.data();
+    let ribbits: any = [];
+    const ribbitSnapshot = await getDocs(q);
+    ribbitSnapshot.forEach(async (doc) => {
+      const ribbit: any = doc.data();
 
-      twat.id = doc.id;
-      twats.push(twat);
+      ribbit.id = doc.id;
+      ribbits.push(ribbit);
     });
 
-    setTwatList(sortByTimeInSecondsDescending(twats));
+    setRibbitList(sortByTimeInSecondsDescending(ribbits));
     setIsLoadingInternal(false);
   };
 
@@ -109,7 +109,7 @@ const ProfilePanel = ({
     switch (tab) {
       case "likes":
         return (
-          <EmptyTwatList
+          <EmptyRibbitList
             tab="likes"
             isMainUser={currentUser.userHandle === handle}
             visitedUserHandle={handle}
@@ -117,7 +117,7 @@ const ProfilePanel = ({
         );
       case undefined:
         return (
-          <EmptyTwatList
+          <EmptyRibbitList
             tab="twats"
             isMainUser={currentUser.userHandle === handle}
             visitedUserHandle={handle}
@@ -125,7 +125,7 @@ const ProfilePanel = ({
         );
       case "replies":
         return (
-          <EmptyTwatList
+          <EmptyRibbitList
             tab="replies"
             isMainUser={currentUser.userHandle === handle}
             visitedUserHandle={handle}
@@ -154,7 +154,7 @@ const ProfilePanel = ({
     if (showLoad === undefined) {
       setIsLoading(true);
     }
-    getUserTwats();
+    getUserRibbits();
     await getViewedUser("no_load");
     setIsLoading(false);
   };
@@ -165,10 +165,10 @@ const ProfilePanel = ({
     const user: any = await getUserInfo(handle);
 
     setCurrentUser(user);
-    // Change all twats with updates info
+    // Change all ribbits with updated info
     const q = query(collection(db, "twats"), where("handle", "==", handle));
-    const twats = await getDocs(q);
-    twats.forEach(async (docSnap) => {
+    const ribbits = await getDocs(q);
+    ribbits.forEach(async (docSnap) => {
       const docRef = doc(db, "twats", docSnap.id);
 
       await updateDoc(docRef, {
@@ -217,7 +217,7 @@ const ProfilePanel = ({
   }, [handle]);
 
   useEffect(() => {
-    getUserTwats();
+    getUserRibbits();
   }, [tab]);
 
   if (isLoading) return <LoadingPanel />;
@@ -243,12 +243,12 @@ const ProfilePanel = ({
         <div className="username-tweet-count">
           <h1>{visitedUserInfo.userName}</h1>
           <p>
-            {twatList.length}{" "}
+            {ribbitList.length}{" "}
             {tab === "likes"
-              ? twatList.length === 1
+              ? ribbitList.length === 1
                 ? "Like"
                 : "Likes"
-              : "Twats"}
+              : "Ribbits"}
           </p>
         </div>
       </div>
@@ -270,10 +270,10 @@ const ProfilePanel = ({
       <div className="user-twat-feed">
         {tab === "media" ? (
           <WorkInProgress />
-        ) : twatList.length < 1 ? (
+        ) : ribbitList.length < 1 ? (
           emptyTabSwitch()
         ) : (
-          twatList.map((doc: any) => {
+          ribbitList.map((doc: any) => {
             return (
               <Ribbit
                 twatInfo={doc}
@@ -281,7 +281,7 @@ const ProfilePanel = ({
                   currentUser.userHandle === doc.handle ? true : false
                 }
                 currentHandle={currentUser.userHandle}
-                refreshTwats={getUserTwats}
+                refreshTwats={getUserRibbits}
                 isThreaded={false}
                 key={doc.id}
                 inShowcase={false}

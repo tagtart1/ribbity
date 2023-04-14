@@ -31,15 +31,15 @@ const SignupPopup = ({
   };
 
   const headerTexts: any = {
-    dislike: "Dislike a Twat to share the love.",
-    like: "Like a Twat to share the love.",
-    follow: `Follow ${userName} to see what they share on Tweety.`,
+    dislike: "Dislike a Ribbit to share the love.",
+    like: "Like a Ribbit to share the love.",
+    follow: `Follow ${userName} to see what they share on Ribbity.`,
   };
 
   const paraTexts: any = {
-    dislike: `Join Tweety now to let ${userName} know you dislike their Twat.`,
-    like: `Join Tweety now to let ${userName} know you like their Twat.`,
-    follow: "Sign up so you never miss their Twats.",
+    dislike: `Join Ribbity now to let ${userName} know you dislike their Ribbit.`,
+    like: `Join Ribbity now to let ${userName} know you like their Ribbit.`,
+    follow: "Sign up so you never miss their Ribbits.",
   };
 
   const navigate = useNavigate();

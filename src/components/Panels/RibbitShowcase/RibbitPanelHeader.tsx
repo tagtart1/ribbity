@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../../../styles/TwatPanelHeader.css";
 
-const TwatPanelHeader = () => {
+const RibbitPanelHeader = () => {
   const navigate = useNavigate();
 
   return (
@@ -26,4 +26,4 @@ const TwatPanelHeader = () => {
   );
 };
 
-export default TwatPanelHeader;
+export default RibbitPanelHeader;

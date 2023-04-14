@@ -11,26 +11,26 @@ import { useParams } from "react-router-dom";
 import { db } from "../../../scripts/firebaseConfig";
 import "../../../styles/TwatPanel.css";
 import Ribbit from "../../Ribbit/Ribbit";
-import TwatPanelDisplay from "./TwatPanelDisplay";
-import TwatPanelHeader from "./TwatPanelHeader";
+import RibbitPanelDisplay from "./RibbitPanelDisplay";
+import RibbitPanelHeader from "./RibbitPanelHeader";
 import LoadingPanel from "../../Misc/LoadingPanel";
 import InvalidRoutePanel from "../../Misc/InvalidRoutePanel";
 
-const TwatPanel = ({ mainUser }: any) => {
-  const { handle, twatId } = useParams();
-  const [twatInfo, setTwatInfo] = useState<any>();
+const RibbitPanel = ({ mainUser }: any) => {
+  const { handle, ribbitId } = useParams();
+  const [ribbitInfo, setRibbitInfo] = useState<any>();
   const [comments, setComments] = useState<any>([]);
-  const [parentTwats, setParentTwats] = useState<any>([]);
+  const [parentRibbits, setParentRibbits] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const retrieveTwatInfo = async (shouldLoad?: string) => {
-    if (!db || !twatId) return;
+  const retrieveRibbitInfo = async (shouldLoad?: string) => {
+    if (!db || !ribbitId) return;
     if (shouldLoad === undefined) setIsLoading(true);
-    const infoRef = doc(db, "twats", twatId);
+    const infoRef = doc(db, "twats", ribbitId);
     // Query by the replyingTo ID
     const commentsQuery = query(
       collection(db, "twats"),
-      where("replyingTo.id", "==", twatId)
+      where("replyingTo.id", "==", ribbitId)
     );
 
     const commentsSnap = await getDocs(commentsQuery);
@@ -39,10 +39,10 @@ const TwatPanel = ({ mainUser }: any) => {
     if (infoSnap.exists()) {
       const twat = infoSnap.data();
 
-      twat.id = twatId;
+      twat.id = ribbitId;
 
-      setTwatInfo(twat);
-      retrieveParentTwats(twat);
+      setRibbitInfo(twat);
+      retrieveParentRibbits(twat);
     }
 
     const currentComments: any = [];
@@ -55,9 +55,9 @@ const TwatPanel = ({ mainUser }: any) => {
     setIsLoading(false);
   };
 
-  const retrieveParentTwats = async (twat: any) => {
+  const retrieveParentRibbits = async (twat: any) => {
     if (twat.replyingTo.all.length === 0) {
-      setParentTwats([]);
+      setParentRibbits([]);
       return;
     }
 
@@ -80,7 +80,7 @@ const TwatPanel = ({ mainUser }: any) => {
       }
     });
 
-    setParentTwats(results);
+    setParentRibbits(results);
   };
   // Adds the newest made comment to the top of the comment section, locally. Upon refresh then retrieveTwatInfo will sort the comment section again
   const addNewComment = (comment: any) => {
@@ -89,28 +89,28 @@ const TwatPanel = ({ mainUser }: any) => {
     setComments(commentsCopy);
   };
 
-  const refreshTwats = () => {
-    retrieveTwatInfo("no_load");
+  const refreshRibbits = () => {
+    retrieveRibbitInfo("no_load");
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    retrieveTwatInfo();
-  }, [twatId]);
+    retrieveRibbitInfo();
+  }, [ribbitId]);
   if (isLoading) return <LoadingPanel />;
-  if (!twatInfo) return <InvalidRoutePanel />;
+  if (!ribbitInfo) return <InvalidRoutePanel />;
 
   return (
     <div className="twat-panel-container">
-      <TwatPanelHeader />
+      <RibbitPanelHeader />
       <div className="twat-thread-display-container">
-        {parentTwats.map((twat: any) => {
+        {parentRibbits.map((twat: any) => {
           return (
             <Ribbit
               twatInfo={twat}
               isDeletable={twat.handle === mainUser.userHandle ? true : false}
               currentHandle={mainUser.userHandle}
-              refreshTwats={retrieveTwatInfo}
+              refreshTwats={retrieveRibbitInfo}
               isThreaded={true}
               key={twat.id}
               inShowcase={true}
@@ -118,11 +118,11 @@ const TwatPanel = ({ mainUser }: any) => {
           );
         })}
       </div>
-      <TwatPanelDisplay
-        twatInfo={twatInfo}
+      <RibbitPanelDisplay
+        ribbitInfo={ribbitInfo}
         mainUser={mainUser}
         addNewComment={addNewComment}
-        key={twatInfo.id}
+        key={ribbitInfo.id}
       />
       {comments.map((comment: any) => {
         return (
@@ -130,7 +130,7 @@ const TwatPanel = ({ mainUser }: any) => {
             twatInfo={comment}
             isDeletable={comment.handle === mainUser.userHandle ? true : false}
             currentHandle={mainUser.userHandle}
-            refreshTwats={refreshTwats}
+            refreshTwats={refreshRibbits}
             isThreaded={false}
             key={comment.id}
             inShowcase={true}
@@ -141,4 +141,4 @@ const TwatPanel = ({ mainUser }: any) => {
   );
 };
 
-export default TwatPanel;
+export default RibbitPanel;

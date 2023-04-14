@@ -1,28 +1,28 @@
-import TwatLikeButton from "./TwatLikeButton";
-import TwatDislikeButton from "./TwatDislikeButton";
+import RibbitLikeButton from "./RibbitLikeButton";
+import RibbitDislikeButton from "./RibbitDislikeButton";
 import { useState } from "react";
 
-interface TwatReactionButtonsProps {
-  twatInfo: any;
+interface RibbitReactionButtonsProps {
+  ribbitInfo: any;
   currentHandle: string;
 }
 
-const TwatReactionButtons = ({
-  twatInfo,
+const RibbitReactionButtons = ({
+  ribbitInfo,
   currentHandle,
-}: TwatReactionButtonsProps) => {
+}: RibbitReactionButtonsProps) => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
 
   return (
     <>
-      <TwatLikeButton
-        twatInfo={twatInfo}
+      <RibbitLikeButton
+        ribbitInfo={ribbitInfo}
         currentHandle={currentHandle}
         activeButton={activeButton}
         setActiveButton={setActiveButton}
       />
-      <TwatDislikeButton
-        twatInfo={twatInfo}
+      <RibbitDislikeButton
+        ribbitInfo={ribbitInfo}
         currentHandle={currentHandle}
         activeButton={activeButton}
         setActiveButton={setActiveButton}
@@ -30,4 +30,4 @@ const TwatReactionButtons = ({
     </>
   );
 };
-export default TwatReactionButtons;
+export default RibbitReactionButtons;

@@ -8,7 +8,7 @@ import UserFollowPanelMember from "./UserFollowPanelMember";
 import InvalidRoutePanel from "../../../Misc/InvalidRoutePanel";
 import LoadingPanel from "../../../Misc/LoadingPanel";
 
-import EmptyTwatList from "../../../Misc/EmptyTwatList";
+import EmptyRibbitList from "../../../Misc/EmptyRibbitList";
 
 interface TabProps {
   tabNum: number;
@@ -140,7 +140,7 @@ const UserFollowPanel = ({ startTab, mainUser }: UserFollowPanelProps) => {
         </ul>
       </nav>
       {followLists[activeList].length < 1 ? (
-        <EmptyTwatList
+        <EmptyRibbitList
           isMainUser={!mainUser ? false : mainUser.userHandle === handle}
           visitedUserHandle={handle}
           tab={startTab}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface TwatLikeCounterProps {
+interface RibbitLikeCounterProps {
   isLiked: boolean;
   likedBy: {
     [key: string]: boolean;
@@ -8,11 +8,11 @@ interface TwatLikeCounterProps {
   hasClickedLike: boolean;
 }
 
-const TwatLikeCounter = ({
+const RibbitLikeCounter = ({
   isLiked,
   likedBy,
   hasClickedLike,
-}: TwatLikeCounterProps) => {
+}: RibbitLikeCounterProps) => {
   const [count, setCount] = useState<number>(Object.keys(likedBy).length);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ const TwatLikeCounter = ({
   ) : null;
 };
 
-export default TwatLikeCounter;
+export default RibbitLikeCounter;

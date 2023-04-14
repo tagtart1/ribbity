@@ -13,7 +13,7 @@ const MiscLinks = () => {
         <span>Ads info</span>
         <span>More</span>
       </div>
-      <p>© 2023 Tweety, Inc.</p>
+      <p>© 2023 Ribbity, Inc.</p>
     </div>
   );
 };

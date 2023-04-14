@@ -2,12 +2,12 @@ import { deleteField, doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../scripts/firebaseConfig";
 import "../../styles/TwatDislikeButton.css";
-import TwatDislikeCounter from "./TwatDislikeCounter";
+import RibbitDislikeCounter from "./RibbitDislikeCounter";
 import SignupPopup from "../Misc/SignupPopup";
 import DislikeIconFilled from "../../media/svg/DislikeIconFilled";
 
-interface TwatDislikeButtonProps {
-  twatInfo: {
+interface RibbitDislikeButtonProps {
+  ribbitInfo: {
     dislikedBy: {
       [key: string]: boolean;
     };
@@ -19,14 +19,14 @@ interface TwatDislikeButtonProps {
   setActiveButton: Function;
 }
 
-const TwatDislikeButton = ({
-  twatInfo,
+const RibbitDislikeButton = ({
+  ribbitInfo,
   currentHandle,
   activeButton,
   setActiveButton,
-}: TwatDislikeButtonProps) => {
+}: RibbitDislikeButtonProps) => {
   const [isDisliked, setIsDisliked] = useState<boolean>(
-    twatInfo.dislikedBy[currentHandle]
+    ribbitInfo.dislikedBy[currentHandle]
   );
 
   const [hasClickedDislike, setHasClickedDislike] = useState<boolean>(false);
@@ -41,18 +41,18 @@ const TwatDislikeButton = ({
 
     setHasClickedDislike(true);
     if (isDisliked) {
-      //Undislike twat
+      //Undislike ribbit
 
       setIsDisliked(false);
-      await updateDoc(doc(db, "twats", twatInfo.id), {
+      await updateDoc(doc(db, "twats", ribbitInfo.id), {
         [`dislikedBy.${currentHandle}`]: deleteField(),
       });
     } else {
-      //Dislike twat
+      //Dislike ribbit
       setActiveButton("dislike");
 
       setIsDisliked(true);
-      await updateDoc(doc(db, "twats", twatInfo.id), {
+      await updateDoc(doc(db, "twats", ribbitInfo.id), {
         [`dislikedBy.${currentHandle}`]: true,
       });
     }
@@ -83,13 +83,13 @@ const TwatDislikeButton = ({
           </svg>
         )}
       </div>
-      <TwatDislikeCounter
+      <RibbitDislikeCounter
         hasClickedDislike={hasClickedDislike}
         isDisliked={isDisliked}
-        dislikedBy={twatInfo.dislikedBy}
+        dislikedBy={ribbitInfo.dislikedBy}
       />
       <SignupPopup
-        userName={twatInfo.handle}
+        userName={ribbitInfo.handle}
         visibility={showSignupPopup}
         setOwnVisibility={closePopup}
         popupType="dislike"
@@ -98,4 +98,4 @@ const TwatDislikeButton = ({
   );
 };
 
-export default TwatDislikeButton;
+export default RibbitDislikeButton;

@@ -1,16 +1,15 @@
-import { isVisible } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
 import "../../styles/DeleteOptionDropdown.css";
-import DeleteTwatPopup from "./DeleteTwatPopup";
+import DeleteRibbitPopup from "./DeleteRibbitPopup";
 
 interface DeleteOptionDropdownProps {
   isVisible: boolean;
-  deleteTwat: Function;
+  deleteRibbit: Function;
 }
 
 const DeleteOptionDropdown = ({
   isVisible,
-  deleteTwat,
+  deleteRibbit,
 }: DeleteOptionDropdownProps) => {
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
   if (!isVisible) return null;
@@ -33,10 +32,10 @@ const DeleteOptionDropdown = ({
         </svg>
         <span>Delete</span>
       </button>
-      <DeleteTwatPopup
+      <DeleteRibbitPopup
         isVisible={showConfirmation}
         toggleVisibility={setShowConfirmation}
-        deleteTwat={deleteTwat}
+        deleteRibbit={deleteRibbit}
       />
     </div>
   );

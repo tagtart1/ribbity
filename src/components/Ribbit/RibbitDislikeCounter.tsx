@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface TwatDislikeCounterProps {
+interface RibbitDislikeCounterProps {
   isDisliked: boolean;
   dislikedBy: {
     [key: string]: boolean;
@@ -8,11 +8,11 @@ interface TwatDislikeCounterProps {
   hasClickedDislike: boolean;
 }
 
-const TwatDislikeCounter = ({
+const RibbitDislikeCounter = ({
   isDisliked,
   dislikedBy,
   hasClickedDislike,
-}: TwatDislikeCounterProps) => {
+}: RibbitDislikeCounterProps) => {
   const [count, setCount] = useState<number>(Object.keys(dislikedBy).length);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ const TwatDislikeCounter = ({
   ) : null;
 };
 
-export default TwatDislikeCounter;
+export default RibbitDislikeCounter;

@@ -31,7 +31,7 @@ const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
       <div className="signup-footer-wrapper">
         <div className="signup-text-group">
           <h1>Don't miss what's happening</h1>
-          <p>People on Tweety are the first to know.</p>
+          <p>People on Ribbity are the first to know.</p>
         </div>
         <div className="signup-button-group">
           <button className="login-button" onClick={signInHandle}>

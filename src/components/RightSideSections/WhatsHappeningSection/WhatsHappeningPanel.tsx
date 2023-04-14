@@ -1,5 +1,5 @@
 import "../../../styles/WhatsHappeningPanel.css";
-import ExploreTweetTopic from "../../Panels/Explore/ExploreTweetTopic";
+import ExploreRibbitTopic from "../../Panels/Explore/ExploreTweetTopic";
 import ShowMoreButton from "../ShowMoreButton";
 import frogImg from "../../../media/rainfrog.jpg";
 
@@ -7,32 +7,32 @@ const WhatsHappeningPanel = () => {
   return (
     <div className="whats-happening-container">
       <h1>What's Happening</h1>
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Rain Frog Spotted"
-        tweets={98300}
+        ribbits={98300}
         trendingTopic="Frogs"
         image={frogImg}
       />
 
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Twinkies"
-        tweets={82900}
+        ribbits={82900}
         trendingTopic="Food"
       />
 
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Rihanna"
-        tweets={143000}
+        ribbits={143000}
         trendingGenre="United States"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="#TeamFortress2"
-        tweets={34600}
+        ribbits={34600}
         trendingTopic="Gaming"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Russel Westbrook"
-        tweets={74200}
+        ribbits={74200}
         trendingGenre="United States"
       />
       <ShowMoreButton />

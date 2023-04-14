@@ -1,16 +1,16 @@
 import "../../styles/DeleteTwatPopup.css";
 
-interface DeleteTwatPopupProps {
+interface DeleteRibbitPopupProps {
   isVisible: boolean;
   toggleVisibility: Function;
-  deleteTwat: Function;
+  deleteRibbit: Function;
 }
 
-const DeleteTwatPopup = ({
+const DeleteRibbitPopup = ({
   isVisible,
   toggleVisibility,
-  deleteTwat,
-}: DeleteTwatPopupProps) => {
+  deleteRibbit,
+}: DeleteRibbitPopupProps) => {
   const handleOffSideClick = (e: any) => {
     if (
       e.target === document.querySelector(".delete-twat-popup-container") &&
@@ -27,17 +27,17 @@ const DeleteTwatPopup = ({
       onMouseDown={handleOffSideClick}
     >
       <div className="delete-twat-popup-wrapper">
-        <h1>Delete Twat?</h1>
+        <h1>Delete Ribbit?</h1>
         <p className="delete-confirm-text">
           This can't be undone and it will be removed from your profile, the
-          timeline of any accounts that follow you, and from Twitter search
+          timeline of any accounts that follow you, and from Ribbity search
           results.
         </p>
         <div className="delete-confirm-buttons">
           <button
             className="delete-confirm"
             onClick={() => {
-              deleteTwat();
+              deleteRibbit();
               toggleVisibility(false);
             }}
           >
@@ -58,4 +58,4 @@ const DeleteTwatPopup = ({
   );
 };
 
-export default DeleteTwatPopup;
+export default DeleteRibbitPopup;

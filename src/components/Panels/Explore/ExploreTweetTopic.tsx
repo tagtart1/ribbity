@@ -1,9 +1,9 @@
 import "../../../styles/ExploreTweetTopic.css";
 import { kFormatter } from "../../../scripts/HelperFns";
 
-interface ExploreTweetTopicProps {
+interface ExploreRibbitTopicProps {
   topicTitle: string;
-  tweets: number;
+  ribbits: number;
 
   trendingTopic?: string;
   rankIndex?: number;
@@ -12,14 +12,14 @@ interface ExploreTweetTopicProps {
   image?: string;
 }
 
-const ExploreTweetTopic = ({
+const ExploreRibbitTopic = ({
   topicTitle,
-  tweets,
+  ribbits,
   trendingTopic,
   rankIndex,
   image,
   trendingGenre,
-}: ExploreTweetTopicProps) => {
+}: ExploreRibbitTopicProps) => {
   return (
     <div className="explore-tweet-topic-wrapper">
       <div className="explore-tweet-topic-container">
@@ -40,11 +40,11 @@ const ExploreTweetTopic = ({
           )}
         </div>
         <h1 className="topic-title">{topicTitle}</h1>
-        <p>{kFormatter(tweets)} Tweets</p>
+        <p>{kFormatter(ribbits)} Ribbits</p>
       </div>
       {image ? <img src={image} alt={"topic"} className="topic-image" /> : null}
     </div>
   );
 };
 
-export default ExploreTweetTopic;
+export default ExploreRibbitTopic;

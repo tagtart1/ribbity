@@ -9,27 +9,27 @@ import {
 } from "../../../scripts/HelperFns";
 import "../../../styles/TwatPanelDisplay.css";
 
-import TwatReactionButtons from "../../Ribbit/TwatReactionButtons";
-import TwatReplyButton from "../../Ribbit/TwatReplyButton";
+import RibbitReactionButtons from "../../Ribbit/RibbitReactionButtons";
+import RibbitReplyButton from "../../Ribbit/RibbitReplyButton";
 import { toast } from "react-hot-toast";
 import BackgroundTransparent from "../../Misc/BackgroundTransparent";
 import DeleteOptionDropdown from "../../Ribbit/DeleteOptionDropdown";
 import useDeleteRibbit from "../../useDeleteRibbit";
-interface TwatPanelDisplayProps {
-  twatInfo: any;
+interface RibbitPanelDisplayProps {
+  ribbitInfo: any;
   mainUser: any;
   addNewComment: Function;
 }
 
-const TwatPanelDisplay = ({
-  twatInfo,
+const RibbitPanelDisplay = ({
+  ribbitInfo,
   mainUser,
   addNewComment,
-}: TwatPanelDisplayProps) => {
+}: RibbitPanelDisplayProps) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
-  const deleteTwat = useDeleteRibbit({
-    twatInfo,
+  const deleteRibbit = useDeleteRibbit({
+    ribbitInfo,
     inShowcase: true,
   });
 
@@ -44,7 +44,7 @@ const TwatPanelDisplay = ({
   };
 
   const openDeleteOption = () => {
-    if (mainUser.userHandle !== twatInfo.handle) return;
+    if (mainUser.userHandle !== ribbitInfo.handle) return;
     setOpenDelete(true);
   };
 
@@ -52,9 +52,9 @@ const TwatPanelDisplay = ({
     e.preventDefault();
     // Check for invalid data
     if (!isValidString(inputRef.current.value)) return;
-    const twatsRef = collection(db, "twats");
+    const ribbitsRef = collection(db, "twats");
 
-    console.log(twatInfo.id);
+    console.log(ribbitInfo.id);
 
     const comment = {
       handle: mainUser.userHandle,
@@ -65,16 +65,16 @@ const TwatPanelDisplay = ({
       text: inputRef.current.value,
       timeInMillisecond: Date.now(),
       replyingTo: {
-        id: twatInfo.id,
-        handle: twatInfo.handle,
-        all: [...twatInfo.replyingTo.all, twatInfo.id],
+        id: ribbitInfo.id,
+        handle: ribbitInfo.handle,
+        all: [...ribbitInfo.replyingTo.all, ribbitInfo.id],
       },
       timeStamp: getTimestamp(),
       isComment: true,
       id: "",
     };
 
-    const commentRef = await addDoc(twatsRef, comment);
+    const commentRef = await addDoc(ribbitsRef, comment);
     e.target.reset();
     inputRef.current.style.height = "fit-content";
     comment.id = commentRef.id;
@@ -83,7 +83,7 @@ const TwatPanelDisplay = ({
   };
 
   const handleDeleteTwat = async () => {
-    deleteTwat();
+    deleteRibbit();
     setOpenDelete(false);
   };
 
@@ -99,19 +99,19 @@ const TwatPanelDisplay = ({
       <div className="header">
         <div className="user-info">
           <img
-            src={twatInfo.userProfileImg}
+            src={ribbitInfo.userProfileImg}
             alt="User"
             className="threaded-profile-img"
           />
           <div>
-            <p className="user-name">{twatInfo.userName}</p>
-            <p className="user-handle">@{twatInfo.handle}</p>
+            <p className="user-name">{ribbitInfo.userName}</p>
+            <p className="user-handle">@{ribbitInfo.handle}</p>
           </div>
         </div>
         <div className="more-button" onClick={openDeleteOption}>
           <DeleteOptionDropdown
             isVisible={openDelete}
-            deleteTwat={handleDeleteTwat}
+            deleteRibbit={handleDeleteTwat}
           />
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -124,14 +124,17 @@ const TwatPanelDisplay = ({
           </svg>
         </div>
       </div>
-      <p className="text">{twatInfo.text}</p>
+      <p className="text">{ribbitInfo.text}</p>
       <div className="date-posted">
         {" "}
-        {get12hourFromTimestamp(twatInfo.timeStamp)} ·{" "}
-        {getDateStringFromTimestamp(twatInfo.timeStamp)}
+        {get12hourFromTimestamp(ribbitInfo.timeStamp)} ·{" "}
+        {getDateStringFromTimestamp(ribbitInfo.timeStamp)}
       </div>
       <div className="action-buttons">
-        <TwatReplyButton twatId={twatInfo.id} twatHandle={twatInfo.handle} />
+        <RibbitReplyButton
+          ribbitId={ribbitInfo.id}
+          ribbitHandle={ribbitInfo.handle}
+        />
         <div className="action-button-wrapper reribbit-action-button ">
           <svg viewBox="0 0 24 24">
             <g>
@@ -143,8 +146,8 @@ const TwatPanelDisplay = ({
           </svg>
         </div>
 
-        <TwatReactionButtons
-          twatInfo={twatInfo}
+        <RibbitReactionButtons
+          ribbitInfo={ribbitInfo}
           currentHandle={mainUser.userHandle}
         />
         <div
@@ -171,7 +174,7 @@ const TwatPanelDisplay = ({
             <img src={mainUser.profileImgUrl} alt="Main User" />
             <textarea
               id="twat-reply-input"
-              placeholder="Twat Your Reply"
+              placeholder="Ribbit Your Reply"
               autoComplete="off"
               maxLength={160}
               rows={1}
@@ -190,4 +193,4 @@ const TwatPanelDisplay = ({
   );
 };
 
-export default TwatPanelDisplay;
+export default RibbitPanelDisplay;

@@ -6,7 +6,7 @@ import { getUserHandle } from "../../scripts/firebaseHelperFns";
 
 import "../../styles/MainLeftSection.css";
 import UserTab from "./UserTab";
-import TwatPopupInput from "../Misc/TwatPopupInput";
+import RibbitPopupInput from "../Misc/RibbitPopupInput";
 
 interface userInfo {
   bio?: string;
@@ -26,7 +26,7 @@ const MainLeftSection = ({ currentUser, signedIn }: MainNavTabsProps) => {
   if (!currentUser) return null;
   return signedIn ? (
     <div className="main-left-section">
-      <TwatPopupInput
+      <RibbitPopupInput
         isVisible={showTwatPopup}
         toggleVisibility={setShowTwatPopup}
         currentUser={currentUser}
@@ -41,7 +41,7 @@ const MainLeftSection = ({ currentUser, signedIn }: MainNavTabsProps) => {
               document.documentElement.style.overflowY = "hidden";
             }}
           >
-            <span className="button-text">Twat</span>
+            <span className="button-text">Ribbit</span>
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"

@@ -10,24 +10,24 @@ import Ribbit from "../../Ribbit/Ribbit";
 import LoadingPanel from "../../Misc/LoadingPanel";
 
 const ExplorePanel = () => {
-  const [twatsList, setTwatsList] = useState<any>([]);
+  const [ribbitsList, setRibbitsList] = useState<any>([]);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const allTwatsQuery = query(collection(db, "twats"), limit(30));
-    const fetchTwats = async (q: any) => {
-      let twats: any = [];
-      const twatSnapshot = await getDocs(q);
-      twatSnapshot.forEach((doc) => {
-        const twat: any = doc.data();
-        twat.id = doc.id;
-        twats.push(twat);
+    const allRibbitsQuery = query(collection(db, "twats"), limit(30));
+    const fetchRibbits = async (q: any) => {
+      let ribbits: any = [];
+      const ribbitSnapshot = await getDocs(q);
+      ribbitSnapshot.forEach((doc) => {
+        const ribbit: any = doc.data();
+        ribbit.id = doc.id;
+        ribbits.push(ribbit);
       });
-      setTwatsList(twats);
+      setRibbitsList(ribbits);
     };
     setIsLoading(true);
-    fetchTwats(allTwatsQuery);
+    fetchRibbits(allRibbitsQuery);
 
     setIsLoading(false);
   }, []);
@@ -41,7 +41,7 @@ const ExplorePanel = () => {
       </div>
       <div className="explore-main-feed">
         {activeTab === 0 ? (
-          twatsList.map((twat: any) => {
+          ribbitsList.map((twat: any) => {
             return (
               <Ribbit
                 isDeletable={false}

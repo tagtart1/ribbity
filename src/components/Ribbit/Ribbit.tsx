@@ -19,9 +19,9 @@ import { db } from "../../scripts/firebaseConfig";
 
 import { useParams, Link, useNavigate } from "react-router-dom";
 
-import TwatReplyButton from "./TwatReplyButton";
+import RibbitReplyButton from "./RibbitReplyButton";
 
-import TwatReactionButtons from "./TwatReactionButtons";
+import RibbitReactionButtons from "./RibbitReactionButtons";
 import toast from "react-hot-toast";
 import useDeleteRibbit from "../useDeleteRibbit";
 
@@ -70,7 +70,7 @@ const Ribbit = ({
 
   const { handle, tab } = useParams();
   const deleteRibbit = useDeleteRibbit({
-    twatInfo,
+    ribbitInfo: twatInfo,
     refreshTwats,
     tab,
     inShowcase,
@@ -93,13 +93,13 @@ const Ribbit = ({
   const handleOpeningRibbit = (e: any) => {
     // Pointer events are set to off in the style sheet for all child elements except the ones that need to register a click
     if (e.currentTarget === e.target) {
-      navigate(`/${twatInfo.handle}/twat/${twatInfo.id}`);
+      navigate(`/${twatInfo.handle}/ribbit/${twatInfo.id}`);
     }
   };
 
   const copyTwatLinkToClipboard = () => {
     const currentPath = window.location.href;
-    const twatPath = currentPath + `/twat/${twatInfo.id}`;
+    const twatPath = currentPath + `/ribbit/${twatInfo.id}`;
     navigator.clipboard.writeText(twatPath);
     notifyClipboard();
   };
@@ -145,7 +145,7 @@ const Ribbit = ({
               <div className="more-icon-wrapper" onClick={openDeleteOption}>
                 <DeleteOptionDropdown
                   isVisible={openDelete}
-                  deleteTwat={handleDeleteRibbit}
+                  deleteRibbit={handleDeleteRibbit}
                 />
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <g>
@@ -173,9 +173,9 @@ const Ribbit = ({
             <p className="twat-main-text">{twatInfo.text}</p>
           </div>
           <div className="twat-icon-button-row">
-            <TwatReplyButton
-              twatId={twatInfo.id}
-              twatHandle={twatInfo.handle}
+            <RibbitReplyButton
+              ribbitId={twatInfo.id}
+              ribbitHandle={twatInfo.handle}
             />
             <div className="twat-option-icon twat-option-icon-retweet">
               <svg viewBox="0 0 24 24">
@@ -187,9 +187,9 @@ const Ribbit = ({
                 </g>
               </svg>
             </div>
-            <TwatReactionButtons
+            <RibbitReactionButtons
               currentHandle={currentHandle}
-              twatInfo={twatInfo}
+              ribbitInfo={twatInfo}
             />
             <div
               className="twat-option-icon copy-option-icon"

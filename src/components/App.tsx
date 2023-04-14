@@ -18,14 +18,14 @@ import ExplorePanel from "./Panels/Explore/ExplorePanel";
 import MainRightSection from "./RightSideSections/MainRightSection";
 import ProfilePanel from "./Panels/Profile/ProfilePanel";
 import useForceUpdate from "./useForceUpdate";
-import TwatPanel from "./Panels/TwatShowcase/TwatPanel";
+import RibbitPanel from "./Panels/RibbitShowcase/RibbitPanel";
 import UserFollowPanel from "./Panels/Profile/UserFollowingPanel/UserFollowPanel";
 import { Toaster } from "react-hot-toast";
 import InvalidRoutePanel from "./Misc/InvalidRoutePanel";
 import FrogIconLogo from "./Misc/FrogIconLogo";
 import AppContext from "./AppContext";
 import MainBottomNavMobile from "./Mobile/MainBottomNavMobile";
-import TwatButtonFixed from "./Mobile/TwatButtonFixed";
+import RibbitButtonFixed from "./Mobile/RibbitButtonFixed";
 
 interface userInfo {
   bio?: string;
@@ -128,8 +128,8 @@ const App = () => {
             }
           />
           <Route
-            path="/:handle/twat/:twatId"
-            element={<TwatPanel mainUser={mainUser} />}
+            path="/:handle/ribbit/:ribbitId"
+            element={<RibbitPanel mainUser={mainUser} />}
           />
 
           <Route
@@ -159,7 +159,7 @@ const App = () => {
         <SignUpFooter signedIn={isUserSignedIn} />
       </div>
       <MainBottomNavMobile />
-      <TwatButtonFixed mainUser={mainUser} />
+      <RibbitButtonFixed mainUser={mainUser} />
     </AppContext.Provider>
   );
 };

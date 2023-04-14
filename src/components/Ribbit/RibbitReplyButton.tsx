@@ -1,12 +1,15 @@
 import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
-import TwatReplyCounter from "./TwatReplyCounter";
+import TwatReplyCounter from "./RibbitReplyCounter";
 
-interface TwatReplyButtonProps {
-  twatId: string;
-  twatHandle: string;
+interface RibbitReplyButtonProps {
+  ribbitId: string;
+  ribbitHandle: string;
 }
 
-const TwatReplyButton = ({ twatId, twatHandle }: TwatReplyButtonProps) => {
+const RibbitReplyButton = ({
+  ribbitId,
+  ribbitHandle,
+}: RibbitReplyButtonProps) => {
   const navigate: NavigateFunction = useNavigate();
   const location = useLocation();
 
@@ -14,7 +17,7 @@ const TwatReplyButton = ({ twatId, twatHandle }: TwatReplyButtonProps) => {
     <div
       id="twat-option-reply-wrapper"
       onClick={() => {
-        let newPath = `/${twatHandle}/twat/${twatId}`;
+        let newPath = `/${ribbitHandle}/twat/${ribbitId}`;
         if (location.pathname === newPath) return;
         navigate(newPath);
       }}
@@ -29,9 +32,9 @@ const TwatReplyButton = ({ twatId, twatHandle }: TwatReplyButtonProps) => {
           </g>
         </svg>
       </div>
-      <TwatReplyCounter twatId={twatId} />
+      <TwatReplyCounter ribbitId={ribbitId} />
     </div>
   );
 };
 
-export default TwatReplyButton;
+export default RibbitReplyButton;

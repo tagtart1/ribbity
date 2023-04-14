@@ -1,16 +1,16 @@
 import "../../styles/EmptyTwatList.css";
 
-interface EmptyTwatListProps {
+interface EmptyRibbitListProps {
   tab: string;
   isMainUser: boolean;
   visitedUserHandle: string | undefined;
 }
 
-const EmptyTwatList = ({
+const EmptyRibbitList = ({
   tab,
   isMainUser,
   visitedUserHandle,
-}: EmptyTwatListProps) => {
+}: EmptyRibbitListProps) => {
   if (tab === "likes") {
     if (isMainUser) {
       return (
@@ -135,4 +135,4 @@ const EmptyTwatList = ({
   return <div></div>;
 };
 
-export default EmptyTwatList;
+export default EmptyRibbitList;

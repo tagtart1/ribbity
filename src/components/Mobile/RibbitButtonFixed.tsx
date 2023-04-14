@@ -1,13 +1,13 @@
 import { useState } from "react";
 import FeatherIcon from "../../media/svg/FeatherIcon";
 import "../../styles/TwatButtonFixed.css";
-import TwatPopupInput from "../Misc/TwatPopupInput";
+import RibbitPopupInput from "../Misc/RibbitPopupInput";
 
-interface TwatButtonFixedProps {
+interface RibbitButtonFixedProps {
   mainUser: any;
 }
 
-const TwatButtonFixed = ({ mainUser }: TwatButtonFixedProps) => {
+const RibbitButtonFixed = ({ mainUser }: RibbitButtonFixedProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
 
   if (!mainUser.userHandle) return null;
@@ -21,7 +21,7 @@ const TwatButtonFixed = ({ mainUser }: TwatButtonFixedProps) => {
       >
         <FeatherIcon />
       </button>
-      <TwatPopupInput
+      <RibbitPopupInput
         currentUser={mainUser}
         toggleVisibility={setShowPopup}
         isVisible={showPopup}
@@ -30,4 +30,4 @@ const TwatButtonFixed = ({ mainUser }: TwatButtonFixedProps) => {
   );
 };
 
-export default TwatButtonFixed;
+export default RibbitButtonFixed;

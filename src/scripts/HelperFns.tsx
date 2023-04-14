@@ -11,6 +11,10 @@ const kFormatter = (num: number) => {
     : (Math.sign(num) * Math.abs(num)).toLocaleString();
 };
 
+const hey = () => {
+  console.log("test");
+};
+
 const getMonthDate = (monthNum?: Number) => {
   const month = [
     "January",

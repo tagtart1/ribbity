@@ -6,7 +6,7 @@ import { getTimestamp, isValidString } from "../../../scripts/HelperFns";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 
-interface HomePanelTweetInputProps {
+interface HomePanelRibbitInputProps {
   currentUser: {
     profileImgUrl?: string;
     userHandle: string;
@@ -14,7 +14,7 @@ interface HomePanelTweetInputProps {
   };
 }
 
-const HomePanelTweetInput = ({ currentUser }: HomePanelTweetInputProps) => {
+const HomePanelRibbitInput = ({ currentUser }: HomePanelRibbitInputProps) => {
   const inputRef: any = useRef();
 
   const autoGrowTextArea = (e: any) => {
@@ -23,12 +23,12 @@ const HomePanelTweetInput = ({ currentUser }: HomePanelTweetInputProps) => {
     textarea.style.height = textarea.scrollHeight - 17 + "px";
   };
 
-  const handleSubmitTweet = async (e: any) => {
+  const handleSubmitRibbit = async (e: any) => {
     e.preventDefault();
 
     if (!isValidString(inputRef.current.value)) return;
 
-    const newTwat = {
+    const newRibbit = {
       text: inputRef.current.value,
       timeStamp: getTimestamp(),
       handle: currentUser.userHandle,
@@ -47,7 +47,7 @@ const HomePanelTweetInput = ({ currentUser }: HomePanelTweetInputProps) => {
     };
 
     try {
-      await addDoc(collection(db, "twats"), newTwat);
+      await addDoc(collection(db, "twats"), newRibbit);
     } catch (error) {
       console.error("Error uploading twat to firebaseDB", error);
     }
@@ -60,7 +60,7 @@ const HomePanelTweetInput = ({ currentUser }: HomePanelTweetInputProps) => {
   };
 
   return (
-    <form className="home-tweet-input-container" onSubmit={handleSubmitTweet}>
+    <form className="home-tweet-input-container" onSubmit={handleSubmitRibbit}>
       <img
         src={currentUser?.profileImgUrl || getProfilePicUrl()}
         className="user-profile-image-home-input"
@@ -100,11 +100,11 @@ const HomePanelTweetInput = ({ currentUser }: HomePanelTweetInputProps) => {
               </svg>
             </div>
           </div>
-          <button className="tweet-input-submit-button">Twat</button>
+          <button className="tweet-input-submit-button">Ribbit</button>
         </div>
       </div>
     </form>
   );
 };
 
-export default HomePanelTweetInput;
+export default HomePanelRibbitInput;

@@ -1,8 +1,8 @@
 import "../../../styles/HomePanel.css";
 import { signOutUser } from "../../../scripts/firebaseHelperFns";
 import HomePanelNavbar from "./HomePanelNavbar";
-import ExploreTweetTopic from "../Explore/ExploreTweetTopic";
-import HomePanelTweetInput from "./HomePanelTweetInput";
+import ExploreRibbitTopic from "../Explore/ExploreTweetTopic";
+import HomePanelRibbitInput from "./HomePanelRibbitInput";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -26,35 +26,35 @@ interface HomePanelProps {
 }
 
 const Home = ({ currentUser }: any) => {
-  const [twatList, setTwatList] = useState<any>({});
+  const [ribbitList, setRibbitList] = useState<any>({});
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
   const [tab, setTab] = useState<string>("For you");
 
-  const fetchTwats = async (q: any) => {
-    let twats: any = {};
-    const twatSnapshot = await getDocs(q);
-    twatSnapshot.forEach((doc) => {
-      const twat: any = doc.data();
-      twat.id = doc.id;
-      twats[twat.id] = twat;
+  const fetchRibbits = async (q: any) => {
+    let ribbits: any = {};
+    const ribbitSnapshot = await getDocs(q);
+    ribbitSnapshot.forEach((doc) => {
+      const ribbit: any = doc.data();
+      ribbit.id = doc.id;
+      ribbits[ribbit.id] = ribbit;
     });
-    return twats;
+    return ribbits;
   };
 
-  const removeTwatLocal = (tab: any, id: string) => {
-    const copyList = { ...twatList };
+  const removeRibbitLocal = (tab: any, id: string) => {
+    const copyList = { ...ribbitList };
     console.log(copyList[id]);
     delete copyList[id];
-    setTwatList(copyList);
+    setRibbitList(copyList);
   };
 
-  const addTwatLocal = (id: string, twatInfo: any) => {
-    const twat = twatInfo;
-    twat.id = id;
-    const newTwat = { [id]: twat };
+  const addRibbitLocal = (id: string, twatInfo: any) => {
+    const ribbit = twatInfo;
+    ribbit.id = id;
+    const newTwat = { [id]: ribbit };
 
-    setTwatList((prevState: any) => ({ ...newTwat, ...prevState }));
+    setRibbitList((prevState: any) => ({ ...newTwat, ...prevState }));
   };
 
   useEffect(() => {
@@ -75,9 +75,9 @@ const Home = ({ currentUser }: any) => {
         );
       }
 
-      let twats: any = await fetchTwats(q);
+      let twats: any = await fetchRibbits(q);
 
-      setTwatList(twats);
+      setRibbitList(twats);
     };
     queryFollowingTwats();
   }, [currentUser, tab]);
@@ -95,9 +95,9 @@ const Home = ({ currentUser }: any) => {
       } else {
         snapshot.docChanges().forEach((change) => {
           if (change.type === "added") {
-            if (twatList[change.doc.id]) return;
+            if (ribbitList[change.doc.id]) return;
             console.log("addition");
-            addTwatLocal(change.doc.id, change.doc.data());
+            addRibbitLocal(change.doc.id, change.doc.data());
           }
         });
       }
@@ -116,20 +116,22 @@ const Home = ({ currentUser }: any) => {
         <HomePanelNavbar setTab={setTab} />
       </div>
       <div className="home-panel-main-feed">
-        <HomePanelTweetInput currentUser={currentUser} />
+        <HomePanelRibbitInput currentUser={currentUser} />
 
         <div>
-          {Object.keys(twatList).map((doc: any) => {
+          {Object.keys(ribbitList).map((doc: any) => {
             return (
               <Ribbit
-                twatInfo={twatList[doc]}
+                twatInfo={ribbitList[doc]}
                 isDeletable={
-                  currentUser.userHandle === twatList[doc].handle ? true : false
+                  currentUser.userHandle === ribbitList[doc].handle
+                    ? true
+                    : false
                 }
                 currentHandle={currentUser.userHandle}
                 isThreaded={false}
-                key={twatList[doc].id}
-                refreshTwats={removeTwatLocal}
+                key={ribbitList[doc].id}
+                refreshTwats={removeRibbitLocal}
                 inShowcase={false}
               />
             );

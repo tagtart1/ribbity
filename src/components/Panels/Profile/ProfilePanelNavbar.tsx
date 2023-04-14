@@ -47,7 +47,7 @@ const ProfilePanelNavbar = () => {
   return (
     <ul className="profile-panel-navbar-container">
       <div onClick={(e) => handleTabSwitch(e, `/${handle}`)}>
-        <li className=" twats-tab">Twats</li>
+        <li className=" twats-tab">Ribbits</li>
       </div>
       <div onClick={(e) => handleTabSwitch(e, `/${handle}/replies`)}>
         <li className="replies-tab">Replies</li>

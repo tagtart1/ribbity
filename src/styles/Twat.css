@@ -69,7 +69,8 @@ header {
   height: calc(var(--distance) - 5px);
   bottom: 0px;
   top: 52px;
-  left: 23px;
+  left: 24px;
+  z-index: 10;
 }
 
 .twat-container svg {

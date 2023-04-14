@@ -7,21 +7,21 @@ import { getTimestamp, isValidString } from "../../scripts/HelperFns";
 import toast from "react-hot-toast";
 import ReactDOM from "react-dom";
 
-interface TwatPopupInputProps {
+interface RibbitPopupInputProps {
   isVisible: boolean;
   toggleVisibility: Function;
   currentUser: any;
 }
 
-const TwatPopupInput = ({
+const RibbitPopupInput = ({
   isVisible,
   toggleVisibility,
   currentUser,
-}: TwatPopupInputProps) => {
+}: RibbitPopupInputProps) => {
   const [inputLength, setInputLength] = useState<Number>(0);
 
-  const notifySuccess = () => toast("Your Twat was sent.");
-  const notifyError = () => toast.error("Your Twat failed to send.");
+  const notifySuccess = () => toast("Your Ribbit was sent.");
+  const notifyError = () => toast.error("Your Ribbit failed to send.");
 
   const handleOffSideClick = (e: any) => {
     if (
@@ -34,7 +34,7 @@ const TwatPopupInput = ({
     }
   };
 
-  const handleSubmitTweet = async (e: any) => {
+  const handleSubmitRibbit = async (e: any) => {
     e.preventDefault();
     const input = document.getElementById(
       "twat-popup-input"
@@ -98,7 +98,10 @@ const TwatPopupInput = ({
         <div className="twat-popup-input-main">
           <img src={currentUser.profileImgUrl} alt="user" />
 
-          <form className="popup-input-main-right" onSubmit={handleSubmitTweet}>
+          <form
+            className="popup-input-main-right"
+            onSubmit={handleSubmitRibbit}
+          >
             <textarea
               maxLength={160}
               placeholder="What's happening?"
@@ -146,7 +149,7 @@ const TwatPopupInput = ({
                   {`${inputLength}`} / 160
                 </span>
                 <button type="submit" className="twat-button">
-                  Twat
+                  Ribbit
                 </button>
               </div>
             </div>
@@ -158,4 +161,4 @@ const TwatPopupInput = ({
   );
 };
 
-export default TwatPopupInput;
+export default RibbitPopupInput;

@@ -1,4 +1,4 @@
-import TwatLikeCounter from "./TwatLikeCounter";
+import RibbitLikeCounter from "./RibbitLikeCounter";
 import { updateDoc, deleteField, doc } from "firebase/firestore";
 import { db } from "../../scripts/firebaseConfig";
 import { useState, useEffect } from "react";
@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 import "../../styles/TwatLikeButton.css";
 import SignupPopup from "../Misc/SignupPopup";
 
-interface TwatLikeButtonProps {
-  twatInfo: {
+interface RibbitLikeButtonProps {
+  ribbitInfo: {
     likedBy: {
       [key: string]: boolean;
     };
@@ -19,20 +19,20 @@ interface TwatLikeButtonProps {
   setActiveButton: Function;
 }
 
-const TwatLikeButton = ({
-  twatInfo,
+const RibbitLikeButton = ({
+  ribbitInfo,
   currentHandle,
   activeButton,
   setActiveButton,
-}: TwatLikeButtonProps) => {
+}: RibbitLikeButtonProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(
-    twatInfo.likedBy[currentHandle]
+    ribbitInfo.likedBy[currentHandle]
   );
 
   const [hasClickedLike, setHasClickedLike] = useState<boolean>(false);
   const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
 
-  const handleLikeTwat = async () => {
+  const handleLikeRibbit = async () => {
     if (!currentHandle) {
       setShowSignupPopup(true);
       return;
@@ -43,7 +43,7 @@ const TwatLikeButton = ({
       // Unlke twat
 
       setIsLiked(false);
-      await updateDoc(doc(db, "twats", twatInfo.id), {
+      await updateDoc(doc(db, "twats", ribbitInfo.id), {
         [`likedBy.${currentHandle}`]: deleteField(),
       });
     } else {
@@ -51,7 +51,7 @@ const TwatLikeButton = ({
       setActiveButton("like");
 
       setIsLiked(true);
-      await updateDoc(doc(db, "twats", twatInfo.id), {
+      await updateDoc(doc(db, "twats", ribbitInfo.id), {
         [`likedBy.${currentHandle}`]: true,
       });
     }
@@ -63,12 +63,12 @@ const TwatLikeButton = ({
 
   useEffect(() => {
     if (activeButton === "dislike" && isLiked) {
-      handleLikeTwat();
+      handleLikeRibbit();
     }
   }, [activeButton]);
 
   return (
-    <div id="twat-option-heart-wrapper" onClick={handleLikeTwat}>
+    <div id="twat-option-heart-wrapper" onClick={handleLikeRibbit}>
       <div className="twat-option-icon twat-option-icon-heart">
         {isLiked ? (
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -90,13 +90,13 @@ const TwatLikeButton = ({
           </svg>
         )}
       </div>
-      <TwatLikeCounter
+      <RibbitLikeCounter
         isLiked={isLiked}
-        likedBy={twatInfo.likedBy}
+        likedBy={ribbitInfo.likedBy}
         hasClickedLike={hasClickedLike}
       />
       <SignupPopup
-        userName={twatInfo.handle}
+        userName={ribbitInfo.handle}
         visibility={showSignupPopup}
         setOwnVisibility={closePopup}
         popupType="like"
@@ -105,4 +105,4 @@ const TwatLikeButton = ({
   );
 };
 
-export default TwatLikeButton;
+export default RibbitLikeButton;

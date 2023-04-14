@@ -13,29 +13,29 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 interface useDeleteRibbitProps {
-  twatInfo: any;
+  ribbitInfo: any;
   refreshTwats?: Function;
   tab?: string;
   inShowcase: boolean;
 }
 
 const useDeleteRibbit = ({
-  twatInfo,
+  ribbitInfo,
   refreshTwats,
   tab,
   inShowcase,
 }: useDeleteRibbitProps) => {
   const navigate = useNavigate();
-  const notifySuccess = () => toast("Your Twat was deleted.");
-  const notifyError = () => toast.error("Your Twat failed to delete.");
+  const notifySuccess = () => toast("Your Ribbit was deleted.");
+  const notifyError = () => toast.error("Your Ribbit failed to delete.");
 
   const deleteRibbit = useCallback(async () => {
-    const deleteChildrenTwats = async () => {
+    const deleteChildrenRibbits = async () => {
       const batch = writeBatch(db);
       // Query all twats the contain the twat up for deletion's id
       const childrenQuery = query(
         collection(db, "twats"),
-        where("replyingTo.all", "array-contains", twatInfo.id)
+        where("replyingTo.all", "array-contains", ribbitInfo.id)
       );
 
       const childrenDocs = await getDocs(childrenQuery);
@@ -51,21 +51,21 @@ const useDeleteRibbit = ({
     };
 
     try {
-      await deleteDoc(doc(db, "twats", twatInfo.id));
-      deleteChildrenTwats();
+      await deleteDoc(doc(db, "twats", ribbitInfo.id));
+      deleteChildrenRibbits();
       notifySuccess();
     } catch (error) {
       notifyError();
     }
     document.documentElement.style.overflowY = "visible";
     if (refreshTwats) {
-      refreshTwats(tab, twatInfo.id);
+      refreshTwats(tab, ribbitInfo.id);
     }
-    // If we are inside a showcase then renaviage out or to a different twat within the thread
-    if (twatInfo.replyingTo.id && inShowcase) {
-      navigate(`/${twatInfo.handle}/twat/${twatInfo.replyingTo.id}`);
-    } else if (inShowcase) navigate(`/${twatInfo.handle}`);
-  }, [twatInfo, tab, refreshTwats, navigate, inShowcase]);
+    // If we are inside a showcase then re-navigate out or to a different ribbi within the thread
+    if (ribbitInfo.replyingTo.id && inShowcase) {
+      navigate(`/${ribbitInfo.handle}/twat/${ribbitInfo.replyingTo.id}`);
+    } else if (inShowcase) navigate(`/${ribbitInfo.handle}`);
+  }, [ribbitInfo, tab, refreshTwats, navigate, inShowcase]);
 
   return deleteRibbit;
 };

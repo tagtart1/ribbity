@@ -20,14 +20,6 @@ const ExplorePanelNavbar = ({ setActiveTab }: ExplorePanelNavbarProps) => {
     setActiveTab(tabNum);
   };
 
-  const onDrag = (e: any, data: any) => {
-    const container: any = document.querySelector(
-      ".explore-panel-navbar-container"
-    );
-
-    container.scrollLeft -= data.deltaX;
-  };
-
   useEffect(() => {
     setSelectedTab(document.querySelector(".selected-tab"));
   }, []);

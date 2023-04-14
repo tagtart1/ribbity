@@ -1,66 +1,66 @@
-import ExploreTweetTopic from "./ExploreTweetTopic";
+import ExploreRibbitTopic from "./ExploreTweetTopic";
 
 const ExploreTopicFeedRandom = () => {
   return (
     <>
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="$AAPL"
-        tweets={5300}
+        ribbits={5300}
         trendingTopic="Businesss and finance"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="White House"
-        tweets={438500}
+        ribbits={438500}
         trendingTopic="Politics"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="#FrogsAreCool"
-        tweets={98400}
+        ribbits={98400}
         trendingTopic="News"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Asensio"
-        tweets={10300}
+        ribbits={10300}
         trendingGenre="United States"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Kansas City"
-        tweets={4800}
+        ribbits={4800}
         trendingGenre="Missouri"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Vince"
-        tweets={70300}
+        ribbits={70300}
         trendingTopic="Sports"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Budweiser"
-        tweets={24500}
+        ribbits={24500}
         trendingTopic="Food"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="NBA Street"
-        tweets={2740}
+        ribbits={2740}
         trendingGenre="United States"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Gen Z"
-        tweets={45100}
+        ribbits={45100}
         trendingGenre="United States"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Banks"
-        tweets={55500}
+        ribbits={55500}
         trendingGenre="United States"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="Crumbl"
-        tweets={33800}
+        ribbits={33800}
         trendingTopic="Food"
       />
-      <ExploreTweetTopic
+      <ExploreRibbitTopic
         topicTitle="White House"
-        tweets={131000}
+        ribbits={131000}
         trendingGenre="United States"
       />
     </>
