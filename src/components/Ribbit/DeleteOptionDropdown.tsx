@@ -16,7 +16,7 @@ const DeleteOptionDropdown = ({
   return (
     <div className="delete-option-dropdown-container">
       <button
-        className="dropdown-delete-twat-button"
+        className="dropdown-delete-ribbit-button"
         onClick={() => {
           document.documentElement.style.overflowY = "hidden";
           setShowConfirmation(true);

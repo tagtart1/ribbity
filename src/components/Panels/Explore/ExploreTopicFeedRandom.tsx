@@ -1,4 +1,4 @@
-import ExploreRibbitTopic from "./ExploreTweetTopic";
+import ExploreRibbitTopic from "./ExploreRibbitTopic";
 
 const ExploreTopicFeedRandom = () => {
   return (

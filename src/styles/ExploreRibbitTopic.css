@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-.explore-tweet-topic-wrapper {
+.explore-ribbit-topic-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-.explore-tweet-topic-container {
+.explore-ribbit-topic-container {
   color: var(--secondary-text-color);
   font-size: 14px;
   padding: 16px;
@@ -21,23 +21,23 @@
   width: 100%;
 }
 
-.explore-tweet-topic-wrapper:hover {
+.explore-ribbit-topic-wrapper:hover {
   background-color: rgba(76, 76, 76, 0.137);
 }
 
-.explore-tweet-topic-container .topic-title {
+.explore-ribbit-topic-container .topic-title {
   font-size: 16px;
   color: var(--primary-text-color);
   margin: 0;
   padding: 0;
 }
 
-.tweet-topic-top svg {
+.ribbit-topic-top svg {
   height: 20px;
   width: 20px;
 }
 
-.tweet-topic-top {
+.ribbit-topic-top {
   display: flex;
   justify-content: space-between;
   align-items: center;

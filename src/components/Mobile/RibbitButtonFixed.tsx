@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FeatherIcon from "../../media/svg/FeatherIcon";
-import "../../styles/TwatButtonFixed.css";
+import "../../styles/RibbitButtonFixed.css";
 import RibbitPopupInput from "../Misc/RibbitPopupInput";
 
 interface RibbitButtonFixedProps {
@@ -12,9 +12,9 @@ const RibbitButtonFixed = ({ mainUser }: RibbitButtonFixedProps) => {
 
   if (!mainUser.userHandle) return null;
   return (
-    <div className="twat-button-mobile-container">
+    <div className="ribbit-button-mobile-container">
       <button
-        className="twat-button-mobile-fixed"
+        className="ribbit-button-mobile-fixed"
         onClick={() => {
           setShowPopup(true);
         }}

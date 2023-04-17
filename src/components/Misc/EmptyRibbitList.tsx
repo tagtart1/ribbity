@@ -1,4 +1,4 @@
-import "../../styles/EmptyTwatList.css";
+import "../../styles/EmptyRibbitList.css";
 
 interface EmptyRibbitListProps {
   tab: string;
@@ -14,7 +14,7 @@ const EmptyRibbitList = ({
   if (tab === "likes") {
     if (isMainUser) {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>You don't have any likes yet</h1>
             <p>
@@ -26,7 +26,7 @@ const EmptyRibbitList = ({
       );
     } else {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>@{visitedUserHandle} hasn't liked any Ribbits</h1>
             <p>When they do, those Ribbits will show up here.</p>
@@ -39,7 +39,7 @@ const EmptyRibbitList = ({
   if (tab === "replies") {
     if (isMainUser) {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>You haven't made any replies yet</h1>
             <p>
@@ -51,7 +51,7 @@ const EmptyRibbitList = ({
       );
     } else {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>@{visitedUserHandle} hasn't replied to any Ribbits</h1>
             <p>When they do, those Ribbits will show up here.</p>
@@ -64,7 +64,7 @@ const EmptyRibbitList = ({
   if (tab === "twats") {
     if (isMainUser) {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>You haven't Ribbited yet</h1>
             <p>
@@ -76,7 +76,7 @@ const EmptyRibbitList = ({
       );
     } else {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>@{visitedUserHandle} hasn't posted any Ribbits yet</h1>
             <p>When they do, those Ribbits will show up here.</p>
@@ -89,7 +89,7 @@ const EmptyRibbitList = ({
   if (tab === "followers") {
     if (isMainUser) {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>You haven't gained any followers yet</h1>
             <p>
@@ -101,7 +101,7 @@ const EmptyRibbitList = ({
       );
     } else {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>@{visitedUserHandle} doesn't have any followers yet</h1>
             <p>When they do, those people will show up here.</p>
@@ -113,7 +113,7 @@ const EmptyRibbitList = ({
   if (tab === "following") {
     if (isMainUser) {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>You aren't following anyone yet</h1>
             <p>Check out the 'For you' tab to discover some now people!</p>
@@ -122,7 +122,7 @@ const EmptyRibbitList = ({
       );
     } else {
       return (
-        <div className="empty-twat-list-wrapper">
+        <div className="empty-ribbit-list-wrapper">
           <div>
             <h1>@{visitedUserHandle} isn't following anyone yet</h1>
             <p>When they do, those people will show up here.</p>

@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-.twat-panel-container {
+.ribbit-panel-container {
   display: flex;
   flex-direction: column;
   width: 100%;

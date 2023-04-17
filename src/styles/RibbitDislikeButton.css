@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-#twat-option-dislike-wrapper {
+#ribbit-option-dislike-wrapper {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.twat-option-icon-dislike {
+.ribbit-option-icon-dislike {
   padding: 8px 8px;
   border-radius: 50%;
   width: fit-content;
@@ -20,19 +20,19 @@
   pointer-events: auto;
 }
 
-#twat-option-dislike-wrapper:hover svg path {
+#ribbit-option-dislike-wrapper:hover svg path {
   fill: #bb731b;
 }
 
-#twat-option-dislike-wrapper:hover .dislikes-count {
+#ribbit-option-dislike-wrapper:hover .dislikes-count {
   color: #bb731b;
 }
 
-#twat-option-dislike-wrapper:hover .twat-option-icon {
+#ribbit-option-dislike-wrapper:hover .ribbit-option-icon {
   background-color: #bb731b1c;
 }
 
-#twat-option-dislike-wrapper .dislikes-count {
+#ribbit-option-dislike-wrapper .dislikes-count {
   color: var(--secondary-text-color);
   user-select: none;
 

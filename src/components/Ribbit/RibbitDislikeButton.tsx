@@ -1,7 +1,7 @@
 import { deleteField, doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../scripts/firebaseConfig";
-import "../../styles/TwatDislikeButton.css";
+import "../../styles/RibbitDislikeButton.css";
 import RibbitDislikeCounter from "./RibbitDislikeCounter";
 import SignupPopup from "../Misc/SignupPopup";
 import DislikeIconFilled from "../../media/svg/DislikeIconFilled";
@@ -70,8 +70,8 @@ const RibbitDislikeButton = ({
   }, [activeButton]);
 
   return (
-    <div id="twat-option-dislike-wrapper" onClick={handleDislike}>
-      <div className="twat-option-icon twat-option-icon-dislike ">
+    <div id="ribbit-option-dislike-wrapper" onClick={handleDislike}>
+      <div className="ribbit-option-icon ribbit-option-icon-dislike ">
         {isDisliked ? (
           <DislikeIconFilled />
         ) : (

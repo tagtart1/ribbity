@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../../styles/ProfilePanelNavbar.css";
-import { Link } from "react-router-dom";
 
 const ProfilePanelNavbar = () => {
   const [selectedTab, setSelectedTab] = useState<any>();
@@ -24,7 +23,7 @@ const ProfilePanelNavbar = () => {
     let toSelectTab: any;
     switch (tab) {
       case "":
-        toSelectTab = document.querySelector(".twats-tab");
+        toSelectTab = document.querySelector(".ribbits-tab");
         break;
       case "replies":
         toSelectTab = document.querySelector(".replies-tab");
@@ -36,7 +35,7 @@ const ProfilePanelNavbar = () => {
         toSelectTab = document.querySelector(".likes-tab");
         break;
       default:
-        toSelectTab = document.querySelector(".twats-tab");
+        toSelectTab = document.querySelector(".ribbits-tab");
     }
     if (toSelectTab) {
       toSelectTab.classList.add("selected-tab-profile");
@@ -47,7 +46,7 @@ const ProfilePanelNavbar = () => {
   return (
     <ul className="profile-panel-navbar-container">
       <div onClick={(e) => handleTabSwitch(e, `/${handle}`)}>
-        <li className=" twats-tab">Ribbits</li>
+        <li className=" ribbits-tab">Ribbits</li>
       </div>
       <div onClick={(e) => handleTabSwitch(e, `/${handle}/replies`)}>
         <li className="replies-tab">Replies</li>

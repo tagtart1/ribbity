@@ -1,5 +1,5 @@
 import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
-import TwatReplyCounter from "./RibbitReplyCounter";
+import RibbitReplyCounter from "./RibbitReplyCounter";
 
 interface RibbitReplyButtonProps {
   ribbitId: string;
@@ -15,14 +15,14 @@ const RibbitReplyButton = ({
 
   return (
     <div
-      id="twat-option-reply-wrapper"
+      id="ribbit-option-reply-wrapper"
       onClick={() => {
         let newPath = `/${ribbitHandle}/ribbit/${ribbitId}`;
         if (location.pathname === newPath) return;
         navigate(newPath);
       }}
     >
-      <div className="twat-option-icon">
+      <div className="ribbit-option-icon">
         <svg viewBox="0 0 24 24">
           <g>
             <path
@@ -32,7 +32,7 @@ const RibbitReplyButton = ({
           </g>
         </svg>
       </div>
-      <TwatReplyCounter ribbitId={ribbitId} />
+      <RibbitReplyCounter ribbitId={ribbitId} />
     </div>
   );
 };

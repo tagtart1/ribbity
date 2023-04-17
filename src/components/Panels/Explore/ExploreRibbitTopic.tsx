@@ -1,4 +1,4 @@
-import "../../../styles/ExploreTweetTopic.css";
+import "../../../styles/ExploreRibbitTopic.css";
 import { kFormatter } from "../../../scripts/HelperFns";
 
 interface ExploreRibbitTopicProps {
@@ -21,9 +21,9 @@ const ExploreRibbitTopic = ({
   trendingGenre,
 }: ExploreRibbitTopicProps) => {
   return (
-    <div className="explore-tweet-topic-wrapper">
-      <div className="explore-tweet-topic-container">
-        <div className="tweet-topic-top">
+    <div className="explore-ribbit-topic-wrapper">
+      <div className="explore-ribbit-topic-container">
+        <div className="ribbit-topic-top">
           {trendingTopic ? <div>{trendingTopic} · Trending</div> : null}
           {trendingGenre ? <div>Trending in {trendingGenre}</div> : null}
           {rankIndex ? (

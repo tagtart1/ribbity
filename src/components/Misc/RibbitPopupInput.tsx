@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import "../../styles/TwatPopupInput.css";
+import "../../styles/RibbitPopupInput.css";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../scripts/firebaseConfig";
 import { getTimestamp, isValidString } from "../../scripts/HelperFns";
@@ -25,7 +25,7 @@ const RibbitPopupInput = ({
 
   const handleOffSideClick = (e: any) => {
     if (
-      e.target === document.querySelector(".twat-popup-input-container") &&
+      e.target === document.querySelector(".ribbit-popup-input-container") &&
       e.buttons === 1
     ) {
       document.documentElement.style.overflowY = "visible";
@@ -37,7 +37,7 @@ const RibbitPopupInput = ({
   const handleSubmitRibbit = async (e: any) => {
     e.preventDefault();
     const input = document.getElementById(
-      "twat-popup-input"
+      "ribbit-popup-input"
     ) as HTMLInputElement;
     if (!isValidString(input.value)) return;
     try {
@@ -74,10 +74,10 @@ const RibbitPopupInput = ({
   if (!isVisible || !popupRoot) return null;
   return ReactDOM.createPortal(
     <div
-      className="twat-popup-input-container"
+      className="ribbit-popup-input-container"
       onMouseDown={handleOffSideClick}
     >
-      <div className="twat-popup-input-wrapper">
+      <div className="ribbit-popup-input-wrapper">
         <div className="backout-button">
           <svg
             viewBox="0 0 24 24"
@@ -96,7 +96,7 @@ const RibbitPopupInput = ({
             </g>
           </svg>
         </div>
-        <div className="twat-popup-input-main">
+        <div className="ribbit-popup-input-main">
           <img src={currentUser.profileImgUrl} alt="user" />
 
           <form
@@ -106,12 +106,12 @@ const RibbitPopupInput = ({
             <textarea
               maxLength={160}
               placeholder="What's happening?"
-              id="twat-popup-input"
+              id="ribbit-popup-input"
               onInput={(e) => {
                 setInputLength(e.currentTarget.value.length);
               }}
             ></textarea>
-            <span className="twat-reply-status">
+            <span className="ribbit-reply-status">
               <svg viewBox="0 0 24 24">
                 <g>
                   <path
@@ -149,7 +149,7 @@ const RibbitPopupInput = ({
                 <span className="popup-input-length">
                   {`${inputLength}`} / 160
                 </span>
-                <button type="submit" className="twat-button">
+                <button type="submit" className="ribbit-button">
                   Ribbit
                 </button>
               </div>

@@ -3,7 +3,7 @@ import { updateDoc, deleteField, doc } from "firebase/firestore";
 import { db } from "../../scripts/firebaseConfig";
 import { useState, useEffect } from "react";
 
-import "../../styles/TwatLikeButton.css";
+import "../../styles/RibbitLikeButton.css";
 import SignupPopup from "../Misc/SignupPopup";
 
 interface RibbitLikeButtonProps {
@@ -68,8 +68,8 @@ const RibbitLikeButton = ({
   }, [activeButton]);
 
   return (
-    <div id="twat-option-heart-wrapper" onClick={handleLikeRibbit}>
-      <div className="twat-option-icon twat-option-icon-heart">
+    <div id="ribbit-option-heart-wrapper" onClick={handleLikeRibbit}>
+      <div className="ribbit-option-icon ribbit-option-icon-heart">
         {isLiked ? (
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>

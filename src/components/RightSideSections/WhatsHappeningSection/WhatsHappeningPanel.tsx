@@ -1,5 +1,5 @@
 import "../../../styles/WhatsHappeningPanel.css";
-import ExploreRibbitTopic from "../../Panels/Explore/ExploreTweetTopic";
+import ExploreRibbitTopic from "../../Panels/Explore/ExploreRibbitTopic";
 import ShowMoreButton from "../ShowMoreButton";
 import frogImg from "../../../media/rainfrog.jpg";
 

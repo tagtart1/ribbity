@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
-import "../../styles/Twat.css";
+import "../../styles/Ribbit.css";
 import { getTimeSincePosted } from "../../scripts/HelperFns";
 
 import DeleteOptionDropdown from "./DeleteOptionDropdown";
@@ -26,7 +26,7 @@ import toast from "react-hot-toast";
 import useDeleteRibbit from "../useDeleteRibbit";
 
 interface RibbitProps {
-  twatInfo: {
+  ribbitInfo: {
     userName: string;
     handle: string;
     userProfileImg: string;
@@ -53,16 +53,16 @@ interface RibbitProps {
 
   isDeletable: boolean;
   currentHandle: string;
-  refreshTwats?: Function;
+  refreshRibbits?: Function;
   isThreaded: boolean;
   inShowcase: boolean;
 }
 // To delete make sure the user opening the tab is the user that owns the tweet. Find the doc by the id in firebase and remove it, with delete confirmation
 const Ribbit = ({
-  twatInfo,
+  ribbitInfo,
   isDeletable,
   currentHandle,
-  refreshTwats,
+  refreshRibbits,
   isThreaded,
   inShowcase,
 }: RibbitProps) => {
@@ -70,8 +70,8 @@ const Ribbit = ({
 
   const { handle, tab } = useParams();
   const deleteRibbit = useDeleteRibbit({
-    ribbitInfo: twatInfo,
-    refreshTwats,
+    ribbitInfo,
+    refreshRibbits: refreshRibbits,
     tab,
     inShowcase,
   });
@@ -93,14 +93,14 @@ const Ribbit = ({
   const handleOpeningRibbit = (e: any) => {
     // Pointer events are set to off in the style sheet for all child elements except the ones that need to register a click
     if (e.currentTarget === e.target) {
-      navigate(`/${twatInfo.handle}/ribbit/${twatInfo.id}`);
+      navigate(`/${ribbitInfo.handle}/ribbit/${ribbitInfo.id}`);
     }
   };
 
-  const copyTwatLinkToClipboard = () => {
+  const copyRibbitLinkToClipboard = () => {
     const currentPath = window.location.href;
-    const twatPath = currentPath + `/ribbit/${twatInfo.id}`;
-    navigator.clipboard.writeText(twatPath);
+    const ribbitPath = currentPath + `/ribbit/${ribbitInfo.id}`;
+    navigator.clipboard.writeText(ribbitPath);
     notifyClipboard();
   };
 
@@ -122,23 +122,23 @@ const Ribbit = ({
     <motion.div layout>
       <article
         className={
-          isThreaded ? "twat-container" : "twat-container border-bottom"
+          isThreaded ? "ribbit-container" : "ribbit-container border-bottom"
         }
         onClick={handleOpeningRibbit}
       >
-        <Link to={`/${twatInfo.handle}`}>
+        <Link to={`/${ribbitInfo.handle}`}>
           <div className={isThreaded ? "threaded-profile-img" : ""}>
-            <img src={twatInfo.userProfileImg} alt="User"></img>
+            <img src={ribbitInfo.userProfileImg} alt="User"></img>
           </div>
         </Link>
-        <div className="twat-container-right-side">
+        <div className="ribbit-container-right-side">
           <header>
-            <Link to={`/${twatInfo.handle}`}>
+            <Link to={`/${ribbitInfo.handle}`}>
               <div className="header-user-names">
-                <span className="username">{twatInfo.userName}</span>
-                <span className="grey">@{twatInfo.handle}</span>
+                <span className="username">{ribbitInfo.userName}</span>
+                <span className="grey">@{ribbitInfo.handle}</span>
                 <span className="grey">·</span>
-                <span className="grey">{getTimeSincePosted(twatInfo)}</span>
+                <span className="grey">{getTimeSincePosted(ribbitInfo)}</span>
               </div>
             </Link>
             <div>
@@ -151,7 +151,7 @@ const Ribbit = ({
                   <g>
                     <path
                       fill="#71767B"
-                      className="twat-path"
+                      className="ribbit-path"
                       d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
                     ></path>
                   </g>
@@ -159,25 +159,25 @@ const Ribbit = ({
               </div>
             </div>
           </header>
-          {twatInfo.replyingTo.handle ? (
+          {ribbitInfo.replyingTo.handle ? (
             <p className="replying-to-text">
               Replying to{" "}
-              <Link to={`/${twatInfo.replyingTo.handle}`}>
+              <Link to={`/${ribbitInfo.replyingTo.handle}`}>
                 <span className="replying-to-handle">
-                  @{twatInfo.replyingTo.handle}
+                  @{ribbitInfo.replyingTo.handle}
                 </span>
               </Link>
             </p>
           ) : null}
           <div>
-            <p className="twat-main-text">{twatInfo.text}</p>
+            <p className="ribbit-main-text">{ribbitInfo.text}</p>
           </div>
-          <div className="twat-icon-button-row">
+          <div className="ribbit-icon-button-row">
             <RibbitReplyButton
-              ribbitId={twatInfo.id}
-              ribbitHandle={twatInfo.handle}
+              ribbitId={ribbitInfo.id}
+              ribbitHandle={ribbitInfo.handle}
             />
-            <div className="twat-option-icon twat-option-icon-retweet">
+            <div className="ribbit-option-icon ribbit-option-icon-retweet">
               <svg viewBox="0 0 24 24">
                 <g>
                   <path
@@ -189,11 +189,11 @@ const Ribbit = ({
             </div>
             <RibbitReactionButtons
               currentHandle={currentHandle}
-              ribbitInfo={twatInfo}
+              ribbitInfo={ribbitInfo}
             />
             <div
-              className="twat-option-icon copy-option-icon"
-              onClick={copyTwatLinkToClipboard}
+              className="ribbit-option-icon copy-option-icon"
+              onClick={copyRibbitLinkToClipboard}
             >
               <svg viewBox="0 0 24 24">
                 <g>

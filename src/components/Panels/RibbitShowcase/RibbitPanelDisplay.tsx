@@ -7,7 +7,7 @@ import {
   getTimestamp,
   isValidString,
 } from "../../../scripts/HelperFns";
-import "../../../styles/TwatPanelDisplay.css";
+import "../../../styles/RibbitPanelDisplay.css";
 
 import RibbitReactionButtons from "../../Ribbit/RibbitReactionButtons";
 import RibbitReplyButton from "../../Ribbit/RibbitReplyButton";
@@ -82,12 +82,12 @@ const RibbitPanelDisplay = ({
     addNewComment(comment);
   };
 
-  const handleDeleteTwat = async () => {
+  const handleDeleteRibbit = async () => {
     deleteRibbit();
     setOpenDelete(false);
   };
 
-  const copyTwatLinkToClipboard = () => {
+  const copyRibbitLinkToClipboard = () => {
     const currentPath = window.location.href;
 
     navigator.clipboard.writeText(currentPath);
@@ -95,7 +95,7 @@ const RibbitPanelDisplay = ({
   };
 
   return (
-    <div className="twat-panel-display-container">
+    <div className="ribbit-panel-display-container">
       <div className="header">
         <div className="user-info">
           <img
@@ -111,12 +111,12 @@ const RibbitPanelDisplay = ({
         <div className="more-button" onClick={openDeleteOption}>
           <DeleteOptionDropdown
             isVisible={openDelete}
-            deleteRibbit={handleDeleteTwat}
+            deleteRibbit={handleDeleteRibbit}
           />
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>
               <path
-                className="twat-path"
+                className="ribbit-path"
                 fill="#71767B"
                 d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
               ></path>
@@ -152,7 +152,7 @@ const RibbitPanelDisplay = ({
         />
         <div
           className="action-button-wrapper"
-          onClick={copyTwatLinkToClipboard}
+          onClick={copyRibbitLinkToClipboard}
         >
           <svg viewBox="0 0 24 24">
             <g>
@@ -166,14 +166,14 @@ const RibbitPanelDisplay = ({
       </div>
       {!mainUser.userHandle ? null : (
         <form
-          className="twat-reply-form"
+          className="ribbit-reply-form"
           onSubmit={handleSubmitReply}
           autoComplete="off"
         >
           <div className="reply-form-left-side">
             <img src={mainUser.profileImgUrl} alt="Main User" />
             <textarea
-              id="twat-reply-input"
+              id="ribbit-reply-input"
               placeholder="Ribbit Your Reply"
               autoComplete="off"
               maxLength={160}

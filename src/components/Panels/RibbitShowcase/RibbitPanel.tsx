@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../../scripts/firebaseConfig";
-import "../../../styles/TwatPanel.css";
+import "../../../styles/RibbitPanel.css";
 import Ribbit from "../../Ribbit/Ribbit";
 import RibbitPanelDisplay from "./RibbitPanelDisplay";
 import RibbitPanelHeader from "./RibbitPanelHeader";
@@ -101,18 +101,18 @@ const RibbitPanel = ({ mainUser }: any) => {
   if (!ribbitInfo) return <InvalidRoutePanel />;
 
   return (
-    <div className="twat-panel-container">
+    <div className="ribbit-panel-container">
       <RibbitPanelHeader />
-      <div className="twat-thread-display-container">
-        {parentRibbits.map((twat: any) => {
+      <div className="ribbit-thread-display-container">
+        {parentRibbits.map((ribbit: any) => {
           return (
             <Ribbit
-              twatInfo={twat}
-              isDeletable={twat.handle === mainUser.userHandle ? true : false}
+              ribbitInfo={ribbit}
+              isDeletable={ribbit.handle === mainUser.userHandle ? true : false}
               currentHandle={mainUser.userHandle}
-              refreshTwats={retrieveRibbitInfo}
+              refreshRibbits={retrieveRibbitInfo}
               isThreaded={true}
-              key={twat.id}
+              key={ribbit.id}
               inShowcase={true}
             />
           );
@@ -127,10 +127,10 @@ const RibbitPanel = ({ mainUser }: any) => {
       {comments.map((comment: any) => {
         return (
           <Ribbit
-            twatInfo={comment}
+            ribbitInfo={comment}
             isDeletable={comment.handle === mainUser.userHandle ? true : false}
             currentHandle={mainUser.userHandle}
-            refreshTwats={refreshRibbits}
+            refreshRibbits={refreshRibbits}
             isThreaded={false}
             key={comment.id}
             inShowcase={true}

@@ -1,20 +1,20 @@
 @import url("AppCSSVariables.css");
 
-.empty-twat-list-wrapper {
+.empty-ribbit-list-wrapper {
   display: flex;
   justify-content: center;
   margin-top: 32px;
 }
 
-.empty-twat-list-wrapper div {
+.empty-ribbit-list-wrapper div {
   width: 350px;
 }
 
-.empty-twat-list-wrapper h1 {
+.empty-ribbit-list-wrapper h1 {
   margin: 0;
 }
 
-.empty-twat-list-wrapper p {
+.empty-ribbit-list-wrapper p {
   font-size: 16px;
   color: var(--secondary-text-color);
   margin-top: 8px;

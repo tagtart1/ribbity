@@ -1,4 +1,4 @@
-import "../../styles/DeleteTwatPopup.css";
+import "../../styles/DeleteRibbitPopup.css";
 
 interface DeleteRibbitPopupProps {
   isVisible: boolean;
@@ -13,7 +13,7 @@ const DeleteRibbitPopup = ({
 }: DeleteRibbitPopupProps) => {
   const handleOffSideClick = (e: any) => {
     if (
-      e.target === document.querySelector(".delete-twat-popup-container") &&
+      e.target === document.querySelector(".delete-ribbit-popup-container") &&
       e.buttons === 1
     ) {
       document.documentElement.style.overflowY = "visible";
@@ -23,10 +23,10 @@ const DeleteRibbitPopup = ({
   if (!isVisible) return null;
   return (
     <div
-      className="delete-twat-popup-container"
+      className="delete-ribbit-popup-container"
       onMouseDown={handleOffSideClick}
     >
-      <div className="delete-twat-popup-wrapper">
+      <div className="delete-ribbit-popup-wrapper">
         <h1>Delete Ribbit?</h1>
         <p className="delete-confirm-text">
           This can't be undone and it will be removed from your profile, the

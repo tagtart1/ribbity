@@ -1,4 +1,4 @@
-.twat-panel-container .twat-panel-header {
+.ribbit-panel-container .ribbit-panel-header {
   width: 100%;
   max-width: 600px;
   display: flex;
@@ -7,7 +7,7 @@
   gap: 28px;
   box-sizing: border-box;
 }
-.twat-panel-container .back-arrow {
+.ribbit-panel-container .back-arrow {
   padding: 8px;
   border-radius: 50%;
   display: flex;
@@ -18,16 +18,16 @@
   cursor: pointer;
 }
 
-.twat-panel-container .back-arrow:hover {
+.ribbit-panel-container .back-arrow:hover {
   background-color: rgb(34, 34, 34);
 }
 
-.twat-panel-container .back-arrow svg {
+.ribbit-panel-container .back-arrow svg {
   width: 20px;
   height: 20px;
 }
 
-.twat-panel-container header h1 {
+.ribbit-panel-container header h1 {
   font-size: 22px;
   margin: 0;
   padding: 0;

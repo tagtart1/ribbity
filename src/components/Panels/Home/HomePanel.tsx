@@ -1,7 +1,7 @@
 import "../../../styles/HomePanel.css";
 import { signOutUser } from "../../../scripts/firebaseHelperFns";
 import HomePanelNavbar from "./HomePanelNavbar";
-import ExploreRibbitTopic from "../Explore/ExploreTweetTopic";
+import ExploreRibbitTopic from "../Explore/ExploreRibbitTopic";
 import HomePanelRibbitInput from "./HomePanelRibbitInput";
 import { useEffect, useState } from "react";
 import {
@@ -126,7 +126,7 @@ const Home = ({ currentUser }: any) => {
           {Object.keys(ribbitList).map((doc: any) => {
             return (
               <Ribbit
-                twatInfo={ribbitList[doc]}
+                ribbitInfo={ribbitList[doc]}
                 isDeletable={
                   currentUser.userHandle === ribbitList[doc].handle
                     ? true
@@ -135,7 +135,7 @@ const Home = ({ currentUser }: any) => {
                 currentHandle={currentUser.userHandle}
                 isThreaded={false}
                 key={ribbitList[doc].id}
-                refreshTwats={removeRibbitLocal}
+                refreshRibbits={removeRibbitLocal}
                 inShowcase={false}
               />
             );

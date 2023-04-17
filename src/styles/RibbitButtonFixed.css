@@ -1,10 +1,10 @@
 @import url("AppCSSVariables.css");
 
-.twat-button-mobile-container {
+.ribbit-button-mobile-container {
   display: none;
 }
 
-.twat-button-mobile-fixed {
+.ribbit-button-mobile-fixed {
   background-color: var(--primary-color);
   padding: 16px;
   position: fixed;
@@ -18,11 +18,11 @@
   transition: 0.2s all;
 }
 
-.twat-button-mobile-fixed:active {
+.ribbit-button-mobile-fixed:active {
   background-color: rgb(46, 176, 100);
 }
 
-.twat-button-mobile-fixed svg {
+.ribbit-button-mobile-fixed svg {
   width: 24px;
   height: 24px;
 }

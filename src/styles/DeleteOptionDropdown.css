@@ -1,4 +1,4 @@
-.dropdown-delete-twat-button {
+.dropdown-delete-ribbit-button {
   position: absolute;
   z-index: 5;
   border-radius: 16px;
@@ -26,7 +26,7 @@
   cursor: pointer;
 }
 
-.dropdown-delete-twat-button:hover {
+.dropdown-delete-ribbit-button:hover {
   background-color: rgb(8, 8, 8);
 }
 .background-transparent-dropdown {

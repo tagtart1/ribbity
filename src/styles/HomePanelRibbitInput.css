@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-.home-tweet-input-container {
+.home-ribbit-input-container {
   display: flex;
   flex-direction: row;
   padding: 0 16px;
@@ -22,7 +22,7 @@
   padding: 8px;
 }
 
-#home-tweet-input {
+#home-ribbit-input {
   font-size: 20px;
   background-color: transparent;
   outline: none;
@@ -37,7 +37,7 @@
   overflow: hidden;
 }
 
-.home-tweet-right-column {
+.home-ribbit-right-column {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -45,7 +45,7 @@
   gap: 18px;
 }
 
-.home-tweet-buttom-row {
+.home-ribbit-buttom-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,7 +56,7 @@
   margin-left: -8px;
 }
 
-.tweet-input-submit-button {
+.ribbit-input-submit-button {
   color: var(--primary-text-color);
   background-color: var(--primary-color);
   padding: 8px 0px;

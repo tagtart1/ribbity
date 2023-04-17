@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-.twat-panel-display-container {
+.ribbit-panel-display-container {
   box-sizing: border-box;
   padding-right: 12px;
   padding-left: 12px;
@@ -12,7 +12,7 @@
   position: relative;
 }
 
-.twat-panel-display-container .header {
+.ribbit-panel-display-container .header {
   display: flex;
   justify-content: space-between;
   margin: 0;
@@ -20,43 +20,43 @@
   position: relative;
 }
 
-.twat-panel-display-container .header svg {
+.ribbit-panel-display-container .header svg {
   width: 19px;
   height: 19px;
 }
 
-.twat-panel-display-container .text {
+.ribbit-panel-display-container .text {
   font-weight: 300;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
-.twat-panel-display-container .user-info {
+.ribbit-panel-display-container .user-info {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.twat-panel-display-container .user-info .user-name {
+.ribbit-panel-display-container .user-info .user-name {
   font-weight: bold;
 }
 
-.twat-panel-display-container .user-info .user-handle {
+.ribbit-panel-display-container .user-info .user-handle {
   font-weight: lighter;
   font-size: 15px;
   color: var(--secondary-text-color);
 }
 
-.twat-panel-display-container .user-info img,
-.twat-panel-display-container img {
+.ribbit-panel-display-container .user-info img,
+.ribbit-panel-display-container img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
   margin: 0;
 }
 
-.twat-panel-display-container .more-button {
+.ribbit-panel-display-container .more-button {
   padding: 6px;
   transition: 0.2s all;
   display: flex;
@@ -67,20 +67,20 @@
   height: fit-content;
 }
 
-.twat-panel-display-container .date-posted {
+.ribbit-panel-display-container .date-posted {
   color: var(--secondary-text-color);
 }
 
-.twat-panel-display-container .more-button:hover {
+.ribbit-panel-display-container .more-button:hover {
   background-color: #07280d9f;
 }
 
-.twat-panel-display-container .more-button:hover svg .twat-path {
+.ribbit-panel-display-container .more-button:hover svg .ribbit-path {
   transition: 0.3s all;
   fill: var(--primary-color);
 }
 
-.twat-panel-display-container .action-buttons {
+.ribbit-panel-display-container .action-buttons {
   display: flex;
   justify-content: space-around;
   border-top: 0.5px solid var(--thin-border-color);
@@ -88,12 +88,12 @@
   padding: 4px 0px;
 }
 
-.twat-panel-display-container .action-buttons svg {
+.ribbit-panel-display-container .action-buttons svg {
   width: 23px;
   height: 23px;
 }
 
-.twat-panel-display-container .action-button-wrapper {
+.ribbit-panel-display-container .action-button-wrapper {
   padding: 8px;
   border-radius: 50%;
   display: flex;
@@ -106,31 +106,31 @@
   cursor: pointer;
 }
 
-.twat-panel-display-container .action-button-wrapper:hover {
+.ribbit-panel-display-container .action-button-wrapper:hover {
   background-color: #38802a34;
 }
 
-.twat-panel-display-container .action-button-wrapper:hover path {
+.ribbit-panel-display-container .action-button-wrapper:hover path {
   transition: 0.2s all;
   fill: var(--primary-color);
 }
 
-.twat-panel-display-container .reribbit-action-button:hover path {
+.ribbit-panel-display-container .reribbit-action-button:hover path {
   fill: rgb(0, 194, 194);
 }
 
-.twat-panel-display-container .reribbit-action-button:hover {
+.ribbit-panel-display-container .reribbit-action-button:hover {
   background-color: rgba(0, 152, 152, 0.108);
 }
 
-.twat-reply-form {
+.ribbit-reply-form {
   display: flex;
   justify-content: space-between;
 
   padding-bottom: 16px;
 }
 
-.twat-reply-form button {
+.ribbit-reply-form button {
   border-radius: 24px;
   padding: 6px 16px;
   font-weight: bold;
@@ -151,7 +151,7 @@
   width: 100%;
 }
 
-.reply-form-left-side #twat-reply-input {
+.reply-form-left-side #ribbit-reply-input {
   background-color: transparent;
   border: none;
   font-size: 21px;
@@ -166,6 +166,6 @@
   margin-top: 10px;
 }
 
-.reply-form-left-side #twat-reply-input::placeholder {
+.reply-form-left-side #ribbit-reply-input::placeholder {
   color: #71767b;
 }

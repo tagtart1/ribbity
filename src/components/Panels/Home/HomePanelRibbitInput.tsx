@@ -1,4 +1,4 @@
-import "../../../styles/HomePanelTweetInput.css";
+import "../../../styles/HomePanelRibbitInput.css";
 
 import { getProfilePicUrl } from "../../../scripts/firebaseHelperFns";
 import { useRef } from "react";
@@ -60,16 +60,16 @@ const HomePanelRibbitInput = ({ currentUser }: HomePanelRibbitInputProps) => {
   };
 
   return (
-    <form className="home-tweet-input-container" onSubmit={handleSubmitRibbit}>
+    <form className="home-ribbit-input-container" onSubmit={handleSubmitRibbit}>
       <img
         src={currentUser?.profileImgUrl || getProfilePicUrl()}
         className="user-profile-image-home-input"
         alt="user profile"
         referrerPolicy="no-referrer"
       />
-      <div className="home-tweet-right-column">
+      <div className="home-ribbit-right-column">
         <textarea
-          id="home-tweet-input"
+          id="home-ribbit-input"
           placeholder="What's Happening?"
           autoComplete="off"
           maxLength={160}
@@ -77,7 +77,7 @@ const HomePanelRibbitInput = ({ currentUser }: HomePanelRibbitInputProps) => {
           onInput={handleInput}
           ref={inputRef}
         />
-        <div className="home-tweet-buttom-row">
+        <div className="home-ribbit-buttom-row">
           <div className="media-option-icons">
             <div className="media-option-icon">
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -100,7 +100,7 @@ const HomePanelRibbitInput = ({ currentUser }: HomePanelRibbitInputProps) => {
               </svg>
             </div>
           </div>
-          <button className="tweet-input-submit-button">Ribbit</button>
+          <button className="ribbit-input-submit-button">Ribbit</button>
         </div>
       </div>
     </form>

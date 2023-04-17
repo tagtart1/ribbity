@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-.delete-twat-popup-container {
+.delete-ribbit-popup-container {
   box-sizing: border-box;
   color: var(--primary-text-color);
   position: fixed;
@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.delete-twat-popup-wrapper {
+.delete-ribbit-popup-wrapper {
   box-sizing: border-box;
   height: 300px;
   width: 320px;
@@ -36,17 +36,17 @@
   margin-top: 8px;
 }
 
-.delete-twat-popup-wrapper h1 {
+.delete-ribbit-popup-wrapper h1 {
   font-size: 20px;
   margin: 0;
   padding: 0;
 }
 
-.delete-twat-popup-wrapper p {
+.delete-ribbit-popup-wrapper p {
   line-height: 1.3;
 }
 
-.delete-twat-popup-wrapper button {
+.delete-ribbit-popup-wrapper button {
   width: 100%;
   flex: 1;
   font-weight: bold;
@@ -56,12 +56,12 @@
   cursor: pointer;
 }
 
-.delete-twat-popup-wrapper .delete-confirm {
+.delete-ribbit-popup-wrapper .delete-confirm {
   background-color: rgb(244, 33, 46);
   border: none;
 }
 
-.delete-twat-popup-wrapper .delete-cancel {
+.delete-ribbit-popup-wrapper .delete-cancel {
   background-color: transparent;
   border: 1px solid var(--thin-border-color);
 }

@@ -52,23 +52,23 @@
   width: 20px;
 }
 
-.username-tweet-count {
+.username-ribbit-count {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.username-tweet-count h1 {
+.username-ribbit-count h1 {
   font-size: 20px;
 }
 
-.username-tweet-count p {
+.username-ribbit-count p {
   font-size: 14px;
   color: var(--secondary-text-color);
 }
 
-.username-tweet-count h1,
-.username-tweet-count p {
+.username-ribbit-count h1,
+.username-ribbit-count p {
   margin: 0;
   padding: 0;
 }
@@ -83,6 +83,6 @@
   margin-top: 53px;
 }
 
-.user-twat-feed {
+.user-ribbit-feed {
   margin-bottom: 50vh;
 }

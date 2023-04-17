@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-#twat-option-reply-wrapper {
+#ribbit-option-reply-wrapper {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -8,15 +8,15 @@
   position: relative;
 }
 
-#twat-option-reply-wrapper .reply-count {
+#ribbit-option-reply-wrapper .reply-count {
   color: var(--secondary-text-color);
   user-select: none;
   position: absolute;
   right: -8px;
 }
 
-.twat-option-icon-reply,
-.twat-option-icon {
+.ribbit-option-icon-reply,
+.ribbit-option-icon {
   padding: 8px;
   border-radius: 50%;
   width: fit-content;

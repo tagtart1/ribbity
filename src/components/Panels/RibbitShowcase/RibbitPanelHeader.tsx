@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import "../../../styles/TwatPanelHeader.css";
+import "../../../styles/RibbitPanelHeader.css";
 
 const RibbitPanelHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="twat-panel-header">
+    <header className="ribbit-panel-header">
       <div
         className="back-arrow"
         onClick={() => {
@@ -21,7 +21,7 @@ const RibbitPanelHeader = () => {
           </g>
         </svg>
       </div>
-      <h1>Twat</h1>
+      <h1>Ribbit</h1>
     </header>
   );
 };

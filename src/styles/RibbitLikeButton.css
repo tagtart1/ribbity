@@ -1,8 +1,8 @@
 @import url("AppCSSVariables.css");
 
-.twat-option-icon,
-.twat-option-icon-heart,
-.twat-option-icon-retweet {
+.ribbit-option-icon,
+.ribbit-option-icon-heart,
+.ribbit-option-icon-retweet {
   padding: 8px;
   border-radius: 50%;
   width: fit-content;
@@ -17,16 +17,16 @@ path {
   transition: 0.2s all;
 }
 
-.twat-option-icon-heart:hover svg path {
+.ribbit-option-icon-heart:hover svg path {
   fill: rgb(194, 20, 101);
 }
 
-#twat-option-heart-wrapper:hover .twat-option-icon {
+#ribbit-option-heart-wrapper:hover .ribbit-option-icon {
   border-radius: 50%;
   background-color: #200914;
 }
 
-#twat-option-heart-wrapper {
+#ribbit-option-heart-wrapper {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -34,18 +34,18 @@ path {
   position: relative;
 }
 
-#twat-option-heart-wrapper:hover .likes-count {
+#ribbit-option-heart-wrapper:hover .likes-count {
   color: rgb(194, 20, 101);
 }
 
-#twat-option-heart-wrapper .likes-count {
+#ribbit-option-heart-wrapper .likes-count {
   pointer-events: all;
   transition: 0.2s all;
   width: 10px;
   display: block;
 }
 
-#twat-option-heart-wrapper .likes-count {
+#ribbit-option-heart-wrapper .likes-count {
   color: var(--secondary-text-color);
   user-select: none;
   position: absolute;

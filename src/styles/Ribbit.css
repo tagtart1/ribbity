@@ -8,7 +8,7 @@ header {
   padding: 0;
   margin: 0;
 }
-.twat-container {
+.ribbit-container {
   display: flex;
   gap: 12px;
   padding: 12px;
@@ -30,16 +30,16 @@ header {
   border-bottom: 1px solid var(--thin-border-color);
 }
 
-.twat-container:hover {
+.ribbit-container:hover {
   background-color: rgb(8, 8, 8);
 }
 
-.twat-container .header-user-names {
+.ribbit-container .header-user-names {
   display: flex;
   gap: 4px;
 }
 
-.twat-container header {
+.ribbit-container header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +47,7 @@ header {
   margin-bottom: 2px;
 }
 
-.twat-container img {
+.ribbit-container img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -57,11 +57,11 @@ header {
   position: relative;
 }
 
-.twat-container .threaded-profile-img {
+.ribbit-container .threaded-profile-img {
   position: relative;
 }
 
-.twat-container .threaded-profile-img::after {
+.ribbit-container .threaded-profile-img::after {
   content: "";
   position: absolute !important;
   background-color: rgb(99, 99, 99);
@@ -73,12 +73,12 @@ header {
   z-index: 10;
 }
 
-.twat-container svg {
+.ribbit-container svg {
   height: 19px;
   width: 19px;
 }
 
-.twat-container-right-side {
+.ribbit-container-right-side {
   flex: 1;
   pointer-events: none;
 }
@@ -103,17 +103,17 @@ header {
   background-color: rgba(55, 209, 119, 0.159);
 }
 
-.more-icon-wrapper:hover .twat-path {
+.more-icon-wrapper:hover .ribbit-path {
   fill: var(--primary-color);
 }
-.twat-icon-button-row {
+.ribbit-icon-button-row {
   display: flex;
   justify-content: space-between;
   max-width: 450px;
   margin-left: -8px;
 }
 
-.twat-main-text {
+.ribbit-main-text {
   margin-bottom: 6px;
   font-weight: 300;
 }
@@ -134,9 +134,9 @@ header {
   text-decoration: underline;
 }
 
-.twat-option-icon,
-.twat-option-icon-heart,
-.twat-option-icon-retweet {
+.ribbit-option-icon,
+.ribbit-option-icon-heart,
+.ribbit-option-icon-retweet {
   padding: 8px;
   border-radius: 50%;
   width: fit-content;
@@ -151,7 +151,7 @@ path {
   transition: 0.2s all;
 }
 
-.twat-option-icon:hover svg path {
+.ribbit-option-icon:hover svg path {
   fill: var(--primary-color);
 }
 
@@ -159,24 +159,24 @@ path {
   background-color: rgba(25, 96, 55, 0.258);
 }
 
-#twat-option-heart-wrapper:hover svg path {
+#ribbit-option-heart-wrapper:hover svg path {
   fill: rgb(194, 20, 101);
 }
 
-.twat-option-icon-retweet:hover svg path {
+.ribbit-option-icon-retweet:hover svg path {
   fill: #00cfd6;
 }
 
-.twat-option-icon-retweet:hover {
+.ribbit-option-icon-retweet:hover {
   background-color: #07141a;
 }
 
-.twat-option-icon-heart:hover {
+.ribbit-option-icon-heart:hover {
   background-color: #200914;
 }
 
-#twat-option-heart-wrapper,
-#twat-option-reply-wrapper {
+#ribbit-option-heart-wrapper,
+#ribbit-option-reply-wrapper {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -186,31 +186,31 @@ path {
   border-radius: 50%;
 }
 
-#twat-option-reply-wrapper:hover .twat-option-icon {
+#ribbit-option-reply-wrapper:hover .ribbit-option-icon {
   background-color: rgba(25, 96, 55, 0.258);
 }
 
-#twat-option-reply-wrapper:hover svg path {
+#ribbit-option-reply-wrapper:hover svg path {
   fill: var(--primary-color);
 }
 
-#twat-option-reply-wrapper:hover .reply-count {
+#ribbit-option-reply-wrapper:hover .reply-count {
   color: var(--primary-color);
 }
 
-#twat-option-heart-wrapper .likes-count {
+#ribbit-option-heart-wrapper .likes-count {
   top: 8px;
 }
 
-#twat-option-heart-wrapper .likes-count,
-#twat-option-reply-wrapper .reply-count {
+#ribbit-option-heart-wrapper .likes-count,
+#ribbit-option-reply-wrapper .reply-count {
   color: var(--secondary-text-color);
   user-select: none;
 
   transition: 0.2s all;
 }
 
-#twat-option-reply-wrapper .reply-count {
+#ribbit-option-reply-wrapper .reply-count {
   position: absolute;
   top: 25%;
   left: 105%;

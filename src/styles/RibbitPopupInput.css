@@ -1,6 +1,6 @@
 @import url("AppCSSVariables.css");
 
-.twat-popup-input-container {
+.ribbit-popup-input-container {
   box-sizing: border-box;
   color: var(--primary-color);
   position: fixed;
@@ -14,7 +14,7 @@
   padding-top: 50px;
 }
 
-.twat-popup-input-wrapper {
+.ribbit-popup-input-wrapper {
   width: 575px;
   background-color: var(--popup-background-color);
   height: 310px;
@@ -25,12 +25,12 @@
   gap: 12px;
 }
 
-.twat-popup-input-wrapper svg {
+.ribbit-popup-input-wrapper svg {
   width: 20px;
   height: 20px;
 }
 
-.twat-popup-input-wrapper .backout-button {
+.ribbit-popup-input-wrapper .backout-button {
   width: min-content;
 
   display: flex;
@@ -42,11 +42,11 @@
   margin-top: 8px;
 }
 
-.twat-popup-input-wrapper .backout-button:hover {
+.ribbit-popup-input-wrapper .backout-button:hover {
   background-color: rgb(30, 30, 30);
 }
 
-.twat-popup-input-main {
+.ribbit-popup-input-main {
   display: flex;
   padding: 0px 6px;
   height: 100%;
@@ -58,14 +58,14 @@
   flex-direction: column;
 }
 
-.twat-popup-input-main img {
+.ribbit-popup-input-main img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
   user-select: none;
 }
 
-#twat-popup-input {
+#ribbit-popup-input {
   background-color: transparent;
 
   flex: 1;
@@ -118,7 +118,7 @@
   background-color: #1df05920;
 }
 
-.popup-bottom-row .twat-button {
+.popup-bottom-row .ribbit-button {
   background-color: var(--primary-color);
   border: none;
   color: white;
@@ -128,7 +128,7 @@
   font-size: 16px;
   cursor: pointer;
 }
-.twat-reply-status {
+.ribbit-reply-status {
   color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -142,15 +142,15 @@
   cursor: pointer;
 }
 
-.twat-reply-status:hover {
+.ribbit-reply-status:hover {
   background-color: #1df03221;
 }
 
-.twat-reply-status svg path {
+.ribbit-reply-status svg path {
   fill: var(--primary-color);
 }
 
-.twat-reply-status svg {
+.ribbit-reply-status svg {
   width: 14px;
   height: 14px;
 }
@@ -167,12 +167,9 @@
 }
 
 @media (max-width: 700px) {
-  .twat-popup-input-container {
+  .ribbit-popup-input-container {
     background-color: black;
     padding-top: 10px;
     overflow-x: hidden;
-  }
-
-  .twat-popup-input-wrapper {
   }
 }

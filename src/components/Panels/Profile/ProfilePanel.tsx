@@ -239,7 +239,7 @@ const ProfilePanel = ({
             </g>
           </svg>
         </div>
-        <div className="username-tweet-count">
+        <div className="username-ribbit-count">
           <h1>{visitedUserInfo.userName}</h1>
           <p>
             {ribbitList.length}{" "}
@@ -266,7 +266,7 @@ const ProfilePanel = ({
       />
       <ProfilePanelNav />
 
-      <div className="user-twat-feed">
+      <div className="user-ribbit-feed">
         {tab === "media" ? (
           <WorkInProgress />
         ) : ribbitList.length < 1 ? (
@@ -275,12 +275,12 @@ const ProfilePanel = ({
           ribbitList.map((doc: any) => {
             return (
               <Ribbit
-                twatInfo={doc}
+                ribbitInfo={doc}
                 isDeletable={
                   currentUser.userHandle === doc.handle ? true : false
                 }
                 currentHandle={currentUser.userHandle}
-                refreshTwats={getUserRibbits}
+                refreshRibbits={getUserRibbits}
                 isThreaded={false}
                 key={doc.id}
                 inShowcase={false}

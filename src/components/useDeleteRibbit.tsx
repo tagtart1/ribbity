@@ -14,14 +14,14 @@ import { toast } from "react-hot-toast";
 
 interface useDeleteRibbitProps {
   ribbitInfo: any;
-  refreshTwats?: Function;
+  refreshRibbits?: Function;
   tab?: string;
   inShowcase: boolean;
 }
 
 const useDeleteRibbit = ({
   ribbitInfo,
-  refreshTwats,
+  refreshRibbits,
   tab,
   inShowcase,
 }: useDeleteRibbitProps) => {
@@ -58,14 +58,14 @@ const useDeleteRibbit = ({
       notifyError();
     }
     document.documentElement.style.overflowY = "visible";
-    if (refreshTwats) {
-      refreshTwats(tab, ribbitInfo.id);
+    if (refreshRibbits) {
+      refreshRibbits(tab, ribbitInfo.id);
     }
     // If we are inside a showcase then re-navigate out or to a different ribbi within the thread
     if (ribbitInfo.replyingTo.id && inShowcase) {
-      navigate(`/${ribbitInfo.handle}/twat/${ribbitInfo.replyingTo.id}`);
+      navigate(`/${ribbitInfo.handle}/ribbit/${ribbitInfo.replyingTo.id}`);
     } else if (inShowcase) navigate(`/${ribbitInfo.handle}`);
-  }, [ribbitInfo, tab, refreshTwats, navigate, inShowcase]);
+  }, [ribbitInfo, tab, refreshRibbits, navigate, inShowcase]);
 
   return deleteRibbit;
 };

@@ -47,7 +47,7 @@ const ExplorePanel = () => {
                 isDeletable={false}
                 isThreaded={false}
                 inShowcase={false}
-                twatInfo={twat}
+                ribbitInfo={twat}
                 currentHandle=""
                 key={twat.id}
               />
