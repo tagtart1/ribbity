@@ -13,6 +13,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import Spinner from "../../Misc/Spinner";
+import { cropBanner, cropImage } from "../../../scripts/HelperFns";
 
 interface EditProfilePopupProps {
   isVisible: boolean;
@@ -79,11 +80,13 @@ const EditProfilePopup = ({
     let bannerImgPathNew: any = bannerImgPath;
     // Upload new profile image to storage if there is a newely selected Image
     if (selectedProfileImgFile) {
+      console.log("hey editted prfile pic");
       //If a path is available delete the old user image from Storage
       if (profileImgPathNew) {
         const oldProfileImageRef = ref(getStorage(), profileImgPathNew);
         deleteObject(oldProfileImageRef);
       }
+
       // Save new image into Storage
       const filePath: string = `${userInfoRef.id}/${selectedProfileImgFile.name}`;
       const newProfileImgRef = ref(getStorage(), filePath);
@@ -96,10 +99,13 @@ const EditProfilePopup = ({
     }
 
     if (selectedBannerImgFile) {
+      // Delete old banner from storage if available
       if (bannerImgPath) {
         const oldBannerImageRef = ref(getStorage(), bannerImgPathNew);
         deleteObject(oldBannerImageRef);
       }
+
+      // Save new banner into Storage
       const filePath: string = `${userInfoRef.id}/${selectedBannerImgFile.name}`;
       const newBannerImgRef = ref(getStorage(), filePath);
       const fileSnapshot = await uploadBytesResumable(
@@ -144,13 +150,16 @@ const EditProfilePopup = ({
     }
   };
 
-  const handleProfileImgSelection = (e: any) => {
+  const handleProfileImgSelection = async (e: any) => {
     // Showcase a preview based on local URL and save the file to State to be used to upload to DB
     const imageFiles = e.target.files;
     if (imageFiles.length > 0) {
-      setSelectedProfileImgFile(imageFiles[0]);
+      // Crop image
+      const croppedImage: any = await cropImage(imageFiles[0]);
+      setSelectedProfileImgFile(croppedImage);
+
       // Set preview
-      const imageSrc = URL.createObjectURL(imageFiles[0]);
+      const imageSrc = URL.createObjectURL(croppedImage);
       const imagePreviewElement: any = document.querySelector(
         ".user-profile-image-edit-preview"
       );
@@ -158,13 +167,15 @@ const EditProfilePopup = ({
     }
   };
 
-  const handleBannerImgSelection = (e: any) => {
+  const handleBannerImgSelection = async (e: any) => {
     const imageFiles = e.target.files;
     if (imageFiles.length > 0) {
-      setSelectedBannerImgFile(imageFiles[0]);
+      //Crop image
+      const croppedBanner: any = await cropBanner(imageFiles[0]);
+      setSelectedBannerImgFile(croppedBanner);
       // Set Preview
 
-      const imageSrc = URL.createObjectURL(imageFiles[0]);
+      const imageSrc = URL.createObjectURL(croppedBanner);
       const imagePreviewElement: any = document.getElementById(
         "user-profile-banner-edit-preview"
       );

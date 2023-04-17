@@ -142,7 +142,7 @@ const getTimeSincePosted = (twatInfo: any) => {
     }, ${twatInfo.timeStamp.years}`;
   }
 };
-
+// Sorts an array of objects by the timeInMilliseconds
 function sortByTimeInSecondsDescending(array) {
   return array
     .slice()
@@ -177,6 +177,137 @@ function isValidString(input) {
   return true;
 }
 
+async function cropBanner(file) {
+  return new Promise((resolve) => {
+    const sizeX = 600;
+    const sizeY = 200;
+
+    const createImageElement = (src) => {
+      return new Promise((resolve) => {
+        const image = new Image();
+        image.src = src;
+        image.onload = () => resolve(image);
+      });
+    };
+
+    const createDataURL = (image) => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = sizeX;
+      canvas.height = sizeY;
+
+      const aspectRatio = image.width / image.height;
+      const targetAspectRatio = sizeX / sizeY;
+
+      let sourceWidth, sourceHeight;
+
+      if (aspectRatio > targetAspectRatio) {
+        sourceWidth = image.height * targetAspectRatio;
+        sourceHeight = image.height;
+      } else {
+        sourceWidth = image.width;
+        sourceHeight = image.width / targetAspectRatio;
+      }
+
+      const offsetX = (image.width - sourceWidth) / 2;
+      const offsetY = (image.height - sourceHeight) / 2;
+
+      ctx.drawImage(
+        image,
+        offsetX,
+        offsetY,
+        sourceWidth,
+        sourceHeight,
+        0,
+        0,
+        sizeX,
+        sizeY
+      );
+      return canvas.toDataURL(file.type);
+    };
+
+    const dataURLToFile = (dataURL, fileName, mimeType) => {
+      const byteString = atob(dataURL.split(",")[1]);
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new File([ab], fileName, { type: mimeType });
+    };
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const originalImage = await createImageElement(e.target.result);
+      const croppedDataURL = createDataURL(originalImage);
+      const croppedFile = dataURLToFile(croppedDataURL, file.name, file.type);
+      resolve(croppedFile);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function cropImage(file) {
+  return new Promise((resolve) => {
+    const size = 130;
+
+    const createImageElement = (src) => {
+      return new Promise((resolve) => {
+        const image = new Image();
+        image.src = src;
+        image.onload = () => resolve(image);
+      });
+    };
+
+    const createDataURL = (image) => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = size;
+      canvas.height = size;
+
+      const minDimension = Math.min(image.width, image.height);
+      const offsetX = (image.width - minDimension) / 2;
+      const offsetY = (image.height - minDimension) / 2;
+
+      ctx.drawImage(
+        image,
+        offsetX,
+        offsetY,
+        minDimension,
+        minDimension,
+        0,
+        0,
+        size,
+        size
+      );
+      return canvas.toDataURL(file.type);
+    };
+
+    const dataURLToFile = (dataURL, fileName, mimeType) => {
+      const byteString = atob(dataURL.split(",")[1]);
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new File([ab], fileName, { type: mimeType });
+    };
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const originalImage = await createImageElement(e.target.result);
+      const croppedDataURL = createDataURL(originalImage);
+      const croppedFile = dataURLToFile(croppedDataURL, file.name, file.type);
+      resolve(croppedFile);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 export {
   kFormatter,
   getMonthDate,
@@ -190,4 +321,6 @@ export {
   sortByTimeInSecondsDescending,
   base64ToFile,
   isValidString,
+  cropImage,
+  cropBanner,
 };

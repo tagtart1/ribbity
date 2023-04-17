@@ -36,7 +36,7 @@ const UnfollowConfirmation = ({
         <h1>Unfollow @{userHandle}</h1>
         <p className="unfollow-confirmatin-text">
           Their Ribbits will no longer show up in your home timeline. You can
-          still view their profile, unless their Twats are protected.{" "}
+          still view their profile, unless their Ribbits are protected.{" "}
         </p>
         <div className="unfollow-confirmation-button-group">
           <button

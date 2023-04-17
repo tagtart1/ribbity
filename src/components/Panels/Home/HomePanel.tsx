@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
+import { sortByTimeInSecondsDescending } from "../../../scripts/HelperFns";
 
 interface HomePanelProps {
   currentUser?: {
@@ -64,7 +65,11 @@ const Home = ({ currentUser }: any) => {
 
       let q;
       if (tab !== "Following") {
-        q = query(collection(db, "twats"), limit(30));
+        q = query(
+          collection(db, "twats"),
+          limit(30),
+          orderBy("timeInMillisecond", "desc")
+        );
       } else {
         q = query(
           collection(db, "twats"),
