@@ -1,21 +1,13 @@
 import "../../styles/UserTab.css";
-import { signOutUser } from "../../scripts/firebaseHelperFns";
 import { useState } from "react";
 import LogoutPopup from "./LogoutPopup";
-
-interface userInfo {
-  bio?: string;
-  joinDate?: string;
-  profileImgUrl?: string;
-  userHandle?: string;
-  userName?: string;
-}
+import { RibbityUser } from "../../Ribbity.types";
 
 interface UserTabProps {
-  currentUser: userInfo;
+  mainUser: RibbityUser;
 }
-
-const UserTab = ({ currentUser }: UserTabProps) => {
+// This component contains the signed in user's name, handle, and profile image and when clicked will prompt a logout box. Usually is at the bottom left of screen
+const UserTab = ({ mainUser }: UserTabProps) => {
   const [showLogoutPopup, setShowLogoutPopup] = useState<boolean>(false);
 
   return (
@@ -26,13 +18,13 @@ const UserTab = ({ currentUser }: UserTabProps) => {
       >
         <div className="user-tab-left">
           <img
-            src={currentUser.profileImgUrl}
+            src={mainUser.profileImgUrl}
             alt="User Profile"
             className="user-tab-profile-image"
           />
           <div className="names-group">
-            <p>{currentUser.userName}</p>
-            <p className="tweeter-unique-name">@{currentUser.userHandle}</p>
+            <p>{mainUser.userName}</p>
+            <p className="tweeter-unique-name">@{mainUser.userHandle}</p>
           </div>
         </div>
         <svg viewBox="0 0 24 24" aria-hidden="true">

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import HomePanel from "./Panels/Home/HomePanel";
-import frogLogo from "../media/froglogo.png";
 
 import "../styles/App.css";
 import { Routes, Route } from "react-router-dom";
@@ -17,7 +15,6 @@ import SignUpFooter from "./NoAuthComponents/SignUpFooter";
 import ExplorePanel from "./Panels/Explore/ExplorePanel";
 import MainRightSection from "./RightSideSections/MainRightSection";
 import ProfilePanel from "./Panels/Profile/ProfilePanel";
-import useForceUpdate from "./useForceUpdate";
 import RibbitPanel from "./Panels/RibbitShowcase/RibbitPanel";
 import UserFollowPanel from "./Panels/Profile/UserFollowingPanel/UserFollowPanel";
 import { Toaster } from "react-hot-toast";
@@ -26,46 +23,45 @@ import FrogIconLogo from "./Misc/FrogIconLogo";
 import AppContext from "./AppContext";
 import MainBottomNavMobile from "./Mobile/MainBottomNavMobile";
 import RibbitButtonFixed from "./Mobile/RibbitButtonFixed";
-
-interface userInfo {
-  bio?: string;
-  joinDate?: string;
-  profileImgUrl?: string;
-  userHandle?: string;
-  userName?: string;
-  location?: string;
-  id?: string;
-  following?: {
-    [key: string]: boolean;
-  };
-}
+import { RibbityUser } from "../Ribbity.types";
 
 const App = () => {
-  const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>();
-  const [mainUser, setMainUser] = useState<userInfo | null>();
+  const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>(false);
+  const [mainUser, setMainUser] = useState<RibbityUser | null>();
   const [showWhoToFollow, setShowWhoToFollow] = useState<boolean>(true);
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-
+  const blankUser: RibbityUser = {
+    bannerImgPath: "",
+    bannerImgUrl: "",
+    bio: "",
+    followers: {},
+    following: {},
+    id: "",
+    joinDate: "",
+    location: "",
+    profileImgPath: "",
+    profileImgUrl: "",
+    userHandle: "",
+    userName: "",
+  };
   // Fires when the state of the user being signed in changes
   const authObserver = async (user: any) => {
-    console.log("authobserver");
     if (user) {
       setIsUserSignedIn(true);
       getCurrentUser();
     } else {
       setIsUserSignedIn(false);
-      setMainUser({});
+      setMainUser(blankUser);
     }
   };
 
-  const getCurrentUser = async () => {
+  const getCurrentUser = async (): Promise<void> => {
     setIsLoadingUser(true);
     const handle: string = await getUserHandle();
     if (!handle) return;
-    console.log(handle);
-    const signedUser = await getUserInfo(handle);
+
+    const signedUser: RibbityUser = await getUserInfo(handle);
     setMainUser(signedUser);
     setIsLoadingUser(false);
   };
@@ -101,10 +97,10 @@ const App = () => {
             },
           }}
         />
-        <MainLeftSection currentUser={mainUser} signedIn={isUserSignedIn} />
+        <MainLeftSection mainUser={mainUser} signedIn={isUserSignedIn} />
         <Routes>
           <Route path="/" element={<ExplorePanel />} />
-          <Route path="/home" element={<HomePanel currentUser={mainUser} />} />
+          <Route path="/home" element={<HomePanel mainUser={mainUser} />} />
           <Route path="/explore" element={<ExplorePanel />} />
           <Route
             path="/:handle"
@@ -149,7 +145,7 @@ const App = () => {
 
         <MainRightSection
           signedIn={isUserSignedIn}
-          currentUser={mainUser}
+          mainUser={mainUser}
           setCurrentUser={setMainUser}
           showWhoToFollow={showWhoToFollow}
           setIsLoadingUser={setIsLoadingUser}

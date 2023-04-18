@@ -28,12 +28,28 @@ import {
 } from "./HelperFns";
 import defaultpfpImg from "../media/defaultpfp.jpg";
 import defaultBannerImg from "../media/defaultBanner.png";
+import { RibbityUser } from "../Ribbity.types";
+
+const nullUser: RibbityUser = {
+  bannerImgPath: "",
+  bannerImgUrl: "",
+  bio: "",
+  followers: {},
+  following: {},
+  id: "",
+  joinDate: "",
+  location: "",
+  profileImgPath: "",
+  profileImgUrl: "",
+  userHandle: "",
+  userName: "",
+};
 
 export const signIn = async (setIsLoadingUser: Function) => {
   let provider = new GoogleAuthProvider();
   await signInWithPopup(auth, provider); //Triggers the authObserver
 
-  if (auth.currentUser) {
+  if (auth.currentUser?.uid) {
     const docRef = doc(db, "user-info", auth.currentUser.uid);
     const userInfoDoc = await getDoc(docRef);
 
@@ -72,7 +88,7 @@ export const signIn = async (setIsLoadingUser: Function) => {
       newProfileImgPath = fileSnapshot.metadata.fullPath;
 
       const newHandle = await generateUserHandle(getUserName());
-      const newUser = {
+      const newUser: RibbityUser = {
         bio: "",
         joinDate: `${getMonthDate()} ${getFullYear()}`,
         profileImgUrl: publicImgUrl,
@@ -104,8 +120,10 @@ export const initFirebaseAuth = (observer: any) => {
   onAuthStateChanged(auth, observer);
 };
 
-export const getUserName = () => {
-  if (auth.currentUser) return auth.currentUser.displayName || "null";
+export const getUserName = (): string => {
+  if (auth.currentUser?.displayName) {
+    return auth.currentUser.displayName;
+  } else return "";
 };
 
 export const getUserHandle = async () => {
@@ -123,12 +141,14 @@ export const getUserHandle = async () => {
   }
 };
 
-export const getUserInfo = async (handle: string | undefined) => {
+export const getUserInfo = async (
+  handle: string | undefined
+): Promise<RibbityUser> => {
   const ref = collection(db, "user-info");
   const q = query(ref, where("userHandle", "==", handle));
   const querySnap = await getDocs(q);
-  let handleDoc;
-  querySnap.forEach((doc) => {
+  let handleDoc: RibbityUser = nullUser;
+  querySnap.forEach((doc: any) => {
     handleDoc = doc.data();
     handleDoc.id = doc.id;
   });

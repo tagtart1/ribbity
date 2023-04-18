@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Query,
   collection,
   getCountFromServer,
   query,
@@ -16,12 +17,12 @@ const TwatReplyCounter = ({ ribbitId }: RibbitReplyCounterProps) => {
 
   useEffect(() => {
     const getReplyCount = async () => {
-      const q = query(
+      const q: Query = query(
         collection(db, "twats"),
         where("replyingTo.id", "==", ribbitId)
       );
       const snap = await getCountFromServer(q);
-      const count = snap.data().count;
+      const count: number = snap.data().count;
 
       if (count === 0) {
         setReplyCount(null);

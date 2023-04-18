@@ -1,17 +1,26 @@
-import { deleteField, doc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import {
+  DocumentData,
+  DocumentReference,
+  deleteField,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { useState } from "react";
 import { db } from "../../../scripts/firebaseConfig";
-import { getUserHandle, getUserInfo } from "../../../scripts/firebaseHelperFns";
+
 import "../../../styles/ProfileActionsButtons.css";
 import UnfollowConfirmation from "../../Misc/UnfollowConfirmation";
-import useForceUpdate from "../../useForceUpdate";
+
 import SignupPopup from "../../Misc/SignupPopup";
+import { RibbityUser } from "../../../Ribbity.types";
 
 interface ProfileActionsButtonsProps {
-  userViewing: any;
-  mainUser: any;
+  userViewing: RibbityUser;
+  mainUser: RibbityUser;
   refreshUserUI: Function;
 }
+
+type DocRef = DocumentReference<DocumentData>;
 
 const ProfileActionsButtons = ({
   userViewing,
@@ -21,28 +30,26 @@ const ProfileActionsButtons = ({
   const [beingFollowed, setBeingFollowed] = useState<boolean>(
     userViewing.followers[mainUser.userHandle]
   );
-
   const [showUnfollowConfirmation, setShowUnfollowConfirmation] =
     useState<boolean>(false);
-
   const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
 
-  const closeSignupPopup = () => {
+  const closeSignupPopup = (): void => {
     setShowSignupPopup(false);
   };
 
-  const handleFollowAction = async () => {
+  const handleFollowAction = async (): Promise<void> => {
     if (!mainUser.userHandle) {
       setShowSignupPopup(true);
       return;
     }
     if (mainUser.userHandle === userViewing.userHandle) return;
-    const followedUserRef = doc(db, "user-info", userViewing.id);
-    const followerUserRef = doc(db, "user-info", mainUser.id);
+    const followedUserRef: DocRef = doc(db, "user-info", userViewing.id);
+    const followerUserRef: DocRef = doc(db, "user-info", mainUser.id);
 
     if (userViewing.followers[mainUser.userHandle]) {
       //Unfollow
-      console.log("unfollow");
+
       setBeingFollowed(false);
       await updateDoc(followedUserRef, {
         [`followers.${mainUser.userHandle}`]: deleteField(),
@@ -54,7 +61,7 @@ const ProfileActionsButtons = ({
     } else {
       //Follow
       setBeingFollowed(true);
-      console.log("follow");
+
       await updateDoc(followedUserRef, {
         [`followers.${mainUser.userHandle}`]: true,
       });

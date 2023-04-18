@@ -2,8 +2,8 @@ import { useContext } from "react";
 import "../../styles/SignUpFooter.css";
 import AppContext from "../AppContext";
 import { signIn } from "../../scripts/firebaseHelperFns";
-import { useNavigate } from "react-router-dom";
-
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { RibbityUser } from "../../Ribbity.types";
 interface SignUpFooterProps {
   signedIn?: boolean;
 }
@@ -17,10 +17,12 @@ const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
   const { setMainUser, loadingHandler }: AppContextProps =
     useContext(AppContext);
 
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
 
-  const signInHandle = async () => {
-    const newUser = await signIn(loadingHandler);
+  const signInHandle = async (): Promise<void> => {
+    const newUser: RibbityUser | null | undefined = await signIn(
+      loadingHandler
+    );
     if (newUser) setMainUser(newUser);
     navigate("/home");
   };

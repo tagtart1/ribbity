@@ -3,7 +3,7 @@
 import { db } from "./firebaseConfig";
 import { collection, query, getDocs, where } from "firebase/firestore";
 import moment from "moment";
-import { timeStamp } from "console";
+import { RibbitType } from "../Ribbity.types";
 
 const kFormatter = (num: number) => {
   return Math.abs(num) > 9999
@@ -11,8 +11,8 @@ const kFormatter = (num: number) => {
     : (Math.sign(num) * Math.abs(num)).toLocaleString();
 };
 
-const getMonthDate = (monthNum?: Number) => {
-  const month = [
+const getMonthDate = (monthNum?: Number): string => {
+  const month: string[] = [
     "January",
     "February",
     "March",
@@ -26,15 +26,15 @@ const getMonthDate = (monthNum?: Number) => {
     "November",
     "December",
   ];
-  const d = new Date();
+  const d: Date = new Date();
   if (monthNum) {
     return month[monthNum];
   }
   return month[d.getMonth()];
 };
 
-const getShortMonthDate = (monthNum: Number) => {
-  const month = [
+const getShortMonthDate = (monthNum: Number): string => {
+  const month: string[] = [
     "Jan",
     "Feb",
     "Mar",
@@ -51,24 +51,26 @@ const getShortMonthDate = (monthNum: Number) => {
   return month[monthNum];
 };
 
-const getFullYear = () => {
-  const d = new Date();
+const getFullYear = (): number => {
+  const d: Date = new Date();
   return d.getFullYear();
 };
-const getDayOfMonth = () => {
-  const d = new Date();
+const getDayOfMonth = (): number => {
+  const d: Date = new Date();
   return d.getDate();
 };
 
-const checkForBannedNames = (word: string) => {
+const checkForBannedNames = (word: string): boolean => {
   const invalidWords = new Set(["Home", "Explore"]);
   return invalidWords.has(word);
 };
 
-const generateUserHandle = async (name: string | undefined) => {
+const generateUserHandle = async (
+  name: string | undefined
+): Promise<string> => {
   // Add feature where your name cannot be home or explore or any main route
-  let valid = false;
-  let userHandle = `${name?.replaceAll(" ", "")}`;
+  let valid: boolean = false;
+  let userHandle: string = `${name?.replaceAll(" ", "")}`;
   while (!valid) {
     const ref = collection(db, "user-info");
     const q = query(ref, where("userHandle", "==", userHandle));
@@ -88,13 +90,13 @@ export const getTimestamp = () => {
   return d;
 };
 
-export const getDateFromTimeStamp = (timeStampObject) => {
+export const getDateFromTimeStamp = (timeStampObject): string => {
   return `${getShortMonthDate(timeStampObject.months)} ${
     timeStampObject.date
   }, ${timeStampObject.years}`;
 };
 
-export const getTimeFromTimeStamp = (timeStampObject) => {
+export const getTimeFromTimeStamp = (timeStampObject): string => {
   let hours12: number = timeStampObject.hours % 12;
   if (hours12 === 0) {
     hours12 = 12;
@@ -117,7 +119,7 @@ export const getTimeFromTimeStamp = (timeStampObject) => {
   return timeString;
 };
 
-const getTimeSincePosted = (twatInfo: any) => {
+const getTimeSincePosted = (twatInfo: RibbitType): string => {
   let minutesWhenPost: number = twatInfo.timeInMillisecond / 60000;
   let minutesNow: number = Date.now() / 60000;
   let timeDiff: number = minutesNow - minutesWhenPost;
@@ -149,7 +151,7 @@ function sortByTimeInSecondsDescending(array) {
     .sort((a, b) => b.timeInMillisecond - a.timeInMillisecond);
 }
 
-function base64ToFile(base64String, fileName) {
+function base64ToFile(base64String, fileName): File {
   const byteString = atob(base64String.split(",")[1]);
   const arrayBuffer = new ArrayBuffer(byteString.length);
   const uint8Array = new Uint8Array(arrayBuffer);
@@ -162,14 +164,14 @@ function base64ToFile(base64String, fileName) {
   return file;
 }
 
-function isValidString(input) {
+function isValidString(input): boolean {
   // Check if the string is null or empty
   if (!input) {
     return false;
   }
 
   // Check if the string only contains spaces
-  const trimmedInput = input.trim();
+  const trimmedInput: string = input.trim();
   if (trimmedInput.length === 0) {
     return false;
   }
@@ -177,7 +179,7 @@ function isValidString(input) {
   return true;
 }
 
-async function cropBanner(file) {
+async function cropBanner(file): Promise<File> {
   return new Promise((resolve) => {
     const sizeX = 600;
     const sizeY = 200;
@@ -249,7 +251,7 @@ async function cropBanner(file) {
   });
 }
 
-async function cropImage(file) {
+async function cropImage(file): Promise<File> {
   return new Promise((resolve) => {
     const size = 130;
 

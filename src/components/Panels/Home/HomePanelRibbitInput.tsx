@@ -5,35 +5,36 @@ import { useRef } from "react";
 import { getTimestamp, isValidString } from "../../../scripts/HelperFns";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
+import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 
 interface HomePanelRibbitInputProps {
-  currentUser: {
-    profileImgUrl?: string;
-    userHandle: string;
-    userName: string;
-  };
+  mainUser: RibbityUser;
 }
 
-const HomePanelRibbitInput = ({ currentUser }: HomePanelRibbitInputProps) => {
+// Type aliases
+
+type ChangeInputEvent = React.ChangeEvent<HTMLTextAreaElement>;
+
+const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
   const inputRef: any = useRef();
 
-  const autoGrowTextArea = (e: any) => {
-    const textarea = e.target;
+  const autoGrowTextArea = (e: ChangeInputEvent) => {
+    const textarea = e.target as HTMLElement;
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight - 17 + "px";
   };
-
+  // Add new Ribbit to DB if valid
   const handleSubmitRibbit = async (e: any) => {
     e.preventDefault();
 
     if (!isValidString(inputRef.current.value)) return;
 
-    const newRibbit = {
+    const newRibbit: RibbitType = {
       text: inputRef.current.value,
       timeStamp: getTimestamp(),
-      handle: currentUser.userHandle,
-      userName: currentUser.userName,
-      userProfileImg: currentUser.profileImgUrl,
+      handle: mainUser.userHandle,
+      userName: mainUser.userName,
+      userProfileImg: mainUser.profileImgUrl,
       timeInMillisecond: Date.now(),
       likedBy: {},
       dislikedBy: {},
@@ -55,14 +56,14 @@ const HomePanelRibbitInput = ({ currentUser }: HomePanelRibbitInputProps) => {
     e.target.reset();
   };
 
-  const handleInput = (e: any) => {
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     autoGrowTextArea(e);
   };
 
   return (
     <form className="home-ribbit-input-container" onSubmit={handleSubmitRibbit}>
       <img
-        src={currentUser?.profileImgUrl || getProfilePicUrl()}
+        src={mainUser?.profileImgUrl || getProfilePicUrl()}
         className="user-profile-image-home-input"
         alt="user profile"
         referrerPolicy="no-referrer"

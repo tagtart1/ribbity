@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback } from "react";
 import {
   collection,
   where,
@@ -7,13 +7,15 @@ import {
   query,
   deleteDoc,
   doc,
+  WriteBatch,
 } from "firebase/firestore";
 import { db } from "../scripts/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { RibbitType } from "../Ribbity.types";
 
 interface useDeleteRibbitProps {
-  ribbitInfo: any;
+  ribbitInfo: RibbitType;
   refreshRibbits?: Function;
   tab?: string;
   inShowcase: boolean;
@@ -25,13 +27,13 @@ const useDeleteRibbit = ({
   tab,
   inShowcase,
 }: useDeleteRibbitProps) => {
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   const notifySuccess = () => toast("Your Ribbit was deleted.");
   const notifyError = () => toast.error("Your Ribbit failed to delete.");
 
   const deleteRibbit = useCallback(async () => {
-    const deleteChildrenRibbits = async () => {
-      const batch = writeBatch(db);
+    const deleteChildrenRibbits = async (): Promise<void> => {
+      const batch: WriteBatch = writeBatch(db);
       // Query all twats the contain the twat up for deletion's id
       const childrenQuery = query(
         collection(db, "twats"),

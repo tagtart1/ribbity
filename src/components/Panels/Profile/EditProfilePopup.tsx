@@ -1,8 +1,12 @@
 import "../../../styles/EditProfilePopup.css";
-import placeholderBanner from "../media/1080x360.jpg";
-import placeholderPfp from "../media/defaultpfp.jpg";
-import { doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../../../scripts/firebaseConfig";
+
+import {
+  DocumentData,
+  DocumentReference,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../../../scripts/firebaseConfig";
 import { useState } from "react";
 
 import {
@@ -11,9 +15,12 @@ import {
   uploadBytesResumable,
   getDownloadURL,
   deleteObject,
+  StorageReference,
+  UploadTaskSnapshot,
 } from "firebase/storage";
 import Spinner from "../../Misc/Spinner";
 import { cropBanner, cropImage } from "../../../scripts/HelperFns";
+import CloseCross from "../../../media/svg/CloseCross";
 
 interface EditProfilePopupProps {
   isVisible: boolean;
@@ -29,6 +36,8 @@ interface EditProfilePopupProps {
   bannerImgPath: string;
 }
 
+type DocRef = DocumentReference<DocumentData>;
+
 const EditProfilePopup = ({
   isVisible,
   userName,
@@ -43,14 +52,14 @@ const EditProfilePopup = ({
   bannerImgPath,
 }: EditProfilePopupProps) => {
   const [editsValid, setEditsValid] = useState<boolean>(true);
-  const [selectedProfileImgFile, setSelectedProfileImgFile] = useState<any>();
-  const [selectedBannerImgFile, setSelectedBannerImgFile] = useState<any>();
+  const [selectedProfileImgFile, setSelectedProfileImgFile] = useState<File>();
+  const [selectedBannerImgFile, setSelectedBannerImgFile] = useState<File>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSubmitProfileEdits = async (e: any) => {
+  const handleSubmitProfileEdits = async (e: any): Promise<void> => {
     e.preventDefault();
     if (!editsValid) return;
-    const userInfoRef = doc(db, "user-info", docId);
+    const userInfoRef: DocRef = doc(db, "user-info", docId);
     let locationValue: string = (
       document.getElementById("edit-location-input") as HTMLInputElement
     ).value
@@ -74,23 +83,26 @@ const EditProfilePopup = ({
     if (!locationValue.replace(/\s/g, "").length) {
       locationValue = "";
     }
-    let publicImgUrl: any = profileImg;
-    let profileImgPathNew: any = profileImgPath;
-    let publicbannerImg: any = bannerImg;
-    let bannerImgPathNew: any = bannerImgPath;
+    let publicImgUrl: string = profileImg;
+    let profileImgPathNew: string = profileImgPath;
+    let publicbannerImg: string = bannerImg;
+    let bannerImgPathNew: string = bannerImgPath;
     // Upload new profile image to storage if there is a newely selected Image
     if (selectedProfileImgFile) {
       console.log("hey editted prfile pic");
       //If a path is available delete the old user image from Storage
       if (profileImgPathNew) {
-        const oldProfileImageRef = ref(getStorage(), profileImgPathNew);
+        const oldProfileImageRef: StorageReference = ref(
+          getStorage(),
+          profileImgPathNew
+        );
         deleteObject(oldProfileImageRef);
       }
 
       // Save new image into Storage
       const filePath: string = `${userInfoRef.id}/${selectedProfileImgFile.name}`;
-      const newProfileImgRef = ref(getStorage(), filePath);
-      const fileSnapshot = await uploadBytesResumable(
+      const newProfileImgRef: StorageReference = ref(getStorage(), filePath);
+      const fileSnapshot: UploadTaskSnapshot = await uploadBytesResumable(
         newProfileImgRef,
         selectedProfileImgFile
       );
@@ -101,14 +113,17 @@ const EditProfilePopup = ({
     if (selectedBannerImgFile) {
       // Delete old banner from storage if available
       if (bannerImgPath) {
-        const oldBannerImageRef = ref(getStorage(), bannerImgPathNew);
+        const oldBannerImageRef: StorageReference = ref(
+          getStorage(),
+          bannerImgPathNew
+        );
         deleteObject(oldBannerImageRef);
       }
 
       // Save new banner into Storage
       const filePath: string = `${userInfoRef.id}/${selectedBannerImgFile.name}`;
-      const newBannerImgRef = ref(getStorage(), filePath);
-      const fileSnapshot = await uploadBytesResumable(
+      const newBannerImgRef: StorageReference = ref(getStorage(), filePath);
+      const fileSnapshot: UploadTaskSnapshot = await uploadBytesResumable(
         newBannerImgRef,
         selectedBannerImgFile
       );
@@ -134,7 +149,7 @@ const EditProfilePopup = ({
     setIsLoading(false);
   };
 
-  const handleUsernameVaidation = (e: any) => {
+  const handleUsernameVaidation = (e: any): void => {
     const input = e.target;
     const saveBtn = document.querySelector(`.save-edit-profile-button`);
 
@@ -152,14 +167,14 @@ const EditProfilePopup = ({
 
   const handleProfileImgSelection = async (e: any) => {
     // Showcase a preview based on local URL and save the file to State to be used to upload to DB
-    const imageFiles = e.target.files;
+    const imageFiles: File[] = e.target.files;
     if (imageFiles.length > 0) {
       // Crop image
-      const croppedImage: any = await cropImage(imageFiles[0]);
+      const croppedImage: File = await cropImage(imageFiles[0]);
       setSelectedProfileImgFile(croppedImage);
 
       // Set preview
-      const imageSrc = URL.createObjectURL(croppedImage);
+      const imageSrc: string = URL.createObjectURL(croppedImage);
       const imagePreviewElement: any = document.querySelector(
         ".user-profile-image-edit-preview"
       );
@@ -168,14 +183,14 @@ const EditProfilePopup = ({
   };
 
   const handleBannerImgSelection = async (e: any) => {
-    const imageFiles = e.target.files;
+    const imageFiles: File[] = e.target.files;
     if (imageFiles.length > 0) {
       //Crop image
-      const croppedBanner: any = await cropBanner(imageFiles[0]);
+      const croppedBanner: File = await cropBanner(imageFiles[0]);
       setSelectedBannerImgFile(croppedBanner);
       // Set Preview
 
-      const imageSrc = URL.createObjectURL(croppedBanner);
+      const imageSrc: string = URL.createObjectURL(croppedBanner);
       const imagePreviewElement: any = document.getElementById(
         "user-profile-banner-edit-preview"
       );
@@ -207,14 +222,7 @@ const EditProfilePopup = ({
                     setShowEditProfile(false);
                   }}
                 >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <g>
-                      <path
-                        fill="#EFF3F4"
-                        d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"
-                      ></path>
-                    </g>
-                  </svg>
+                  <CloseCross />
                 </div>
                 <h1 className="edit-profile-h1">Edit profile</h1>
               </div>
@@ -285,7 +293,7 @@ const EditProfilePopup = ({
                 <div className="edit-profile-input-div">
                   <input
                     type={"text"}
-                    maxLength={50}
+                    maxLength={16}
                     id="edit-name-input"
                     placeholder=" "
                     defaultValue={userName}

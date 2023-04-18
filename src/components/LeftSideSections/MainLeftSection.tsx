@@ -1,39 +1,31 @@
 import MainNavTabsNoAuth from "../NoAuthComponents/MainNavTabsNoAuth";
 import MainNavTabsSignedIn from "./MainNavTabsSignedIn";
-import { signOutUser } from "../../scripts/firebaseHelperFns";
-import { useState, useEffect } from "react";
-import { getUserHandle } from "../../scripts/firebaseHelperFns";
+
+import { useState } from "react";
 
 import "../../styles/MainLeftSection.css";
 import UserTab from "./UserTab";
 import RibbitPopupInput from "../Misc/RibbitPopupInput";
-
-interface userInfo {
-  bio?: string;
-  joinDate?: string;
-  profileImgUrl?: string;
-  userHandle?: string;
-  userName?: string;
-}
+import { RibbityUser } from "../../Ribbity.types";
 
 interface MainNavTabsProps {
-  currentUser?: userInfo | null;
-  signedIn?: boolean;
+  mainUser: RibbityUser;
+  signedIn: boolean;
 }
 
-const MainLeftSection = ({ currentUser, signedIn }: MainNavTabsProps) => {
+const MainLeftSection = ({ mainUser, signedIn }: MainNavTabsProps) => {
   const [showTwatPopup, setShowTwatPopup] = useState<boolean>(false);
-  if (!currentUser) return null;
+  if (!mainUser) return null;
   return signedIn ? (
     <div className="main-left-section">
       <RibbitPopupInput
         isVisible={showTwatPopup}
         toggleVisibility={setShowTwatPopup}
-        currentUser={currentUser}
+        mainUser={mainUser}
       />
       <div className="fixed-left-section">
         <div>
-          <MainNavTabsSignedIn currentUser={currentUser} />
+          <MainNavTabsSignedIn mainUser={mainUser} />
           <button
             className="tweet-button-left"
             onClick={() => {
@@ -56,7 +48,7 @@ const MainLeftSection = ({ currentUser, signedIn }: MainNavTabsProps) => {
             </svg>
           </button>
         </div>
-        <UserTab currentUser={currentUser} />
+        <UserTab mainUser={mainUser} />
       </div>
     </div>
   ) : (

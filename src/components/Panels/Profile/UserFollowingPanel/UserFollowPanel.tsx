@@ -1,7 +1,15 @@
-import { query, collection, where, getDocs, getDoc } from "firebase/firestore";
+import {
+  query,
+  collection,
+  where,
+  getDocs,
+  Query,
+  DocumentData,
+  QuerySnapshot,
+} from "firebase/firestore";
 import { db } from "../../../../scripts/firebaseConfig";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { getUserInfo } from "../../../../scripts/firebaseHelperFns";
 import "../../../../styles/UserFollowPanel.css";
 import UserFollowPanelMember from "./UserFollowPanelMember";
@@ -9,6 +17,7 @@ import InvalidRoutePanel from "../../../Misc/InvalidRoutePanel";
 import LoadingPanel from "../../../Misc/LoadingPanel";
 
 import EmptyRibbitList from "../../../Misc/EmptyRibbitList";
+import { RibbityUser } from "../../../../Ribbity.types";
 
 interface TabProps {
   tabNum: number;
@@ -19,30 +28,37 @@ interface TabProps {
 
 interface UserFollowPanelProps {
   startTab: string;
-  mainUser: any;
+  mainUser: RibbityUser;
 }
+
+const nullUser: RibbityUser = {
+  bannerImgPath: "",
+  bannerImgUrl: "",
+  bio: "",
+  followers: {},
+  following: {},
+  id: "",
+  joinDate: "",
+  location: "",
+  profileImgPath: "",
+  profileImgUrl: "",
+  userHandle: "",
+  userName: "",
+};
+
+type FBQuery = Query<DocumentData>;
+type FBQuerySnap = QuerySnapshot<DocumentData>;
 
 const UserFollowPanel = ({ startTab, mainUser }: UserFollowPanelProps) => {
   const [activeTab, setActiveTab] = useState<number>(-1);
-  const [visitedUser, setVisitedUser] = useState<any>(null);
-  const [followLists, setFollowLists] = useState<any>();
+  const [visitedUser, setVisitedUser] = useState<RibbityUser>(nullUser);
+  const [followLists, setFollowLists] = useState<RibbityUser[][]>();
   const [activeList, setActiveList] = useState<number>(
     startTab === "following" ? 1 : 2
   );
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
   const { handle } = useParams();
-  const navigate = useNavigate();
-
-  const followerQuery = query(
-    collection(db, "user-info"),
-    where(`followers.${handle}`, "==", true)
-  );
-  const followingQuery = query(
-    collection(db, "user-info"),
-    where(`following.${handle}`, "==", true)
-  );
+  const navigate: NavigateFunction = useNavigate();
 
   const handleTabSelect = (tabNum: number): void => {
     if (tabNum === activeTab) return;
@@ -60,45 +76,53 @@ const UserFollowPanel = ({ startTab, mainUser }: UserFollowPanelProps) => {
   }, [startTab]);
 
   useEffect(() => {
-    const retrieveUser = async () => {
-      const user = await getUserInfo(handle);
-      setVisitedUser(user);
+    const retrieveUser = async (): Promise<void> => {
+      const user: RibbityUser | undefined = await getUserInfo(handle);
+      if (user) setVisitedUser(user);
     };
 
-    const getFollowLists = async () => {
-      const followingList: any = [];
-      const followersList: any = [];
-      const followingSnap = await getDocs(followingQuery);
-      const followersSnap = await getDocs(followerQuery);
+    const getFollowLists = async (): Promise<void> => {
+      const followerQuery: FBQuery = query(
+        collection(db, "user-info"),
+        where(`followers.${handle}`, "==", true)
+      );
+      const followingQuery: FBQuery = query(
+        collection(db, "user-info"),
+        where(`following.${handle}`, "==", true)
+      );
+      const followingList: RibbityUser[] = [];
+      const followersList: RibbityUser[] = [];
+      const followingSnap: FBQuerySnap = await getDocs(followingQuery);
+      const followersSnap: FBQuerySnap = await getDocs(followerQuery);
 
-      followingSnap.forEach((doc) => {
-        const user = doc.data();
+      followingSnap.forEach((doc: any) => {
+        const user: RibbityUser = doc.data();
         user.id = doc.id;
         if (user.userHandle === handle) return;
         followingList.push(user);
       });
 
-      followersSnap.forEach((doc) => {
-        const user = doc.data();
+      followersSnap.forEach((doc: any) => {
+        const user: RibbityUser = doc.data();
         user.id = doc.id;
-
         followersList.push(user);
       });
 
-      const results: any = [followingList, followersList];
+      const results: RibbityUser[][] = [followingList, followersList];
       setFollowLists(results);
     };
 
-    const retrieveUserData = async () => {
+    const retrieveUserData = async (): Promise<void> => {
       setIsLoading(true);
       await getFollowLists();
       await retrieveUser();
       setIsLoading(false);
     };
+
     retrieveUserData();
   }, [handle]);
   if (isLoading) return <LoadingPanel />;
-  if (activeTab === -1 || !visitedUser || !followLists)
+  if (activeTab === -1 || !visitedUser.userHandle || !followLists)
     return <InvalidRoutePanel />;
   return (
     <div className="user-follow-panel">

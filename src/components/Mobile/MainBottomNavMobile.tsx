@@ -3,23 +3,28 @@ import HomeIcon from "../../media/svg/HomeIcon";
 import ProfileIcon from "../../media/svg/ProfileIcon";
 import ExploreSearchIcon from "../../media/svg/ExploreSearchIcon";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppContext from "../AppContext";
+import { RibbityUser } from "../../Ribbity.types";
 
 interface TabProps {
   tabNum: number;
-  Icon: any;
+  Icon: React.ReactNode;
   handleTabSelect: Function;
   activeTab: number;
 }
 
+interface AppContextProps {
+  mainUser: RibbityUser;
+}
+
 const MainBottomNavMobile = () => {
   const navigate = useNavigate();
-  const { handle } = useParams();
-  const [activeTab, setActiveTab] = useState<number>(-1);
-  const { mainUser }: any = useContext(AppContext);
 
-  const handleTabSelect = (tabNum: number) => {
+  const [activeTab, setActiveTab] = useState<number>(-1);
+  const { mainUser }: AppContextProps = useContext(AppContext);
+
+  const handleTabSelect = (tabNum: number): void => {
     setActiveTab(tabNum);
 
     switch (tabNum) {
@@ -53,19 +58,19 @@ const MainBottomNavMobile = () => {
       <ul className="main-bottom-nav">
         <Tab
           tabNum={0}
-          Icon={HomeIcon}
+          Icon={<HomeIcon />}
           handleTabSelect={handleTabSelect}
           activeTab={activeTab}
         />
         <Tab
           tabNum={1}
-          Icon={ExploreSearchIcon}
+          Icon={<ExploreSearchIcon />}
           handleTabSelect={handleTabSelect}
           activeTab={activeTab}
         />
         <Tab
           tabNum={2}
-          Icon={ProfileIcon}
+          Icon={<ProfileIcon />}
           handleTabSelect={handleTabSelect}
           activeTab={activeTab}
         />
@@ -88,7 +93,7 @@ const Tab: React.FC<TabProps> = ({
           : "mobile-tab-border"
       }
     >
-      <Icon />
+      {Icon}
     </span>
   </li>
 );

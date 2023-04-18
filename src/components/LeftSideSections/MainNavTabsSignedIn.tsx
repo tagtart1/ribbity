@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import useForceUpdate from "../useForceUpdate";
+import { Link } from "react-router-dom";
+
 import FrogIconLogo from "../Misc/FrogIconLogo";
 import HomeIcon from "../../media/svg/HomeIcon";
 import ExploreHashtagIcon from "../../media/svg/ExploreHashtagIcon";
@@ -8,19 +8,17 @@ import NotifcationsIcon from "../../media/svg/NotificationsIcon";
 import MessagesIcon from "../../media/svg/MessagesIcon";
 import BookmarksIcon from "../../media/svg/BookmarksIcon";
 import ProfileIcon from "../../media/svg/ProfileIcon";
-
-interface userInfo {
-  userHandle?: string;
-}
+import { RibbityUser } from "../../Ribbity.types";
 
 interface MainNavTabsProps {
-  currentUser: userInfo;
+  mainUser: RibbityUser;
 }
 
-const MainNavTabsSignedIn = ({ currentUser }: MainNavTabsProps) => {
+const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
   const [activeTab, setActiveTab] = useState<number | null>(null);
-  const pathname = window.location.pathname;
+  const pathname: string = window.location.pathname;
 
+  // Set the active tab when we refresh by checking the url
   useEffect(() => {
     switch (pathname) {
       case "/home":
@@ -38,7 +36,16 @@ const MainNavTabsSignedIn = ({ currentUser }: MainNavTabsProps) => {
       case "/bookmarks":
         setActiveTab(4);
         break;
-      case `/${currentUser.userHandle}`:
+      case `/${mainUser.userHandle}`:
+        setActiveTab(6);
+        break;
+      case `/${mainUser.userHandle}/replies`:
+        setActiveTab(6);
+        break;
+      case `/${mainUser.userHandle}/media`:
+        setActiveTab(6);
+        break;
+      case `/${mainUser.userHandle}/likes`:
         setActiveTab(6);
         break;
       default:
@@ -104,7 +111,7 @@ const MainNavTabsSignedIn = ({ currentUser }: MainNavTabsProps) => {
         </div>
       </li>
 
-      <Link to={`/${currentUser.userHandle}`}>
+      <Link to={`/${mainUser.userHandle}`}>
         <Tab
           activeTab={activeTab}
           setActiveTab={setActiveTab}

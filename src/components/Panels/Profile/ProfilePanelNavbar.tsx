@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import "../../../styles/ProfilePanelNavbar.css";
 
-const ProfilePanelNavbar = () => {
-  const [selectedTab, setSelectedTab] = useState<any>();
-  const { handle, tab } = useParams();
-  const navigate = useNavigate();
+type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
 
-  const handleTabSwitch = (e: any, route: string) => {
-    const listItem = e.target.firstChild;
+const ProfilePanelNavbar = () => {
+  const [selectedTab, setSelectedTab] = useState<HTMLElement>();
+  const { handle, tab } = useParams();
+  const navigate: NavigateFunction = useNavigate();
+
+  const handleTabSwitch = (e: ClickDivEvent, route: string) => {
+    const target = e.target as HTMLElement;
+    const listItem = target.firstChild as HTMLElement;
 
     if (listItem === selectedTab) return;
     selectedTab?.classList.remove("selected-tab-profile");

@@ -2,9 +2,10 @@ import { useState } from "react";
 import FeatherIcon from "../../media/svg/FeatherIcon";
 import "../../styles/RibbitButtonFixed.css";
 import RibbitPopupInput from "../Misc/RibbitPopupInput";
+import { RibbityUser } from "../../Ribbity.types";
 
 interface RibbitButtonFixedProps {
-  mainUser: any;
+  mainUser: RibbityUser;
 }
 
 const RibbitButtonFixed = ({ mainUser }: RibbitButtonFixedProps) => {
@@ -22,7 +23,7 @@ const RibbitButtonFixed = ({ mainUser }: RibbitButtonFixedProps) => {
         <FeatherIcon />
       </button>
       <RibbitPopupInput
-        currentUser={mainUser}
+        mainUser={mainUser}
         toggleVisibility={setShowPopup}
         isVisible={showPopup}
       />

@@ -1,25 +1,33 @@
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import "../../styles/MainNavTabs.css";
 import { useState, useEffect } from "react";
 import FrogIconLogo from "../Misc/FrogIconLogo";
 
+// Type aliases
+type ClickListEvent = React.MouseEvent<HTMLElement>;
+
+// The left side navbar for when user is not signed in
 const MainNavTabsNoAuth = () => {
-  const [selectedTab, setSelectedTab] = useState<any>();
+  const [selectedTab, setSelectedTab] = useState<HTMLElement>();
 
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
 
-  const handleTabSwitch = (e: any) => {
-    const target = e.target.firstChild.lastChild;
+  const handleTabSwitch = (e: ClickListEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.firstChild) return;
+    const trueTarget = target.firstChild.lastChild as HTMLElement;
 
-    if (target === selectedTab) return;
-    selectedTab.classList.remove("left-section-tab-selected");
-    target.classList.add("left-section-tab-selected");
+    if (trueTarget === selectedTab) return;
+    if (selectedTab) selectedTab.classList.remove("left-section-tab-selected");
+    trueTarget.classList.add("left-section-tab-selected");
 
-    setSelectedTab(target);
+    setSelectedTab(trueTarget);
   };
 
   useEffect(() => {
-    setSelectedTab(document.querySelector(".left-section-tab-selected"));
+    setSelectedTab(
+      document.querySelector(".left-section-tab-selected") as HTMLElement
+    );
   }, []);
 
   return (

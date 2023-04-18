@@ -1,5 +1,6 @@
 import ExploreRibbitTopic from "./ExploreRibbitTopic";
 
+// Static list of random explore page topics
 const ExploreTopicFeedRandom = () => {
   return (
     <>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import "../../styles/Ribbit.css";
@@ -6,16 +6,6 @@ import { getTimeSincePosted } from "../../scripts/HelperFns";
 
 import DeleteOptionDropdown from "./DeleteOptionDropdown";
 import BackgroundTransparent from "../Misc/BackgroundTransparent";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  query,
-  where,
-  writeBatch,
-  getDocs,
-} from "firebase/firestore";
-import { db } from "../../scripts/firebaseConfig";
 
 import { useParams, Link, useNavigate } from "react-router-dom";
 
@@ -24,32 +14,10 @@ import RibbitReplyButton from "./RibbitReplyButton";
 import RibbitReactionButtons from "./RibbitReactionButtons";
 import toast from "react-hot-toast";
 import useDeleteRibbit from "../useDeleteRibbit";
+import { RibbitType } from "../../Ribbity.types";
 
 interface RibbitProps {
-  ribbitInfo: {
-    userName: string;
-    handle: string;
-    userProfileImg: string;
-    text: string;
-    timeStamp: {
-      date: number;
-      hours: number;
-      milliseconds: number;
-      minutes: number;
-      months: number;
-      seconds: number;
-      years: number;
-    };
-    timeInMillisecond: number;
-    id: string;
-    likedBy: any;
-    dislikedBy: any;
-    replyingTo: {
-      id: string;
-      handle: string;
-    };
-    isComment: boolean;
-  };
+  ribbitInfo: RibbitType;
 
   isDeletable: boolean;
   currentHandle: string;
@@ -80,26 +48,26 @@ const Ribbit = ({
 
   const navigate = useNavigate();
 
-  const openDeleteOption = () => {
+  const openDeleteOption = (): void => {
     if (!isDeletable) return;
     setOpenDelete(true);
   };
 
-  const handleDeleteRibbit = async () => {
+  const handleDeleteRibbit = async (): Promise<void> => {
     deleteRibbit();
     setOpenDelete(false);
   };
 
-  const handleOpeningRibbit = (e: any) => {
+  const handleOpeningRibbit = (e: any): void => {
     // Pointer events are set to off in the style sheet for all child elements except the ones that need to register a click
     if (e.currentTarget === e.target) {
       navigate(`/${ribbitInfo.handle}/ribbit/${ribbitInfo.id}`);
     }
   };
 
-  const copyRibbitLinkToClipboard = () => {
-    const currentPath = window.location.href;
-    const ribbitPath = currentPath + `/ribbit/${ribbitInfo.id}`;
+  const copyRibbitLinkToClipboard = (): void => {
+    const currentPath: string = window.location.href;
+    const ribbitPath: string = currentPath + `/ribbit/${ribbitInfo.id}`;
     navigator.clipboard.writeText(ribbitPath);
     notifyClipboard();
   };

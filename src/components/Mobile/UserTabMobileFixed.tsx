@@ -2,11 +2,16 @@ import { useContext, useState } from "react";
 import "../../styles/UserTabMobileFixed.css";
 import AppContext from "../AppContext";
 import LongPopupNavbarMobile from "./LongPopupNavbarMobile";
-import { AnimatePresence } from "framer-motion";
+
 import FrogIconLogo from "../Misc/FrogIconLogo";
+import { RibbityUser } from "../../Ribbity.types";
+
+interface AppContextProps {
+  mainUser: RibbityUser;
+}
 
 const UserTabMobileFixed = () => {
-  const { mainUser }: any = useContext(AppContext);
+  const { mainUser }: AppContextProps = useContext(AppContext);
 
   const [showNavbar, setShowNavbar] = useState<boolean>(false);
   if (!mainUser.userHandle)

@@ -5,15 +5,10 @@ import { useState, useEffect } from "react";
 
 import "../../styles/RibbitLikeButton.css";
 import SignupPopup from "../Misc/SignupPopup";
+import { RibbitType } from "../../Ribbity.types";
 
 interface RibbitLikeButtonProps {
-  ribbitInfo: {
-    likedBy: {
-      [key: string]: boolean;
-    };
-    id: string;
-    handle: string;
-  };
+  ribbitInfo: RibbitType;
   currentHandle: string;
   activeButton: string | null;
   setActiveButton: Function;
@@ -32,7 +27,7 @@ const RibbitLikeButton = ({
   const [hasClickedLike, setHasClickedLike] = useState<boolean>(false);
   const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
 
-  const handleLikeRibbit = async () => {
+  const handleLikeRibbit = async (): Promise<void> => {
     if (!currentHandle) {
       setShowSignupPopup(true);
       return;
@@ -57,7 +52,7 @@ const RibbitLikeButton = ({
     }
   };
 
-  const closePopup = () => {
+  const closePopup = (): void => {
     setShowSignupPopup(false);
   };
 

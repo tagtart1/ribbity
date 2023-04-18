@@ -3,10 +3,11 @@ import "../../../styles/RecommendedFollow.css";
 import { useNavigate } from "react-router-dom";
 
 import ToggleFollowButton from "../../Misc/ToggleFollowButton";
+import { RibbityUser } from "../../../Ribbity.types";
 
 interface RecommendedFollowProps {
-  recommendedUser: any;
-  mainUser: any;
+  recommendedUser: RibbityUser;
+  mainUser: RibbityUser;
 }
 
 const RecommendedFollow = ({

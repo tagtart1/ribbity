@@ -1,10 +1,16 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  NavigateFunction,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import "../../../../styles/UserFollowPanelMember.css";
 import ToggleFollowButton from "../../../Misc/ToggleFollowButton";
+import { RibbityUser } from "../../../../Ribbity.types";
 
 interface UserFollowPanelMemberProps {
-  mainUser: any;
-  userInfo: any;
+  mainUser: RibbityUser;
+  userInfo: RibbityUser;
 }
 
 const UserFollowPanelMember: React.FC<UserFollowPanelMemberProps> = ({
@@ -12,7 +18,7 @@ const UserFollowPanelMember: React.FC<UserFollowPanelMemberProps> = ({
   userInfo,
 }) => {
   const { handle } = useParams();
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   if (handle === userInfo.userHandle) return null;
   return (
     <div

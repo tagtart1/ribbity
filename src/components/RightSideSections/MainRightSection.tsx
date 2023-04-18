@@ -4,10 +4,11 @@ import WhatsHappeningPanel from "./WhatsHappeningSection/WhatsHappeningPanel";
 import "../../styles/MainRightSection.css";
 import WhoToFollowPanel from "./WhoToFollowSection/WhoToFollowPanel";
 import MiscLinks from "../Misc/MiscLinks";
+import { RibbityUser } from "../../Ribbity.types";
 
 interface MainRightSectionProp {
   signedIn?: boolean;
-  currentUser: any;
+  mainUser: RibbityUser;
   setCurrentUser: Function;
   showWhoToFollow: boolean;
   setIsLoadingUser: Function;
@@ -15,7 +16,7 @@ interface MainRightSectionProp {
 
 const MainRightSection = ({
   signedIn,
-  currentUser,
+  mainUser,
   setCurrentUser,
   showWhoToFollow,
   setIsLoadingUser,
@@ -29,11 +30,7 @@ const MainRightSection = ({
         <div className="side-panels">
           <WhatsHappeningPanel />
 
-          <WhoToFollowPanel
-            currentUser={currentUser}
-            setCurrentUser={setCurrentUser}
-            isVisible={showWhoToFollow}
-          />
+          <WhoToFollowPanel mainUser={mainUser} isVisible={showWhoToFollow} />
           <MiscLinks />
         </div>
       </div>

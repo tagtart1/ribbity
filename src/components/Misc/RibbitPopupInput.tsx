@@ -6,24 +6,29 @@ import { db } from "../../scripts/firebaseConfig";
 import { getTimestamp, isValidString } from "../../scripts/HelperFns";
 import toast from "react-hot-toast";
 import ReactDOM from "react-dom";
+import { RibbityUser } from "../../Ribbity.types";
 
 interface RibbitPopupInputProps {
   isVisible: boolean;
   toggleVisibility: Function;
-  currentUser: any;
+  mainUser: RibbityUser;
 }
+
+// Type aliases
+type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
+type SubmitFormEvent = React.FormEvent<HTMLFormElement>;
 
 const RibbitPopupInput = ({
   isVisible,
   toggleVisibility,
-  currentUser,
+  mainUser,
 }: RibbitPopupInputProps) => {
   const [inputLength, setInputLength] = useState<Number>(0);
 
   const notifySuccess = () => toast("Your Ribbit was sent.");
   const notifyError = () => toast.error("Your Ribbit failed to send.");
 
-  const handleOffSideClick = (e: any) => {
+  const handleOffSideClick = (e: ClickDivEvent): void => {
     if (
       e.target === document.querySelector(".ribbit-popup-input-container") &&
       e.buttons === 1
@@ -34,19 +39,21 @@ const RibbitPopupInput = ({
     }
   };
 
-  const handleSubmitRibbit = async (e: any) => {
+  const handleSubmitRibbit = async (e: SubmitFormEvent): Promise<void> => {
     e.preventDefault();
-    const input = document.getElementById(
+
+    const input: HTMLInputElement = document.getElementById(
       "ribbit-popup-input"
     ) as HTMLInputElement;
+
     if (!isValidString(input.value)) return;
     try {
       await addDoc(collection(db, "twats"), {
         text: input.value,
         timeStamp: getTimestamp(),
-        handle: currentUser.userHandle,
-        userName: currentUser.userName,
-        userProfileImg: currentUser.profileImgUrl,
+        handle: mainUser.userHandle,
+        userName: mainUser.userName,
+        userProfileImg: mainUser.profileImgUrl,
         timeInMillisecond: Date.now(),
         likedBy: {},
         dislikedBy: {},
@@ -69,7 +76,7 @@ const RibbitPopupInput = ({
     document.documentElement.style.overflowY = "visible";
   };
 
-  const popupRoot = document.getElementById("popup-root");
+  const popupRoot: HTMLElement | null = document.getElementById("popup-root");
 
   if (!isVisible || !popupRoot) return null;
   return ReactDOM.createPortal(
@@ -97,7 +104,7 @@ const RibbitPopupInput = ({
           </svg>
         </div>
         <div className="ribbit-popup-input-main">
-          <img src={currentUser.profileImgUrl} alt="user" />
+          <img src={mainUser.profileImgUrl} alt="user" />
 
           <form
             className="popup-input-main-right"

@@ -1,9 +1,10 @@
 import RibbitLikeButton from "./RibbitLikeButton";
 import RibbitDislikeButton from "./RibbitDislikeButton";
 import { useState } from "react";
+import { RibbitType } from "../../Ribbity.types";
 
 interface RibbitReactionButtonsProps {
-  ribbitInfo: any;
+  ribbitInfo: RibbitType;
   currentHandle: string;
 }
 

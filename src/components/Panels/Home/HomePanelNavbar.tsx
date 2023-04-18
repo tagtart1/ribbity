@@ -6,11 +6,14 @@ interface HomePanelNavbarProps {
   setTab: Function;
 }
 
-const HomePanelNavbar = ({ setTab }: HomePanelNavbarProps) => {
-  const [selectedTab, setSelectedTab] = useState<any>();
+type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
 
-  const handleTabSwitch = (e: any) => {
-    const listItem = e.target.firstChild;
+const HomePanelNavbar = ({ setTab }: HomePanelNavbarProps) => {
+  const [selectedTab, setSelectedTab] = useState<HTMLElement>();
+
+  const handleTabSwitch = (e: ClickDivEvent) => {
+    const target = e.target as HTMLElement;
+    const listItem = target.firstChild as HTMLElement;
 
     if (listItem === selectedTab) return;
     selectedTab?.classList.remove("selected-tab-home");
@@ -20,7 +23,7 @@ const HomePanelNavbar = ({ setTab }: HomePanelNavbarProps) => {
   };
 
   useEffect(() => {
-    setSelectedTab(document.querySelector(".selected-tab-home"));
+    setSelectedTab(document.querySelector(".selected-tab-home") as HTMLElement);
   }, []);
   return (
     <div className="home-panel-header-container">

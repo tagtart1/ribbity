@@ -1,18 +1,11 @@
 import "../../../styles/ProfilePanel.css";
 import ProfilePanelInfo from "./ProfilePanelInfo";
 import ProfilePanelNav from "./ProfilePanelNavbar";
-import testBanner from "../media/1080x360.jpg";
-import { useEffect, useState } from "react";
-import { getUserHandle, getUserInfo } from "../../../scripts/firebaseHelperFns";
-import { AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
-import {
-  useNavigate,
-  useParams,
-  useLocation,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { ReactNode, useEffect, useState } from "react";
+import { getUserInfo } from "../../../scripts/firebaseHelperFns";
+
+import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 
 import {
   collection,
@@ -23,7 +16,10 @@ import {
   onSnapshot,
   updateDoc,
   doc,
-  getCountFromServer,
+  Query,
+  QuerySnapshot,
+  DocumentData,
+  DocumentReference,
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
@@ -34,27 +30,30 @@ import InvalidRoutePanel from "../../Misc/InvalidRoutePanel";
 import Spinner from "../../Misc/Spinner";
 import LoadingPanel from "../../Misc/LoadingPanel";
 import EmptyRibbitList from "../../Misc/EmptyRibbitList";
+import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 
-// Still need features to change pfp picture, profile banner, userName, and bio
+type QuerySnap = QuerySnapshot<DocumentData>;
+type DocRef = DocumentReference<DocumentData>;
+
 const ProfilePanel = ({
   currentUser,
   setCurrentUser,
   setShowWhoToFollow,
 }: any) => {
   // This is the user in which the :handle route param corresponds to, could be main user
-  const [visitedUserInfo, setVisitedUserInfo] = useState<any>();
+  const [visitedUserInfo, setVisitedUserInfo] = useState<RibbityUser>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Another loading state that doesnt show a loading icon, used for switching tabs
   const [isLoadingInternal, setIsLoadingInternal] = useState<boolean>(true);
 
-  const [ribbitList, setRibbitList] = useState<any>([]);
+  const [ribbitList, setRibbitList] = useState<RibbitType[]>([]);
   const { handle, tab } = useParams();
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
 
-  const getUserRibbits = async () => {
-    let q: any;
+  const getUserRibbits = async (): Promise<void> => {
+    let q: Query;
     setIsLoadingInternal(true);
     if (tab === "twats" || tab === undefined) {
       q = query(
@@ -80,10 +79,10 @@ const ProfilePanel = ({
     }
     // Query replies by
 
-    let ribbits: any = [];
-    const ribbitSnapshot = await getDocs(q);
-    ribbitSnapshot.forEach(async (doc) => {
-      const ribbit: any = doc.data();
+    let ribbits: RibbitType[] = [];
+    const ribbitSnapshot: QuerySnap = await getDocs(q);
+    ribbitSnapshot.forEach((doc: any) => {
+      const ribbit: RibbitType = doc.data();
 
       ribbit.id = doc.id;
       ribbits.push(ribbit);
@@ -93,7 +92,7 @@ const ProfilePanel = ({
     setIsLoadingInternal(false);
   };
 
-  const emptyTabSwitch = () => {
+  const emptyTabSwitch = (): ReactNode => {
     if (isLoadingInternal)
       return (
         <div
@@ -134,23 +133,25 @@ const ProfilePanel = ({
     }
   };
 
-  const getViewedUser = async (shouldLoad?: string) => {
+  const getViewedUser = async (shouldLoad?: string): Promise<void> => {
     if (shouldLoad === undefined) setIsLoading(true);
-    const user = await getUserInfo(handle);
+    const user: RibbityUser | null | undefined = await getUserInfo(handle);
 
     setVisitedUserInfo(user);
     setIsLoading(false);
   };
 
-  const refreshUserUI = async () => {
+  const refreshUserUI = async (): Promise<void> => {
     getViewedUser("no_load");
     // This will refresh the entire application with updates follower counts and queries
 
-    const mainUser = await getUserInfo(currentUser.userHandle);
+    const mainUser: RibbityUser | null | undefined = await getUserInfo(
+      currentUser.userHandle
+    );
     setCurrentUser(mainUser);
   };
   // Grabs a user's info based on the link param
-  const getUserFromUrlParam = async (showLoad?: string) => {
+  const getUserFromUrlParam = async (showLoad?: string): Promise<void> => {
     if (showLoad === undefined) {
       setIsLoading(true);
     }
@@ -159,17 +160,20 @@ const ProfilePanel = ({
     setIsLoading(false);
   };
   // For when the user edits their profile
-  const handleProfileUpdates = async () => {
+  const handleProfileUpdates = async (): Promise<void> => {
     // Safe to use URL handle since you can only edit when inside your own profile
     // Reget the user
-    const user: any = await getUserInfo(handle);
-
+    const user: RibbityUser | undefined = await getUserInfo(handle);
+    if (!user.userHandle) return;
     setCurrentUser(user);
     // Change all ribbits with updated info
-    const q = query(collection(db, "twats"), where("handle", "==", handle));
-    const ribbits = await getDocs(q);
-    ribbits.forEach(async (docSnap) => {
-      const docRef = doc(db, "twats", docSnap.id);
+    const q: Query = query(
+      collection(db, "twats"),
+      where("handle", "==", handle)
+    );
+    const ribbits: QuerySnap = await getDocs(q);
+    ribbits.forEach(async (docSnap: any) => {
+      const docRef: DocRef = doc(db, "twats", docSnap.id);
 
       await updateDoc(docRef, {
         userName: user?.userName,
@@ -184,13 +188,13 @@ const ProfilePanel = ({
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const q = query(
+    const q: Query = query(
       collection(db, "twats"),
       where("handle", "==", handle),
       orderBy("timeInMillisecond", "desc")
     );
 
-    const unsub = onSnapshot(q, (snapshot) => {
+    const unsub = onSnapshot(q, (snapshot: QuerySnap) => {
       if (tab === "likes") return; // Assures we dont pull all twats into wrong tab, may need readjustmust if adding media
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {

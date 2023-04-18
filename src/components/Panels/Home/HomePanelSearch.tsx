@@ -1,7 +1,6 @@
 import "../../../styles/HomePanelSearch.css";
 
 const HomePanelSearch = () => {
-  // Add custom X delete
   return (
     <div className="home-panel-searchbar-container">
       <div className="home-panel-searchbar-wrapper">

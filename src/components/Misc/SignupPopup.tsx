@@ -3,11 +3,12 @@ import "../../styles/SignupPopup.css";
 import { signIn } from "../../scripts/firebaseHelperFns";
 import { useContext } from "react";
 import AppContext from "../AppContext";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import DislikeIconFilled from "../../media/svg/DislikeIconFilled";
 import CloseCross from "../../media/svg/CloseCross";
 import LikeIconFilled from "../../media/svg/LikeIconFilled";
 import FollowUserHollow from "../../media/svg/FollowUserHollow";
+import { RibbityUser } from "../../Ribbity.types";
 
 interface SignupPopupProps {
   userName: string;
@@ -16,42 +17,62 @@ interface SignupPopupProps {
   popupType: string;
 }
 
+interface AppContextProps {
+  setMainUser: Function;
+  loadingHandler: Function;
+}
+
+type IconsObject = {
+  [key: string]: React.ReactNode;
+};
+
+type TextsObjects = {
+  [key: string]: string;
+};
+
+// Type aliases
+type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
+// Component triggers popup when the user is not signed in and attempts to do actions
 const SignupPopup = ({
   userName,
   visibility,
   setOwnVisibility,
   popupType,
 }: SignupPopupProps) => {
-  const { setMainUser, loadingHandler }: any = useContext(AppContext);
+  const { setMainUser, loadingHandler }: AppContextProps =
+    useContext(AppContext);
 
-  const icons: any = {
+  const icons: IconsObject = {
     dislike: <DislikeIconFilled />,
     like: <LikeIconFilled />,
     follow: <FollowUserHollow />,
   };
 
-  const headerTexts: any = {
+  const headerTexts: TextsObjects = {
     dislike: "Dislike a Ribbit to share the love.",
     like: "Like a Ribbit to share the love.",
     follow: `Follow ${userName} to see what they share on Ribbity.`,
   };
 
-  const paraTexts: any = {
+  const paraTexts: TextsObjects = {
     dislike: `Join Ribbity now to let ${userName} know you dislike their Ribbit.`,
     like: `Join Ribbity now to let ${userName} know you like their Ribbit.`,
     follow: "Sign up so you never miss their Ribbits.",
   };
 
-  const navigate = useNavigate();
-  const popupRoot = document.getElementById("popup-root");
+  const navigate: NavigateFunction = useNavigate();
+  const popupRoot: HTMLElement | null = document.getElementById("popup-root");
 
-  const signInHandle = async () => {
-    const newUser = await signIn(loadingHandler);
+  const signInHandle = async (): Promise<void> => {
+    const newUser: RibbityUser | null | undefined = await signIn(
+      loadingHandler
+    );
     if (newUser) setMainUser(newUser);
+    document.documentElement.style.overflowY = "visible";
     navigate("/home");
   };
 
-  const handleClickAwayCancel = (e: any) => {
+  const handleClickAwayCancel = (e: ClickDivEvent): void => {
     if (e.target === e.currentTarget && e.buttons === 1) {
       setOwnVisibility();
       document.documentElement.style.overflowY = "visible";

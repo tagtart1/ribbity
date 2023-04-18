@@ -8,17 +8,20 @@ interface LogoutPopupProps {
   setVisibility: Function;
 }
 
+// Type aliases
+type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
+
 const LogoutPopup = ({ isVisible, setVisibility }: LogoutPopupProps) => {
   const popupRoot = document.getElementById("popup-root");
 
-  const handleOffsideClickClose = (e: any) => {
+  const handleOffsideClickClose = (e: ClickDivEvent): void => {
     if (e.target === e.currentTarget) {
       document.documentElement.style.overflowY = "visible";
       setVisibility(false);
     }
   };
 
-  const closePopup = () => {
+  const closePopup = (): void => {
     setVisibility(false);
     document.documentElement.style.overflowY = "visible";
   };

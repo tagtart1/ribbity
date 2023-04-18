@@ -5,15 +5,10 @@ import "../../styles/RibbitDislikeButton.css";
 import RibbitDislikeCounter from "./RibbitDislikeCounter";
 import SignupPopup from "../Misc/SignupPopup";
 import DislikeIconFilled from "../../media/svg/DislikeIconFilled";
+import { RibbitType } from "../../Ribbity.types";
 
 interface RibbitDislikeButtonProps {
-  ribbitInfo: {
-    dislikedBy: {
-      [key: string]: boolean;
-    };
-    id: string;
-    handle: string;
-  };
+  ribbitInfo: RibbitType;
   currentHandle: string;
   activeButton: string | null;
   setActiveButton: Function;
@@ -32,7 +27,7 @@ const RibbitDislikeButton = ({
   const [hasClickedDislike, setHasClickedDislike] = useState<boolean>(false);
   const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
 
-  const handleDislike = async () => {
+  const handleDislike = async (): Promise<void> => {
     // Check for signed in user
     if (!currentHandle) {
       setShowSignupPopup(true);
@@ -58,8 +53,7 @@ const RibbitDislikeButton = ({
     }
   };
 
-  const closePopup = () => {
-    console.log("hey");
+  const closePopup = (): void => {
     setShowSignupPopup(false);
   };
 

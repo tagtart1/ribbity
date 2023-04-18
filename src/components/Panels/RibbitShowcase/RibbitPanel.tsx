@@ -5,6 +5,11 @@ import {
   query,
   getDocs,
   where,
+  DocumentReference,
+  Query,
+  QuerySnapshot,
+  DocumentSnapshot,
+  QueryDocumentSnapshot,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -15,39 +20,44 @@ import RibbitPanelDisplay from "./RibbitPanelDisplay";
 import RibbitPanelHeader from "./RibbitPanelHeader";
 import LoadingPanel from "../../Misc/LoadingPanel";
 import InvalidRoutePanel from "../../Misc/InvalidRoutePanel";
+import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 
-const RibbitPanel = ({ mainUser }: any) => {
+interface RibbitPanelProps {
+  mainUser: RibbityUser;
+}
+
+const RibbitPanel = ({ mainUser }: RibbitPanelProps) => {
   const { handle, ribbitId } = useParams();
-  const [ribbitInfo, setRibbitInfo] = useState<any>();
-  const [comments, setComments] = useState<any>([]);
-  const [parentRibbits, setParentRibbits] = useState<any>([]);
+  const [ribbitInfo, setRibbitInfo] = useState<RibbitType>();
+  const [comments, setComments] = useState<RibbitType[]>([]);
+  const [parentRibbits, setParentRibbits] = useState<RibbitType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const retrieveRibbitInfo = async (shouldLoad?: string) => {
+  const retrieveRibbitInfo = async (shouldLoad?: string): Promise<void> => {
     if (!db || !ribbitId) return;
     if (shouldLoad === undefined) setIsLoading(true);
-    const infoRef = doc(db, "twats", ribbitId);
+    const infoRef: DocumentReference = doc(db, "twats", ribbitId);
     // Query by the replyingTo ID
-    const commentsQuery = query(
+    const commentsQuery: Query = query(
       collection(db, "twats"),
       where("replyingTo.id", "==", ribbitId)
     );
 
-    const commentsSnap = await getDocs(commentsQuery);
-    const infoSnap = await getDoc(infoRef);
+    const commentsSnap: QuerySnapshot = await getDocs(commentsQuery);
+    const infoSnap: DocumentSnapshot = await getDoc(infoRef);
 
     if (infoSnap.exists()) {
-      const twat = infoSnap.data();
+      const ribbit: RibbitType = infoSnap.data() as RibbitType;
 
-      twat.id = ribbitId;
+      ribbit.id = ribbitId;
 
-      setRibbitInfo(twat);
-      retrieveParentRibbits(twat);
+      setRibbitInfo(ribbit);
+      retrieveParentRibbits(ribbit);
     }
 
-    const currentComments: any = [];
-    commentsSnap.forEach((doc) => {
-      const comment = doc.data();
+    const currentComments: RibbitType[] = [];
+    commentsSnap.forEach((doc: QueryDocumentSnapshot) => {
+      const comment: RibbitType = doc.data() as RibbitType;
       comment.id = doc.id;
       currentComments.push(comment);
     });
@@ -55,26 +65,28 @@ const RibbitPanel = ({ mainUser }: any) => {
     setIsLoading(false);
   };
 
-  const retrieveParentRibbits = async (twat: any) => {
-    if (twat.replyingTo.all.length === 0) {
+  const retrieveParentRibbits = async (ribbit: RibbitType): Promise<void> => {
+    if (ribbit.replyingTo.all.length === 0) {
       setParentRibbits([]);
       return;
     }
 
-    const results: any = [];
-    const queries = [];
-    for (let i = 0; i < twat.replyingTo.all.length; i += 1) {
-      const docRef = doc(db, "twats", twat.replyingTo.all[i]);
+    const results: RibbitType[] = [];
+    const queries: DocumentReference[] = [];
+    for (let i = 0; i < ribbit.replyingTo.all.length; i += 1) {
+      const docRef = doc(db, "twats", ribbit.replyingTo.all[i]);
       queries.push(docRef);
     }
 
-    const snapshots = await Promise.all(queries.map((query) => getDoc(query)));
+    const snapshots: DocumentSnapshot[] = await Promise.all(
+      queries.map((query) => getDoc(query))
+    );
 
     snapshots.forEach((snapshot) => {
       if (snapshot.exists()) {
-        const twat = snapshot.data();
-        twat.id = snapshot.id;
-        results.push(twat);
+        const ribbit: RibbitType = snapshot.data() as RibbitType;
+        ribbit.id = snapshot.id;
+        results.push(ribbit);
       } else {
         throw new Error("Could not find parent twat by id");
       }
@@ -83,8 +95,8 @@ const RibbitPanel = ({ mainUser }: any) => {
     setParentRibbits(results);
   };
   // Adds the newest made comment to the top of the comment section, locally. Upon refresh then retrieveTwatInfo will sort the comment section again
-  const addNewComment = (comment: any) => {
-    const commentsCopy = [...comments];
+  const addNewComment = (comment: RibbitType): void => {
+    const commentsCopy: RibbitType[] = [...comments];
     commentsCopy.unshift(comment);
     setComments(commentsCopy);
   };

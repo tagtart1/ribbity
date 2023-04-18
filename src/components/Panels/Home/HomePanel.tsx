@@ -1,7 +1,5 @@
 import "../../../styles/HomePanel.css";
-import { signOutUser } from "../../../scripts/firebaseHelperFns";
 import HomePanelNavbar from "./HomePanelNavbar";
-import ExploreRibbitTopic from "../Explore/ExploreRibbitTopic";
 import HomePanelRibbitInput from "./HomePanelRibbitInput";
 import { useEffect, useState } from "react";
 import {
@@ -12,58 +10,66 @@ import {
   query,
   getDocs,
   onSnapshot,
+  Query,
+  DocumentData,
+  QuerySnapshot,
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
-import { sortByTimeInSecondsDescending } from "../../../scripts/HelperFns";
+import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 
 interface HomePanelProps {
-  currentUser?: {
-    profileImgUrl: string;
-    following: {
-      [key: string]: boolean;
-    };
-  };
+  mainUser: RibbityUser;
 }
 
-const Home = ({ currentUser }: any) => {
-  const [ribbitList, setRibbitList] = useState<any>({});
-  const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
+interface RibbitListState {
+  [key: string]: RibbitType;
+}
 
+// Type alias
+type FBQuery = Query<DocumentData>;
+type FBQuerySnap = QuerySnapshot<DocumentData>;
+
+const Home = ({ mainUser }: HomePanelProps) => {
+  const [ribbitList, setRibbitList] = useState<RibbitListState>({});
+  // Ensures the snapshot doesnt always subscribe when not needed
+  const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
   const [tab, setTab] = useState<string>("For you");
 
-  const fetchRibbits = async (q: any) => {
-    let ribbits: any = {};
-    const ribbitSnapshot = await getDocs(q);
-    ribbitSnapshot.forEach((doc) => {
-      const ribbit: any = doc.data();
+  // Grab the ribbits from the firebase DB
+  const fetchRibbits = async (q: FBQuery): Promise<RibbitListState> => {
+    let ribbits: RibbitListState = {};
+    const ribbitSnapshot: FBQuerySnap = await getDocs(q);
+    ribbitSnapshot.forEach((doc: any) => {
+      const ribbit: RibbitType = doc.data();
       ribbit.id = doc.id;
       ribbits[ribbit.id] = ribbit;
     });
     return ribbits;
   };
-
-  const removeRibbitLocal = (tab: any, id: string) => {
+  // Remove the ribbit from the UI when a user deletes it
+  const removeRibbitLocal = (tab: any, id: string): void => {
     const copyList = { ...ribbitList };
-    console.log(copyList[id]);
+
     delete copyList[id];
     setRibbitList(copyList);
   };
-
-  const addRibbitLocal = (id: string, twatInfo: any) => {
-    const ribbit = twatInfo;
+  // Add ribbit to the UI after the user ribbits
+  const addRibbitLocal = (id: string, ribbitInfo: RibbitType): void => {
+    const ribbit: RibbitType = ribbitInfo;
     ribbit.id = id;
-    const newTwat = { [id]: ribbit };
+    const newRibbit = { [id]: ribbit };
 
-    setRibbitList((prevState: any) => ({ ...newTwat, ...prevState }));
+    setRibbitList((prevState: any) => ({ ...newRibbit, ...prevState }));
   };
 
   useEffect(() => {
-    const queryFollowingTwats = async () => {
-      if (!currentUser) return;
-      const following = Object.keys(currentUser.following);
+    // Query the ribbits for the 'Following' tab inside home panel
+    const queryFollowingRibbits = async (): Promise<void> => {
+      if (!mainUser) return;
+      const following: string[] = Object.keys(mainUser.following);
 
-      let q;
+      let q: FBQuery;
       if (tab !== "Following") {
         q = query(
           collection(db, "twats"),
@@ -80,24 +86,24 @@ const Home = ({ currentUser }: any) => {
         );
       }
 
-      let twats: any = await fetchRibbits(q);
+      let twats: RibbitListState = await fetchRibbits(q);
 
       setRibbitList(twats);
     };
-    queryFollowingTwats();
-  }, [currentUser, tab]);
+    queryFollowingRibbits();
+  }, [mainUser, tab]);
 
   useEffect(() => {
-    const q = query(
+    const q: FBQuery = query(
       collection(db, "twats"),
-      where("handle", "==", currentUser.userHandle)
+      where("handle", "==", mainUser.userHandle)
     );
-
-    const unsub = onSnapshot(q, (snapshot) => {
+    // Listens for any new ribbits in the DB to add to the UI
+    const unsub = onSnapshot(q, (snapshot: FBQuerySnap) => {
       if (isFirstRender) {
         setIsFirstRender(false);
       } else {
-        snapshot.docChanges().forEach((change) => {
+        snapshot.docChanges().forEach((change: any) => {
           if (change.type === "added") {
             if (ribbitList[change.doc.id]) return;
             console.log("addition");
@@ -112,7 +118,7 @@ const Home = ({ currentUser }: any) => {
     };
   }, [isFirstRender]);
 
-  if (!currentUser) return null;
+  if (!mainUser) return null;
 
   return (
     <div className="home-panel-container">
@@ -120,7 +126,7 @@ const Home = ({ currentUser }: any) => {
         <HomePanelNavbar setTab={setTab} />
       </div>
       <div className="home-panel-main-feed">
-        <HomePanelRibbitInput currentUser={currentUser} />
+        <HomePanelRibbitInput mainUser={mainUser} />
 
         <div>
           {Object.keys(ribbitList).map((doc: any) => {
@@ -128,11 +134,9 @@ const Home = ({ currentUser }: any) => {
               <Ribbit
                 ribbitInfo={ribbitList[doc]}
                 isDeletable={
-                  currentUser.userHandle === ribbitList[doc].handle
-                    ? true
-                    : false
+                  mainUser.userHandle === ribbitList[doc].handle ? true : false
                 }
-                currentHandle={currentUser.userHandle}
+                currentHandle={mainUser.userHandle}
                 isThreaded={false}
                 key={ribbitList[doc].id}
                 refreshRibbits={removeRibbitLocal}

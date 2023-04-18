@@ -1,6 +1,14 @@
 import "../../styles/DeleteOptionDropdown.css";
 
-const BackgroundTransparent = ({ isVisible, toggleVisibility }: any) => {
+interface BackgroundTransparentProps {
+  isVisible: boolean;
+  toggleVisibility: Function;
+}
+
+const BackgroundTransparent = ({
+  isVisible,
+  toggleVisibility,
+}: BackgroundTransparentProps) => {
   if (!isVisible) return null;
   return (
     <div

@@ -1,16 +1,14 @@
 import "../../../styles/ProfilePanelInfo.css";
 
-import { DocumentData } from "firebase/firestore";
-
 import ProfileActionsButtons from "./ProfileActionsButtons";
 import EditProfilePopup from "./EditProfilePopup";
-import useForceUpdate from "../../useForceUpdate";
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+import { RibbityUser } from "../../../Ribbity.types";
 
 interface ProfilePanelInfoProps {
-  visitedUser: DocumentData | undefined; // The user of whatever page we are viewing
-  currentUser?: any; // Current handle of the signed in user
+  visitedUser: RibbityUser; // The user of whatever page we are viewing
+  currentUser: RibbityUser; // Current handle of the signed in user
   showEditPopup: boolean;
   setEditPopup: Function;
   updateChanges: Function;
@@ -25,8 +23,6 @@ const ProfilePanelInfo = ({
   updateChanges,
   refreshUserUI,
 }: ProfilePanelInfoProps) => {
-  const navigate = useNavigate();
-
   if (!visitedUser) return null;
 
   return (

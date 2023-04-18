@@ -2,29 +2,47 @@ import "../../../styles/WhoToFollow.css";
 import RecommendedFollow from "./RecommendedFollow";
 import ShowMoreButton from "../ShowMoreButton";
 import { useEffect, useState } from "react";
-import { collection, limit, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  limit,
+  query,
+  where,
+  getDocs,
+  Query,
+  DocumentData,
+  QuerySnapshot,
+} from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import { useParams } from "react-router-dom";
+import { RibbityUser } from "../../../Ribbity.types";
 
-const WhoToFollowPanel = ({ currentUser, setCurrentUser, isVisible }: any) => {
-  const [recommendList, setRecommendList] = useState<any>([]);
+interface WhoToFollowPanelProps {
+  mainUser: RibbityUser;
+  isVisible: boolean;
+}
+
+type FBQuery = Query<DocumentData>;
+type FBSnap = QuerySnapshot<DocumentData>;
+
+const WhoToFollowPanel = ({ mainUser, isVisible }: WhoToFollowPanelProps) => {
+  const [recommendList, setRecommendList] = useState<RibbityUser[]>([]);
   const { handle } = useParams();
 
   useEffect(() => {
-    const getUsersToFollow = async () => {
-      if (!currentUser.following) return;
-      const followingArray = Object.keys(currentUser.following);
+    const getUsersToFollow = async (): Promise<void> => {
+      if (!mainUser.following) return;
+      const followingArray: string[] = Object.keys(mainUser.following);
 
-      const q = query(
+      const q: FBQuery = query(
         collection(db, "user-info"),
 
         where("userHandle", "not-in", followingArray),
         limit(2)
       );
-      const toFollowSnapshot = await getDocs(q);
-      const toFollowList: any = [];
-      toFollowSnapshot.forEach((doc) => {
-        const user = doc.data();
+      const toFollowSnapshot: FBSnap = await getDocs(q);
+      const toFollowList: RibbityUser[] = [];
+      toFollowSnapshot.forEach((doc: any) => {
+        const user: RibbityUser = doc.data();
         user.id = doc.id;
         toFollowList.push(user);
       });
@@ -32,16 +50,16 @@ const WhoToFollowPanel = ({ currentUser, setCurrentUser, isVisible }: any) => {
     };
 
     getUsersToFollow();
-  }, [currentUser.following, handle]);
+  }, [mainUser.following, handle]);
 
-  if (!currentUser || recommendList.length === 0) return null;
+  if (!mainUser || recommendList.length === 0) return null;
   return (
     <div className={!isVisible ? "display-off" : "who-to-follow-container"}>
       <h1>Who to follow</h1>
-      {recommendList.map((user: any, index: number) => {
+      {recommendList.map((user: RibbityUser, index: number) => {
         return (
           <div key={index}>
-            <RecommendedFollow recommendedUser={user} mainUser={currentUser} />
+            <RecommendedFollow recommendedUser={user} mainUser={mainUser} />
           </div>
         );
       })}

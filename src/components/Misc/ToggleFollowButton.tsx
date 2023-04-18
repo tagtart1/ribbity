@@ -1,27 +1,37 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import "../../styles/ToggleFollowButton.css";
 import UnfollowConfirmation from "./UnfollowConfirmation";
-import { updateDoc, doc, deleteField } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  deleteField,
+  DocumentReference,
+  DocumentData,
+} from "firebase/firestore";
 import { db } from "../../scripts/firebaseConfig";
+import { RibbityUser } from "../../Ribbity.types";
 
 interface ToggleFollowButtonProps {
-  mainUser: any;
-  userInfo: any;
+  mainUser: RibbityUser;
+  userInfo: RibbityUser;
 }
 
+// Type aliases
+type DocRef = DocumentReference<DocumentData>;
+// The standard follow button that goes on the whoToFollow panel and user profile panels
 const ToggleFollowButton = ({
   mainUser,
   userInfo,
 }: ToggleFollowButtonProps) => {
-  const [visibility, setVisibility] = useState<boolean>(false);
-  const userRef = doc(db, "user-info", userInfo.id);
-  let mainRef: any = "";
-  if (mainUser.id) mainRef = doc(db, "user-info", mainUser.id);
   const [isFollowing, setIsFollowing] = useState<boolean>(
     userInfo.followers[mainUser.userHandle]
   );
+  const [visibility, setVisibility] = useState<boolean>(false);
 
-  const unfollowUser = async () => {
+  const userRef: DocRef = doc(db, "user-info", userInfo.id);
+  const mainRef: DocRef = doc(db, "user-info", mainUser.id);
+
+  const unfollowUser = async (): Promise<void> => {
     setIsFollowing(false);
     await updateDoc(userRef, {
       [`followers.${mainUser.userHandle}`]: deleteField(),
@@ -32,7 +42,7 @@ const ToggleFollowButton = ({
     });
   };
 
-  const followUser = async () => {
+  const followUser = async (): Promise<void> => {
     setIsFollowing(true);
     await updateDoc(userRef, {
       [`followers.${mainUser.userHandle}`]: true,

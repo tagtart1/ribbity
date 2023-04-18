@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import CloseCross from "../../media/svg/CloseCross";
 import "../../styles/LongPopupNavbarMobile.css";
 import ReactDOM from "react-dom";
@@ -10,32 +10,36 @@ import { signOutUser } from "../../scripts/firebaseHelperFns";
 import BookmarksIcon from "../../media/svg/BookmarksIcon";
 import { useEffect } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { RibbityUser } from "../../Ribbity.types";
 
 interface LongPopupNavbarMobileProps {
   isVisible: boolean;
   setVisibility: Function;
-  mainUser: any;
+  mainUser: RibbityUser;
 }
+
+// Type aliases
+type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
 
 const LongPopupNavbarMobile = ({
   isVisible,
   setVisibility,
   mainUser,
 }: LongPopupNavbarMobileProps) => {
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
 
-  const closePopup = () => {
+  const closePopup = (): void => {
     setVisibility(false);
   };
 
-  const closePopupOffside = (e: any) => {
-    if (e.target === e.currentTarget) {
+  const handleResizeClose = (): void => {
+    if (window.innerWidth > 500) {
       closePopup();
     }
   };
 
-  const handleResizeClose = () => {
-    if (window.innerWidth > 500) {
+  const closePopupOffside = (e: ClickDivEvent): void => {
+    if (e.target === e.currentTarget) {
       closePopup();
     }
   };
@@ -52,13 +56,12 @@ const LongPopupNavbarMobile = ({
 
   useEffect(() => {
     window.addEventListener("resize", handleResizeClose);
-
     return () => {
       window.removeEventListener("resize", handleResizeClose);
     };
   }, []);
 
-  const popupRoot = document.getElementById("popup-root");
+  const popupRoot: HTMLElement | null = document.getElementById("popup-root");
   if (!popupRoot) return null;
   return ReactDOM.createPortal(
     <AnimatePresence>

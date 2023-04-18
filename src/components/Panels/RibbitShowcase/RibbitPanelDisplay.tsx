@@ -1,4 +1,9 @@
-import { addDoc, collection } from "firebase/firestore";
+import {
+  CollectionReference,
+  DocumentReference,
+  addDoc,
+  collection,
+} from "firebase/firestore";
 import { useRef, useState } from "react";
 import { db } from "../../../scripts/firebaseConfig";
 import {
@@ -15,9 +20,10 @@ import { toast } from "react-hot-toast";
 import BackgroundTransparent from "../../Misc/BackgroundTransparent";
 import DeleteOptionDropdown from "../../Ribbit/DeleteOptionDropdown";
 import useDeleteRibbit from "../../useDeleteRibbit";
+import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 interface RibbitPanelDisplayProps {
-  ribbitInfo: any;
-  mainUser: any;
+  ribbitInfo: RibbitType;
+  mainUser: RibbityUser;
   addNewComment: Function;
 }
 
@@ -37,26 +43,24 @@ const RibbitPanelDisplay = ({
   const notifyClipboard = () => toast("Copied to clipboard");
   const inputRef: any = useRef();
 
-  const autoGrowTextArea = (e: any) => {
+  const autoGrowTextArea = (e: any): void => {
     const textarea = e.target;
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight + "px";
   };
 
-  const openDeleteOption = () => {
+  const openDeleteOption = (): void => {
     if (mainUser.userHandle !== ribbitInfo.handle) return;
     setOpenDelete(true);
   };
 
-  const handleSubmitReply = async (e: any) => {
+  const handleSubmitReply = async (e: any): Promise<void> => {
     e.preventDefault();
     // Check for invalid data
     if (!isValidString(inputRef.current.value)) return;
-    const ribbitsRef = collection(db, "twats");
+    const ribbitsRef: CollectionReference = collection(db, "twats");
 
-    console.log(ribbitInfo.id);
-
-    const comment = {
+    const comment: RibbitType = {
       handle: mainUser.userHandle,
       userName: mainUser.userName,
       dislikedBy: {},
@@ -74,7 +78,7 @@ const RibbitPanelDisplay = ({
       id: "",
     };
 
-    const commentRef = await addDoc(ribbitsRef, comment);
+    const commentRef: DocumentReference = await addDoc(ribbitsRef, comment);
     e.target.reset();
     inputRef.current.style.height = "fit-content";
     comment.id = commentRef.id;
@@ -82,12 +86,12 @@ const RibbitPanelDisplay = ({
     addNewComment(comment);
   };
 
-  const handleDeleteRibbit = async () => {
+  const handleDeleteRibbit = (): void => {
     deleteRibbit();
     setOpenDelete(false);
   };
 
-  const copyRibbitLinkToClipboard = () => {
+  const copyRibbitLinkToClipboard = (): void => {
     const currentPath = window.location.href;
 
     navigator.clipboard.writeText(currentPath);

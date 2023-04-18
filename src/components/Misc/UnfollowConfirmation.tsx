@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "../../styles/UnfollowConfirmation.css";
 import ReactDOM from "react-dom";
 
@@ -9,20 +8,22 @@ interface UnfollowConfirmationProps {
   userHandle: string;
 }
 
+// Type aliases
+type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
+
 const UnfollowConfirmation = ({
   setVisibility,
   visibility,
   confirmationCallback,
   userHandle,
 }: UnfollowConfirmationProps) => {
-  const handleClickAwayCancel = (e: any) => {
-    console.log(e.buttons);
+  const handleClickAwayCancel = (e: ClickDivEvent) => {
     if (e.target === e.currentTarget && e.buttons === 1) {
       setVisibility(false);
       document.documentElement.style.overflowY = "visible";
     }
   };
-  const popupRoot = document.getElementById("popup-root");
+  const popupRoot: HTMLElement | null = document.getElementById("popup-root");
 
   if (!visibility || !popupRoot) return null;
   document.documentElement.style.overflowY = "hidden";
