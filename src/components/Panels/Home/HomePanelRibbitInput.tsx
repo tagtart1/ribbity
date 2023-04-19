@@ -45,12 +45,13 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
         all: [],
       },
       id: "",
+      creatorId: mainUser.id,
     };
 
     try {
-      await addDoc(collection(db, "twats"), newRibbit);
+      await addDoc(collection(db, "ribbits"), newRibbit);
     } catch (error) {
-      console.error("Error uploading twat to firebaseDB", error);
+      console.error("Error uploading ribbit to firebaseDB", error);
     }
 
     e.target.reset();

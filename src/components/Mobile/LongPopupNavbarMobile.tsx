@@ -150,7 +150,14 @@ const LongPopupNavbarMobile = ({
               </li>
             </ul>
             <div className="popup-mobile-nav-misc">
-              <p onClick={signOutUser}>Logout</p>
+              <p
+                onClick={() => {
+                  signOutUser();
+                  window.location.reload();
+                }}
+              >
+                Logout
+              </p>
             </div>
           </motion.div>
         </motion.div>

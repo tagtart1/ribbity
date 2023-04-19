@@ -1,7 +1,11 @@
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import "../../styles/InvalidRoutePanel.css";
 
-const InvalidRoutePanel = () => {
+interface InvalidRoutePanelProps {
+  isWorkInProgress?: boolean;
+}
+
+const InvalidRoutePanel = ({ isWorkInProgress }: InvalidRoutePanelProps) => {
   const navigate: NavigateFunction = useNavigate();
 
   return (
@@ -31,8 +35,20 @@ const InvalidRoutePanel = () => {
       </div>
       <div className="invalid-route-message-wrapper">
         <div>
-          <h1>Nothing to see here!</h1>
-          <p>Try searching for something else.</p>
+          {isWorkInProgress ? (
+            <>
+              <h1>Oops, nothing is here yet!</h1>
+              <p>
+                We're working very hard to get this feature out to you quickly.
+              </p>
+            </>
+          ) : (
+            <>
+              <h1>Nothing to see here!</h1>
+              <p>Try searching for something else.</p>
+            </>
+          )}
+
           <div className="button-wrapper">
             <button
               onClick={() => {

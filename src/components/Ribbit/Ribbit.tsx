@@ -103,10 +103,13 @@ const Ribbit = ({
           <header>
             <Link to={`/${ribbitInfo.handle}`}>
               <div className="header-user-names">
-                <span className="username">{ribbitInfo.userName}</span>
-                <span className="grey">@{ribbitInfo.handle}</span>
-                <span className="grey">·</span>
-                <span className="grey">{getTimeSincePosted(ribbitInfo)}</span>
+                <div className="username">{ribbitInfo.userName}</div>
+                <div className="grey userhandle">@{ribbitInfo.handle}</div>
+
+                <div className="grey">·</div>
+                <div className="grey date-posted">
+                  {getTimeSincePosted(ribbitInfo)}
+                </div>
               </div>
             </Link>
             <div>

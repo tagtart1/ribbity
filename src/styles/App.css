@@ -38,7 +38,7 @@
   .home-panel-container,
   .loading-panel-wrapper,
   .user-follow-panel,
-  .twat-panel-container,
+  .ribbit-panel-container,
   .invalid-route-panel-container {
     margin-left: 15px !important;
     margin-right: 20px !important;
@@ -51,7 +51,7 @@
   .home-panel-container,
   .loading-panel-wrapper,
   .user-follow-panel,
-  .twat-panel-container,
+  .ribbit-panel-container,
   .invalid-route-panel-container {
     margin-left: 10px !important;
   }
@@ -63,7 +63,7 @@
   .home-panel-container,
   .loading-panel-wrapper,
   .user-follow-panel,
-  .twat-panel-container,
+  .ribbit-panel-container,
   .invalid-route-panel-container {
     margin-right: 0px !important;
   }
@@ -75,7 +75,7 @@
   .home-panel-container,
   .loading-panel-wrapper,
   .user-follow-panel,
-  .twat-panel-container,
+  .ribbit-panel-container,
   .invalid-route-panel-container {
     max-width: auto;
   }
@@ -87,7 +87,7 @@
   .home-panel-container,
   .loading-panel-wrapper,
   .user-follow-panel,
-  .twat-panel-container,
+  .ribbit-panel-container,
   .invalid-route-panel-container {
     margin-left: 5px !important;
   }
@@ -103,7 +103,7 @@
   .home-panel-container,
   .loading-panel-wrapper,
   .user-follow-panel,
-  .twat-panel-container,
+  .ribbit-panel-container,
   .invalid-route-panel-container {
     margin-left: 0px !important;
     border-left: none !important;

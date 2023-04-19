@@ -41,6 +41,7 @@ const LogoutPopup = ({ isVisible, setVisibility }: LogoutPopupProps) => {
             onClick={() => {
               document.documentElement.style.overflowY = "visible";
               signOutUser();
+              window.location.reload();
             }}
           >
             Log out

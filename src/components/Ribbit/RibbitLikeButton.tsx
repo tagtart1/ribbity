@@ -38,7 +38,7 @@ const RibbitLikeButton = ({
       // Unlke twat
 
       setIsLiked(false);
-      await updateDoc(doc(db, "twats", ribbitInfo.id), {
+      await updateDoc(doc(db, "ribbits", ribbitInfo.id), {
         [`likedBy.${currentHandle}`]: deleteField(),
       });
     } else {
@@ -46,7 +46,7 @@ const RibbitLikeButton = ({
       setActiveButton("like");
 
       setIsLiked(true);
-      await updateDoc(doc(db, "twats", ribbitInfo.id), {
+      await updateDoc(doc(db, "ribbits", ribbitInfo.id), {
         [`likedBy.${currentHandle}`]: true,
       });
     }

@@ -58,7 +58,7 @@ const RibbitPanelDisplay = ({
     e.preventDefault();
     // Check for invalid data
     if (!isValidString(inputRef.current.value)) return;
-    const ribbitsRef: CollectionReference = collection(db, "twats");
+    const ribbitsRef: CollectionReference = collection(db, "ribbits");
 
     const comment: RibbitType = {
       handle: mainUser.userHandle,
@@ -76,6 +76,7 @@ const RibbitPanelDisplay = ({
       timeStamp: getTimestamp(),
       isComment: true,
       id: "",
+      creatorId: mainUser.id,
     };
 
     const commentRef: DocumentReference = await addDoc(ribbitsRef, comment);

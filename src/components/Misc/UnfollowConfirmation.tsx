@@ -23,6 +23,7 @@ const UnfollowConfirmation = ({
       document.documentElement.style.overflowY = "visible";
     }
   };
+
   const popupRoot: HTMLElement | null = document.getElementById("popup-root");
 
   if (!visibility || !popupRoot) return null;

@@ -140,6 +140,19 @@ const App = () => {
             }
           />
 
+          <Route
+            path="/notifications"
+            element={<InvalidRoutePanel isWorkInProgress={true} />}
+          />
+          <Route
+            path="/messages"
+            element={<InvalidRoutePanel isWorkInProgress={true} />}
+          />
+          <Route
+            path="/bookmarks"
+            element={<InvalidRoutePanel isWorkInProgress={true} />}
+          />
+
           <Route path="*" element={<InvalidRoutePanel />} />
         </Routes>
 

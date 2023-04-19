@@ -36,10 +36,10 @@ const RibbitPanel = ({ mainUser }: RibbitPanelProps) => {
   const retrieveRibbitInfo = async (shouldLoad?: string): Promise<void> => {
     if (!db || !ribbitId) return;
     if (shouldLoad === undefined) setIsLoading(true);
-    const infoRef: DocumentReference = doc(db, "twats", ribbitId);
+    const infoRef: DocumentReference = doc(db, "ribbits", ribbitId);
     // Query by the replyingTo ID
     const commentsQuery: Query = query(
-      collection(db, "twats"),
+      collection(db, "ribbits"),
       where("replyingTo.id", "==", ribbitId)
     );
 
@@ -74,7 +74,7 @@ const RibbitPanel = ({ mainUser }: RibbitPanelProps) => {
     const results: RibbitType[] = [];
     const queries: DocumentReference[] = [];
     for (let i = 0; i < ribbit.replyingTo.all.length; i += 1) {
-      const docRef = doc(db, "twats", ribbit.replyingTo.all[i]);
+      const docRef = doc(db, "ribbits", ribbit.replyingTo.all[i]);
       queries.push(docRef);
     }
 
@@ -88,13 +88,13 @@ const RibbitPanel = ({ mainUser }: RibbitPanelProps) => {
         ribbit.id = snapshot.id;
         results.push(ribbit);
       } else {
-        throw new Error("Could not find parent twat by id");
+        throw new Error("Could not find parent ribbit by id");
       }
     });
 
     setParentRibbits(results);
   };
-  // Adds the newest made comment to the top of the comment section, locally. Upon refresh then retrieveTwatInfo will sort the comment section again
+  // Adds the newest made comment to the top of the comment section, locally. Upon refresh then retrieveRibbitInfo will sort the comment section again
   const addNewComment = (comment: RibbitType): void => {
     const commentsCopy: RibbitType[] = [...comments];
     commentsCopy.unshift(comment);

@@ -34,9 +34,9 @@ const useDeleteRibbit = ({
   const deleteRibbit = useCallback(async () => {
     const deleteChildrenRibbits = async (): Promise<void> => {
       const batch: WriteBatch = writeBatch(db);
-      // Query all twats the contain the twat up for deletion's id
+      // Query all ribbits the contain the ribbit up for deletion's id
       const childrenQuery = query(
-        collection(db, "twats"),
+        collection(db, "ribbits"),
         where("replyingTo.all", "array-contains", ribbitInfo.id)
       );
 
@@ -53,7 +53,7 @@ const useDeleteRibbit = ({
     };
 
     try {
-      await deleteDoc(doc(db, "twats", ribbitInfo.id));
+      await deleteDoc(doc(db, "ribbits", ribbitInfo.id));
       deleteChildrenRibbits();
       notifySuccess();
     } catch (error) {

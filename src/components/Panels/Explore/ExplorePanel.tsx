@@ -28,7 +28,10 @@ const ExplorePanel = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const allRibbitsQuery: FBQuery = query(collection(db, "twats"), limit(30));
+    const allRibbitsQuery: FBQuery = query(
+      collection(db, "ribbits"),
+      limit(30)
+    );
     const fetchRibbits = async (q: FBQuery): Promise<void> => {
       let ribbits: RibbitType[] = [];
 

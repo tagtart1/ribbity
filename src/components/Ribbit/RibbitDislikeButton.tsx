@@ -39,7 +39,7 @@ const RibbitDislikeButton = ({
       //Undislike ribbit
 
       setIsDisliked(false);
-      await updateDoc(doc(db, "twats", ribbitInfo.id), {
+      await updateDoc(doc(db, "ribbits", ribbitInfo.id), {
         [`dislikedBy.${currentHandle}`]: deleteField(),
       });
     } else {
@@ -47,7 +47,7 @@ const RibbitDislikeButton = ({
       setActiveButton("dislike");
 
       setIsDisliked(true);
-      await updateDoc(doc(db, "twats", ribbitInfo.id), {
+      await updateDoc(doc(db, "ribbits", ribbitInfo.id), {
         [`dislikedBy.${currentHandle}`]: true,
       });
     }

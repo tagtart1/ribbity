@@ -28,7 +28,8 @@ const RecommendedFollow = ({
           className="recommended-user-image"
         />
         <div className="recommended-follow-names">
-          <p>{recommendedUser.userName}</p>
+          <p className="user-name">{recommendedUser.userName}</p>
+
           <p>@{recommendedUser.userHandle}</p>
         </div>
       </div>

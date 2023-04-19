@@ -55,20 +55,20 @@ const ProfilePanel = ({
   const getUserRibbits = async (): Promise<void> => {
     let q: Query;
     setIsLoadingInternal(true);
-    if (tab === "twats" || tab === undefined) {
+    if (tab === "ribbits" || tab === undefined) {
       q = query(
-        collection(db, "twats"),
+        collection(db, "ribbits"),
         where("handle", "==", handle),
         where("isComment", "==", false)
       );
     } else if (tab === "likes") {
       q = query(
-        collection(db, "twats"),
+        collection(db, "ribbits"),
         where(`likedBy.${handle}`, "==", true)
       );
     } else if (tab === "replies") {
       q = query(
-        collection(db, "twats"),
+        collection(db, "ribbits"),
         where("handle", "==", handle),
         where("isComment", "==", true),
         where(`replyingTo.handle`, "!=", handle)
@@ -117,7 +117,7 @@ const ProfilePanel = ({
       case undefined:
         return (
           <EmptyRibbitList
-            tab="twats"
+            tab="ribbits"
             isMainUser={currentUser.userHandle === handle}
             visitedUserHandle={handle}
           />
@@ -168,19 +168,19 @@ const ProfilePanel = ({
     setCurrentUser(user);
     // Change all ribbits with updated info
     const q: Query = query(
-      collection(db, "twats"),
+      collection(db, "ribbits"),
       where("handle", "==", handle)
     );
     const ribbits: QuerySnap = await getDocs(q);
     ribbits.forEach(async (docSnap: any) => {
-      const docRef: DocRef = doc(db, "twats", docSnap.id);
+      const docRef: DocRef = doc(db, "ribbits", docSnap.id);
 
       await updateDoc(docRef, {
         userName: user?.userName,
         userProfileImg: user?.profileImgUrl,
       });
     });
-    // Reget the twats and user
+    // Reget the ribbits and user
     getUserFromUrlParam("no_load");
 
     setShowEditProfile(false);
@@ -189,13 +189,13 @@ const ProfilePanel = ({
   useEffect(() => {
     window.scrollTo(0, 0);
     const q: Query = query(
-      collection(db, "twats"),
+      collection(db, "ribbits"),
       where("handle", "==", handle),
       orderBy("timeInMillisecond", "desc")
     );
 
     const unsub = onSnapshot(q, (snapshot: QuerySnap) => {
-      if (tab === "likes") return; // Assures we dont pull all twats into wrong tab, may need readjustmust if adding media
+      if (tab === "likes") return; // Assures we dont pull all ribbits into wrong tab, may need readjustmust if adding media
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
           getUserFromUrlParam("no_load");
@@ -224,7 +224,8 @@ const ProfilePanel = ({
   }, [tab]);
 
   if (isLoading) return <LoadingPanel />;
-  if (!visitedUserInfo) return <InvalidRoutePanel />;
+  if (!visitedUserInfo || !visitedUserInfo.userHandle)
+    return <InvalidRoutePanel />;
   return (
     <div className="profile-panel-container">
       <div className="profile-panel-top-header">

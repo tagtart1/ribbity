@@ -18,7 +18,7 @@ const TwatReplyCounter = ({ ribbitId }: RibbitReplyCounterProps) => {
   useEffect(() => {
     const getReplyCount = async () => {
       const q: Query = query(
-        collection(db, "twats"),
+        collection(db, "ribbits"),
         where("replyingTo.id", "==", ribbitId)
       );
       const snap = await getCountFromServer(q);

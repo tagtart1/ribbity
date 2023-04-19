@@ -48,7 +48,7 @@ const RibbitPopupInput = ({
 
     if (!isValidString(input.value)) return;
     try {
-      await addDoc(collection(db, "twats"), {
+      await addDoc(collection(db, "ribbits"), {
         text: input.value,
         timeStamp: getTimestamp(),
         handle: mainUser.userHandle,
@@ -63,6 +63,7 @@ const RibbitPopupInput = ({
           handle: "",
           all: [],
         },
+        creatorId: mainUser.id,
       });
 
       notifySuccess();

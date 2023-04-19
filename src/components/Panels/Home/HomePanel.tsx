@@ -72,13 +72,13 @@ const Home = ({ mainUser }: HomePanelProps) => {
       let q: FBQuery;
       if (tab !== "Following") {
         q = query(
-          collection(db, "twats"),
+          collection(db, "ribbits"),
           limit(30),
           orderBy("timeInMillisecond", "desc")
         );
       } else {
         q = query(
-          collection(db, "twats"),
+          collection(db, "ribbits"),
           where("handle", "in", following),
           where("isComment", "==", false),
           orderBy("timeInMillisecond", "desc"),
@@ -86,16 +86,16 @@ const Home = ({ mainUser }: HomePanelProps) => {
         );
       }
 
-      let twats: RibbitListState = await fetchRibbits(q);
+      let ribbits: RibbitListState = await fetchRibbits(q);
 
-      setRibbitList(twats);
+      setRibbitList(ribbits);
     };
     queryFollowingRibbits();
   }, [mainUser, tab]);
 
   useEffect(() => {
     const q: FBQuery = query(
-      collection(db, "twats"),
+      collection(db, "ribbits"),
       where("handle", "==", mainUser.userHandle)
     );
     // Listens for any new ribbits in the DB to add to the UI
