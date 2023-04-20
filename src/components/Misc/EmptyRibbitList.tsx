@@ -61,7 +61,7 @@ const EmptyRibbitList = ({
     }
   }
 
-  if (tab === "twats") {
+  if (tab === "ribbits") {
     if (isMainUser) {
       return (
         <div className="empty-ribbit-list-wrapper">

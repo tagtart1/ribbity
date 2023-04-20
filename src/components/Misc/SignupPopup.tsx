@@ -9,6 +9,8 @@ import CloseCross from "../../media/svg/CloseCross";
 import LikeIconFilled from "../../media/svg/LikeIconFilled";
 import FollowUserHollow from "../../media/svg/FollowUserHollow";
 import { RibbityUser } from "../../Ribbity.types";
+import ReRibbitIcon from "../../media/svg/ReRibbitIcon";
+import ReRibbitIconColor from "../../media/svg/ReRibbitIconColor";
 
 interface SignupPopupProps {
   userName: string;
@@ -46,18 +48,21 @@ const SignupPopup = ({
     dislike: <DislikeIconFilled />,
     like: <LikeIconFilled />,
     follow: <FollowUserHollow />,
+    reribbit: <ReRibbitIconColor />,
   };
 
   const headerTexts: TextsObjects = {
     dislike: "Dislike a Ribbit to share the love.",
     like: "Like a Ribbit to share the love.",
     follow: `Follow ${userName} to see what they share on Ribbity.`,
+    reribbit: `Reribbit this to spread the word.`,
   };
 
   const paraTexts: TextsObjects = {
     dislike: `Join Ribbity now to let ${userName} know you dislike their Ribbit.`,
     like: `Join Ribbity now to let ${userName} know you like their Ribbit.`,
     follow: "Sign up so you never miss their Ribbits.",
+    reribbit: `Join Ribbit now to share ${userName}'s Ribbit.`,
   };
 
   const navigate: NavigateFunction = useNavigate();

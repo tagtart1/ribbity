@@ -17,6 +17,8 @@ import {
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
+import { isUserSignedIn } from "../../../scripts/firebaseHelperFns";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 interface HomePanelProps {
   mainUser: RibbityUser;
@@ -35,6 +37,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
   // Ensures the snapshot doesnt always subscribe when not needed
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
   const [tab, setTab] = useState<string>("For you");
+  const navigate: NavigateFunction = useNavigate();
 
   // Grab the ribbits from the firebase DB
   const fetchRibbits = async (q: FBQuery): Promise<RibbitListState> => {
@@ -141,6 +144,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
                 key={ribbitList[doc].id}
                 refreshRibbits={removeRibbitLocal}
                 inShowcase={false}
+                isReRibbit={false}
               />
             );
           })}

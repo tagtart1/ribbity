@@ -46,6 +46,9 @@ type RibbitType = {
   userName: string;
   userProfileImg: string;
   creatorId: string;
+  reribbitedBy: {
+    [key: string]: number;
+  };
 };
 
 export type { RibbitType, RibbityUser };

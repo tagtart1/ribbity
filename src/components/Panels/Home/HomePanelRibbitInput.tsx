@@ -46,6 +46,7 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
       },
       id: "",
       creatorId: mainUser.id,
+      reribbitedBy: {},
     };
 
     try {

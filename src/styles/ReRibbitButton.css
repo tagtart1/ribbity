@@ -1,0 +1,49 @@
+@import url("AppCSSVariables.css");
+
+.ribbit-option-icon-retweet {
+  padding: 8px;
+  border-radius: 50%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s all;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+#reribbit-button-wrapper:hover svg path {
+  fill: #00cfd6 !important;
+}
+
+#reribbit-button-wrapper:hover .ribbit-option-icon-retweet {
+  background-color: #07141a !important;
+}
+
+.active svg path {
+  fill: #00cfd6 !important;
+}
+#reribbit-button-wrapper:hover .reribbit-count {
+  color: #00cfd6;
+}
+
+#reribbit-button-wrapper .reribbited {
+  color: #00cfd6 !important;
+}
+
+#reribbit-button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+#reribbit-button-wrapper .reribbit-count {
+  pointer-events: all;
+  transition: 0.2s all;
+  color: var(--secondary-text-color);
+  user-select: none;
+  position: absolute;
+  top: 25%;
+}

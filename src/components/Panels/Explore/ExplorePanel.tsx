@@ -68,6 +68,7 @@ const ExplorePanel = () => {
                 ribbitInfo={ribbit}
                 currentHandle=""
                 key={ribbit.id}
+                isReRibbit={false}
               />
             );
           })

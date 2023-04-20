@@ -126,6 +126,7 @@ const RibbitPanel = ({ mainUser }: RibbitPanelProps) => {
               isThreaded={true}
               key={ribbit.id}
               inShowcase={true}
+              isReRibbit={false}
             />
           );
         })}
@@ -146,6 +147,7 @@ const RibbitPanel = ({ mainUser }: RibbitPanelProps) => {
             isThreaded={false}
             key={comment.id}
             inShowcase={true}
+            isReRibbit={false}
           />
         );
       })}

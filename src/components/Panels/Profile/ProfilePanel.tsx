@@ -20,11 +20,15 @@ import {
   QuerySnapshot,
   DocumentData,
   DocumentReference,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
 
-import { sortByTimeInSecondsDescending } from "../../../scripts/HelperFns";
+import {
+  sortByTimeInSecondsDescending,
+  sortRibbitsWithReRibbits,
+} from "../../../scripts/HelperFns";
 import WorkInProgress from "../../Misc/WorkInProgress";
 import InvalidRoutePanel from "../../Misc/InvalidRoutePanel";
 import Spinner from "../../Misc/Spinner";
@@ -53,6 +57,8 @@ const ProfilePanel = ({
   const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
 
   const getUserRibbits = async (): Promise<void> => {
+    let grabReRibbits: boolean = false;
+    let reribbitQ: Query | null = null;
     let q: Query;
     setIsLoadingInternal(true);
     if (tab === "ribbits" || tab === undefined) {
@@ -61,6 +67,11 @@ const ProfilePanel = ({
         where("handle", "==", handle),
         where("isComment", "==", false)
       );
+      reribbitQ = query(
+        collection(db, "ribbits"),
+        where(`reribbitedBy.${handle}`, "!=", null)
+      );
+      grabReRibbits = true;
     } else if (tab === "likes") {
       q = query(
         collection(db, "ribbits"),
@@ -87,6 +98,22 @@ const ProfilePanel = ({
       ribbit.id = doc.id;
       ribbits.push(ribbit);
     });
+
+    if (grabReRibbits) {
+      if (reribbitQ != null) {
+        const reribbitSnapshot = await getDocs(reribbitQ);
+
+        reribbitSnapshot.forEach((doc: any) => {
+          const ribbit: RibbitType = doc.data();
+
+          ribbit.id = doc.id;
+          ribbits.push(ribbit);
+        });
+      }
+      setRibbitList(sortRibbitsWithReRibbits(ribbits, handle));
+      setIsLoadingInternal(false);
+      return;
+    }
 
     setRibbitList(sortByTimeInSecondsDescending(ribbits));
     setIsLoadingInternal(false);
@@ -289,6 +316,15 @@ const ProfilePanel = ({
                 isThreaded={false}
                 key={doc.id}
                 inShowcase={false}
+                isReRibbit={
+                  doc.reribbitedBy[visitedUserInfo.userHandle] != null
+                    ? true
+                    : false
+                }
+                ReRibbitedByInfo={{
+                  userName: visitedUserInfo.userName,
+                  userHandle: visitedUserInfo.userHandle,
+                }}
               />
             );
           })

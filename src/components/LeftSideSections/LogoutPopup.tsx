@@ -1,3 +1,4 @@
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import CloseCross from "../../media/svg/CloseCross";
 import { signOutUser } from "../../scripts/firebaseHelperFns";
 import "../../styles/LogoutPopup.css";
@@ -12,6 +13,7 @@ interface LogoutPopupProps {
 type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
 
 const LogoutPopup = ({ isVisible, setVisibility }: LogoutPopupProps) => {
+  const navigate: NavigateFunction = useNavigate();
   const popupRoot = document.getElementById("popup-root");
 
   const handleOffsideClickClose = (e: ClickDivEvent): void => {
@@ -41,7 +43,7 @@ const LogoutPopup = ({ isVisible, setVisibility }: LogoutPopupProps) => {
             onClick={() => {
               document.documentElement.style.overflowY = "visible";
               signOutUser();
-              window.location.reload();
+              navigate("/");
             }}
           >
             Log out

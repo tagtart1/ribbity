@@ -153,7 +153,8 @@ const LongPopupNavbarMobile = ({
               <p
                 onClick={() => {
                   signOutUser();
-                  window.location.reload();
+
+                  navigate("/");
                 }}
               >
                 Logout

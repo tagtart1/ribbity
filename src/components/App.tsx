@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import HomePanel from "./Panels/Home/HomePanel";
 
 import "../styles/App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import {
   getUserInfo,
   initFirebaseAuth,
@@ -30,6 +30,7 @@ const App = () => {
   const [mainUser, setMainUser] = useState<RibbityUser | null>();
   const [showWhoToFollow, setShowWhoToFollow] = useState<boolean>(true);
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const blankUser: RibbityUser = {
     bannerImgPath: "",
@@ -52,6 +53,9 @@ const App = () => {
       getCurrentUser();
     } else {
       setIsUserSignedIn(false);
+      if (window.location.pathname === "/home") {
+        navigate("/");
+      }
       setMainUser(blankUser);
     }
   };

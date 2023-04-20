@@ -1,8 +1,7 @@
 @import url("AppCSSVariables.css");
 
 .ribbit-option-icon,
-.ribbit-option-icon-heart,
-.ribbit-option-icon-retweet {
+.ribbit-option-icon-heart {
   padding: 8px;
   border-radius: 50%;
   width: fit-content;

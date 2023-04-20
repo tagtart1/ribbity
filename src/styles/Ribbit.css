@@ -10,8 +10,7 @@ header {
 }
 .ribbit-container {
   box-sizing: border-box;
-  display: flex;
-  gap: 12px;
+
   padding: 12px;
 
   padding-bottom: 5px;
@@ -27,6 +26,12 @@ header {
 
   transition: all 0.6s ease-out;
   overflow: hidden;
+}
+
+.ribbit-container-main {
+  display: flex;
+
+  gap: 12px;
 }
 
 .border-bottom {
@@ -187,14 +192,6 @@ path {
   fill: rgb(194, 20, 101);
 }
 
-.ribbit-option-icon-retweet:hover svg path {
-  fill: #00cfd6;
-}
-
-.ribbit-option-icon-retweet:hover {
-  background-color: #07141a;
-}
-
 .ribbit-option-icon-heart:hover {
   background-color: #200914;
 }
@@ -261,6 +258,26 @@ a {
 
 .replying-to-handle:hover {
   text-decoration: underline;
+}
+
+.ribbit-container .reribbited-top-info {
+  color: var(--secondary-text-color);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  gap: 8px;
+  margin-left: 36px;
+  margin-top: -6px;
+}
+
+.ribbit-container .reribbited-top-info svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ribbit-container .reribbited-top-info svg path {
+  fill: var(--secondary-text-color);
 }
 
 @media (max-width: 375px) {

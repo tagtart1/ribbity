@@ -310,6 +310,21 @@ async function cropImage(file): Promise<File> {
   });
 }
 
+function sortRibbitsWithReRibbits(array, handle): RibbitType[] {
+  return array.sort((a, b) => {
+    // Get the timeInSeconds value for object a
+    const aTimeInSeconds =
+      a.handle === handle ? a.timeInMillisecond : a.reribbitedBy[handle];
+
+    // Get the timeInSeconds value for object b
+    const bTimeInSeconds =
+      b.handle === handle ? b.timeInMillisecond : b.reribbitedBy[handle];
+
+    // Sort in descending order
+    return bTimeInSeconds - aTimeInSeconds;
+  });
+}
+
 export {
   kFormatter,
   getMonthDate,
@@ -325,4 +340,5 @@ export {
   isValidString,
   cropImage,
   cropBanner,
+  sortRibbitsWithReRibbits,
 };

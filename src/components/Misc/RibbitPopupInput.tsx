@@ -64,6 +64,7 @@ const RibbitPopupInput = ({
           all: [],
         },
         creatorId: mainUser.id,
+        reribbitedBy: {},
       });
 
       notifySuccess();
