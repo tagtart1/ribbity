@@ -3,6 +3,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import {
   getDoc,
@@ -43,6 +44,11 @@ const nullUser: RibbityUser = {
   profileImgUrl: "",
   userHandle: "",
   userName: "",
+};
+
+export const createUserNative = async (email: string, password: string) => {
+  await createUserWithEmailAndPassword(auth, email, password);
+  // Should create an entire user in firestore and then return that user, set the loading function as well
 };
 
 export const signIn = async (setIsLoadingUser: Function) => {

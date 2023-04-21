@@ -41,8 +41,8 @@ const LogoutPopup = ({ isVisible, setVisibility }: LogoutPopupProps) => {
           <button
             className="logout-button"
             onClick={() => {
-              document.documentElement.style.overflowY = "visible";
               signOutUser();
+              closePopup();
               navigate("/");
             }}
           >

@@ -1,0 +1,166 @@
+@import url("./AppCSSVariables.css");
+
+.create-account-container {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 425px;
+
+  margin-top: 50px;
+}
+
+.create-account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.create-account-form .signup-submit-button {
+  border: none;
+  border-radius: 24px;
+  font-weight: bold;
+  padding: 16px 0px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.create-input-wrapper {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid rgb(51, 54, 57);
+  background-color: black;
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  transition: 0.2s all;
+}
+
+.create-account-form .invalid-input label {
+  color: red;
+}
+
+.create-input-wrapper:focus-within {
+  border-color: var(--primary-color);
+}
+
+.create-input-wrapper:focus-within label {
+  color: var(--primary-color);
+}
+
+.create-input-wrapper input {
+  font-family: "Chirp";
+
+  margin: 0;
+  color: var(--primary-text-color);
+  background-color: black;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 300;
+  margin-top: 18px;
+  width: 90%;
+}
+
+.create-input-wrapper label {
+  font-weight: 300;
+  transition: 0.2s all;
+  position: absolute;
+  left: 9px;
+  font-size: 14px;
+  top: 15%;
+  color: var(--secondary-text-color);
+}
+
+.create-account-container
+  .invalid-input
+  .create-input-wrapper:focus-within
+  label {
+  color: red !important;
+}
+
+.create-account-container .invalid-input .create-input-wrapper {
+  border-color: red !important;
+}
+
+.create-account-container .invalid-create-name::after {
+  color: red;
+  content: "What's your name?";
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.create-account-container .invalid-create-email::after {
+  color: red;
+  content: "Please enter a valid email.";
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.create-account-container .invalid-create-password::after {
+  color: red;
+  content: "Use 8 or more characters with a mix of letters, numbers & symbols.";
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+#show-password-checkbox {
+  display: none;
+}
+
+#show-password-checkbox + label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 15px;
+
+  display: inline-block;
+  color: #666;
+  user-select: none;
+}
+
+input[type="checkbox"] + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #666;
+  background-color: #f2f2f200;
+  border-radius: 3px;
+}
+
+input[type="checkbox"]:checked + label:before {
+  content: "✖";
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #4caf50;
+  background-color: #4caf50;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 19px;
+  color: white;
+  font-weight: bold;
+}
+
+.show-password-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.create-input-wrapper input:placeholder-shown:not(:focus) + label {
+  color: rgb(103, 105, 103);
+  font-size: 18px;
+  top: 30%;
+}
+
+.create-account-form .locked-button {
+  cursor: default;
+  background-color: rgb(184, 184, 184);
+}

@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "../../styles/SignUpFooter.css";
 import AppContext from "../AppContext";
 import { signIn } from "../../scripts/firebaseHelperFns";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { RibbityUser } from "../../Ribbity.types";
+import SignUpNativePopup from "./SignUpNativePopup";
 interface SignUpFooterProps {
   signedIn?: boolean;
 }
@@ -16,6 +17,8 @@ interface AppContextProps {
 const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
   const { setMainUser, loadingHandler }: AppContextProps =
     useContext(AppContext);
+
+  const [openSignupForm, setOpenSignupForm] = useState<boolean>(false);
 
   const navigate: NavigateFunction = useNavigate();
 
@@ -39,11 +42,20 @@ const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
           <button className="login-button" onClick={signInHandle}>
             Log in
           </button>
-          <button className="signup-button" onClick={signInHandle}>
+          <button
+            className="signup-button"
+            onClick={() => {
+              setOpenSignupForm(true);
+            }}
+          >
             Sign up
           </button>
         </div>
       </div>
+      <SignUpNativePopup
+        isVisible={openSignupForm}
+        setOwnVisibility={setOpenSignupForm}
+      />
     </div>
   ) : null;
 };
