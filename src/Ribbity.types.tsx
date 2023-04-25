@@ -15,6 +15,7 @@ type RibbityUser = {
   profileImgUrl: string;
   userHandle: string;
   userName: string;
+  isVerified: boolean;
 };
 
 type RibbitType = {
@@ -49,6 +50,7 @@ type RibbitType = {
   reribbitedBy: {
     [key: string]: number;
   };
+  isVerified: boolean;
 };
 
 export type { RibbitType, RibbityUser };

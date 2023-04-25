@@ -45,6 +45,7 @@ const App = () => {
     profileImgUrl: "",
     userHandle: "",
     userName: "",
+    isVerified: false,
   };
   // Fires when the state of the user being signed in changes
   const authObserver = async (user: any) => {
@@ -103,9 +104,12 @@ const App = () => {
         />
         <MainLeftSection mainUser={mainUser} signedIn={isUserSignedIn} />
         <Routes>
-          <Route path="/" element={<ExplorePanel />} />
+          <Route path="/" element={<ExplorePanel mainUser={mainUser} />} />
           <Route path="/home" element={<HomePanel mainUser={mainUser} />} />
-          <Route path="/explore" element={<ExplorePanel />} />
+          <Route
+            path="/explore"
+            element={<ExplorePanel mainUser={mainUser} />}
+          />
           <Route
             path="/:handle"
             element={

@@ -1,0 +1,157 @@
+@import url("AppCSSVariables.css");
+
+.log-in-account-options-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 300px;
+  width: 100%;
+  gap: 18px;
+  padding-bottom: 24px;
+}
+
+.log-in-account-options-main .header {
+  margin: 12px 0px;
+}
+
+.log-in-account-options-main .sign-in-provider-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  border: none;
+  text-align: center;
+  gap: 8px;
+  justify-content: center;
+  font-size: 15px;
+  padding: 10px 0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.log-in-account-options-main .sign-in-provider-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.log-in-account-options-main .or-seperator {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.log-in-account-options-main .or-seperator span {
+  flex-grow: 0;
+  margin: 0 10px;
+  white-space: nowrap;
+}
+
+.log-in-account-options-main .or-seperator::before,
+.log-in-account-options-main .or-seperator::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--secondary-text-color);
+}
+
+.log-in-input-wrapper {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid rgb(51, 54, 57);
+  background-color: black;
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  transition: 0.2s all;
+}
+
+.log-in-input-wrapper:focus-within {
+  border-color: var(--primary-color);
+}
+
+.log-in-input-wrapper:focus-within label {
+  color: var(--primary-color);
+}
+
+.log-in-input-wrapper input {
+  font-family: "Chirp";
+
+  margin: 0;
+  color: var(--primary-text-color);
+  background-color: black;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 300;
+  margin-top: 18px;
+  width: 90%;
+}
+
+.log-in-input-wrapper label {
+  font-weight: 300;
+  transition: 0.2s all;
+  position: absolute;
+  left: 9px;
+  font-size: 14px;
+  top: 15%;
+  color: var(--secondary-text-color);
+}
+
+.log-in-input-wrapper input:placeholder-shown:not(:focus) + label {
+  color: rgb(103, 105, 103);
+  font-size: 18px;
+  top: 30%;
+}
+
+.log-in-input-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.log-in-input-form .log-in-form-button {
+  width: 100%;
+
+  border-radius: 24px;
+  border: none;
+  text-align: center;
+
+  font-size: 15px;
+  padding: 10px 0;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.sign-up-redirect-call-to-action-text {
+  color: var(--secondary-text-color);
+  align-self: flex-start;
+}
+
+.sign-up-redirect-call-to-action-text .sign-up-redirect-link {
+  color: var(--link-text-color);
+  cursor: pointer;
+}
+
+.sign-up-redirect-call-to-action-text .sign-up-redirect-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--link-text-color);
+}
+
+.locked-button {
+  background-color: rgb(157, 157, 157);
+  cursor: default !important;
+}
+
+.log-in-input-form .log-in-form-button .spinner {
+  width: 10px;
+  height: 10px;
+  border: 5px solid;
+  border-right-color: var(--primary-color);
+}

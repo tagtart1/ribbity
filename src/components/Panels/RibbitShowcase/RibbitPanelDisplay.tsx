@@ -79,6 +79,7 @@ const RibbitPanelDisplay = ({
       id: "",
       creatorId: mainUser.id,
       reribbitedBy: {},
+      isVerified: mainUser.isVerified,
     };
 
     const commentRef: DocumentReference = await addDoc(ribbitsRef, comment);

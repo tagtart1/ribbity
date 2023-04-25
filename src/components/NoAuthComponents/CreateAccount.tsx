@@ -1,15 +1,25 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../scripts/firebaseConfig";
 import "../../styles/CreateAccount.css";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { createUserNative } from "../../scripts/firebaseHelperFns";
+import AppContext from "../AppContext";
+import { RibbityUser } from "../../Ribbity.types";
+import { useNavigate } from "react-router-dom";
+import ShowPasswordCheckbox from "./ShowPasswordCheckbox";
+
+interface AppContext {
+  loadingHandler: Function;
+  setMainUser: Function;
+}
 
 const CreateAccount = () => {
   const submitButtonRef: any = useRef(null);
   const nameInputRef: any = useRef(null);
   const emailInputRef: any = useRef(null);
   const passwordInputRef: any = useRef(null);
-
+  const navigate = useNavigate();
+  const { loadingHandler, setMainUser }: AppContext = useContext(AppContext);
   const [isNameValid, setIsNameValid] = useState<boolean>(false);
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
@@ -25,7 +35,6 @@ const CreateAccount = () => {
     const checkUnlockSubmitButton = (): void => {
       if (!isNameValid || !isEmailValid || !isPasswordValid) {
         submitButtonRef.current.classList.add("locked-button");
-        console.log(isNameValid);
       } else {
         submitButtonRef.current.classList.remove("locked-button");
       }
@@ -38,21 +47,16 @@ const CreateAccount = () => {
     e.preventDefault();
     if (!isEmailValid || !isNameValid || !isPasswordValid) return;
     // This function should return a user and set the current with the appContext then ur done bam
-    createUserNative(
+    const newUser: RibbityUser | null | undefined = await createUserNative(
+      nameInputRef.current.value,
       emailInputRef.current.value,
-      passwordInputRef.current.value
+      passwordInputRef.current.value,
+      loadingHandler
     );
+    if (newUser) setMainUser(newUser);
+    navigate("/home");
   };
 
-  const toggleShowPassword = () => {
-    if (passwordInputRef.current) {
-      if (passwordInputRef.current.type === "password") {
-        passwordInputRef.current.type = "text";
-      } else {
-        passwordInputRef.current.type = "password";
-      }
-    }
-  };
   // Checks if the user name is empty
   const handleUsernameValidation = (): void => {
     if (nameInputRef.current) {
@@ -81,8 +85,10 @@ const CreateAccount = () => {
       );
       if (!emailInputRef.current.checkValidity()) {
         setIsEmailValid(false);
+        console.log("invalid");
         timer = setTimeout(() => {
           // Invalid email
+          if (emailInputRef.current.checkValidity()) return;
           setIsEmailValid(false);
           emailInputRef.current.parentElement.parentElement.classList.add(
             "invalid-input",
@@ -92,6 +98,7 @@ const CreateAccount = () => {
       }
 
       if (emailInputRef.current.checkValidity()) {
+        console.log("valid");
         if (timer) clearTimeout(timer);
         emailInputRef.current.parentElement.parentElement.classList.remove(
           "invalid-input",
@@ -119,7 +126,7 @@ const CreateAccount = () => {
         setIsPasswordValid(false);
         timer = setTimeout(() => {
           // Invalid password
-
+          if (passwordInputRef.current.checkValidity()) return;
           passwordInputRef.current.parentElement.parentElement.classList.add(
             "invalid-input",
             "invalid-create-password"
@@ -155,7 +162,7 @@ const CreateAccount = () => {
               maxLength={16}
               id="create-name-input"
               placeholder=" "
-              onInput={handleUsernameValidation}
+              onChange={handleUsernameValidation}
               ref={nameInputRef}
             />
             <label htmlFor="create-name-input">Name</label>
@@ -167,7 +174,7 @@ const CreateAccount = () => {
               type="email"
               id="create-email-input"
               placeholder=" "
-              onInput={handleEmailValidation}
+              onChange={handleEmailValidation}
               ref={emailInputRef}
             />
             <label htmlFor="create-email-input">Email</label>
@@ -179,21 +186,14 @@ const CreateAccount = () => {
               type="password"
               id="create-password-input"
               placeholder=" "
-              onInput={handlePasswordValidation}
+              onChange={handlePasswordValidation}
               ref={passwordInputRef}
               pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@!$*])[A-Za-z\d@!$*#]{8,}"
             />
             <label htmlFor="create-password-input">Password</label>
           </div>
         </div>
-        <div className="show-password-checkbox-container">
-          <input
-            type="checkbox"
-            id="show-password-checkbox"
-            onChange={toggleShowPassword}
-          />
-          <label htmlFor="show-password-checkbox">Show password</label>
-        </div>
+        <ShowPasswordCheckbox passwordInputRef={passwordInputRef} />
         <button
           ref={submitButtonRef}
           type="submit"

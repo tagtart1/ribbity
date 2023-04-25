@@ -65,6 +65,7 @@ const RibbitPopupInput = ({
         },
         creatorId: mainUser.id,
         reribbitedBy: {},
+        isVerified: mainUser.isVerified,
       });
 
       notifySuccess();

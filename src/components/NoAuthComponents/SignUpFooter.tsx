@@ -19,6 +19,7 @@ const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
     useContext(AppContext);
 
   const [openSignupForm, setOpenSignupForm] = useState<boolean>(false);
+  const [showLogInPanel, setShowLogInPanel] = useState<boolean>(false);
 
   const navigate: NavigateFunction = useNavigate();
 
@@ -39,12 +40,19 @@ const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
           <p>People on Ribbity are the first to know.</p>
         </div>
         <div className="signup-button-group">
-          <button className="login-button" onClick={signInHandle}>
+          <button
+            className="login-button"
+            onClick={() => {
+              setShowLogInPanel(true);
+              setOpenSignupForm(true);
+            }}
+          >
             Log in
           </button>
           <button
             className="signup-button"
             onClick={() => {
+              setShowLogInPanel(false);
               setOpenSignupForm(true);
             }}
           >
@@ -55,6 +63,7 @@ const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
       <SignUpNativePopup
         isVisible={openSignupForm}
         setOwnVisibility={setOpenSignupForm}
+        openAsLogin={showLogInPanel}
       />
     </div>
   ) : null;

@@ -61,7 +61,16 @@ const getDayOfMonth = (): number => {
 };
 
 const checkForBannedNames = (word: string): boolean => {
-  const invalidWords = new Set(["Home", "Explore"]);
+  const invalidWords = new Set([
+    "Home",
+    "Explore",
+    "home",
+    "explore",
+    "notifications",
+    "Notifications",
+    "bookmarks",
+    "Bookmarks",
+  ]);
   return invalidWords.has(word);
 };
 

@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   signOut,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
   getDoc,
@@ -13,6 +14,7 @@ import {
   query,
   where,
   getDocs,
+  DocumentReference,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -44,12 +46,93 @@ const nullUser: RibbityUser = {
   profileImgUrl: "",
   userHandle: "",
   userName: "",
+  isVerified: false,
 };
 
-export const createUserNative = async (email: string, password: string) => {
+export const signInUserNative = async (email: string, password: string) => {
+  await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const createUserNative = async (
+  name: string,
+  email: string,
+  password: string,
+  setIsLoadingUser: Function
+) => {
   await createUserWithEmailAndPassword(auth, email, password);
   // Should create an entire user in firestore and then return that user, set the loading function as well
+  if (auth.currentUser?.uid) {
+    const docRef: DocumentReference = doc(
+      db,
+      "user-info",
+      auth.currentUser.uid
+    );
+    const userInfoDoc = await getDoc(docRef);
+
+    if (!userInfoDoc.exists()) {
+      setIsLoadingUser(true);
+      const defaultImgFile = base64ToFile(defaultpfpImg, "default.jpg");
+      const defaultBannerFile = base64ToFile(
+        defaultBannerImg,
+        "defaultBanner.png"
+      );
+
+      let newBannerImgPath: string;
+      let bannerImgUrl: string;
+
+      let newProfileImgPath: string;
+      let publicImgUrl: string;
+
+      const bannerFilePath: string = `${auth.currentUser.uid}/${defaultBannerFile.name}`;
+      const filePath: string = `${auth.currentUser.uid}/${defaultImgFile.name}`;
+
+      const newBannerImgRef = ref(getStorage(), bannerFilePath);
+      const newProfileImgRef = ref(getStorage(), filePath);
+
+      const bannerFileSnapshot = await uploadBytesResumable(
+        newBannerImgRef,
+        defaultBannerFile
+      );
+      const fileSnapshot = await uploadBytesResumable(
+        newProfileImgRef,
+        defaultImgFile
+      );
+      bannerImgUrl = await getDownloadURL(newBannerImgRef);
+      newBannerImgPath = bannerFileSnapshot.metadata.fullPath;
+
+      publicImgUrl = await getDownloadURL(newProfileImgRef);
+      newProfileImgPath = fileSnapshot.metadata.fullPath;
+
+      const newHandle = await generateUserHandle(name);
+      const newUser: RibbityUser = {
+        bio: "",
+        joinDate: `${getMonthDate()} ${getFullYear()}`,
+        profileImgUrl: publicImgUrl,
+        userHandle: newHandle,
+        userName: name,
+        location: "",
+        profileImgPath: newProfileImgPath,
+        bannerImgUrl: bannerImgUrl,
+        bannerImgPath: newBannerImgPath,
+        followers: {},
+        following: {
+          [`${newHandle}`]: true,
+        },
+        id: auth.currentUser.uid,
+        isVerified: false,
+      };
+
+      await setDoc(doc(db, "user-info", auth.currentUser.uid), newUser);
+      setIsLoadingUser(false);
+      return newUser;
+    }
+  }
 };
+/**
+ * A custom sign in function for firebase's GoogleAuthProvider
+ * @param setIsLoadingUser  The callback to display a loading screen accross the screen
+ * @returns The new user if the user signing is new. If not, returns void while signing the user in
+ */
 
 export const signIn = async (setIsLoadingUser: Function) => {
   let provider = new GoogleAuthProvider();
@@ -109,6 +192,7 @@ export const signIn = async (setIsLoadingUser: Function) => {
           [`${newHandle}`]: true,
         },
         id: auth.currentUser.uid,
+        isVerified: false,
       };
 
       await setDoc(doc(db, "user-info", auth.currentUser.uid), newUser);

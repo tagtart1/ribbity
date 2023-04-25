@@ -9,6 +9,7 @@ import MessagesIcon from "../../media/svg/MessagesIcon";
 import BookmarksIcon from "../../media/svg/BookmarksIcon";
 import ProfileIcon from "../../media/svg/ProfileIcon";
 import { RibbityUser } from "../../Ribbity.types";
+import RibbityGreenPopup from "../Misc/RibbityGreenPopup";
 
 interface MainNavTabsProps {
   mainUser: RibbityUser;
@@ -17,6 +18,8 @@ interface MainNavTabsProps {
 const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
   const [activeTab, setActiveTab] = useState<number | null>(null);
   const pathname: string = window.location.pathname;
+  const [openRibbityGreenPopup, setOpenRibbityGreenPopup] =
+    useState<boolean>(false);
 
   // Set the active tab when we refresh by checking the url
   useEffect(() => {
@@ -104,10 +107,13 @@ const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
         />
       </Link>
 
-      <li className="tab-list-item">
+      <li
+        className="tab-list-item"
+        onClick={() => setOpenRibbityGreenPopup(true)}
+      >
         <div className="tab-items">
           <FrogIconLogo />
-          <p>Ribbity Blue</p>
+          <p>Ribbity Green</p>
         </div>
       </li>
 
@@ -133,6 +139,10 @@ const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
           <p>More</p>
         </div>
       </li>
+      <RibbityGreenPopup
+        isVisible={openRibbityGreenPopup}
+        setOwnVisibility={setOpenRibbityGreenPopup}
+      />
     </ul>
   );
 };

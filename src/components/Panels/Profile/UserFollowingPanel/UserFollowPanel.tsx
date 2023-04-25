@@ -44,6 +44,7 @@ const nullUser: RibbityUser = {
   profileImgUrl: "",
   userHandle: "",
   userName: "",
+  isVerified: false,
 };
 
 type FBQuery = Query<DocumentData>;

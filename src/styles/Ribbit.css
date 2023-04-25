@@ -138,6 +138,11 @@ header {
   flex-direction: row;
 }
 
+.header-user-names svg {
+  width: 19px;
+  height: 19px;
+}
+
 .header-user-names .username {
   flex-shrink: 1;
   font-weight: 600;

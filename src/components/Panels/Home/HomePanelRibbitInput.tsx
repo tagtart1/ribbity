@@ -47,6 +47,7 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
       id: "",
       creatorId: mainUser.id,
       reribbitedBy: {},
+      isVerified: mainUser.isVerified,
     };
 
     try {

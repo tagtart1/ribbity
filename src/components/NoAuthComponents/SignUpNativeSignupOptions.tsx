@@ -12,7 +12,15 @@ interface AppContextProps {
   loadingHandler: Function;
 }
 
-const SignUpNativeSignupOptions = () => {
+interface SignUpNativeSignupOptionsProps {
+  setShowCreateAccount: Function;
+  setToggleLogInPanel: Function;
+}
+
+const SignUpNativeSignupOptions = ({
+  setShowCreateAccount,
+  setToggleLogInPanel,
+}: SignUpNativeSignupOptionsProps) => {
   const { setMainUser, loadingHandler }: AppContextProps =
     useContext(AppContext);
 
@@ -38,7 +46,9 @@ const SignUpNativeSignupOptions = () => {
         <div className="or-seperator">
           <span>or</span>
         </div>
-        <button>Create account</button>
+        <button onClick={() => setShowCreateAccount(true)}>
+          Create account
+        </button>
         <p className="disclaimer-text">
           By signing up, you agree to the{" "}
           <span className="fake-link">Terms of Service </span> and{" "}
@@ -46,7 +56,17 @@ const SignUpNativeSignupOptions = () => {
           <span className="fake-link">Cookie Use.</span>
         </p>
       </div>
-      <p className="login-suggestion-text">Have an account already? Log in</p>
+      <p className="login-suggestion-text">
+        Have an account already?{" "}
+        <span
+          className="switch-to-login-button"
+          onClick={() => {
+            setToggleLogInPanel(true);
+          }}
+        >
+          Log in
+        </span>
+      </p>
     </>
   );
 };

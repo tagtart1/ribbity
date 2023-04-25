@@ -4,6 +4,8 @@ import googleLogo from "../../media/google-icon.svg";
 import { signIn } from "../../scripts/firebaseHelperFns";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { RibbityUser } from "../../Ribbity.types";
+import SignUpNativePopup from "./SignUpNativePopup";
+import { useState } from "react";
 
 interface SignUpModalProps {
   setCurrentUser: Function;
@@ -24,6 +26,8 @@ const SignUpModal = ({
     navigate("/home");
   };
 
+  const [openSignupForm, setOpenSignupForm] = useState<boolean>(false);
+
   return (
     <div className="signup-modal-container">
       <h2 className="signup-modal-header">New to Ribbity?</h2>
@@ -38,11 +42,22 @@ const SignUpModal = ({
         ></img>
         <span>Sign up with Google</span>
       </button>
-      <button className="signup-generic-button">Create account</button>
+      <button
+        className="signup-generic-button"
+        onClick={() => setOpenSignupForm(true)}
+      >
+        Create account
+      </button>
       <p className="signup-misc-text">
         By signing up, you agree to the <a href=" ">Terms of Service</a> and
         <a href=" "> Privacy Policy</a>, including <a href=" "> Cookie Use.</a>
       </p>
+      <SignUpNativePopup
+        isVisible={openSignupForm}
+        setOwnVisibility={setOpenSignupForm}
+        openAsLogin={false}
+        showCreateAccountInitial={true}
+      />
     </div>
   );
 };

@@ -16,13 +16,17 @@ import {
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
 import LoadingPanel from "../../Misc/LoadingPanel";
-import { RibbitType } from "../../../Ribbity.types";
+import { RibbitType, RibbityUser } from "../../../Ribbity.types";
+
+interface ExplorePanelProps {
+  mainUser: RibbityUser;
+}
 
 // Type alias
 type FBQuery = Query<DocumentData>;
 type FBQuerySnap = QuerySnapshot<DocumentData>;
 
-const ExplorePanel = () => {
+const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
   const [ribbitsList, setRibbitsList] = useState<RibbitType[]>([]);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -62,11 +66,11 @@ const ExplorePanel = () => {
           ribbitsList.map((ribbit: RibbitType) => {
             return (
               <Ribbit
-                isDeletable={false}
+                isDeletable={mainUser.userHandle === ribbit.handle}
                 isThreaded={false}
                 inShowcase={false}
                 ribbitInfo={ribbit}
-                currentHandle=""
+                currentHandle={mainUser.userHandle}
                 key={ribbit.id}
                 isReRibbit={false}
               />
