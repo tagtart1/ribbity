@@ -20,7 +20,7 @@ interface AppContextProps {
 
 const MainBottomNavMobile = () => {
   const navigate = useNavigate();
-
+  const pathname = window.location.pathname;
   const [activeTab, setActiveTab] = useState<number>(-1);
   const { mainUser }: AppContextProps = useContext(AppContext);
 
@@ -41,17 +41,21 @@ const MainBottomNavMobile = () => {
   };
 
   useEffect(() => {
-    switch (window.location.pathname) {
-      case "/home":
+    switch (true) {
+      case pathname === "/home":
         setActiveTab(0);
         break;
-      case "/explore":
+      case pathname === "/explore":
         setActiveTab(1);
         break;
-      case `/${mainUser.userHandle}`:
+      case pathname.startsWith(`/${mainUser.userHandle}`):
         setActiveTab(2);
+        break;
+
+      default:
+        setActiveTab(-1);
     }
-  }, [mainUser.userHandle]);
+  }, [mainUser.userHandle, pathname]);
 
   return (
     <div className="main-bottom-nav-mobile-container">

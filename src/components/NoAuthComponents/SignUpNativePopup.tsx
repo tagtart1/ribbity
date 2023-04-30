@@ -8,7 +8,7 @@ import SignUpNativeSignupOptions from "./SignUpNativeSignupOptions";
 import CreateAccount from "./CreateAccount";
 import { useEffect, useState } from "react";
 import LogInAccountOptions from "./LogInAccountOptions";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 interface SignUpNativePopupProps {
   isVisible: boolean;
   setOwnVisibility: Function;
@@ -26,12 +26,12 @@ const SignUpNativePopup = ({
   const [toggleLogInPanel, setToggleLogInPanel] =
     useState<boolean>(openAsLogin);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   };
 
-  const contentVariants = {
+  const contentVariants: Variants = {
     hidden: { scale: 0 },
     visible: { scale: 1 },
   };

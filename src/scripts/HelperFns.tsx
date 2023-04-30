@@ -84,7 +84,7 @@ const generateUserHandle = async (
     const ref = collection(db, "user-info");
     const q = query(ref, where("userHandle", "==", userHandle));
     const querySnap = await getDocs(q);
-    if (querySnap.size === 0 || !checkForBannedNames(userHandle)) valid = true;
+    if (querySnap.size === 0 && !checkForBannedNames(userHandle)) valid = true;
     else {
       userHandle = userHandle + Math.floor(Math.random() * 1000);
     }

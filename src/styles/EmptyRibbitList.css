@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   margin-top: 32px;
+  margin-left: 32px;
+  margin-right: 32px;
 }
 
 .empty-ribbit-list-wrapper div {

@@ -66,6 +66,12 @@
   margin: 0;
 }
 
+.profile-panel-info-container .user-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .profile-panel-info-container .user-handle {
   color: var(--secondary-text-color);
   margin-bottom: 16px;
@@ -104,6 +110,17 @@
 
 .user-bio {
   color: var(--primary-text-color);
+}
+
+.verified-icon {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.verified-icon svg {
+  width: 21px;
+  height: 21px;
 }
 
 .misc-user-info {

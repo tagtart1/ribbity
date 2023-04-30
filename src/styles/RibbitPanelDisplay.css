@@ -40,6 +40,9 @@
 
 .ribbit-panel-display-container .user-info .user-name {
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .ribbit-panel-display-container .user-info .user-handle {

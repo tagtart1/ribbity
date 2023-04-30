@@ -35,6 +35,8 @@ import Spinner from "../../Misc/Spinner";
 import LoadingPanel from "../../Misc/LoadingPanel";
 import EmptyRibbitList from "../../Misc/EmptyRibbitList";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
+import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
+import RibbitButtonFixed from "../../Mobile/RibbitButtonFixed";
 
 type QuerySnap = QuerySnapshot<DocumentData>;
 type DocRef = DocumentReference<DocumentData>;
@@ -141,18 +143,19 @@ const ProfilePanel = ({
             visitedUserHandle={handle}
           />
         );
-      case undefined:
-        return (
-          <EmptyRibbitList
-            tab="ribbits"
-            isMainUser={currentUser.userHandle === handle}
-            visitedUserHandle={handle}
-          />
-        );
+
       case "replies":
         return (
           <EmptyRibbitList
             tab="replies"
+            isMainUser={currentUser.userHandle === handle}
+            visitedUserHandle={handle}
+          />
+        );
+      default:
+        return (
+          <EmptyRibbitList
+            tab="ribbits"
             isMainUser={currentUser.userHandle === handle}
             visitedUserHandle={handle}
           />
@@ -272,7 +275,20 @@ const ProfilePanel = ({
           </svg>
         </div>
         <div className="username-ribbit-count">
-          <h1>{visitedUserInfo.userName}</h1>
+          <h1 className="username-profile-top-group">
+            <span className="user-name">{visitedUserInfo.userName}</span>
+            {visitedUserInfo.userHandle === currentUser.userHandle ? (
+              currentUser.isVerified ? (
+                <span className="verified-icon">
+                  <RibbityVerifyIcon />
+                </span>
+              ) : null
+            ) : visitedUserInfo.isVerified ? (
+              <span className="verified-icon">
+                <RibbityVerifyIcon />
+              </span>
+            ) : null}
+          </h1>
           <p>
             {ribbitList.length}{" "}
             {tab === "likes"
@@ -330,6 +346,7 @@ const ProfilePanel = ({
           })
         )}
       </div>
+      <RibbitButtonFixed />
     </div>
   );
 };

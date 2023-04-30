@@ -61,28 +61,30 @@ const ReRibbitButton = ({ ribbitInfo, currentHandle }: ReRibbitButtonProps) => {
   };
 
   return (
-    <div id="reribbit-button-wrapper" onClick={handleReRibbit}>
-      <div
-        className={
-          isReRibbited
-            ? "ribbit-option-icon-retweet active"
-            : "ribbit-option-icon-retweet"
-        }
-      >
-        <ReRibbitIcon />
+    <>
+      <div id="reribbit-button-wrapper" onClick={handleReRibbit}>
+        <div
+          className={
+            isReRibbited
+              ? "ribbit-option-icon-retweet active"
+              : "ribbit-option-icon-retweet"
+          }
+        >
+          <ReRibbitIcon />
+        </div>
+        <ReRibbitCounter
+          isReRibbited={isReRibbited}
+          reribbitedBy={ribbitInfo.reribbitedBy}
+          hasClickedReRibbit={hasClickedReRibbit}
+        />
       </div>
-      <ReRibbitCounter
-        isReRibbited={isReRibbited}
-        reribbitedBy={ribbitInfo.reribbitedBy}
-        hasClickedReRibbit={hasClickedReRibbit}
-      />
       <SignupPopup
         userName={ribbitInfo.handle}
         visibility={showSignupPopup}
         setOwnVisibility={closePopup}
         popupType="reribbit"
       />
-    </div>
+    </>
   );
 };
 

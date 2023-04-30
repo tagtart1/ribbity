@@ -17,6 +17,7 @@ import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
 import LoadingPanel from "../../Misc/LoadingPanel";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
+import RibbitButtonFixed from "../../Mobile/RibbitButtonFixed";
 
 interface ExplorePanelProps {
   mainUser: RibbityUser;
@@ -80,6 +81,7 @@ const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
           <ExploreTopicFeedRandom />
         )}
       </div>
+      <RibbitButtonFixed />
     </div>
   );
 };

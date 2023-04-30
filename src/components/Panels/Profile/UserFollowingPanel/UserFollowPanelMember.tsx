@@ -7,6 +7,7 @@ import {
 import "../../../../styles/UserFollowPanelMember.css";
 import ToggleFollowButton from "../../../Misc/ToggleFollowButton";
 import { RibbityUser } from "../../../../Ribbity.types";
+import RibbityVerifyIcon from "../../../../media/svg/RibbityVerifyIcon";
 
 interface UserFollowPanelMemberProps {
   mainUser: RibbityUser;
@@ -20,6 +21,7 @@ const UserFollowPanelMember: React.FC<UserFollowPanelMemberProps> = ({
   const { handle } = useParams();
   const navigate: NavigateFunction = useNavigate();
   if (handle === userInfo.userHandle) return null;
+  if (!mainUser.userHandle) return null;
   return (
     <div
       className="user-follow-member"
@@ -31,7 +33,10 @@ const UserFollowPanelMember: React.FC<UserFollowPanelMemberProps> = ({
       <div className="user-follow-member-rightside">
         <div className="top">
           <Link to={`/${userInfo.userHandle}`}>
-            <h3>{userInfo.userName}</h3>
+            <h3 className="user-name">
+              {userInfo.userName}
+              {userInfo.isVerified ? <RibbityVerifyIcon /> : null}
+            </h3>
             <p className="handle">@{userInfo.userHandle}</p>
           </Link>
 

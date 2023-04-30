@@ -18,6 +18,7 @@ import LoadingPanel from "../../../Misc/LoadingPanel";
 
 import EmptyRibbitList from "../../../Misc/EmptyRibbitList";
 import { RibbityUser } from "../../../../Ribbity.types";
+import RibbityVerifyIcon from "../../../../media/svg/RibbityVerifyIcon";
 
 interface TabProps {
   tabNum: number;
@@ -122,7 +123,14 @@ const UserFollowPanel = ({ startTab, mainUser }: UserFollowPanelProps) => {
 
     retrieveUserData();
   }, [handle]);
+  // Ensures unsigned in users cannot access this route
+  useEffect(() => {
+    if (!mainUser.userHandle) {
+      navigate("/");
+    }
+  }, [mainUser.userHandle, navigate]);
   if (isLoading) return <LoadingPanel />;
+
   if (activeTab === -1 || !visitedUser.userHandle || !followLists)
     return <InvalidRoutePanel />;
   return (
@@ -144,7 +152,10 @@ const UserFollowPanel = ({ startTab, mainUser }: UserFollowPanelProps) => {
           </svg>
         </div>
         <div className="user-info">
-          <h3>{visitedUser.userName}</h3>
+          <h3 className="user-name">
+            {visitedUser.userName}
+            {visitedUser.isVerified ? <RibbityVerifyIcon /> : null}
+          </h3>
           <p>@{visitedUser.userHandle}</p>
         </div>
       </header>

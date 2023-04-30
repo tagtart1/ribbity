@@ -22,6 +22,7 @@ import DeleteOptionDropdown from "../../Ribbit/DeleteOptionDropdown";
 import useDeleteRibbit from "../../useDeleteRibbit";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 import ReRibbitButton from "../../Ribbit/ReRibbitButton";
+import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
 interface RibbitPanelDisplayProps {
   ribbitInfo: RibbitType;
   mainUser: RibbityUser;
@@ -112,7 +113,10 @@ const RibbitPanelDisplay = ({
             className="threaded-profile-img"
           />
           <div>
-            <p className="user-name">{ribbitInfo.userName}</p>
+            <p className="user-name">
+              {ribbitInfo.userName}
+              {ribbitInfo.isVerified ? <RibbityVerifyIcon /> : null}
+            </p>
             <p className="user-handle">@{ribbitInfo.handle}</p>
           </div>
         </div>

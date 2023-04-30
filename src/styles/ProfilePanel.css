@@ -73,6 +73,20 @@
   padding: 0;
 }
 
+.username-ribbit-count .username-profile-top-group {
+  display: grid;
+  align-items: center;
+  gap: 2px;
+  grid-template-columns: fit-content(100%) auto;
+  padding-right: 16px;
+}
+
+.username-ribbit-count .username-profile-top-group .user-name {
+  text-overflow: ellipsis !important;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .user-banner {
   width: 100%;
   max-width: 600px;

@@ -6,6 +6,7 @@ import { getTimestamp, isValidString } from "../../../scripts/HelperFns";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
+import { toast } from "react-hot-toast";
 
 interface HomePanelRibbitInputProps {
   mainUser: RibbityUser;
@@ -17,6 +18,7 @@ type ChangeInputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
 const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
   const inputRef: any = useRef();
+  const notifySuccess = () => toast("Your ribbit was sent.");
 
   const autoGrowTextArea = (e: ChangeInputEvent) => {
     const textarea = e.target as HTMLElement;
@@ -52,6 +54,7 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
 
     try {
       await addDoc(collection(db, "ribbits"), newRibbit);
+      notifySuccess();
     } catch (error) {
       console.error("Error uploading ribbit to firebaseDB", error);
     }

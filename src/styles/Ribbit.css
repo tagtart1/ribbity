@@ -42,11 +42,6 @@ header {
   background-color: rgb(8, 8, 8);
 }
 
-.ribbit-container .header-user-names {
-  display: flex;
-  gap: 4px;
-}
-
 .ribbit-container header {
   display: flex;
   justify-content: space-between;
@@ -134,8 +129,14 @@ header {
 .header-user-names {
   cursor: pointer;
   pointer-events: auto;
-  flex-shrink: 1;
-  flex-direction: row;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: fit-content(100%) fit-content(100%) auto auto;
+  gap: 4px;
+}
+
+.header-user-names.verified {
+  grid-template-columns: fit-content(100%) fit-content(100%) fit-content(100%) auto auto !important;
 }
 
 .header-user-names svg {
@@ -144,9 +145,8 @@ header {
 }
 
 .header-user-names .username {
-  flex-shrink: 1;
   font-weight: 600;
-  min-width: none;
+
   text-overflow: ellipsis !important;
   overflow: hidden;
   white-space: nowrap;
@@ -155,7 +155,7 @@ header {
 .header-user-names .userhandle {
   text-overflow: ellipsis !important;
   overflow: hidden;
-  min-width: none;
+
   white-space: nowrap;
 }
 
@@ -283,23 +283,4 @@ a {
 
 .ribbit-container .reribbited-top-info svg path {
   fill: var(--secondary-text-color);
-}
-
-@media (max-width: 375px) {
-  .header-user-names .username {
-    max-width: 100px;
-  }
-
-  .header-user-names .userhandle {
-  }
-}
-
-@media (max-width: 350px) {
-  .header-user-names .username {
-    max-width: 90px;
-  }
-
-  .header-user-names .userhandle {
-    max-width: 90px;
-  }
 }

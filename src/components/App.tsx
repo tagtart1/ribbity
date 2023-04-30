@@ -175,7 +175,6 @@ const App = () => {
         <SignUpFooter signedIn={isUserSignedIn} />
       </div>
       <MainBottomNavMobile />
-      <RibbitButtonFixed mainUser={mainUser} />
     </AppContext.Provider>
   );
 };

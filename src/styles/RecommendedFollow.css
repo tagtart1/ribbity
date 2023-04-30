@@ -29,6 +29,25 @@
   flex-direction: column;
   padding: 0;
   margin: 0;
+  padding-right: 12px;
+}
+
+.recommended-follow-names .user-name {
+  display: grid;
+  align-items: center;
+  grid-template-columns: fit-content(100%) auto;
+  gap: 3px;
+}
+
+.recommended-follow-names .user-name span {
+  text-overflow: ellipsis !important;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.recommended-follow-names .user-name svg {
+  width: 19px;
+  height: 19px;
 }
 
 .recommended-follow-names p:first-child {

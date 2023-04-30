@@ -3,7 +3,7 @@ import CloseCross from "../../media/svg/CloseCross";
 import "../../styles/LongPopupNavbarMobile.css";
 import ReactDOM from "react-dom";
 import ProfileIcon from "../../media/svg/ProfileIcon";
-import TweetyBlueIcon from "../../media/svg/TweetyBlueIcon";
+
 import NotifcationsIcon from "../../media/svg/NotificationsIcon";
 import MessagesIcon from "../../media/svg/MessagesIcon";
 import { signOutUser } from "../../scripts/firebaseHelperFns";
@@ -11,6 +11,10 @@ import BookmarksIcon from "../../media/svg/BookmarksIcon";
 import { useEffect } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { RibbityUser } from "../../Ribbity.types";
+import FrogIconLogo from "../Misc/FrogIconLogo";
+import RibbityGreenPopup from "../Misc/RibbityGreenPopup";
+import { useState } from "react";
+import RibbityVerifyIcon from "../../media/svg/RibbityVerifyIcon";
 
 interface LongPopupNavbarMobileProps {
   isVisible: boolean;
@@ -27,7 +31,8 @@ const LongPopupNavbarMobile = ({
   mainUser,
 }: LongPopupNavbarMobileProps) => {
   const navigate: NavigateFunction = useNavigate();
-
+  const [showRibbityGreenPopup, setShowRibbityGreenPopup] =
+    useState<boolean>(false);
   const closePopup = (): void => {
     setVisibility(false);
   };
@@ -66,22 +71,25 @@ const LongPopupNavbarMobile = ({
   return ReactDOM.createPortal(
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          className="popup-mobile-nav-container "
-          onClick={closePopupOffside}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          transition={{ duration: 0.25 }}
-          variants={fadeIn}
-        >
+        <>
+          <motion.div
+            className="popup-mobile-nav-container "
+            onClick={closePopupOffside}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition={{ duration: 0.25 }}
+            variants={fadeIn}
+            key="fdjske"
+          ></motion.div>
           <motion.div
             className="popup-mobile-nav-main"
             initial="hidden"
             animate="visible"
             exit="hidden"
             variants={slideIn}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.25 }}
+            key="934js"
           >
             <div className="popup-mobile-nav-top">
               <h1>Account info</h1>
@@ -100,6 +108,7 @@ const LongPopupNavbarMobile = ({
                 onClick={() => navigate(`/${mainUser.userHandle}`)}
               >
                 {mainUser.userName}
+                {mainUser.isVerified ? <RibbityVerifyIcon /> : null}
               </p>
 
               <p
@@ -128,23 +137,32 @@ const LongPopupNavbarMobile = ({
               </div>
             </div>
             <ul className="popup-mobile-nav-actual">
-              <li onClick={() => navigate(`/${mainUser.userHandle}`)}>
+              <li
+                onClick={() => {
+                  setVisibility(false);
+                  navigate(`/${mainUser.userHandle}`);
+                }}
+              >
                 <ProfileIcon />
                 <h2>Profile</h2>
               </li>
-              <li>
-                <TweetyBlueIcon />
-                <h2>Tweety Blue</h2>
+              <li
+                onClick={() => {
+                  setShowRibbityGreenPopup(true);
+                }}
+              >
+                <FrogIconLogo />
+                <h2>Ribbity Blue</h2>
               </li>
-              <li>
+              <li onClick={() => navigate(`/notifications`)}>
                 <NotifcationsIcon />
                 <h2>Notificatons</h2>
               </li>
-              <li>
+              <li onClick={() => navigate(`/messages`)}>
                 <MessagesIcon />
                 <h2>Messages</h2>
               </li>
-              <li>
+              <li onClick={() => navigate(`/bookmarks`)}>
                 <BookmarksIcon />
                 <h2>Bookmarks</h2>
               </li>
@@ -161,8 +179,13 @@ const LongPopupNavbarMobile = ({
               </p>
             </div>
           </motion.div>
-        </motion.div>
+        </>
       )}
+      <RibbityGreenPopup
+        isVisible={showRibbityGreenPopup}
+        setOwnVisibility={setShowRibbityGreenPopup}
+        key={"d0333"}
+      />
     </AnimatePresence>,
     popupRoot
   );

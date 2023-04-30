@@ -2,6 +2,7 @@ import "../../styles/UserTab.css";
 import { useState } from "react";
 import LogoutPopup from "./LogoutPopup";
 import { RibbityUser } from "../../Ribbity.types";
+import RibbityVerifyIcon from "../../media/svg/RibbityVerifyIcon";
 
 interface UserTabProps {
   mainUser: RibbityUser;
@@ -23,11 +24,14 @@ const UserTab = ({ mainUser }: UserTabProps) => {
             className="user-tab-profile-image"
           />
           <div className="names-group">
-            <p>{mainUser.userName}</p>
-            <p className="tweeter-unique-name">@{mainUser.userHandle}</p>
+            <p className="user-name">
+              <span className="name"> {mainUser.userName}</span>
+              {mainUser.isVerified ? <RibbityVerifyIcon /> : null}{" "}
+            </p>
+            <p className="ribbity-unique-name">@{mainUser.userHandle}</p>
           </div>
         </div>
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="misc-icon">
           <g>
             <path
               fill="#E7E9EA"

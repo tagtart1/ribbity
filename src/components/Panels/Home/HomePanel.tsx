@@ -19,6 +19,7 @@ import Ribbit from "../../Ribbit/Ribbit";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 import { isUserSignedIn } from "../../../scripts/firebaseHelperFns";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import RibbitButtonFixed from "../../Mobile/RibbitButtonFixed";
 
 interface HomePanelProps {
   mainUser: RibbityUser;
@@ -150,6 +151,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
           })}
         </div>
       </div>
+      <RibbitButtonFixed />
     </div>
   );
 };

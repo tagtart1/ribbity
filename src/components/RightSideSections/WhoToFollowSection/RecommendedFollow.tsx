@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import ToggleFollowButton from "../../Misc/ToggleFollowButton";
 import { RibbityUser } from "../../../Ribbity.types";
+import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
 
 interface RecommendedFollowProps {
   recommendedUser: RibbityUser;
@@ -28,7 +29,10 @@ const RecommendedFollow = ({
           className="recommended-user-image"
         />
         <div className="recommended-follow-names">
-          <p className="user-name">{recommendedUser.userName}</p>
+          <p className="user-name">
+            <span> {recommendedUser.userName}</span>
+            {recommendedUser.isVerified ? <RibbityVerifyIcon /> : null}
+          </p>
 
           <p>@{recommendedUser.userHandle}</p>
         </div>

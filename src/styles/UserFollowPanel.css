@@ -46,6 +46,17 @@
   padding: 0;
 }
 
+.user-follow-panel .user-info .user-name svg {
+  width: 20px;
+  height: 20px;
+}
+
+.user-follow-panel .user-info .user-name {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
 .user-follow-panel .user-info p {
   font-size: 14px;
   color: var(--secondary-text-color);

@@ -12,6 +12,9 @@ import { RibbityUser } from "../../Ribbity.types";
 import { useState } from "react";
 import ReRibbitIconColor from "../../media/svg/ReRibbitIconColor";
 import SignUpNativePopup from "../NoAuthComponents/SignUpNativePopup";
+import FrogIconLogo from "./FrogIconLogo";
+import { Variants, motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 interface SignupPopupProps {
   userName: string;
@@ -53,6 +56,7 @@ const SignupPopup = ({
     like: <LikeIconFilled />,
     follow: <FollowUserHollow />,
     reribbit: <ReRibbitIconColor />,
+    invalidRoute: <FrogIconLogo />,
   };
 
   const headerTexts: TextsObjects = {
@@ -60,6 +64,7 @@ const SignupPopup = ({
     like: "Like a Ribbit to share the love.",
     follow: `Follow ${userName} to see what they share on Ribbity.`,
     reribbit: `Reribbit this to spread the word.`,
+    invalidRoute: `Don't miss what's happening`,
   };
 
   const paraTexts: TextsObjects = {
@@ -67,65 +72,102 @@ const SignupPopup = ({
     like: `Join Ribbity now to let ${userName} know you like their Ribbit.`,
     follow: "Sign up so you never miss their Ribbits.",
     reribbit: `Join Ribbit now to share ${userName}'s Ribbit.`,
+    invalidRoute: `People on Ribbity are the first to know.`,
+  };
+
+  const wrapperVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
+  const mainVariants: Variants = {
+    hidden: { scale: 0 },
+    visible: { scale: 1 },
   };
 
   const navigate: NavigateFunction = useNavigate();
   const popupRoot: HTMLElement | null = document.getElementById("popup-root");
 
   const handleClickAwayCancel = (e: ClickDivEvent): void => {
-    if (e.target === e.currentTarget && e.buttons === 1) {
-      setOwnVisibility();
-      document.documentElement.style.overflowY = "visible";
+    if (e.target === e.currentTarget) {
+      setOwnVisibility(false);
+      console.log("closing");
     }
   };
 
-  if (!visibility || !popupRoot) return null;
-  document.documentElement.style.overflowY = "hidden";
+  useEffect(() => {
+    if (visibility) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [visibility]);
+
+  if (!popupRoot) return null;
 
   return ReactDOM.createPortal(
-    <div className="signup-popup-wrapper" onMouseDown={handleClickAwayCancel}>
-      <section className="signup-popup-main">
-        <div
-          className="close-button"
-          onMouseDown={(e) => {
-            setOwnVisibility();
-            document.documentElement.style.overflowY = "visible";
-          }}
+    <AnimatePresence>
+      {visibility && (
+        <motion.div
+          className="signup-popup-wrapper"
+          onClick={handleClickAwayCancel}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={wrapperVariants}
         >
-          <CloseCross />
-        </div>
-        {icons[popupType]}
-        <div className="text-group">
-          <h1>{headerTexts[popupType]}</h1>
-          <p>{paraTexts[popupType]}</p>
-        </div>
-        <div className="button-group">
-          <button
-            className="log-in-button"
-            onClick={() => {
-              setOpenAsLogin(true);
-              setOpenSignupForm(true);
-            }}
+          <motion.section
+            className="signup-popup-main"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={mainVariants}
+            transition={{ type: "spring", stiffness: 100, damping: 15 }}
           >
-            Log in
-          </button>
-          <button
-            className="sign-up-button"
-            onClick={() => {
-              setOpenAsLogin(false);
-              setOpenSignupForm(true);
-            }}
-          >
-            Sign up
-          </button>
-        </div>
-      </section>
-      <SignUpNativePopup
-        isVisible={openSignupForm}
-        setOwnVisibility={setOpenSignupForm}
-        openAsLogin={openAsLogin}
-      />
-    </div>,
+            <div
+              className="close-button"
+              onClick={(e) => {
+                console.log("hey");
+                setOwnVisibility(false);
+              }}
+            >
+              <CloseCross />
+            </div>
+            {icons[popupType]}
+            <div className="text-group">
+              <h1>{headerTexts[popupType]}</h1>
+              <p>{paraTexts[popupType]}</p>
+            </div>
+            <div className="button-group">
+              <button
+                className="log-in-button"
+                onClick={() => {
+                  setOpenAsLogin(true);
+                  setOpenSignupForm(true);
+                }}
+              >
+                Log in
+              </button>
+              <button
+                className="sign-up-button"
+                onClick={() => {
+                  setOpenAsLogin(false);
+                  setOpenSignupForm(true);
+                }}
+              >
+                Sign up
+              </button>
+            </div>
+          </motion.section>
+          <SignUpNativePopup
+            isVisible={openSignupForm}
+            setOwnVisibility={setOpenSignupForm}
+            openAsLogin={openAsLogin}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>,
     popupRoot
   );
 };

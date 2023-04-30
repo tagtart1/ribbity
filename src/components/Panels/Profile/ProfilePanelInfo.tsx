@@ -5,6 +5,9 @@ import EditProfilePopup from "./EditProfilePopup";
 
 import { Link } from "react-router-dom";
 import { RibbityUser } from "../../../Ribbity.types";
+import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
+import SignupPopup from "../../Misc/SignupPopup";
+import { useState } from "react";
 
 interface ProfilePanelInfoProps {
   visitedUser: RibbityUser; // The user of whatever page we are viewing
@@ -23,7 +26,17 @@ const ProfilePanelInfo = ({
   updateChanges,
   refreshUserUI,
 }: ProfilePanelInfoProps) => {
+  const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
+
   if (!visitedUser) return null;
+
+  const handleNavigate = (e: any) => {
+    // Do not navigate if the user is not signed in
+    if (!currentUser.userHandle) {
+      e.preventDefault();
+      setShowSignupPopup(true);
+    }
+  };
 
   return (
     <div className="profile-panel-info-container">
@@ -49,7 +62,21 @@ const ProfilePanelInfo = ({
           />
         )}
       </div>
-      <h1>{visitedUser.userName}</h1>
+      <h1 className="user-name">
+        {visitedUser.userName}
+        {visitedUser.userHandle === currentUser.userHandle ? (
+          currentUser.isVerified ? (
+            <span className="verified-icon">
+              <RibbityVerifyIcon />
+            </span>
+          ) : null
+        ) : visitedUser.isVerified ? (
+          <span className="verified-icon">
+            <RibbityVerifyIcon />
+          </span>
+        ) : null}
+      </h1>
+
       <p className="user-handle">@{visitedUser.userHandle}</p>
       <p className="user-bio">{visitedUser.bio}</p>
       <div className="misc-user-info">
@@ -80,7 +107,10 @@ const ProfilePanelInfo = ({
         </p>
       </div>
       <div className="user-following-nums">
-        <Link to={`/${visitedUser.userHandle}/following`}>
+        <Link
+          to={`/${visitedUser.userHandle}/following`}
+          onClick={handleNavigate}
+        >
           <span style={{ color: "white" }}>
             {visitedUser.following
               ? Object.keys(visitedUser.following).length - 1
@@ -88,7 +118,10 @@ const ProfilePanelInfo = ({
           </span>{" "}
           Following
         </Link>
-        <Link to={`/${visitedUser.userHandle}/followers`}>
+        <Link
+          to={`/${visitedUser.userHandle}/followers`}
+          onClick={handleNavigate}
+        >
           <span style={{ color: "white" }}>
             {visitedUser.followers
               ? Object.keys(visitedUser.followers).length
@@ -109,6 +142,12 @@ const ProfilePanelInfo = ({
         profileImgPath={visitedUser.profileImgPath}
         bannerImg={visitedUser.bannerImgUrl}
         bannerImgPath={visitedUser.bannerImgPath}
+      />
+      <SignupPopup
+        visibility={showSignupPopup}
+        setOwnVisibility={setShowSignupPopup}
+        userName={visitedUser.userName}
+        popupType="invalidRoute"
       />
     </div>
   );

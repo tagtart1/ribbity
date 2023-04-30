@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import FeatherIcon from "../../media/svg/FeatherIcon";
 import "../../styles/RibbitButtonFixed.css";
 import RibbitPopupInput from "../Misc/RibbitPopupInput";
 import { RibbityUser } from "../../Ribbity.types";
+import AppContext from "../AppContext";
 
-interface RibbitButtonFixedProps {
+interface AppContextProps {
   mainUser: RibbityUser;
 }
 
-const RibbitButtonFixed = ({ mainUser }: RibbitButtonFixedProps) => {
+const RibbitButtonFixed = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
-
+  const { mainUser }: AppContextProps = useContext(AppContext);
   if (!mainUser.userHandle) return null;
   return (
     <div className="ribbit-button-mobile-container">

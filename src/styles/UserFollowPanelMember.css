@@ -24,6 +24,17 @@
   margin-bottom: 4px;
 }
 
+.user-follow-member .user-name {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.user-follow-member .user-name svg {
+  width: 20px;
+  height: 20px;
+}
+
 .user-follow-member:hover {
   background-color: rgb(15, 15, 15);
 }

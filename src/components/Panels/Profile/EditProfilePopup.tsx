@@ -89,7 +89,6 @@ const EditProfilePopup = ({
     let bannerImgPathNew: string = bannerImgPath;
     // Upload new profile image to storage if there is a newely selected Image
     if (selectedProfileImgFile) {
-      console.log("hey editted prfile pic");
       //If a path is available delete the old user image from Storage
       if (profileImgPathNew) {
         const oldProfileImageRef: StorageReference = ref(

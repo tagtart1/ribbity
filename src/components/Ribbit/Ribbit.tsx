@@ -32,7 +32,6 @@ interface RibbitProps {
     userName: string;
     userHandle: string;
   };
-  isVerified?: boolean;
 }
 // To delete make sure the user opening the tab is the user that owns the tweet. Find the doc by the id in firebase and remove it, with delete confirmation
 const Ribbit = ({
@@ -44,7 +43,6 @@ const Ribbit = ({
   inShowcase,
   isReRibbit,
   ReRibbitedByInfo,
-  isVerified,
 }: RibbitProps) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
@@ -123,9 +121,13 @@ const Ribbit = ({
           <div className="ribbit-container-right-side">
             <header>
               <Link to={`/${ribbitInfo.handle}`}>
-                <div className="header-user-names">
+                <div
+                  className={`header-user-names ${
+                    ribbitInfo.isVerified ? "verified" : null
+                  } `}
+                >
                   <div className="username">{ribbitInfo.userName}</div>
-                  {isVerified ? <RibbityVerifyIcon /> : null}
+                  {ribbitInfo.isVerified ? <RibbityVerifyIcon /> : null}
                   <div className="grey userhandle">@{ribbitInfo.handle}</div>
 
                   <div className="grey">·</div>
