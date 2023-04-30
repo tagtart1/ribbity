@@ -97,11 +97,17 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
+  color: black;
+  background-color: white;
 }
 
 .signup-native-popup-main .action-buttons .signup-google svg {
   width: 18px;
   height: 18px;
+}
+
+.signup-native-popup-main .action-buttons .signup-native-button {
+  color: black;
 }
 
 .signup-native-popup-main .action-buttons .or-seperator {

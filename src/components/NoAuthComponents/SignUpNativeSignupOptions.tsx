@@ -46,7 +46,10 @@ const SignUpNativeSignupOptions = ({
         <div className="or-seperator">
           <span>or</span>
         </div>
-        <button onClick={() => setShowCreateAccount(true)}>
+        <button
+          onClick={() => setShowCreateAccount(true)}
+          className="signup-native-button"
+        >
           Create account
         </button>
         <p className="disclaimer-text">

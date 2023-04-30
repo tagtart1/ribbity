@@ -28,6 +28,7 @@
   padding: 10px 0;
   font-weight: bold;
   cursor: pointer;
+  color: black;
 }
 
 .log-in-account-options-main .sign-in-provider-button svg {
@@ -127,6 +128,9 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+
+  color: black;
+  background-color: white;
 }
 
 .sign-up-redirect-call-to-action-text {
@@ -145,8 +149,9 @@
 }
 
 .locked-button {
-  background-color: rgb(157, 157, 157);
+  background-color: rgb(157, 157, 157) !important;
   cursor: default !important;
+  color: black !important;
 }
 
 .log-in-input-form .log-in-form-button .spinner {
