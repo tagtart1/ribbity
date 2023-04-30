@@ -25,6 +25,9 @@
   padding: 16px 0px;
   font-size: 16px;
   cursor: pointer;
+
+  color: black;
+  background-color: white;
 }
 
 .create-input-wrapper {
@@ -117,4 +120,5 @@
 .create-account-form .locked-button {
   cursor: default;
   background-color: rgb(184, 184, 184);
+  color: black;
 }
