@@ -128,6 +128,8 @@ const RibbityGreenPopup = ({
           initial="hidden"
           animate="visible"
           exit="hidden"
+          role="dialog"
+          aria-modal="true"
         >
           <motion.div
             className="ribbity-green-popup-main"
@@ -138,15 +140,16 @@ const RibbityGreenPopup = ({
             transition={{ type: "spring", stiffness: 100, damping: 15 }}
           >
             <div className="top-header">
-              <div
+              <button
                 className="close-button"
                 onClick={(e) => {
                   setOwnVisibility();
                   document.documentElement.style.overflowY = "visible";
                 }}
+                aria-label="close popup"
               >
                 <CloseCross />
-              </div>
+              </button>
               <div className="ribbity-green-header-text">
                 <span>Green</span>
               </div>

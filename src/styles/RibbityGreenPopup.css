@@ -42,6 +42,9 @@
   left: 8px;
   top: 8px;
   cursor: pointer;
+
+  background-color: transparent;
+  border: none;
 }
 .ribbity-green-popup-main .top-header svg {
   width: 20px;

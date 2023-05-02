@@ -2,7 +2,7 @@ import { deleteField, updateDoc, doc } from "firebase/firestore";
 import { RibbitType } from "../../Ribbity.types";
 import ReRibbitIcon from "../../media/svg/ReRibbitIcon";
 import "../../styles/ReRibbitButton.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { db } from "../../scripts/firebaseConfig";
 import { toast } from "react-hot-toast";
 import SignupPopup from "../NoAuthComponents/SignupPopup";
