@@ -14,13 +14,14 @@ const RibbitReplyButton = ({
   const location = useLocation();
 
   return (
-    <div
+    <button
       id="ribbit-option-reply-wrapper"
       onClick={() => {
         let newPath = `/${ribbitHandle}/ribbit/${ribbitId}`;
         if (location.pathname === newPath) return;
         navigate(newPath);
       }}
+      aria-label="reply to ribbit"
     >
       <div className="ribbit-option-icon">
         <svg viewBox="0 0 24 24">
@@ -33,7 +34,7 @@ const RibbitReplyButton = ({
         </svg>
       </div>
       <RibbitReplyCounter ribbitId={ribbitId} />
-    </div>
+    </button>
   );
 };
 

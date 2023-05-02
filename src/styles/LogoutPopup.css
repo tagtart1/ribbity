@@ -94,6 +94,9 @@
   align-items: center;
   cursor: pointer;
   border-radius: 50%;
+
+  background-color: transparent;
+  border: none;
 }
 
 .logout-popup-main .backout-button:hover {

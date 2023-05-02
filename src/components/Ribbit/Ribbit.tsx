@@ -180,9 +180,10 @@ const Ribbit = ({
                 currentHandle={currentHandle}
                 ribbitInfo={ribbitInfo}
               />
-              <div
+              <button
                 className="ribbit-option-icon copy-option-icon"
                 onClick={copyRibbitLinkToClipboard}
+                aria-label="copy link to clipboard"
               >
                 <svg viewBox="0 0 24 24">
                   <g>
@@ -192,7 +193,7 @@ const Ribbit = ({
                     ></path>
                   </g>
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
         </div>

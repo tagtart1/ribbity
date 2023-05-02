@@ -6,6 +6,13 @@
   gap: 3px;
   cursor: pointer;
   position: relative;
+  background-color: transparent;
+  border: none;
+
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .ribbit-option-icon-dislike {

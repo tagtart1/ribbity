@@ -17,7 +17,7 @@
   margin-top: 0;
 }
 
-.profile-panel-navbar-container div {
+.profile-panel-navbar-container li {
   transition: 0.2s all;
 
   cursor: pointer;
@@ -27,7 +27,7 @@
   flex: 1;
 }
 
-.profile-panel-navbar-container li {
+.profile-panel-navbar-container div {
   padding: 20px 0px;
 
   font-size: 15px;
@@ -37,7 +37,7 @@
   pointer-events: none;
 }
 
-.profile-panel-navbar-container div:hover {
+.profile-panel-navbar-container li:hover {
   background-color: rgb(17, 17, 17);
 }
 

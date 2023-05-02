@@ -5,7 +5,7 @@ import "../../styles/ReRibbitButton.css";
 import { useState, useEffect } from "react";
 import { db } from "../../scripts/firebaseConfig";
 import { toast } from "react-hot-toast";
-import SignupPopup from "../Misc/SignupPopup";
+import SignupPopup from "../NoAuthComponents/SignupPopup";
 import ReRibbitCounter from "./ReRibbitCounter";
 
 interface ReRibbitButtonProps {
@@ -62,7 +62,11 @@ const ReRibbitButton = ({ ribbitInfo, currentHandle }: ReRibbitButtonProps) => {
 
   return (
     <>
-      <div id="reribbit-button-wrapper" onClick={handleReRibbit}>
+      <button
+        id="reribbit-button-wrapper"
+        onClick={handleReRibbit}
+        aria-label="Re-ribbit"
+      >
         <div
           className={
             isReRibbited
@@ -77,7 +81,7 @@ const ReRibbitButton = ({ ribbitInfo, currentHandle }: ReRibbitButtonProps) => {
           reribbitedBy={ribbitInfo.reribbitedBy}
           hasClickedReRibbit={hasClickedReRibbit}
         />
-      </div>
+      </button>
       <SignupPopup
         userName={ribbitInfo.handle}
         visibility={showSignupPopup}

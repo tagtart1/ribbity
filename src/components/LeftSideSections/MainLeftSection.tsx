@@ -14,22 +14,22 @@ interface MainNavTabsProps {
 }
 
 const MainLeftSection = ({ mainUser, signedIn }: MainNavTabsProps) => {
-  const [showTwatPopup, setShowTwatPopup] = useState<boolean>(false);
+  const [showRibbitPopup, setShowRibbitPopup] = useState<boolean>(false);
   if (!mainUser) return null;
   return signedIn ? (
-    <div className="main-left-section">
+    <section className="main-left-section">
       <RibbitPopupInput
-        isVisible={showTwatPopup}
-        toggleVisibility={setShowTwatPopup}
+        isVisible={showRibbitPopup}
+        toggleVisibility={setShowRibbitPopup}
         mainUser={mainUser}
       />
       <div className="fixed-left-section">
         <div>
           <MainNavTabsSignedIn mainUser={mainUser} />
           <button
-            className="tweet-button-left"
+            className="ribbit-button-left"
             onClick={() => {
-              setShowTwatPopup(true);
+              setShowRibbitPopup(true);
               document.documentElement.style.overflowY = "hidden";
             }}
           >
@@ -37,7 +37,7 @@ const MainLeftSection = ({ mainUser, signedIn }: MainNavTabsProps) => {
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"
-              className="twat-button-logo"
+              className="ribbit-button-logo"
             >
               <g>
                 <path
@@ -50,7 +50,7 @@ const MainLeftSection = ({ mainUser, signedIn }: MainNavTabsProps) => {
         </div>
         <UserTab mainUser={mainUser} />
       </div>
-    </div>
+    </section>
   ) : (
     <div className="main-left-section">
       <div>

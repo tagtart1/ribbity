@@ -11,7 +11,7 @@ import { db } from "../../../scripts/firebaseConfig";
 import "../../../styles/ProfileActionsButtons.css";
 import UnfollowConfirmation from "../../Misc/UnfollowConfirmation";
 
-import SignupPopup from "../../Misc/SignupPopup";
+import SignupPopup from "../../NoAuthComponents/SignupPopup";
 import { RibbityUser } from "../../../Ribbity.types";
 
 interface ProfileActionsButtonsProps {

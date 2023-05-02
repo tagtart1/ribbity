@@ -1,9 +1,9 @@
 :root {
-  --primary-color: rgb(55, 209, 119);
+  --primary-color: #2bbf69;
   --secondary-color: rgb(22, 24, 28);
   --primary-button-border-color: rgba(58, 219, 125, 0.593);
   --transparent-background-color: rgba(200, 255, 239, 0.301);
-  --secondary-text-color: #6a6f74;
+  --secondary-text-color: #747474;
   --primary-text-color: #fff;
   --follow-button-color: #fff;
   --follow-button-text-color: black;

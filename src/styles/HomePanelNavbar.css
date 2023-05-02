@@ -27,7 +27,7 @@
   margin-bottom: 0;
 }
 
-.home-panel-navbar li {
+.home-panel-navbar div {
   padding: 16px 0px;
 
   font-size: 15px;
@@ -37,7 +37,7 @@
   pointer-events: none;
 }
 
-.home-panel-navbar div {
+.home-panel-navbar li {
   padding: 0px 24px;
   transition: 0.2s all;
   width: 100%;
@@ -47,7 +47,7 @@
   user-select: none;
 }
 
-.home-panel-navbar div:hover {
+.home-panel-navbar li:hover {
   background-color: rgb(36, 36, 36);
 }
 

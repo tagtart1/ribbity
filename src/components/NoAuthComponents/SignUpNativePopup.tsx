@@ -2,8 +2,6 @@ import CloseCross from "../../media/svg/CloseCross";
 import "../../styles/SignUpNativePopup.css";
 import ReactDOM from "react-dom";
 
-import { NavigateFunction, useNavigate } from "react-router-dom";
-
 import SignUpNativeSignupOptions from "./SignUpNativeSignupOptions";
 import CreateAccount from "./CreateAccount";
 import { useEffect, useState } from "react";
@@ -60,6 +58,8 @@ const SignUpNativePopup = ({
           animate="visible"
           exit="hidden"
           variants={containerVariants}
+          role="dialog"
+          aria-modal="true"
         >
           <motion.div
             className="signup-native-popup-main"
@@ -69,15 +69,16 @@ const SignUpNativePopup = ({
             variants={contentVariants}
             transition={{ type: "spring", stiffness: 100, damping: 15 }}
           >
-            <div
+            <button
               className="close-button"
               onClick={() => {
                 setOwnVisibility(false);
                 setShowCreateAccount(false);
               }}
+              aria-label="close popup"
             >
               <CloseCross />
-            </div>
+            </button>
             {toggleLogInPanel ? (
               <LogInAccountOptions setToggleLogInPanel={setToggleLogInPanel} />
             ) : showCreateAccount || showCreateAccountInitial ? (

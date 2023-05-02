@@ -1,6 +1,10 @@
 const FrogIconLogo = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 275.97 231.72">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 275.97 231.72"
+      aria-hidden="true"
+    >
       <g id="face_background" data-name="face background">
         <path
           className="cls-1"

@@ -193,6 +193,16 @@ path {
   background-color: rgba(25, 96, 55, 0.258);
 }
 
+.copy-option-icon {
+  background-color: transparent;
+  border: none;
+
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
 #ribbit-option-heart-wrapper:hover svg path {
   fill: rgb(194, 20, 101);
 }
@@ -210,6 +220,14 @@ path {
   position: relative;
   pointer-events: all;
   border-radius: 50%;
+
+  background-color: transparent;
+  border: none;
+
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 #ribbit-option-reply-wrapper:hover .ribbit-option-icon {

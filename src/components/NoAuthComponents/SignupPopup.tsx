@@ -1,18 +1,15 @@
 import ReactDOM from "react-dom";
 import "../../styles/SignupPopup.css";
-import { signIn } from "../../scripts/firebaseHelperFns";
-import { useContext } from "react";
-import AppContext from "../AppContext";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+
 import DislikeIconFilled from "../../media/svg/DislikeIconFilled";
 import CloseCross from "../../media/svg/CloseCross";
 import LikeIconFilled from "../../media/svg/LikeIconFilled";
 import FollowUserHollow from "../../media/svg/FollowUserHollow";
-import { RibbityUser } from "../../Ribbity.types";
+
 import { useState } from "react";
 import ReRibbitIconColor from "../../media/svg/ReRibbitIconColor";
-import SignUpNativePopup from "../NoAuthComponents/SignUpNativePopup";
-import FrogIconLogo from "./FrogIconLogo";
+import SignUpNativePopup from "./SignUpNativePopup";
+import FrogIconLogo from "../Misc/FrogIconLogo";
 import { Variants, motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 
@@ -21,11 +18,6 @@ interface SignupPopupProps {
   visibility: boolean;
   setOwnVisibility: Function;
   popupType: string;
-}
-
-interface AppContextProps {
-  setMainUser: Function;
-  loadingHandler: Function;
 }
 
 type IconsObject = {
@@ -45,9 +37,6 @@ const SignupPopup = ({
   setOwnVisibility,
   popupType,
 }: SignupPopupProps) => {
-  const { setMainUser, loadingHandler }: AppContextProps =
-    useContext(AppContext);
-
   const [openSignupForm, setOpenSignupForm] = useState<boolean>(false);
   const [openAsLogin, setOpenAsLogin] = useState<boolean>(false);
 
@@ -85,7 +74,6 @@ const SignupPopup = ({
     visible: { scale: 1 },
   };
 
-  const navigate: NavigateFunction = useNavigate();
   const popupRoot: HTMLElement | null = document.getElementById("popup-root");
 
   const handleClickAwayCancel = (e: ClickDivEvent): void => {
@@ -116,6 +104,8 @@ const SignupPopup = ({
           animate="visible"
           exit="hidden"
           variants={wrapperVariants}
+          role="dialog"
+          aria-modal="true"
         >
           <motion.section
             className="signup-popup-main"
@@ -128,7 +118,6 @@ const SignupPopup = ({
             <div
               className="close-button"
               onClick={(e) => {
-                console.log("hey");
                 setOwnVisibility(false);
               }}
             >

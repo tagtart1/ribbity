@@ -86,9 +86,11 @@ const RibbitPopupInput = ({
     <div
       className="ribbit-popup-input-container"
       onMouseDown={handleOffSideClick}
+      role="dialog"
+      aria-modal="true"
     >
       <div className="ribbit-popup-input-wrapper">
-        <div className="backout-button">
+        <button className="backout-button" aria-label="close popup">
           <svg
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -105,9 +107,9 @@ const RibbitPopupInput = ({
               ></path>
             </g>
           </svg>
-        </div>
+        </button>
         <div className="ribbit-popup-input-main">
-          <img src={mainUser.profileImgUrl} alt="user" />
+          <img src={mainUser.profileImgUrl} alt="user profile" />
 
           <form
             className="popup-input-main-right"

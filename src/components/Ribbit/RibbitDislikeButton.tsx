@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { db } from "../../scripts/firebaseConfig";
 import "../../styles/RibbitDislikeButton.css";
 import RibbitDislikeCounter from "./RibbitDislikeCounter";
-import SignupPopup from "../Misc/SignupPopup";
+import SignupPopup from "../NoAuthComponents/SignupPopup";
 import DislikeIconFilled from "../../media/svg/DislikeIconFilled";
 import { RibbitType } from "../../Ribbity.types";
 
@@ -61,7 +61,11 @@ const RibbitDislikeButton = ({
 
   return (
     <>
-      <div id="ribbit-option-dislike-wrapper" onClick={handleDislike}>
+      <button
+        id="ribbit-option-dislike-wrapper"
+        onClick={handleDislike}
+        aria-label="Dislike"
+      >
         <div className="ribbit-option-icon ribbit-option-icon-dislike ">
           {isDisliked ? (
             <DislikeIconFilled />
@@ -79,7 +83,7 @@ const RibbitDislikeButton = ({
           isDisliked={isDisliked}
           dislikedBy={ribbitInfo.dislikedBy}
         />
-      </div>
+      </button>
       <SignupPopup
         userName={ribbitInfo.handle}
         visibility={showSignupPopup}

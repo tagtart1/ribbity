@@ -1,38 +1,17 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import "../../styles/SignUpFooter.css";
-import AppContext from "../AppContext";
-import { signIn } from "../../scripts/firebaseHelperFns";
-import { NavigateFunction, useNavigate } from "react-router-dom";
-import { RibbityUser } from "../../Ribbity.types";
+
 import SignUpNativePopup from "./SignUpNativePopup";
 interface SignUpFooterProps {
   signedIn?: boolean;
 }
 
-interface AppContextProps {
-  setMainUser: Function;
-  loadingHandler: Function;
-}
-
 const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
-  const { setMainUser, loadingHandler }: AppContextProps =
-    useContext(AppContext);
-
   const [openSignupForm, setOpenSignupForm] = useState<boolean>(false);
   const [showLogInPanel, setShowLogInPanel] = useState<boolean>(false);
 
-  const navigate: NavigateFunction = useNavigate();
-
-  const signInHandle = async (): Promise<void> => {
-    const newUser: RibbityUser | null | undefined = await signIn(
-      loadingHandler
-    );
-    if (newUser) setMainUser(newUser);
-    navigate("/home");
-  };
-
   return !signedIn ? (
-    <div className="signup-footer-container">
+    <footer className="signup-footer-container">
       <div className="footer-block"></div>
       <div className="signup-footer-wrapper">
         <div className="signup-text-group">
@@ -65,7 +44,7 @@ const SignUpFooter = ({ signedIn }: SignUpFooterProps) => {
         setOwnVisibility={setOpenSignupForm}
         openAsLogin={showLogInPanel}
       />
-    </div>
+    </footer>
   ) : null;
 };
 

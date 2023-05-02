@@ -5,12 +5,12 @@ interface ExplorePanelNavbarProps {
   setActiveTab: Function;
 }
 
-type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
+type ClickListEvent = React.MouseEvent<HTMLElement>;
 
 const ExplorePanelNavbar = ({ setActiveTab }: ExplorePanelNavbarProps) => {
   const [selectedTab, setSelectedTab] = useState<Element | null>();
 
-  const handleTabSwitch = (e: ClickDivEvent, tabNum: number) => {
+  const handleTabSwitch = (e: ClickListEvent, tabNum: number) => {
     const target = e.target as HTMLElement;
     const listItem = target.firstChild as Element;
 
@@ -27,23 +27,25 @@ const ExplorePanelNavbar = ({ setActiveTab }: ExplorePanelNavbarProps) => {
   }, []);
 
   return (
-    <ul className="explore-panel-navbar-container">
-      <div onClick={(e: ClickDivEvent) => handleTabSwitch(e, 0)}>
-        <li className="selected-tab">For you</li>
-      </div>
-      <div onClick={(e: ClickDivEvent) => handleTabSwitch(e, 1)}>
-        <li>Trending</li>
-      </div>
-      <div onClick={(e: ClickDivEvent) => handleTabSwitch(e, 2)}>
-        <li>News</li>
-      </div>
-      <div onClick={(e: ClickDivEvent) => handleTabSwitch(e, 3)}>
-        <li>Sports</li>
-      </div>
-      <div onClick={(e: ClickDivEvent) => handleTabSwitch(e, 4)}>
-        <li>Entertainment</li>
-      </div>
-    </ul>
+    <nav>
+      <ul className="explore-panel-navbar-container">
+        <li onClick={(e: ClickListEvent) => handleTabSwitch(e, 0)}>
+          <div className="selected-tab">For you</div>
+        </li>
+        <li onClick={(e: ClickListEvent) => handleTabSwitch(e, 1)}>
+          <div>Trending</div>
+        </li>
+        <li onClick={(e: ClickListEvent) => handleTabSwitch(e, 2)}>
+          <div>News</div>
+        </li>
+        <li onClick={(e: ClickListEvent) => handleTabSwitch(e, 3)}>
+          <div>Sports</div>
+        </li>
+        <li onClick={(e: ClickListEvent) => handleTabSwitch(e, 4)}>
+          <div>Entertainment</div>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

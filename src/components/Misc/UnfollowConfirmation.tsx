@@ -34,7 +34,11 @@ const UnfollowConfirmation = ({
       className="unfollow-confirmation-container"
       onMouseDown={handleClickAwayCancel}
     >
-      <section className="unfollow-confirmation-main">
+      <section
+        className="unfollow-confirmation-main"
+        role="dialog"
+        aria-modal="true"
+      >
         <h1>Unfollow @{userHandle}</h1>
         <p className="unfollow-confirmatin-text">
           Their Ribbits will no longer show up in your home timeline. You can

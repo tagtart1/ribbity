@@ -16,7 +16,7 @@
   margin-bottom: 0;
 }
 
-.explore-panel-navbar-container li {
+.explore-panel-navbar-container div {
   padding: 16px 0px;
 
   font-size: 15px;
@@ -25,7 +25,7 @@
   pointer-events: none;
 }
 
-.explore-panel-navbar-container div {
+.explore-panel-navbar-container li {
   padding: 0px 24px;
   transition: 0.2s all;
   width: 100%;
@@ -36,7 +36,7 @@
   user-select: none;
 }
 
-.explore-panel-navbar-container div:hover {
+.explore-panel-navbar-container li:hover {
   background-color: rgb(36, 36, 36);
 }
 

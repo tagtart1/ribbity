@@ -20,7 +20,6 @@ import {
   QuerySnapshot,
   DocumentData,
   DocumentReference,
-  getDoc,
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
@@ -257,13 +256,14 @@ const ProfilePanel = ({
   if (!visitedUserInfo || !visitedUserInfo.userHandle)
     return <InvalidRoutePanel />;
   return (
-    <div className="profile-panel-container">
-      <div className="profile-panel-top-header">
-        <div
+    <main className="profile-panel-container">
+      <header className="profile-panel-top-header">
+        <button
           className="back-arrow"
           onClick={() => {
             navigate(-1);
           }}
+          aria-label="navigate back"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -273,7 +273,7 @@ const ProfilePanel = ({
               ></path>
             </g>
           </svg>
-        </div>
+        </button>
         <div className="username-ribbit-count">
           <h1 className="username-profile-top-group">
             <span className="user-name">{visitedUserInfo.userName}</span>
@@ -298,7 +298,7 @@ const ProfilePanel = ({
               : "Ribbits"}
           </p>
         </div>
-      </div>
+      </header>
       <img
         className="user-banner"
         src={visitedUserInfo.bannerImgUrl}
@@ -347,7 +347,7 @@ const ProfilePanel = ({
         )}
       </div>
       <RibbitButtonFixed />
-    </div>
+    </main>
   );
 };
 

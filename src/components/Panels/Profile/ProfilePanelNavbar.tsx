@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import "../../../styles/ProfilePanelNavbar.css";
 
-type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
+type ClickDivEvent = React.MouseEvent<HTMLElement>;
 
 const ProfilePanelNavbar = () => {
   const [selectedTab, setSelectedTab] = useState<HTMLElement>();
@@ -48,19 +48,19 @@ const ProfilePanelNavbar = () => {
 
   return (
     <ul className="profile-panel-navbar-container">
-      <div onClick={(e) => handleTabSwitch(e, `/${handle}`)}>
-        <li className=" ribbits-tab">Ribbits</li>
-      </div>
-      <div onClick={(e) => handleTabSwitch(e, `/${handle}/replies`)}>
-        <li className="replies-tab">Replies</li>
-      </div>
-      <div onClick={(e) => handleTabSwitch(e, `/${handle}/media`)}>
-        <li className="media-tab">Media</li>
-      </div>
+      <li onClick={(e) => handleTabSwitch(e, `/${handle}`)}>
+        <div className=" ribbits-tab">Ribbits</div>
+      </li>
+      <li onClick={(e) => handleTabSwitch(e, `/${handle}/replies`)}>
+        <div className="replies-tab">Replies</div>
+      </li>
+      <li onClick={(e) => handleTabSwitch(e, `/${handle}/media`)}>
+        <div className="media-tab">Media</div>
+      </li>
 
-      <div onClick={(e) => handleTabSwitch(e, `/${handle}/likes`)}>
-        <li className="likes-tab">Likes</li>
-      </div>
+      <li onClick={(e) => handleTabSwitch(e, `/${handle}/likes`)}>
+        <div className="likes-tab">Likes</div>
+      </li>
     </ul>
   );
 };

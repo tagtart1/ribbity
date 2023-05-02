@@ -6,7 +6,7 @@ interface HomePanelNavbarProps {
   setTab: Function;
 }
 
-type ClickDivEvent = React.MouseEvent<HTMLDivElement>;
+type ClickDivEvent = React.MouseEvent<HTMLElement>;
 
 const HomePanelNavbar = ({ setTab }: HomePanelNavbarProps) => {
   const [selectedTab, setSelectedTab] = useState<HTMLElement>();
@@ -29,15 +29,16 @@ const HomePanelNavbar = ({ setTab }: HomePanelNavbarProps) => {
     <div className="home-panel-header-container">
       <UserTabMobileFixed />
       <h1 className="home-panel-header-text">Home</h1>
-
-      <ul className="home-panel-navbar">
-        <div onClick={handleTabSwitch}>
-          <li className="selected-tab-home">For you</li>
-        </div>
-        <div onClick={handleTabSwitch}>
-          <li>Following</li>
-        </div>
-      </ul>
+      <nav>
+        <ul className="home-panel-navbar">
+          <li onClick={handleTabSwitch}>
+            <div className="selected-tab-home">For you</div>
+          </li>
+          <li onClick={handleTabSwitch}>
+            <div>Following</div>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

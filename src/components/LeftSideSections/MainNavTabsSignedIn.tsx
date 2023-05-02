@@ -54,7 +54,7 @@ const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
       default:
         setActiveTab(null);
     }
-  }, [pathname]);
+  }, [pathname, mainUser.userHandle]);
 
   return (
     <ul className="main-nav-tabs-list">

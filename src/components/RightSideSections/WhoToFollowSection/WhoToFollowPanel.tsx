@@ -54,18 +54,20 @@ const WhoToFollowPanel = ({ mainUser, isVisible }: WhoToFollowPanelProps) => {
 
   if (!mainUser || recommendList.length === 0) return null;
   return (
-    <div className={!isVisible ? "display-off" : "who-to-follow-container"}>
+    <aside className={!isVisible ? "display-off" : "who-to-follow-container"}>
       <h1>Who to follow</h1>
-      {recommendList.map((user: RibbityUser, index: number) => {
-        return (
-          <div key={index}>
-            <RecommendedFollow recommendedUser={user} mainUser={mainUser} />
-          </div>
-        );
-      })}
+      <ul className="who-to-follow-list">
+        {recommendList.map((user: RibbityUser, index: number) => {
+          return (
+            <div key={index}>
+              <RecommendedFollow recommendedUser={user} mainUser={mainUser} />
+            </div>
+          );
+        })}
+      </ul>
 
       <ShowMoreButton />
-    </div>
+    </aside>
   );
 };
 

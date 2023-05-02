@@ -18,7 +18,7 @@ const RecommendedFollow = ({
   const navigate = useNavigate();
 
   return (
-    <div className="recommended-follow-container">
+    <li className="recommended-follow-container">
       <div
         className="left-side"
         onClick={() => navigate(recommendedUser.userHandle)}
@@ -39,7 +39,7 @@ const RecommendedFollow = ({
       </div>
 
       <ToggleFollowButton mainUser={mainUser} userInfo={recommendedUser} />
-    </div>
+    </li>
   );
 };
 

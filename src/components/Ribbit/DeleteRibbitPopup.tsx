@@ -25,6 +25,8 @@ const DeleteRibbitPopup = ({
     <div
       className="delete-ribbit-popup-container"
       onMouseDown={handleOffSideClick}
+      role="dialog"
+      aria-modal="true"
     >
       <div className="delete-ribbit-popup-wrapper">
         <h1>Delete Ribbit?</h1>

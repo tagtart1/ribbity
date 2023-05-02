@@ -17,8 +17,7 @@ import {
 import { db } from "../../../scripts/firebaseConfig";
 import Ribbit from "../../Ribbit/Ribbit";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
-import { isUserSignedIn } from "../../../scripts/firebaseHelperFns";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+
 import RibbitButtonFixed from "../../Mobile/RibbitButtonFixed";
 
 interface HomePanelProps {
@@ -38,7 +37,6 @@ const Home = ({ mainUser }: HomePanelProps) => {
   // Ensures the snapshot doesnt always subscribe when not needed
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
   const [tab, setTab] = useState<string>("For you");
-  const navigate: NavigateFunction = useNavigate();
 
   // Grab the ribbits from the firebase DB
   const fetchRibbits = async (q: FBQuery): Promise<RibbitListState> => {
@@ -110,7 +108,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
         snapshot.docChanges().forEach((change: any) => {
           if (change.type === "added") {
             if (ribbitList[change.doc.id]) return;
-            console.log("addition");
+
             addRibbitLocal(change.doc.id, change.doc.data());
           }
         });
@@ -125,7 +123,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
   if (!mainUser) return null;
 
   return (
-    <div className="home-panel-container">
+    <main className="home-panel-container">
       <div className="home-panel-header">
         <HomePanelNavbar setTab={setTab} />
       </div>
@@ -152,7 +150,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
         </div>
       </div>
       <RibbitButtonFixed />
-    </div>
+    </main>
   );
 };
 

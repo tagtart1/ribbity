@@ -5,7 +5,7 @@ import frogImg from "../../../media/rainfrog.jpg";
 
 const WhatsHappeningPanel = () => {
   return (
-    <div className="whats-happening-container">
+    <aside className="whats-happening-container">
       <h1>What's Happening</h1>
       <ExploreRibbitTopic
         topicTitle="Rain Frog Spotted"
@@ -36,7 +36,7 @@ const WhatsHappeningPanel = () => {
         trendingGenre="United States"
       />
       <ShowMoreButton />
-    </div>
+    </aside>
   );
 };
 

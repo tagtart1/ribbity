@@ -9,7 +9,7 @@
   position: sticky;
   top: 0;
 }
-.tweet-button-left {
+.ribbit-button-left {
   color: var(--primary-text-color);
   background-color: var(--primary-color);
   padding: 16px 0px;
@@ -35,12 +35,12 @@
   padding-left: 0;
 }
 
-.main-left-section .twat-button-logo {
+.main-left-section .ribbit-button-logo {
   width: 24px;
   height: 24px;
 }
 
-.main-left-section .twat-button-logo {
+.main-left-section .ribbit-button-logo {
   display: none;
 }
 
@@ -59,7 +59,7 @@
     padding: 14px;
     margin-left: 2px;
   }
-  .main-left-section .twat-button-logo {
+  .main-left-section .ribbit-button-logo {
     display: block;
   }
 

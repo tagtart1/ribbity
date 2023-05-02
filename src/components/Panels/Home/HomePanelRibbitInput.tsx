@@ -19,6 +19,7 @@ type ChangeInputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
   const inputRef: any = useRef();
   const notifySuccess = () => toast("Your ribbit was sent.");
+  const notifyError = () => toast("Your ribbit failed to post.");
 
   const autoGrowTextArea = (e: ChangeInputEvent) => {
     const textarea = e.target as HTMLElement;
@@ -56,7 +57,7 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
       await addDoc(collection(db, "ribbits"), newRibbit);
       notifySuccess();
     } catch (error) {
-      console.error("Error uploading ribbit to firebaseDB", error);
+      notifyError();
     }
 
     e.target.reset();

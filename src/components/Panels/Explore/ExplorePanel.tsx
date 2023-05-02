@@ -57,7 +57,7 @@ const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
 
   if (isLoading) return <LoadingPanel />;
   return (
-    <div className="explore-panel-container">
+    <main className="explore-panel-container">
       <div className="explore-panel-header">
         <ExplorePanelSearch />
         <ExplorePanelNavbar setActiveTab={setActiveTab} />
@@ -82,7 +82,7 @@ const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
         )}
       </div>
       <RibbitButtonFixed />
-    </div>
+    </main>
   );
 };
 

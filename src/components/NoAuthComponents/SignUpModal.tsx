@@ -29,7 +29,7 @@ const SignUpModal = ({
   const [openSignupForm, setOpenSignupForm] = useState<boolean>(false);
 
   return (
-    <div className="signup-modal-container">
+    <aside className="signup-modal-container">
       <h2 className="signup-modal-header">New to Ribbity?</h2>
       <p className="signup-misc-text">
         Sign up now to get your own personalized timeline!
@@ -58,7 +58,7 @@ const SignUpModal = ({
         openAsLogin={false}
         showCreateAccountInitial={true}
       />
-    </div>
+    </aside>
   );
 };
 

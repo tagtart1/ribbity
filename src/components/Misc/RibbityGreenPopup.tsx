@@ -2,11 +2,10 @@ import { useState, useEffect, ReactNode, useContext } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { toast } from "react-hot-toast";
 import "../../styles/RibbityGreenPopup.css";
-import grainyPattern from "../../media/svg/GrainyPattern.svg";
 
 import ReactDOM from "react-dom";
 import CloseCross from "../../media/svg/CloseCross";
-import FrogIconLogo from "./FrogIconLogo";
+
 import RibbityVerifyBadge from "../../media/TexturedVerifiedBadgeImage.png";
 import GreenCheckMark from "../../media/GreenCheckMarkImage.png";
 import { RibbityUser } from "../../Ribbity.types";

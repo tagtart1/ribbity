@@ -4,7 +4,7 @@ import { db } from "../../scripts/firebaseConfig";
 import { useState, useEffect } from "react";
 
 import "../../styles/RibbitLikeButton.css";
-import SignupPopup from "../Misc/SignupPopup";
+import SignupPopup from "../NoAuthComponents/SignupPopup";
 import { RibbitType } from "../../Ribbity.types";
 
 interface RibbitLikeButtonProps {
@@ -60,7 +60,11 @@ const RibbitLikeButton = ({
 
   return (
     <>
-      <div id="ribbit-option-heart-wrapper" onClick={handleLikeRibbit}>
+      <button
+        id="ribbit-option-heart-wrapper"
+        onClick={handleLikeRibbit}
+        aria-label="Like"
+      >
         <div className="ribbit-option-icon ribbit-option-icon-heart">
           {isLiked ? (
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -88,7 +92,7 @@ const RibbitLikeButton = ({
           likedBy={ribbitInfo.likedBy}
           hasClickedLike={hasClickedLike}
         />
-      </div>
+      </button>
       <SignupPopup
         visibility={showPopup}
         setOwnVisibility={setShowPopup}

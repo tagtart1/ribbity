@@ -82,7 +82,7 @@ const LongPopupNavbarMobile = ({
             variants={fadeIn}
             key="fdjske"
           ></motion.div>
-          <motion.div
+          <motion.nav
             className="popup-mobile-nav-main"
             initial="hidden"
             animate="visible"
@@ -178,7 +178,7 @@ const LongPopupNavbarMobile = ({
                 Logout
               </p>
             </div>
-          </motion.div>
+          </motion.nav>
         </>
       )}
       <RibbityGreenPopup

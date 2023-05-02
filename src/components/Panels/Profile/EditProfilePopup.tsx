@@ -153,7 +153,6 @@ const EditProfilePopup = ({
     const saveBtn = document.querySelector(`.save-edit-profile-button`);
 
     if (!input.value.replace(/\s/g, "").length) {
-      console.log("poop fil this out");
       saveBtn?.classList.add("invalid-save-button");
       input.parentElement.parentElement.classList.add("invalid-input");
       setEditsValid(false);
@@ -215,14 +214,15 @@ const EditProfilePopup = ({
               <div
                 style={{ display: "flex", alignItems: "center", gap: "28px" }}
               >
-                <div
+                <button
                   className="backout-button"
                   onClick={() => {
                     setShowEditProfile(false);
                   }}
+                  aria-label="exit without saving"
                 >
                   <CloseCross />
-                </div>
+                </button>
                 <h1 className="edit-profile-h1">Edit profile</h1>
               </div>
               <button type="submit" className="save-edit-profile-button">

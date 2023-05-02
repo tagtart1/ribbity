@@ -1,6 +1,11 @@
 const ReRibbitIcon = () => {
   return (
-    <svg viewBox="0 0 24 24">
+    <svg
+      viewBox="0 0 24 24"
+      aria-label="Re-ribbit"
+      role="img"
+      fill="rgb(55, 209, 119)"
+    >
       <g>
         <path
           fill="#71767B"

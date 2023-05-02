@@ -1,5 +1,3 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../scripts/firebaseConfig";
 import "../../styles/CreateAccount.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { createUserNative } from "../../scripts/firebaseHelperFns";
@@ -8,7 +6,7 @@ import { RibbityUser } from "../../Ribbity.types";
 import { useNavigate } from "react-router-dom";
 import ShowPasswordCheckbox from "./ShowPasswordCheckbox";
 
-interface AppContext {
+interface AppContextPros {
   loadingHandler: Function;
   setMainUser: Function;
 }
@@ -19,7 +17,8 @@ const CreateAccount = () => {
   const emailInputRef: any = useRef(null);
   const passwordInputRef: any = useRef(null);
   const navigate = useNavigate();
-  const { loadingHandler, setMainUser }: AppContext = useContext(AppContext);
+  const { loadingHandler, setMainUser }: AppContextPros =
+    useContext(AppContext);
   const [isNameValid, setIsNameValid] = useState<boolean>(false);
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);

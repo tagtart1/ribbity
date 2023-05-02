@@ -31,7 +31,12 @@ const LogoutPopup = ({ isVisible, setVisibility }: LogoutPopupProps) => {
   if (!isVisible || !popupRoot) return null;
   document.documentElement.style.overflowY = "hidden";
   return ReactDOM.createPortal(
-    <div className="logout-popup-container" onClick={handleOffsideClickClose}>
+    <div
+      className="logout-popup-container"
+      onClick={handleOffsideClickClose}
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="logout-popup-main">
         <div className="text-group">
           <h1>Do you wish to log out?</h1>
@@ -52,9 +57,13 @@ const LogoutPopup = ({ isVisible, setVisibility }: LogoutPopupProps) => {
             Cancel
           </button>
         </div>
-        <div className="backout-button" onClick={closePopup}>
+        <button
+          className="backout-button"
+          onClick={closePopup}
+          aria-label="close popup"
+        >
           <CloseCross />
-        </div>
+        </button>
       </div>
     </div>,
     popupRoot

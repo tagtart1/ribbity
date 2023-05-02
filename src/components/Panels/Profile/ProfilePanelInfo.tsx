@@ -6,7 +6,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import { Link } from "react-router-dom";
 import { RibbityUser } from "../../../Ribbity.types";
 import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
-import SignupPopup from "../../Misc/SignupPopup";
+import SignupPopup from "../../NoAuthComponents/SignupPopup";
 import { useState } from "react";
 
 interface ProfilePanelInfoProps {
