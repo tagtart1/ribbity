@@ -1,11 +1,11 @@
 <h1 align="center"> 🐸 Ribbity (Twitter Clone) </h1>
 <img alt='Initial Preview' src='/src/media/FirstPreview.png'>
 
-<p align='center'>A twitter clone built using React</p>
+<p align='center'>A twitter inspired clone built using React</p>
 
 ## Short Description
 
-A fullstack Twitter clone with a slightly alternate design built using TypeScript, React, Firebase and Vanilla CSS. Ribbity is fully responsive on all devices. Packed with features, users can follow each other and even customize their own profiles upon account creation via google or the native signup form. They then unlock the ability to create Ribbits (tweets) which can be liked, shared, disliked, carry pictures, deleted, Reribbited, and begin reply threads. See the latest or random ribbits within the home and explore panels. Users can also get a sweet green checkmark (for free) by opening the Ribbity Green tab. A more detailed feature list can be found below.
+Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices, Ribbity offers an alternate design with various unique features. Users can create accounts via Google or native signup forms, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Additional features include exploring the latest or random Ribbits and earning a free green checkmark through the Ribbity Green tab.
 
 ## 🔴 Demo
 
