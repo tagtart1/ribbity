@@ -15,7 +15,7 @@ Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript
 
 Below is a collection of images and GIFs of user interaction on the site. Users initially begin on just the Explore panel where they are prompted to create an account. After doing so they can now interact with other users, customize their profile, or post their own ribbits. There are minor descriptions below each image to detail what they show.
 
-<img alt='responsive showcase' src='/src/media/responsiveShowcase.gif'>
+<img alt='responsive showcase' src='/src/media/showcasingResponsive.gif'>
 
 ## Features ✅
 
