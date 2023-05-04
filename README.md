@@ -17,7 +17,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 
 <p align='center'><img alt='responsive showcase' src='/src/media/showcasingResponsive.gif'></p>
 
-<font size='1' align='center'>Displaying the multiple designs of the site at varying device widths for responsiveness</font>
+<h6 align='center'>Displaying the multiple designs of the site at varying device widths for responsiveness</h6>
 
 ## Features ✅
 
