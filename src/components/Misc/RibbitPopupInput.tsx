@@ -1,15 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import "../../styles/RibbitPopupInput.css";
-import {
-  collection,
-  addDoc,
-  DocumentData,
-  DocumentReference,
-  updateDoc,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { collection, DocumentReference, doc, setDoc } from "firebase/firestore";
 import { db } from "../../scripts/firebaseConfig";
 import { getTimestamp, isValidString } from "../../scripts/HelperFns";
 import toast from "react-hot-toast";
@@ -23,6 +15,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import CloseCross from "../../media/svg/CloseCross";
+import Spinner from "./Spinner";
 
 interface RibbitPopupInputProps {
   isVisible: boolean;
@@ -41,7 +34,7 @@ const RibbitPopupInput = ({
   mainUser,
 }: RibbitPopupInputProps) => {
   const [inputLength, setInputLength] = useState<Number>(0);
-
+  const [isLoadingPosting, setIsLoadingPosting] = useState<boolean>(false);
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const [attachedPreviewImageString, setPreviewAttachedImageString] =
     useState<string>("");
@@ -71,8 +64,7 @@ const RibbitPopupInput = ({
 
     if (!isValidString(input.value) && !attachedFile) return;
     try {
-      // SEPEREATE FUNCTIONALITY DEPENDING ON IF THERE IS AN IMAGE SELECTED OR NOT
-      // Grab ref and set the imageUrl to a loading value, upload image to firestore, generate a public url for the upload, update the ribbitField imageurl to the public url from the loading value
+      setIsLoadingPosting(true);
       const newRibbitRef: DocumentReference = doc(collection(db, "ribbits"));
       let uploadedFileUrl: string = "";
       let uploadFilePath: string = "";
@@ -120,7 +112,7 @@ const RibbitPopupInput = ({
     } catch (error) {
       notifyError();
     }
-
+    setIsLoadingPosting(false);
     document.documentElement.style.overflowY = "visible";
   };
 
@@ -155,6 +147,7 @@ const RibbitPopupInput = ({
   const popupRoot: HTMLElement | null = document.getElementById("popup-root");
 
   if (!isVisible || !popupRoot) return null;
+
   return ReactDOM.createPortal(
     <div
       className="ribbit-popup-input-container"
@@ -194,34 +187,41 @@ const RibbitPopupInput = ({
             className="popup-input-main-right"
             onSubmit={handleSubmitRibbit}
           >
-            <div>
-              <textarea
-                maxLength={160}
-                placeholder="What's happening?"
-                id="ribbit-popup-input"
-                onChange={(e) => {
-                  setInputLength(e.currentTarget.value.length);
-                  autoGrowTextArea(e);
-                }}
-              ></textarea>
-              {attachedFile ? (
-                <div className="attached-media-preview-wrapper">
-                  <img
-                    src=""
-                    alt="attached media"
-                    ref={imagePreviewElement}
-                    className="attached-media-preview"
-                  />
-                  <button
-                    className="delete-attached-media"
-                    aria-label="remove attached media"
-                    onClick={removeAttachedMedia}
-                  >
-                    <CloseCross />
-                  </button>
-                </div>
-              ) : null}
+            <div className="inputs-group">
+              {!isLoadingPosting ? (
+                <>
+                  <textarea
+                    maxLength={160}
+                    placeholder="What's happening?"
+                    id="ribbit-popup-input"
+                    onChange={(e) => {
+                      setInputLength(e.currentTarget.value.length);
+                      autoGrowTextArea(e);
+                    }}
+                  ></textarea>
+                  {attachedFile ? (
+                    <div className="attached-media-preview-wrapper">
+                      <img
+                        src=""
+                        alt="attached media"
+                        ref={imagePreviewElement}
+                        className="attached-media-preview"
+                      />
+                      <button
+                        className="delete-attached-media"
+                        aria-label="remove attached media"
+                        onClick={removeAttachedMedia}
+                      >
+                        <CloseCross />
+                      </button>
+                    </div>
+                  ) : null}{" "}
+                </>
+              ) : (
+                <Spinner />
+              )}
             </div>
+
             <div className="bottom-half">
               <span className="ribbit-reply-status">
                 <svg viewBox="0 0 24 24">

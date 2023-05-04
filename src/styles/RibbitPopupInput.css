@@ -64,6 +64,16 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 250px;
+  position: relative;
+}
+
+.popup-input-main-right .inputs-group:has(.spinner) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-input-main-right .spinner {
 }
 
 .ribbit-popup-input-main .user-profile-image {

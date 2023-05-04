@@ -76,6 +76,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
         q = query(
           collection(db, "ribbits"),
           limit(30),
+
           orderBy("timeInMillisecond", "desc")
         );
       } else {

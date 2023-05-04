@@ -61,51 +61,51 @@ const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
       <li className="logo-item">
         <FrogIconLogo />
       </li>
-      <Link to="/home">
-        <Tab
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          icon={<HomeIcon />}
-          title="Home"
-          tabNum={0}
-        />
-      </Link>
-      <Link to="/explore">
-        <Tab
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          icon={<ExploreHashtagIcon />}
-          title="Explore"
-          tabNum={1}
-        />
-      </Link>
-      <Link to="/notifications">
-        <Tab
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          icon={<NotifcationsIcon />}
-          title="Notifications"
-          tabNum={2}
-        />
-      </Link>
-      <Link to={"/messages"}>
-        <Tab
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          icon={<MessagesIcon />}
-          title="Messages"
-          tabNum={3}
-        />
-      </Link>
-      <Link to={"/bookmarks"}>
-        <Tab
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          icon={<BookmarksIcon />}
-          title="Bookmarks"
-          tabNum={4}
-        />
-      </Link>
+
+      <Tab
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        icon={<HomeIcon />}
+        title="Home"
+        tabNum={0}
+        linkTo="/home"
+      />
+
+      <Tab
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        icon={<ExploreHashtagIcon />}
+        title="Explore"
+        tabNum={1}
+        linkTo="/explore"
+      />
+
+      <Tab
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        icon={<NotifcationsIcon />}
+        title="Notifications"
+        tabNum={2}
+        linkTo="/notifications"
+      />
+
+      <Tab
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        icon={<MessagesIcon />}
+        title="Messages"
+        tabNum={3}
+        linkTo="/messages"
+      />
+
+      <Tab
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        icon={<BookmarksIcon />}
+        title="Bookmarks"
+        tabNum={4}
+        linkTo="/bookmarks"
+      />
 
       <li
         className="tab-list-item"
@@ -117,15 +117,15 @@ const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
         </div>
       </li>
 
-      <Link to={`/${mainUser.userHandle}`}>
-        <Tab
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          icon={<ProfileIcon />}
-          title="Profile"
-          tabNum={6}
-        />
-      </Link>
+      <Tab
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        icon={<ProfileIcon />}
+        title="Profile"
+        tabNum={6}
+        linkTo={`/${mainUser.userHandle}`}
+      />
+
       <li className="tab-list-item">
         <div className="tab-items">
           <svg viewBox="0 0 24 24">
@@ -153,19 +153,29 @@ interface TabProps {
   setActiveTab: Function;
   tabNum: number;
   title: string;
+  linkTo: string;
 }
 
-const Tab = ({ icon, activeTab, setActiveTab, tabNum, title }: TabProps) => {
+const Tab = ({
+  icon,
+  activeTab,
+  setActiveTab,
+  tabNum,
+  title,
+  linkTo,
+}: TabProps) => {
   return (
     <li className="tab-list-item" onClick={() => setActiveTab(tabNum)}>
-      <div className="tab-items">
-        {icon}
-        {activeTab === tabNum ? (
-          <p style={{ fontWeight: "900" }}>{title}</p>
-        ) : (
-          <p>{title}</p>
-        )}
-      </div>
+      <Link to={linkTo}>
+        <div className="tab-items">
+          {icon}
+          {activeTab === tabNum ? (
+            <p style={{ fontWeight: "900" }}>{title}</p>
+          ) : (
+            <p>{title}</p>
+          )}
+        </div>
+      </Link>
     </li>
   );
 };

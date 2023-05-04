@@ -23,12 +23,16 @@ interface ExplorePanelProps {
   mainUser: RibbityUser;
 }
 
+interface RibbitListState {
+  [key: string]: RibbitType;
+}
+
 // Type alias
 type FBQuery = Query<DocumentData>;
 type FBQuerySnap = QuerySnapshot<DocumentData>;
 
 const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
-  const [ribbitsList, setRibbitsList] = useState<RibbitType[]>([]);
+  const [ribbitsList, setRibbitsList] = useState<RibbitListState>({});
   const [activeTab, setActiveTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -38,14 +42,14 @@ const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
       limit(30)
     );
     const fetchRibbits = async (q: FBQuery): Promise<void> => {
-      let ribbits: RibbitType[] = [];
+      let ribbits: RibbitListState = {};
 
       const ribbitSnapshot: FBQuerySnap = await getDocs(q);
 
       ribbitSnapshot.forEach((doc: any) => {
         const ribbit: RibbitType = doc.data();
         ribbit.id = doc.id;
-        ribbits.push(ribbit);
+        ribbits[ribbit.id] = ribbit;
       });
       setRibbitsList(ribbits);
     };
@@ -54,6 +58,13 @@ const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
 
     setIsLoading(false);
   }, []);
+
+  const removeRibbitLocal = (tab: any, id: string): void => {
+    const copyList = { ...ribbitsList };
+
+    delete copyList[id];
+    setRibbitsList(copyList);
+  };
 
   if (isLoading) return <LoadingPanel />;
   return (
@@ -64,16 +75,17 @@ const ExplorePanel = ({ mainUser }: ExplorePanelProps) => {
       </div>
       <div className="explore-main-feed">
         {activeTab === 0 ? (
-          ribbitsList.map((ribbit: RibbitType) => {
+          Object.keys(ribbitsList).map((docId: string) => {
             return (
               <Ribbit
-                isDeletable={mainUser.userHandle === ribbit.handle}
+                isDeletable={mainUser.userHandle === ribbitsList[docId].handle}
                 isThreaded={false}
                 inShowcase={false}
-                ribbitInfo={ribbit}
+                ribbitInfo={ribbitsList[docId]}
                 currentHandle={mainUser.userHandle}
-                key={ribbit.id}
+                key={ribbitsList[docId].id}
                 isReRibbit={false}
+                refreshRibbits={removeRibbitLocal}
               />
             );
           })
