@@ -5,7 +5,7 @@
 
 ## Short Description
 
-Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices, Ribbity offers an alternate design with various unique features. Users can create accounts via Google or native signup forms, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Additional features include exploring the latest or random Ribbits and earning a free green checkmark through the Ribbity Green tab.
+Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices, Ribbity offers an alternate design with various unique features. Users can create accounts, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Obtain a free green checkmark through the Ribbity Green tab.
 
 ## 🔴 Demo
 
