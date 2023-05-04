@@ -5,7 +5,7 @@
 
 ## Short Description
 
-Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices, Ribbity offers a slgith alternate design with various unique features. Users can create accounts, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Obtain a free green checkmark through the Ribbity Green tab as well. [Additional Features below](https://github.com/tagtart1/ribbity/#features-)
+Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices, Ribbity offers a slgith alternate design with various unique features. Users can create accounts, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Obtain a free green checkmark through the Ribbity Green tab as well. [Additional features below](https://github.com/tagtart1/ribbity/#features-)
 
 ## 🔴 Demo
 
@@ -14,6 +14,8 @@ Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript
 ## Showcase 🌟
 
 Below is a collection of images and GIFs of user interaction on the site. Users initially begin on just the Explore panel where they are prompted to create an account. After doing so they can now interact with other users, customize their profile, or post their own ribbits. There are minor descriptions below each image to detail what they show.
+
+<img alt='responsive showcase' src='/src/media/responsiveShowcase.gif'>
 
 ## Features ✅
 
@@ -49,10 +51,10 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 
 ## Motive
 
-I wanted to build this project to showcase my abilities of React and Typescript by creating a full stack project. While I am not 'developing' the back end, I wanted to show that I have the ability to connect the front-end and back-end technologies together to create a functional app. Futhermore, I wanted to show I can create, manage and understand large codebases like this on my own. In the future, I strive to learn how to develop my own backend and collaborate with others on project while also using SCSS/SASS. Upon completing this project I can now visualize how large professional websites and applications were developed behind the scenes which give me confidence to continue developing professional websites
+I wanted to build this project to showcase my abilities of React and Typescript by creating a full stack project. While I am not 'developing' the back end, I wanted to show that I have the ability to connect the front-end and back-end technologies together to create a functional app. Futhermore, I wanted to show I can create, manage and understand large codebases like this on my own. In the future, I strive to learn how to develop my own backend and collaborate with others on project while also using SCSS/SASS. Upon completing this project I can now visualize how large professional websites and applications were developed behind the scenes which gives me confidence to continue developing professional websites
 
 ## Credits
 
-Twitter.com: The UI/UX and features are heavily inspired by Twitter. This is a close built for educational purposes only
+[Twitter.com](https://twitter.com): The UI/UX and features of my projectare heavily inspired by Twitter. This is a close built for educational purposes only
 
 I am not in any way connect to Twitter and neither is this project. If you are an owner any copyrighted material used, please let me know!
