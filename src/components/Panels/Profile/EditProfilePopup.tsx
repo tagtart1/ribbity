@@ -246,6 +246,7 @@ const EditProfilePopup = ({
                     type={"file"}
                     id="profile-banner-input"
                     onChange={handleBannerImgSelection}
+                    aria-label="attach a profile image"
                   />
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <g>

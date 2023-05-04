@@ -33,7 +33,7 @@
   font-family: "Chirp";
   font-weight: 300;
   resize: none;
-
+  width: 100%;
   overflow: hidden;
 }
 
@@ -77,6 +77,41 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+}
+
+/*Media input styles */
+
+.home-ribbit-input-container .attached-home-media-preview-wrapper {
+  position: relative;
+}
+
+.home-ribbit-input-container .delete-home-attached-media {
+  box-sizing: border-box;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: rgba(32, 32, 32, 0.82);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.home-ribbit-input-container .delete-home-attached-media svg {
+  width: 18px;
+  height: 18px;
+}
+
+.home-ribbit-input-container .delete-home-attached-media svg path {
+  fill: #fff;
+}
+
+.home-ribbit-input-container .attached-home-media-preview {
+  width: 100%;
+  border-radius: 16px;
 }
 
 .media-option-icon:hover {

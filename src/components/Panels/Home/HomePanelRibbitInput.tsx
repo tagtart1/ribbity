@@ -1,12 +1,26 @@
 import "../../../styles/HomePanelRibbitInput.css";
 
 import { getProfilePicUrl } from "../../../scripts/firebaseHelperFns";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { getTimestamp, isValidString } from "../../../scripts/HelperFns";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  DocumentReference,
+  addDoc,
+  collection,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 import { toast } from "react-hot-toast";
+import {
+  StorageReference,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import CloseCross from "../../../media/svg/CloseCross";
 
 interface HomePanelRibbitInputProps {
   mainUser: RibbityUser;
@@ -17,6 +31,10 @@ interface HomePanelRibbitInputProps {
 type ChangeInputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
 const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
+  const [attachedFile, setAttachedFile] = useState<File | null>(null);
+  const [attachedPreviewImageString, setPreviewAttachedImageString] =
+    useState<string>("");
+  const imagePreviewElement: any = useRef();
   const inputRef: any = useRef();
   const notifySuccess = () => toast("Your ribbit was sent.");
   const notifyError = () => toast("Your ribbit failed to post.");
@@ -26,11 +44,41 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight - 17 + "px";
   };
+
+  const removeAttachedMedia = (e: any): void => {
+    setAttachedFile(null);
+    setPreviewAttachedImageString("");
+  };
+
+  const handleAttachedImage = (e: any): void => {
+    const imageFiles: File[] = e.target.files;
+    if (imageFiles.length > 0) {
+      // Show the selected image in the ribbit input box
+
+      setAttachedFile(imageFiles[0]);
+      const imageSrc: string = URL.createObjectURL(imageFiles[0]);
+      setPreviewAttachedImageString(imageSrc);
+    }
+  };
   // Add new Ribbit to DB if valid
   const handleSubmitRibbit = async (e: any) => {
     e.preventDefault();
 
-    if (!isValidString(inputRef.current.value)) return;
+    if (!isValidString(inputRef.current.value) && !attachedFile) return;
+    const newRibbitRef: DocumentReference = doc(collection(db, "ribbits"));
+    let uploadedFileUrl: string = "";
+    let uploadFilePath: string = "";
+
+    if (attachedFile) {
+      const filePath: string = `ribbits/${newRibbitRef.id}/${attachedFile.name}`;
+      const newImageRef: StorageReference = ref(getStorage(), filePath);
+      const fileSnapshot = await uploadBytesResumable(
+        newImageRef,
+        attachedFile
+      );
+      uploadedFileUrl = await getDownloadURL(newImageRef);
+      uploadFilePath = fileSnapshot.metadata.fullPath;
+    }
 
     const newRibbit: RibbitType = {
       text: inputRef.current.value,
@@ -51,21 +99,30 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
       creatorId: mainUser.id,
       reribbitedBy: {},
       isVerified: mainUser.isVerified,
+      mediaPath: uploadFilePath,
+      mediaUrl: uploadedFileUrl,
     };
 
     try {
-      await addDoc(collection(db, "ribbits"), newRibbit);
+      await setDoc(newRibbitRef, newRibbit);
       notifySuccess();
     } catch (error) {
       notifyError();
     }
-
+    setAttachedFile(null);
+    setPreviewAttachedImageString("");
     e.target.reset();
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     autoGrowTextArea(e);
   };
+
+  useEffect(() => {
+    if (attachedPreviewImageString && attachedFile) {
+      imagePreviewElement.current.src = attachedPreviewImageString;
+    }
+  }, [attachedFile, attachedPreviewImageString]);
 
   return (
     <form className="home-ribbit-input-container" onSubmit={handleSubmitRibbit}>
@@ -76,18 +133,44 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
         referrerPolicy="no-referrer"
       />
       <div className="home-ribbit-right-column">
-        <textarea
-          id="home-ribbit-input"
-          placeholder="What's Happening?"
-          autoComplete="off"
-          maxLength={160}
-          rows={1}
-          onInput={handleInput}
-          ref={inputRef}
-        />
+        <div style={{ width: "100%" }}>
+          <textarea
+            id="home-ribbit-input"
+            placeholder="What's Happening?"
+            autoComplete="off"
+            maxLength={160}
+            rows={1}
+            onInput={handleInput}
+            ref={inputRef}
+          />
+          {attachedFile ? (
+            <div className="attached-home-media-preview-wrapper">
+              <img
+                src=""
+                alt="attached media"
+                ref={imagePreviewElement}
+                className="attached-home-media-preview"
+              />
+              <button
+                className="delete-home-attached-media"
+                aria-label="remove attached media"
+                onClick={removeAttachedMedia}
+              >
+                <CloseCross />
+              </button>
+            </div>
+          ) : null}
+        </div>
         <div className="home-ribbit-buttom-row">
           <div className="media-option-icons">
-            <div className="media-option-icon">
+            <label className="media-option-icon" htmlFor="home-image-input">
+              <input
+                id="home-image-input"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                aria-label="attach an image"
+                onChange={handleAttachedImage}
+              />
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <g>
                   <path
@@ -96,7 +179,7 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
                   ></path>
                 </g>
               </svg>
-            </div>
+            </label>
             <div className="media-option-icon">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <g>

@@ -13,6 +13,12 @@ import { db } from "../scripts/firebaseConfig";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { RibbitType } from "../Ribbity.types";
+import {
+  StorageReference,
+  deleteObject,
+  getStorage,
+  ref,
+} from "firebase/storage";
 
 interface useDeleteRibbitProps {
   ribbitInfo: RibbitType;
@@ -31,6 +37,14 @@ const useDeleteRibbit = ({
   const notifySuccess = () => toast("Your Ribbit was deleted.");
   const notifyError = () => toast.error("Your Ribbit failed to delete.");
 
+  const deleteAttachedMedia = async (mediaPath: string): Promise<void> => {
+    if (mediaPath) {
+      // IF there is attached media, delete it from firebase storage
+      const mediaRef: StorageReference = ref(getStorage(), mediaPath);
+      await deleteObject(mediaRef);
+    }
+  };
+
   const deleteRibbit = useCallback(async () => {
     const deleteChildrenRibbits = async (): Promise<void> => {
       const batch: WriteBatch = writeBatch(db);
@@ -47,6 +61,7 @@ const useDeleteRibbit = ({
       // Add docs to batch
       childrenDocs.forEach((doc) => {
         batch.delete(doc.ref);
+        deleteAttachedMedia(doc.data().mediaPath);
       });
       // Commit batch
       await batch.commit();
@@ -54,6 +69,7 @@ const useDeleteRibbit = ({
 
     try {
       await deleteDoc(doc(db, "ribbits", ribbitInfo.id));
+      deleteAttachedMedia(ribbitInfo.mediaPath);
       deleteChildrenRibbits();
       notifySuccess();
     } catch (error) {

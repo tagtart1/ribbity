@@ -61,6 +61,30 @@ const EmptyRibbitList = ({
     }
   }
 
+  if (tab === "media") {
+    if (isMainUser) {
+      return (
+        <div className="empty-ribbit-list-wrapper">
+          <div>
+            <h1>You haven't posted any media yet</h1>
+            <p>
+              Send out a ribbit with a picture. When you do, it'll show up here.
+            </p>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="empty-ribbit-list-wrapper">
+          <div>
+            <h1>@{visitedUserHandle} hasn't posted any media</h1>
+            <p>When they do, those Ribbits will show up here.</p>
+          </div>
+        </div>
+      );
+    }
+  }
+
   if (tab === "ribbits") {
     if (isMainUser) {
       return (

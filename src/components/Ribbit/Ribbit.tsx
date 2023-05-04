@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 import "../../styles/Ribbit.css";
@@ -45,6 +45,11 @@ const Ribbit = ({
   ReRibbitedByInfo,
 }: RibbitProps) => {
   const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [attachedImageLoaded, setAttachedImageLoaded] =
+    useState<boolean>(false);
+
+  const [adjustedWidth, setAdjustedWidth] = useState<any>();
+  const attachedImageRef: any = useRef();
 
   const { handle, tab } = useParams();
   const deleteRibbit = useDeleteRibbit({
@@ -53,6 +58,8 @@ const Ribbit = ({
     tab,
     inShowcase,
   });
+
+  const maxImageHeight = 510;
 
   const notifyClipboard = () => toast("Copied to clipboard");
 
@@ -82,6 +89,18 @@ const Ribbit = ({
     notifyClipboard();
   };
 
+  const adjustSizing = (e: any) => {
+    const img = e.target;
+
+    if (attachedImageRef.current.clientHeight > maxImageHeight) {
+      const aspectRatio = img.naturalWidth / img.naturalHeight;
+
+      const newHeight = maxImageHeight;
+      const newWidth = newHeight * aspectRatio;
+      setAdjustedWidth(newWidth);
+    }
+  };
+
   useEffect(() => {
     // Draw a line between the threaded tweets
     const profileImgs: any = document.querySelectorAll(".threaded-profile-img");
@@ -94,7 +113,14 @@ const Ribbit = ({
 
       profileImgs[i].style.setProperty("--distance", `${distance}px`);
     }
-  }, []);
+  }, [attachedImageLoaded]);
+
+  // If there is no URL then  just instantly set true so there is no wait
+  useEffect(() => {
+    if (!ribbitInfo.mediaUrl) {
+      setAttachedImageLoaded(true);
+    }
+  }, [ribbitInfo.mediaUrl]);
 
   return (
     <motion.div layout>
@@ -115,7 +141,11 @@ const Ribbit = ({
         <div className="ribbit-container-main" onClick={handleOpeningRibbit}>
           <Link to={`/${ribbitInfo.handle}`}>
             <div className={isThreaded ? "threaded-profile-img" : ""}>
-              <img src={ribbitInfo.userProfileImg} alt="User"></img>
+              <img
+                className="user-profile-image"
+                src={ribbitInfo.userProfileImg}
+                alt="User"
+              ></img>
             </div>
           </Link>
           <div className="ribbit-container-right-side">
@@ -137,7 +167,12 @@ const Ribbit = ({
                 </div>
               </Link>
               <div>
-                <div className="more-icon-wrapper" onClick={openDeleteOption}>
+                <div
+                  className="more-icon-wrapper"
+                  onClick={openDeleteOption}
+                  role="button"
+                  aria-label="open delete option"
+                >
                   <DeleteOptionDropdown
                     isVisible={openDelete}
                     deleteRibbit={handleDeleteRibbit}
@@ -166,6 +201,16 @@ const Ribbit = ({
             ) : null}
             <div>
               <p className="ribbit-main-text">{ribbitInfo.text}</p>
+              {ribbitInfo.mediaUrl ? (
+                <img
+                  className="attached-ribbit-image"
+                  src={ribbitInfo.mediaUrl}
+                  alt="attached media"
+                  onLoad={adjustSizing}
+                  style={{ width: adjustedWidth }}
+                  ref={attachedImageRef}
+                />
+              ) : null}
             </div>
             <div className="ribbit-icon-button-row">
               <RibbitReplyButton

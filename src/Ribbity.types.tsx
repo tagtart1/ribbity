@@ -51,6 +51,8 @@ type RibbitType = {
     [key: string]: number;
   };
   isVerified: boolean;
+  mediaUrl: string;
+  mediaPath: string;
 };
 
 export type { RibbitType, RibbityUser };

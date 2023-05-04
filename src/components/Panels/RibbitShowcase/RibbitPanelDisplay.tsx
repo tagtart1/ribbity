@@ -1,16 +1,8 @@
-import {
-  CollectionReference,
-  DocumentReference,
-  addDoc,
-  collection,
-} from "firebase/firestore";
-import { useRef, useState } from "react";
-import { db } from "../../../scripts/firebaseConfig";
+import { useState } from "react";
+
 import {
   get12hourFromTimestamp,
   getDateStringFromTimestamp,
-  getTimestamp,
-  isValidString,
 } from "../../../scripts/HelperFns";
 import "../../../styles/RibbitPanelDisplay.css";
 
@@ -23,6 +15,8 @@ import useDeleteRibbit from "../../useDeleteRibbit";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 import ReRibbitButton from "../../Ribbit/ReRibbitButton";
 import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
+
+import RibbitPanelReplyInput from "./RibbitPanelReplyInput";
 interface RibbitPanelDisplayProps {
   ribbitInfo: RibbitType;
   mainUser: RibbityUser;
@@ -41,54 +35,11 @@ const RibbitPanelDisplay = ({
     inShowcase: true,
   });
 
-  const notifySuccess = () => toast("Your reply was sent.");
   const notifyClipboard = () => toast("Copied to clipboard");
-  const inputRef: any = useRef();
-
-  const autoGrowTextArea = (e: any): void => {
-    const textarea = e.target;
-    textarea.style.height = "auto";
-    textarea.style.height = textarea.scrollHeight + "px";
-  };
 
   const openDeleteOption = (): void => {
     if (mainUser.userHandle !== ribbitInfo.handle) return;
     setOpenDelete(true);
-  };
-
-  const handleSubmitReply = async (e: any): Promise<void> => {
-    e.preventDefault();
-    // Check for invalid data
-    if (!isValidString(inputRef.current.value)) return;
-    const ribbitsRef: CollectionReference = collection(db, "ribbits");
-
-    const comment: RibbitType = {
-      handle: mainUser.userHandle,
-      userName: mainUser.userName,
-      dislikedBy: {},
-      likedBy: {},
-      userProfileImg: mainUser.profileImgUrl,
-      text: inputRef.current.value,
-      timeInMillisecond: Date.now(),
-      replyingTo: {
-        id: ribbitInfo.id,
-        handle: ribbitInfo.handle,
-        all: [...ribbitInfo.replyingTo.all, ribbitInfo.id],
-      },
-      timeStamp: getTimestamp(),
-      isComment: true,
-      id: "",
-      creatorId: mainUser.id,
-      reribbitedBy: {},
-      isVerified: mainUser.isVerified,
-    };
-
-    const commentRef: DocumentReference = await addDoc(ribbitsRef, comment);
-    e.target.reset();
-    inputRef.current.style.height = "fit-content";
-    comment.id = commentRef.id;
-    notifySuccess();
-    addNewComment(comment);
   };
 
   const handleDeleteRibbit = (): void => {
@@ -136,7 +87,16 @@ const RibbitPanelDisplay = ({
           </svg>
         </div>
       </div>
-      <p className="text">{ribbitInfo.text}</p>
+      <div>
+        <p className="text">{ribbitInfo.text}</p>
+        {ribbitInfo.mediaUrl ? (
+          <img
+            className="attached-ribbit-image"
+            src={ribbitInfo.mediaUrl}
+            alt="attached media"
+          />
+        ) : null}
+      </div>
       <div className="date-posted">
         {" "}
         {get12hourFromTimestamp(ribbitInfo.timeStamp)} ·{" "}
@@ -171,25 +131,11 @@ const RibbitPanelDisplay = ({
         </div>
       </div>
       {!mainUser.userHandle ? null : (
-        <form
-          className="ribbit-reply-form"
-          onSubmit={handleSubmitReply}
-          autoComplete="off"
-        >
-          <div className="reply-form-left-side">
-            <img src={mainUser.profileImgUrl} alt="Main User" />
-            <textarea
-              id="ribbit-reply-input"
-              placeholder="Ribbit Your Reply"
-              autoComplete="off"
-              maxLength={160}
-              rows={1}
-              onInput={autoGrowTextArea}
-              ref={inputRef}
-            />
-          </div>
-          <button>Reply</button>
-        </form>
+        <RibbitPanelReplyInput
+          mainUser={mainUser}
+          addNewComment={addNewComment}
+          ribbitInfo={ribbitInfo}
+        />
       )}
       <BackgroundTransparent
         isVisible={openDelete}

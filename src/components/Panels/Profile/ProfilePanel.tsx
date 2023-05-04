@@ -85,6 +85,13 @@ const ProfilePanel = ({
         where("isComment", "==", true),
         where(`replyingTo.handle`, "!=", handle)
       );
+    } else if (tab === "media") {
+      q = query(
+        collection(db, "ribbits"),
+        where("handle", "==", handle),
+
+        where("mediaUrl", "!=", "")
+      );
     } else {
       setRibbitList([]);
       return;
@@ -147,6 +154,15 @@ const ProfilePanel = ({
         return (
           <EmptyRibbitList
             tab="replies"
+            isMainUser={currentUser.userHandle === handle}
+            visitedUserHandle={handle}
+          />
+        );
+
+      case "media":
+        return (
+          <EmptyRibbitList
+            tab="media"
             isMainUser={currentUser.userHandle === handle}
             visitedUserHandle={handle}
           />
@@ -224,10 +240,14 @@ const ProfilePanel = ({
     );
 
     const unsub = onSnapshot(q, (snapshot: QuerySnap) => {
-      if (tab === "likes") return; // Assures we dont pull all ribbits into wrong tab, may need readjustmust if adding media
+      if (tab === "likes " || tab === "replies" || tab === "media") return; // Assures we dont pull all ribbits into wrong tab
+
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
           getUserFromUrlParam("no_load");
+        }
+        if (change.type === "modified") {
+          console.log("hey modfied a ribbit");
         }
       });
     });
@@ -315,36 +335,32 @@ const ProfilePanel = ({
       <ProfilePanelNav />
 
       <div className="user-ribbit-feed">
-        {tab === "media" ? (
-          <WorkInProgress />
-        ) : ribbitList.length < 1 ? (
-          emptyTabSwitch()
-        ) : (
-          ribbitList.map((doc: any) => {
-            return (
-              <Ribbit
-                ribbitInfo={doc}
-                isDeletable={
-                  currentUser.userHandle === doc.handle ? true : false
-                }
-                currentHandle={currentUser.userHandle}
-                refreshRibbits={getUserRibbits}
-                isThreaded={false}
-                key={doc.id}
-                inShowcase={false}
-                isReRibbit={
-                  doc.reribbitedBy[visitedUserInfo.userHandle] != null
-                    ? true
-                    : false
-                }
-                ReRibbitedByInfo={{
-                  userName: visitedUserInfo.userName,
-                  userHandle: visitedUserInfo.userHandle,
-                }}
-              />
-            );
-          })
-        )}
+        {ribbitList.length < 1
+          ? emptyTabSwitch()
+          : ribbitList.map((doc: any) => {
+              return (
+                <Ribbit
+                  ribbitInfo={doc}
+                  isDeletable={
+                    currentUser.userHandle === doc.handle ? true : false
+                  }
+                  currentHandle={currentUser.userHandle}
+                  refreshRibbits={getUserRibbits}
+                  isThreaded={false}
+                  key={doc.id}
+                  inShowcase={false}
+                  isReRibbit={
+                    doc.reribbitedBy[visitedUserInfo.userHandle] != null
+                      ? true
+                      : false
+                  }
+                  ReRibbitedByInfo={{
+                    userName: visitedUserInfo.userName,
+                    userHandle: visitedUserInfo.userHandle,
+                  }}
+                />
+              );
+            })}
       </div>
       <RibbitButtonFixed />
     </main>

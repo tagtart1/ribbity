@@ -55,10 +55,18 @@ header {
   flex-shrink: 1;
 }
 
-.ribbit-container img {
+.ribbit-container .user-profile-image {
   width: 48px;
   height: 48px;
   border-radius: 50%;
+}
+
+.ribbit-container .attached-ribbit-image {
+  margin-top: 8px;
+  margin-bottom: 6px;
+  border-radius: 16px;
+  width: 99%;
+  border: 1px solid rgba(85, 85, 85, 0.432);
 }
 
 .img-wrapper {
@@ -102,6 +110,9 @@ header {
 
   pointer-events: auto;
   transition: 0.2s all;
+
+  background-color: transparent;
+  border: none;
 }
 
 .more-icon-wrapper:hover {
