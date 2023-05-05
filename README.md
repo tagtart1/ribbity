@@ -17,7 +17,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 
 <p align='center'><img alt='responsive showcase' src='/src/media/responsiveShowcase.gif'></p>
 <h6 align='center'>Displaying the multiple designs of the site at varying device widths for responsiveness</h6>
-<p align='center'><img alt='home panel showcase' src='/src/media/homePanelScreenie.png'></p>
+<p align='center'><img alt='home panel showcase' src='/src/media/markdownMedia/homeScreenshotFINAL.png'></p>
 <h6 align='center'>Home panel under the 'For you' section displays a chronological list of all Ribbits</h6>
 <p align='center'><img alt='reply panel showcase' src='/src/media/markdownMedia/repliedExampleScreenshotFINAL.png'></p>
 <h6 align='center'>Showing the reply section of a Ribbit on the left and then a reply thread on the right while also on different mobile resolutions</h6>
@@ -27,6 +27,8 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 <h6 align='center'>Mobile main navigation and following/follower panels</h6>
 <p align='center'><img alt='unsigned in user' src='/src/media/markdownMedia/unsignUserFINAL.png'></p>
 <h6 align='center'>The UI when the user is not signed in</h6>
+<p align='center'><img alt='ribbit interaction' src='/src/media/markdownMedia/ribbitInteractionEDITGIF.gif'></p>
+<h6 align='center'>A User creating and then deleting a Ribbit</h6>
 <p align='center'><img alt='ribbity green popup' src='/src/media/markdownMedia/ribbityGreenPopupFINAL.png'></p>
 <h6 align='center'>Ribbity Green popup</h6>
 
@@ -36,7 +38,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 - Identical UI/UX design of Twitter with slight personal adjustments
 - Create and delete ribbits (tweets) with text, media or both
 - Reribbit posts (retweet)
-- Like OR dislike ribbits
+- Like OR dislike Ribbits (tweets)
 - Start nesting threads by replying to any ribbit
 - Create accounts via email/password or sign in with Google
 - Customize your name, bio, location, and profile images
