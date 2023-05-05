@@ -9,7 +9,7 @@ Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript
 
 ## 🔴 Demo
 
-[Live Demo](https://tweety-3dd86.web.app/) available. Click 'Live Demo' to view it. IF you wanna get quick full access to the app to demo, click 'Sign up' and create a quick account with random creditials or sign in with Google
+[Live Demo](https://tweety-3dd86.web.app/) available. Click 'Live Demo' to view it. IF you want to get quick full access to the app, click 'Sign up' and create a quick account with random creditials or sign in with Google
 
 ## Showcase 🌟
 
@@ -40,7 +40,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 <p align='center'><sup>404 Page route</sup></p>
 
 <img alt='ribbity green popup' src='/src/media/markdownMedia/ribbityGreenPopupFINAL.png'>
-<span align='center'><sup>Ribbity Green popup</sup></span>
+<p align='center'><sup>Ribbity Green popup</sup></p>
 
 ## Features ✅
 
