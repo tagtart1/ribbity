@@ -23,12 +23,14 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 <h6 align='center'>Showing the reply section of a Ribbit on the left and then a reply thread on the right while also on different mobile resolutions</h6>
 <p align='center'><img alt='sign up user experiences' src='/src/media/markdownMedia/signupUX.png'></p>
 <h6 align='center'>The UI popups from left to right on making an account after a non-signed in user attempts to like a post</h6>
-<p align='center'><img alt='mobile large navigatoin and follow list' src='/src/media/markdownMedia/navigationAndFollowListFINAL.png'></p>
+<p align='center'><img alt='mobile large navigatoin and follow list' src='/src/media/markdownMedia/MobileNavAndFollowFINALFINAL.png'></p>
 <h6 align='center'>Mobile main navigation and following/follower panels</h6>
 <p align='center'><img alt='unsigned in user' src='/src/media/markdownMedia/unsignUserFINAL.png'></p>
 <h6 align='center'>The UI when the user is not signed in</h6>
 <p align='center'><img alt='ribbit interaction' src='/src/media/markdownMedia/ribbitInteractionEDITGIF.gif'></p>
 <h6 align='center'>A User creating and then deleting a Ribbit</h6>
+<p align='center'><img alt='404 page route' src='/src/media/markdownMedia/invalidRouteFINAL.png'></p>
+<h6 align='center'>404 page route</h6>
 <p align='center'><img alt='ribbity green popup' src='/src/media/markdownMedia/ribbityGreenPopupFINAL.png'></p>
 <h6 align='center'>Ribbity Green popup</h6>
 
@@ -69,7 +71,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 
 ## Motive
 
-I wanted to build this project to showcase my abilities of React and Typescript by creating a full stack project. While I am not 'developing' the back end, I wanted to show that I have the ability to connect the front-end and back-end technologies together to create a functional app. Futhermore, I wanted to show I can create, manage and understand large codebases like this on my own. In the future, I strive to learn how to develop my own backend and collaborate with others on project while also using SCSS/SASS. Upon completing this project I can now visualize how large professional websites and applications were developed behind the scenes which gives me confidence to continue developing professional websites
+I wanted to build this project to showcase my abilities of React and Typescript by creating a full stack project. While I am not 'developing' the back end, I wanted to show that I have the ability to connect the front-end and back-end technologies together to create a functional app. Futhermore, I wanted to show I can create, manage and understand large codebases like this on my own. In the future, I strive to learn how to develop my own backend and collaborate with others on project while also using SCSS/SASS. Upon completing this project I can now visualize how large professional websites and applications were developed behind the scenes which gives me confidence to continue developing professional websites solo or on a team.
 
 ## Credits
 
