@@ -5,7 +5,7 @@
 
 ## Short Description
 
-Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices, Ribbity offers a slgith alternate design with various unique features. Users can create accounts, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Obtain a free green checkmark through the Ribbity Green tab as well. [Additional features below](https://github.com/tagtart1/ribbity/#features-)
+Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices and accessible, Ribbity offers a slgith alternate design with various unique features. Users can create accounts, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Obtain a free green checkmark through the Ribbity Green tab as well. [Additional features below](https://github.com/tagtart1/ribbity/#features-)
 
 ## 🔴 Demo
 
@@ -18,9 +18,21 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 <p align='center'><img alt='responsive showcase' src='/src/media/responsiveShowcase.gif'></p>
 <h6 align='center'>Displaying the multiple designs of the site at varying device widths for responsiveness</h6>
 <p align='center'><img alt='home panel showcase' src='/src/media/homePanelScreenie.png'></p>
+<h6 align='center'>Home panel under the 'For you' section displays a chronological list of all Ribbits</h6>
+<p align='center'><img alt='reply panel showcase' src='/src/media/markdownMedia/repliedExampleScreenshotFINAL.png'></p>
+<h6 align='center'>Showing the reply section of a Ribbit on the left and then a reply thread on the right while also on different mobile resolutions</h6>
+<p align='center'><img alt='sign up user experiences' src='/src/media/markdownMedia/signupUX.png'></p>
+<h6 align='center'>The UI popups from left to right on making an account after a non-signed in user attempts to like a post</h6>
+<p align='center'><img alt='mobile large navigatoin and follow list' src='/src/media/markdownMedia/navigationAndFollowListFINAL.png'></p>
+<h6 align='center'>Mobile main navigation and following/follower panels</h6>
+<p align='center'><img alt='unsigned in user' src='/src/media/markdownMedia/unsignUserFINAL.png'></p>
+<h6 align='center'>The UI when the user is not signed in</h6>
+<p align='center'><img alt='ribbity green popup' src='/src/media/markdownMedia/ribbityGreenPopupFINAL.png'></p>
+<h6 align='center'>Ribbity Green popup</h6>
 
 ## Features ✅
 
+- Responsive Design
 - Identical UI/UX design of Twitter with slight personal adjustments
 - Create and delete ribbits (tweets) with text, media or both
 - Reribbit posts (retweet)
@@ -34,6 +46,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 - See what posts you or others have posted, replied to, and liked
 - Find other user's posts through the explore or home panels
 - Toast Notifications on important actions
+- Semantic HTML
 
 ## Tech Stack ⚗️
 
