@@ -107,6 +107,7 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
       await setDoc(newRibbitRef, newRibbit);
       notifySuccess();
     } catch (error) {
+      console.log(error);
       notifyError();
     }
     setAttachedFile(null);
