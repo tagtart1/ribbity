@@ -41,7 +41,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 
 <span><img alt='ribbity green popup' src='/src/media/markdownMedia/ribbityGreenPopupFINAL.png'></span>
 
-<p align='center'><sup>Ribbity Green popup</sup></p>
+<span align='center'><sup>Ribbity Green popup</sup></span>
 
 ## Features ✅
 
