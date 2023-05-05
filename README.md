@@ -32,7 +32,7 @@ Below is a collection of images and GIFs of user interaction on the site. Users 
 <span align='center'><img alt='404 page route' src='/src/media/markdownMedia/invalidRouteFINAL.png'></span>
 <p align='center'><sup >404 Page route</sup></p>
 <span align='center'><img alt='ribbity green popup' src='/src/media/markdownMedia/ribbityGreenPopupFINAL.png'></span>
-<span align='center'><sup '>Ribbity Green popup</sup></span>
+<p align='center'><sup '>Ribbity Green popup</sup></p>
 
 ## Features ✅
 
