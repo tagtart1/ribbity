@@ -16,23 +16,25 @@ Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript
 Below is a collection of images and GIFs of user interaction on the site. Users initially begin on just the Explore panel where they are prompted to create an account. After doing so they can now interact with other users, customize their profile, or post their own ribbits. There are minor descriptions below each image to detail what they show.
 
 <p align='center'><img alt='responsive showcase' src='/src/media/responsiveShowcase.gif'></p>
-<h6 align='center'>Displaying the multiple designs of the site at varying device widths for responsiveness</h6>
+<p style="color:grey;font-size:10px;text-align:center;">Displaying the multiple designs of the site at varying device widths for responsiveness</p>
 <p align='center'><img alt='home panel showcase' src='/src/media/markdownMedia/homeScreenshotFINAL.png'></p>
-<h6 align='center'>Home panel under the 'For you' section displays a chronological list of all Ribbits</h6>
+<p style="color:grey;font-size:10px;text-align:center;">Home panel under the 'For you' section displays a chronological list of all Ribbits</p>
 <p align='center'><img alt='reply panel showcase' src='/src/media/markdownMedia/repliedExampleScreenshotFINAL.png'></p>
-<h6 align='center'>Showing the reply section of a Ribbit on the left and then a reply thread on the right while also on different mobile resolutions</h6>
+<p style="color:grey;font-size:10px;text-align:center;">Showing the reply section of a Ribbit on the left and then a reply thread on the right while also on different mobile resolutions</p>
 <p align='center'><img alt='sign up user experiences' src='/src/media/markdownMedia/signupUX.png'></p>
-<h6 align='center'>The UI popups from left to right on making an account after a non-signed in user attempts to like a post</h6>
+<p style="color:grey;font-size:10px;text-align:center;">The UI popups from left to right on making an account after a non-signed in user attempts to like a post</p>
 <p align='center'><img alt='mobile large navigatoin and follow list' src='/src/media/markdownMedia/MobileNavAndFollowFINALFINAL.png'></p>
-<h6 align='center'>Mobile main navigation and following/follower panels</h6>
+<p style="color:grey;font-size:10px;text-align:center;" align='center'>Mobile main navigation and following/follower panels</p>
 <p align='center'><img alt='unsigned in user' src='/src/media/markdownMedia/unsignUserFINAL.png'></p>
-<h6 align='center'>The UI when the user is not signed in</h6>
+<p style="color:grey;font-size:10px;text-align:center;">The UI when the user is not signed in</p>
 <p align='center'><img alt='ribbit interaction' src='/src/media/markdownMedia/ribbitInteractionEDITGIF.gif'></p>
-<h6 align='center'>A User creating and then deleting a Ribbit</h6>
+<p style="color:grey;font-size:10px;text-align:center;">A User creating and then deleting a Ribbit</p>
 <p align='center'><img alt='404 page route' src='/src/media/markdownMedia/invalidRouteFINAL.png'></p>
-<h6 align='center'>404 page route</h6>
+<p style="color:grey;font-size:10px;text-align:center;">404 page route</p>
 <p align='center'><img alt='ribbity green popup' src='/src/media/markdownMedia/ribbityGreenPopupFINAL.png'></p>
-<h6 align='center'>Ribbity Green popup</h6>
+<p style="color:grey;font-size:10px;text-align:center;">
+    Ribbity Green popup
+</p>
 
 ## Features ✅
 
