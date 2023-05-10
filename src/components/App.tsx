@@ -22,7 +22,7 @@ import InvalidRoutePanel from "./Misc/InvalidRoutePanel";
 import FrogIconLogo from "./Misc/FrogIconLogo";
 import AppContext from "./AppContext";
 import MainBottomNavMobile from "./Mobile/MainBottomNavMobile";
-import RibbitButtonFixed from "./Mobile/RibbitButtonFixed";
+
 import { RibbityUser } from "../Ribbity.types";
 
 const App = () => {

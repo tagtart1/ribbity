@@ -75,7 +75,7 @@ const Home = ({ mainUser }: HomePanelProps) => {
       if (tab !== "Following") {
         q = query(
           collection(db, "ribbits"),
-          limit(30),
+          limit(20),
 
           orderBy("timeInMillisecond", "desc")
         );
@@ -97,9 +97,11 @@ const Home = ({ mainUser }: HomePanelProps) => {
   }, [mainUser, tab]);
 
   useEffect(() => {
-    const q: FBQuery = query(
+    const q = query(
       collection(db, "ribbits"),
-      where("handle", "==", mainUser.userHandle)
+      limit(20),
+
+      orderBy("timeInMillisecond", "desc")
     );
     // Listens for any new ribbits in the DB to add to the UI
     const unsub = onSnapshot(q, (snapshot: FBQuerySnap) => {
@@ -108,9 +110,14 @@ const Home = ({ mainUser }: HomePanelProps) => {
       } else {
         snapshot.docChanges().forEach((change: any) => {
           if (change.type === "added") {
-            if (ribbitList[change.doc.id]) return;
+            if (
+              ribbitList[change.doc.id] ||
+              change.doc.data().handle !== mainUser.userHandle
+            )
+              return;
 
             addRibbitLocal(change.doc.id, change.doc.data());
+            console.log(change.doc.data().handle);
           }
         });
       }
