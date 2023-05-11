@@ -188,8 +188,13 @@ const CreateAccount = () => {
               onChange={handlePasswordValidation}
               ref={passwordInputRef}
               pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@!$*])[A-Za-z\d@!$*#]{8,}"
+              aria-describedby="password-requirements"
             />
             <label htmlFor="create-password-input">Password</label>
+            <span id="password-requirements">
+              Password requires 1 uppercase, 1 lowercase, 1 number, 1 symbol,
+              and a length of 8
+            </span>
           </div>
         </div>
         <ShowPasswordCheckbox passwordInputRef={passwordInputRef} />

@@ -122,3 +122,7 @@
   background-color: rgb(184, 184, 184);
   color: black;
 }
+
+#password-requirements {
+  display: none;
+}
