@@ -59,9 +59,11 @@ const WhoToFollowPanel = ({ mainUser, isVisible }: WhoToFollowPanelProps) => {
       <ul className="who-to-follow-list">
         {recommendList.map((user: RibbityUser, index: number) => {
           return (
-            <div key={index}>
-              <RecommendedFollow recommendedUser={user} mainUser={mainUser} />
-            </div>
+            <RecommendedFollow
+              recommendedUser={user}
+              mainUser={mainUser}
+              key={index}
+            />
           );
         })}
       </ul>
