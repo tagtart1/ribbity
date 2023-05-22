@@ -11,8 +11,8 @@ Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript
 
 [Live Demo](https://tweety-3dd86.web.app/) available. Click 'Live Demo' to view it.
 
-Demo Account for full access:
-Email: demo@gmail.com
+Demo Account for full access: <br />
+Email: demo@gmail.com <br />
 Password: Demo123@
 
 ## Showcase 🌟
