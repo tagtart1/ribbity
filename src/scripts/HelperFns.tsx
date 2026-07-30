@@ -190,8 +190,8 @@ function isValidString(input): boolean {
 
 async function cropBanner(file): Promise<File> {
   return new Promise((resolve) => {
-    const sizeX = 600;
-    const sizeY = 200;
+    const sizeX = 1200;
+    const sizeY = 400;
 
     const createImageElement = (src) => {
       return new Promise((resolve) => {
