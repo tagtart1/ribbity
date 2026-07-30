@@ -16,6 +16,7 @@ import {
 } from "firebase/storage";
 import CloseCross from "../../media/svg/CloseCross";
 import Spinner from "./Spinner";
+import { RibbitLinkPreview } from "./LinkifiedText";
 
 interface RibbitPopupInputProps {
   isVisible: boolean;
@@ -33,6 +34,7 @@ const RibbitPopupInput = ({
   toggleVisibility,
   mainUser,
 }: RibbitPopupInputProps) => {
+  const [draftText, setDraftText] = useState<string>("");
   const [inputLength, setInputLength] = useState<Number>(0);
   const [isLoadingPosting, setIsLoadingPosting] = useState<boolean>(false);
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
@@ -49,6 +51,7 @@ const RibbitPopupInput = ({
       document.documentElement.style.overflowY = "visible";
       toggleVisibility(false);
       setInputLength(0);
+      setDraftText("");
 
       setAttachedFile(null);
       setPreviewAttachedImageString("");
@@ -106,6 +109,7 @@ const RibbitPopupInput = ({
 
       notifySuccess();
       setInputLength(0);
+      setDraftText("");
       toggleVisibility(false);
       setAttachedFile(null);
       setPreviewAttachedImageString("");
@@ -164,6 +168,7 @@ const RibbitPopupInput = ({
               document.documentElement.style.overflowY = "visible";
               toggleVisibility(false);
               setInputLength(0);
+              setDraftText("");
               setAttachedFile(null);
               setPreviewAttachedImageString("");
             }}
@@ -196,9 +201,11 @@ const RibbitPopupInput = ({
                     id="ribbit-popup-input"
                     onChange={(e) => {
                       setInputLength(e.currentTarget.value.length);
+                      setDraftText(e.currentTarget.value);
                       autoGrowTextArea(e);
                     }}
                   ></textarea>
+                  <RibbitLinkPreview text={draftText} />
                   {attachedFile ? (
                     <div className="attached-media-preview-wrapper">
                       <img

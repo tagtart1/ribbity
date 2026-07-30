@@ -21,6 +21,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import CloseCross from "../../../media/svg/CloseCross";
+import { RibbitLinkPreview } from "../../Misc/LinkifiedText";
 
 interface HomePanelRibbitInputProps {
   mainUser: RibbityUser;
@@ -31,6 +32,7 @@ interface HomePanelRibbitInputProps {
 type ChangeInputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
 const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
+  const [draftText, setDraftText] = useState<string>("");
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const [attachedPreviewImageString, setPreviewAttachedImageString] =
     useState<string>("");
@@ -112,10 +114,12 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
     }
     setAttachedFile(null);
     setPreviewAttachedImageString("");
+    setDraftText("");
     e.target.reset();
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDraftText(e.currentTarget.value);
     autoGrowTextArea(e);
   };
 
@@ -144,6 +148,7 @@ const HomePanelRibbitInput = ({ mainUser }: HomePanelRibbitInputProps) => {
             onInput={handleInput}
             ref={inputRef}
           />
+          <RibbitLinkPreview text={draftText} />
           {attachedFile ? (
             <div className="attached-home-media-preview-wrapper">
               <img

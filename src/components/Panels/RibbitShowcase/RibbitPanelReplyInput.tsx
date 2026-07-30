@@ -12,6 +12,7 @@ import {
 } from "firebase/storage";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 import { toast } from "react-hot-toast";
+import { RibbitLinkPreview } from "../../Misc/LinkifiedText";
 
 interface RibbitPanelReplyInputProps {
   mainUser: RibbityUser;
@@ -24,6 +25,7 @@ const RibbitPanelReplyInput = ({
   ribbitInfo,
   addNewComment,
 }: RibbitPanelReplyInputProps) => {
+  const [draftText, setDraftText] = useState<string>("");
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const [attachedPreviewImageString, setPreviewAttachedImageString] =
     useState<string>("");
@@ -102,6 +104,7 @@ const RibbitPanelReplyInput = ({
 
     setAttachedFile(null);
     setPreviewAttachedImageString("");
+    setDraftText("");
     e.target.reset();
     inputRef.current.style.height = "fit-content";
 
@@ -134,9 +137,13 @@ const RibbitPanelReplyInput = ({
               autoComplete="off"
               maxLength={160}
               rows={1}
-              onInput={autoGrowTextArea}
+              onInput={(e) => {
+                setDraftText(e.currentTarget.value);
+                autoGrowTextArea(e);
+              }}
               ref={inputRef}
             />
+            <RibbitLinkPreview text={draftText} />
             {attachedFile ? (
               <div className="attached-media-preview-wrapper">
                 <img

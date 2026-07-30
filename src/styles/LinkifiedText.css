@@ -1,0 +1,18 @@
+.ribbit-link {
+  color: #1d9bf0 !important;
+  overflow-wrap: anywhere;
+  pointer-events: auto;
+  text-decoration: underline;
+}
+
+.ribbit-link-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.ribbit-link-preview span {
+  color: var(--secondary-text-color);
+}
