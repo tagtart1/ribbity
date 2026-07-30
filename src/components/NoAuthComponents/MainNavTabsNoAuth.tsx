@@ -2,6 +2,7 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import "../../styles/MainNavTabs.css";
 import { useState, useEffect } from "react";
 import FrogIconLogo from "../Misc/FrogIconLogo";
+import ChimpCinoNavItem from "../Misc/ChimpCinoNavItem";
 
 // Type aliases
 type ClickListEvent = React.MouseEvent<HTMLElement>;
@@ -56,6 +57,7 @@ const MainNavTabsNoAuth = () => {
             <p className="left-section-tab-selected">Explore</p>
           </div>
         </li>
+        <ChimpCinoNavItem />
         <li className="tab-list-item" onClick={handleTabSwitch}>
           <div className="tab-items">
             <svg viewBox="0 0 24 24" aria-hidden="true">

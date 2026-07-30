@@ -10,6 +10,7 @@ import BookmarksIcon from "../../media/svg/BookmarksIcon";
 import ProfileIcon from "../../media/svg/ProfileIcon";
 import { RibbityUser } from "../../Ribbity.types";
 import RibbityGreenPopup from "../Misc/RibbityGreenPopup";
+import ChimpCinoNavItem from "../Misc/ChimpCinoNavItem";
 
 interface MainNavTabsProps {
   mainUser: RibbityUser;
@@ -116,6 +117,8 @@ const MainNavTabsSignedIn = ({ mainUser }: MainNavTabsProps) => {
           <p>Ribbity Green</p>
         </div>
       </li>
+
+      <ChimpCinoNavItem />
 
       <Tab
         activeTab={activeTab}
