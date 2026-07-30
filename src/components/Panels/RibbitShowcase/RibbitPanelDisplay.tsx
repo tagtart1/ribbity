@@ -15,7 +15,7 @@ import useDeleteRibbit from "../../useDeleteRibbit";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 import ReRibbitButton from "../../Ribbit/ReRibbitButton";
 import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
-import LinkifiedText from "../../Misc/LinkifiedText";
+import RibbitText from "../../Misc/RibbitText";
 
 import RibbitPanelReplyInput from "./RibbitPanelReplyInput";
 interface RibbitPanelDisplayProps {
@@ -89,7 +89,7 @@ const RibbitPanelDisplay = ({
         </div>
       </div>
       <div>
-        <LinkifiedText className="text" text={ribbitInfo.text} />
+        <RibbitText className="text" text={ribbitInfo.text} />
         {ribbitInfo.mediaUrl ? (
           <img
             className="attached-ribbit-image"

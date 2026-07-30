@@ -21,7 +21,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import CloseCross from "../../../media/svg/CloseCross";
-import { RibbitLinkPreview } from "../../Misc/LinkifiedText";
+import { RibbitLinkPreview } from "../../Misc/RibbitText";
 
 interface HomePanelRibbitInputProps {
   mainUser: RibbityUser;

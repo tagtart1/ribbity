@@ -16,7 +16,7 @@ import {
 } from "firebase/storage";
 import CloseCross from "../../media/svg/CloseCross";
 import Spinner from "./Spinner";
-import { RibbitLinkPreview } from "./LinkifiedText";
+import { RibbitLinkPreview } from "./RibbitText";
 
 interface RibbitPopupInputProps {
   isVisible: boolean;

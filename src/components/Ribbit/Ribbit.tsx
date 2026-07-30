@@ -18,7 +18,7 @@ import { RibbitType } from "../../Ribbity.types";
 import ReRibbitButton from "./ReRibbitButton";
 import ReRibbitIcon from "../../media/svg/ReRibbitIcon";
 import RibbityVerifyIcon from "../../media/svg/RibbityVerifyIcon";
-import LinkifiedText from "../Misc/LinkifiedText";
+import RibbitText from "../Misc/RibbitText";
 
 interface RibbitProps {
   ribbitInfo: RibbitType;
@@ -201,7 +201,7 @@ const Ribbit = ({
               </p>
             ) : null}
             <div>
-              <LinkifiedText
+              <RibbitText
                 className="ribbit-main-text"
                 text={ribbitInfo.text}
               />

@@ -1,7 +1,14 @@
-import "../../styles/LinkifiedText.css";
+import "../../styles/RibbitText.css";
+import {
+  CSSProperties,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
-interface LinkifiedTextProps {
+interface RibbitTextProps {
   className?: string;
+  maxLines?: number;
   text: string;
 }
 
@@ -82,10 +89,35 @@ const ExternalLink = ({ href, text }: { href: string; text: string }) => (
   </a>
 );
 
-const LinkifiedText = ({ className, text }: LinkifiedTextProps) => {
+const RibbitText = ({
+  className,
+  maxLines = 6,
+  text,
+}: RibbitTextProps) => {
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isOverflowing, setIsOverflowing] = useState<boolean>(false);
   const links = detectLinks(text);
   const content: React.ReactNode[] = [];
   let cursor = 0;
+
+  useLayoutEffect(() => {
+    const textElement = textRef.current;
+    if (!textElement || isExpanded) return;
+
+    const updateOverflow = () => {
+      setIsOverflowing(
+        textElement.scrollHeight > textElement.clientHeight + 1
+      );
+    };
+
+    updateOverflow();
+
+    const resizeObserver = new ResizeObserver(updateOverflow);
+    resizeObserver.observe(textElement);
+
+    return () => resizeObserver.disconnect();
+  }, [isExpanded, text]);
 
   links.forEach((link) => {
     if (cursor < link.start) {
@@ -106,7 +138,32 @@ const LinkifiedText = ({ className, text }: LinkifiedTextProps) => {
     content.push(text.slice(cursor));
   }
 
-  return <p className={className}>{content}</p>;
+  return (
+    <div className="ribbit-text-wrapper">
+      <p
+        className={`${className || ""} ribbit-text ${
+          isExpanded ? "expanded" : "collapsed"
+        }`}
+        ref={textRef}
+        style={{ WebkitLineClamp: maxLines } as CSSProperties}
+      >
+        {content}
+      </p>
+      {isOverflowing ? (
+        <button
+          type="button"
+          className="ribbit-text-toggle"
+          aria-expanded={isExpanded}
+          onClick={(event) => {
+            event.stopPropagation();
+            setIsExpanded((expanded) => !expanded);
+          }}
+        >
+          {isExpanded ? "Show less" : "Show more"}
+        </button>
+      ) : null}
+    </div>
+  );
 };
 
 export const RibbitLinkPreview = ({ text }: { text: string }) => {
@@ -128,4 +185,4 @@ export const RibbitLinkPreview = ({ text }: { text: string }) => {
   );
 };
 
-export default LinkifiedText;
+export default RibbitText;

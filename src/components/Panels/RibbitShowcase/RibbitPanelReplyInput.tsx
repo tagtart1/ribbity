@@ -12,7 +12,7 @@ import {
 } from "firebase/storage";
 import { RibbitType, RibbityUser } from "../../../Ribbity.types";
 import { toast } from "react-hot-toast";
-import { RibbitLinkPreview } from "../../Misc/LinkifiedText";
+import { RibbitLinkPreview } from "../../Misc/RibbitText";
 
 interface RibbitPanelReplyInputProps {
   mainUser: RibbityUser;

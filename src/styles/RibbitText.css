@@ -1,0 +1,45 @@
+/* Shared styles for rendered Ribbit text, links, and expansion controls. */
+.ribbit-link {
+  color: #1d9bf0 !important;
+  overflow-wrap: anywhere;
+  pointer-events: auto;
+  text-decoration: underline;
+}
+
+.ribbit-text {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.ribbit-text.collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ribbit-text-toggle {
+  background: none;
+  border: 0;
+  color: #1d9bf0;
+  cursor: pointer;
+  font: inherit;
+  margin: 0 0 6px;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.ribbit-text-toggle:hover {
+  text-decoration: underline;
+}
+
+.ribbit-link-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.ribbit-link-preview span {
+  color: var(--secondary-text-color);
+}
