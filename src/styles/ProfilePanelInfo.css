@@ -81,18 +81,34 @@
 }
 
 .profile-panel-info-container .user-join-date,
-.profile-panel-info-container .user-location {
+.profile-panel-info-container .user-location,
+.profile-panel-info-container .user-website {
   margin-bottom: 16px;
   color: var(--secondary-text-color);
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .profile-panel-info-container .user-join-date svg,
-.profile-panel-info-container .user-location svg {
+.profile-panel-info-container .user-location svg,
+.profile-panel-info-container .user-website svg {
   width: 19px;
   height: 19px;
   margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.profile-panel-info-container .user-website a {
+  color: #1d9bf0;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-panel-info-container .user-website a:hover {
+  text-decoration: underline;
 }
 
 .profile-panel-info-container .user-following-nums {
@@ -125,6 +141,7 @@
 
 .misc-user-info {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 

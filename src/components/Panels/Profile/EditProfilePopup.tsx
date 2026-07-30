@@ -7,7 +7,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../../scripts/firebaseConfig";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ref,
@@ -19,7 +19,11 @@ import {
   UploadTaskSnapshot,
 } from "firebase/storage";
 import Spinner from "../../Misc/Spinner";
-import { cropBanner, cropImage } from "../../../scripts/HelperFns";
+import {
+  cropBanner,
+  cropImage,
+  normalizeWebsiteUrl,
+} from "../../../scripts/HelperFns";
 import CloseCross from "../../../media/svg/CloseCross";
 
 interface EditProfilePopupProps {
@@ -27,6 +31,7 @@ interface EditProfilePopupProps {
   userName: string;
   bio: string;
   location: string;
+  website: string;
   docId: string;
   setShowEditProfile: Function;
   updateChanges: Function;
@@ -43,6 +48,7 @@ const EditProfilePopup = ({
   userName,
   bio,
   location,
+  website,
   docId,
   setShowEditProfile,
   updateChanges,
@@ -51,14 +57,22 @@ const EditProfilePopup = ({
   bannerImg,
   bannerImgPath,
 }: EditProfilePopupProps) => {
-  const [editsValid, setEditsValid] = useState<boolean>(true);
+  const [isUsernameValid, setIsUsernameValid] = useState<boolean>(true);
+  const [isWebsiteValid, setIsWebsiteValid] = useState<boolean>(true);
   const [selectedProfileImgFile, setSelectedProfileImgFile] = useState<File>();
   const [selectedBannerImgFile, setSelectedBannerImgFile] = useState<File>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const editsValid = isUsernameValid && isWebsiteValid;
+
+  useEffect(() => {
+    if (isVisible) {
+      setIsUsernameValid(true);
+      setIsWebsiteValid(true);
+    }
+  }, [isVisible]);
 
   const handleSubmitProfileEdits = async (e: any): Promise<void> => {
     e.preventDefault();
-    if (!editsValid) return;
     const userInfoRef: DocRef = doc(db, "user-info", docId);
     let locationValue: string = (
       document.getElementById("edit-location-input") as HTMLInputElement
@@ -71,9 +85,19 @@ const EditProfilePopup = ({
     ).value
       .replace(/\s+/g, " ")
       .trim();
+    const websiteInputValue: string = (
+      document.getElementById("edit-website-input") as HTMLInputElement
+    ).value;
+    const websiteValue = normalizeWebsiteUrl(websiteInputValue);
     let bioValue: string = (
       document.getElementById("edit-bio-input") as HTMLInputElement
     ).value;
+
+    const usernameIsValid = Boolean(userNameValue);
+    const websiteIsValid = websiteValue !== null;
+    setIsUsernameValid(usernameIsValid);
+    setIsWebsiteValid(websiteIsValid);
+    if (!usernameIsValid || !websiteIsValid) return;
 
     // Replace white space entries with empty string to dismiss bad input
     if (!bioValue.replace(/\s/g, "").length) {
@@ -137,6 +161,7 @@ const EditProfilePopup = ({
       userName: userNameValue,
       bio: bioValue,
       location: locationValue,
+      website: websiteValue,
       profileImgUrl: publicImgUrl,
       profileImgPath: profileImgPathNew,
       bannerImgUrl: publicbannerImg,
@@ -148,19 +173,12 @@ const EditProfilePopup = ({
     setIsLoading(false);
   };
 
-  const handleUsernameVaidation = (e: any): void => {
-    const input = e.target;
-    const saveBtn = document.querySelector(`.save-edit-profile-button`);
+  const handleUsernameValidation = (e: any): void => {
+    setIsUsernameValid(Boolean(e.target.value.trim()));
+  };
 
-    if (!input.value.replace(/\s/g, "").length) {
-      saveBtn?.classList.add("invalid-save-button");
-      input.parentElement.parentElement.classList.add("invalid-input");
-      setEditsValid(false);
-    } else {
-      setEditsValid(true);
-      saveBtn?.classList.remove("invalid-save-button");
-      input.parentElement.parentElement.classList.remove("invalid-input");
-    }
+  const handleWebsiteValidation = (e: any): void => {
+    setIsWebsiteValid(normalizeWebsiteUrl(e.target.value) !== null);
   };
 
   const handleProfileImgSelection = async (e: any) => {
@@ -225,7 +243,13 @@ const EditProfilePopup = ({
                 </button>
                 <h1 className="edit-profile-h1">Edit profile</h1>
               </div>
-              <button type="submit" className="save-edit-profile-button">
+              <button
+                type="submit"
+                className={`save-edit-profile-button ${
+                  editsValid ? "" : "invalid-save-button"
+                }`}
+                disabled={!editsValid}
+              >
                 Save
               </button>
             </header>
@@ -289,7 +313,11 @@ const EditProfilePopup = ({
               </div>
             </div>
             <div className="edit-profile-inputs">
-              <div className="name-input-wrapper">
+              <div
+                className={`name-input-wrapper ${
+                  isUsernameValid ? "" : "invalid-input"
+                }`}
+              >
                 <div className="edit-profile-input-div">
                   <input
                     type={"text"}
@@ -297,7 +325,8 @@ const EditProfilePopup = ({
                     id="edit-name-input"
                     placeholder=" "
                     defaultValue={userName}
-                    onInput={handleUsernameVaidation}
+                    onInput={handleUsernameValidation}
+                    aria-invalid={!isUsernameValid}
                   />
                   <label htmlFor="edit-name-input">Name</label>
                 </div>
@@ -322,6 +351,33 @@ const EditProfilePopup = ({
                   defaultValue={location}
                 />
                 <label htmlFor="edit-location-input">Location</label>
+              </div>
+              <div
+                className={`website-input-wrapper ${
+                  isWebsiteValid ? "" : "invalid-input"
+                }`}
+              >
+                <div className="edit-profile-input-div">
+                  <input
+                    type="text"
+                    inputMode="url"
+                    maxLength={100}
+                    id="edit-website-input"
+                    placeholder=" "
+                    defaultValue={website}
+                    onInput={handleWebsiteValidation}
+                    aria-invalid={!isWebsiteValid}
+                    aria-describedby={
+                      isWebsiteValid ? undefined : "edit-website-error"
+                    }
+                  />
+                  <label htmlFor="edit-website-input">Website</label>
+                </div>
+                {!isWebsiteValid ? (
+                  <p id="edit-website-error" className="edit-profile-error">
+                    Enter a valid website, such as example.com
+                  </p>
+                ) : null}
               </div>
             </div>
           </>

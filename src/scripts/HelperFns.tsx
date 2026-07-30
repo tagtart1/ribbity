@@ -188,6 +188,52 @@ function isValidString(input): boolean {
   return true;
 }
 
+function normalizeWebsiteUrl(input: string): string | null {
+  const trimmedInput = input.trim();
+  if (!trimmedInput) return "";
+  if (/\s/.test(trimmedInput)) return null;
+
+  const urlWithProtocol = /^https?:\/\//i.test(trimmedInput)
+    ? trimmedInput
+    : `https://${trimmedInput}`;
+
+  try {
+    const parsedUrl = new URL(urlWithProtocol);
+    const hostnameParts = parsedUrl.hostname.split(".");
+    const hasValidHostname =
+      hostnameParts.length > 1 &&
+      hostnameParts.every((part) =>
+        /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(part)
+      );
+
+    if (
+      !["http:", "https:"].includes(parsedUrl.protocol) ||
+      parsedUrl.username ||
+      parsedUrl.password ||
+      !hasValidHostname
+    ) {
+      return null;
+    }
+
+    return parsedUrl.href;
+  } catch {
+    return null;
+  }
+}
+
+function getWebsiteDisplayUrl(websiteUrl: string): string {
+  try {
+    const parsedUrl = new URL(websiteUrl);
+    const pathname = parsedUrl.pathname === "/" ? "" : parsedUrl.pathname;
+
+    return `${parsedUrl.host.replace(/^www\./i, "")}${pathname}${
+      parsedUrl.search
+    }${parsedUrl.hash}`;
+  } catch {
+    return websiteUrl;
+  }
+}
+
 async function cropBanner(file): Promise<File> {
   return new Promise((resolve) => {
     const sizeX = 1200;
@@ -347,6 +393,8 @@ export {
   sortByTimeInSecondsDescending,
   base64ToFile,
   isValidString,
+  normalizeWebsiteUrl,
+  getWebsiteDisplayUrl,
   cropImage,
   cropBanner,
   sortRibbitsWithReRibbits,

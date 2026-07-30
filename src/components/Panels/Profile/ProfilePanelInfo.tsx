@@ -8,6 +8,10 @@ import { RibbityUser } from "../../../Ribbity.types";
 import RibbityVerifyIcon from "../../../media/svg/RibbityVerifyIcon";
 import SignupPopup from "../../NoAuthComponents/SignupPopup";
 import { useState } from "react";
+import {
+  getWebsiteDisplayUrl,
+  normalizeWebsiteUrl,
+} from "../../../scripts/HelperFns";
 
 interface ProfilePanelInfoProps {
   visitedUser: RibbityUser; // The user of whatever page we are viewing
@@ -29,6 +33,8 @@ const ProfilePanelInfo = ({
   const [showSignupPopup, setShowSignupPopup] = useState<boolean>(false);
 
   if (!visitedUser) return null;
+
+  const websiteUrl = normalizeWebsiteUrl(visitedUser.website || "");
 
   const handleNavigate = (e: any) => {
     // Do not navigate if the user is not signed in
@@ -94,6 +100,26 @@ const ProfilePanelInfo = ({
           </p>
         ) : null}
 
+        {websiteUrl ? (
+          <p className="user-website">
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            <a href={websiteUrl} target="_blank" rel="noopener noreferrer">
+              {getWebsiteDisplayUrl(websiteUrl)}
+            </a>
+          </p>
+        ) : null}
+
         <p className="user-join-date">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -135,6 +161,7 @@ const ProfilePanelInfo = ({
         userName={visitedUser.userName}
         bio={visitedUser.bio}
         location={visitedUser.location}
+        website={visitedUser.website || ""}
         docId={visitedUser.id}
         profileImg={visitedUser.profileImgUrl}
         setShowEditProfile={setEditPopup}

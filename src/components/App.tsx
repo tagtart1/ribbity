@@ -46,6 +46,7 @@ const App = () => {
     userHandle: "",
     userName: "",
     isVerified: false,
+    website: "",
   };
   // Fires when the state of the user being signed in changes
   const authObserver = async (user: any) => {

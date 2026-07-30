@@ -46,6 +46,7 @@ const nullUser: RibbityUser = {
   userHandle: "",
   userName: "",
   isVerified: false,
+  website: "",
 };
 
 type FBQuery = Query<DocumentData>;

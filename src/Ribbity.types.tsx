@@ -16,6 +16,7 @@ type RibbityUser = {
   userHandle: string;
   userName: string;
   isVerified: boolean;
+  website: string;
 };
 
 type RibbitType = {

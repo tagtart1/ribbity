@@ -47,6 +47,7 @@ const nullUser: RibbityUser = {
   userHandle: "",
   userName: "",
   isVerified: false,
+  website: "",
 };
 
 export const signInUserNative = async (email: string, password: string) => {
@@ -120,6 +121,7 @@ export const createUserNative = async (
         },
         id: auth.currentUser.uid,
         isVerified: false,
+        website: "",
       };
 
       await setDoc(doc(db, "user-info", auth.currentUser.uid), newUser);
@@ -193,6 +195,7 @@ export const signIn = async (setIsLoadingUser: Function) => {
         },
         id: auth.currentUser.uid,
         isVerified: false,
+        website: "",
       };
 
       await setDoc(doc(db, "user-info", auth.currentUser.uid), newUser);
@@ -239,7 +242,10 @@ export const getUserInfo = async (
   const querySnap = await getDocs(q);
   let handleDoc: RibbityUser = nullUser;
   querySnap.forEach((doc: any) => {
-    handleDoc = doc.data();
+    handleDoc = {
+      ...doc.data(),
+      website: doc.data().website ?? "",
+    };
     handleDoc.id = doc.id;
   });
 
