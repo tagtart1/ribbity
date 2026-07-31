@@ -20,6 +20,8 @@ npm run dev
 
 The frontend runs at `http://localhost:3011` and the backend runs at `http://localhost:3012`.
 
+The backend uses Prisma with PostgreSQL. Set `DATABASE_URL` in `backend/.env` before running Prisma migration, Studio, or database-backed API commands; `backend/.env.example` documents the expected format.
+
 Deploy the frontend to Firebase Hosting from the repository root:
 
 ```bash
