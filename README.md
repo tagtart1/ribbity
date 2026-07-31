@@ -20,6 +20,12 @@ npm run dev
 
 The frontend runs at `http://localhost:3011` and the backend runs at `http://localhost:3012`.
 
+Deploy the frontend to Firebase Hosting from the repository root:
+
+```bash
+npm run deploy:frontend
+```
+
 ## Short Description
 
 Introducing Ribbity, a full stack Twitter-inspired project built with TypeScript, React, Firebase, and Vanilla CSS. Designed to be fully responsive on all devices and accessible, Ribbity offers a slgith alternate design with various unique features. Users can create accounts, customize profiles, and engage with others by creating, liking, sharing, and replying to Ribbits (tweets). Obtain a free green checkmark through the Ribbity Green tab as well. [Additional features below](https://github.com/tagtart1/ribbity/#features-)
